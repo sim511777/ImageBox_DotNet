@@ -60,6 +60,13 @@ namespace ImageBox_Test.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Chess {
+            get {
+                object obj = ResourceManager.GetObject("Chess", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Lenna_24 {
             get {
                 object obj = ResourceManager.GetObject("Lenna_24", resourceCulture);
