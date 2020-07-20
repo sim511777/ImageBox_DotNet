@@ -224,7 +224,8 @@ namespace ImageBox {
             DrawCursorInfo(g, 2, 2);
             var t5 = GetTimeMs();
             
-            string debugInfo = string.Format(
+            if (UseDrawDebufInfo) {
+                string debugInfo = string.Format(
 @"Image : {0}
 DrawImagebuffer : {1:f2}ms
 DrawPixelValue : {2:f2}ms
@@ -232,15 +233,15 @@ DrawCenterLine : {3:f2}ms
 OnPaint : {4:f2}ms
 DrawCursorInfo : {5:f2}ms
 Total : {6:f2}ms",
-imgBuf == IntPtr.Zero ? "null" : string.Format("{0}x{1},{2}byte", imgBw, imgBh, bytepp),
-t1 - t0,
-t2 - t1,
-t3 - t2,
-t4 - t3,
-t5 - t4,
-t5 - t0);
-            if (UseDrawDebufInfo)
+                    imgBuf == IntPtr.Zero ? "null" : string.Format("{0}x{1},{2}byte", imgBw, imgBh, bytepp),
+                    t1 - t0,
+                    t2 - t1,
+                    t3 - t2,
+                    t4 - t3,
+                    t5 - t4,
+                    t5 - t0);
                 DrawDebufInfo(g, debugInfo);
+            }
         }
 
         // 디버그 정보 표시
