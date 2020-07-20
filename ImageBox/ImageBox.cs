@@ -18,56 +18,48 @@ namespace ImageBox {
             DoubleBuffered = true;
         }
 
-        private static double GetTime() {
-            return (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
-        }
-
-        private static double GetTimeMs() {
-            return GetTime() * 1000.0;
-        }
-
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        private static unsafe void DrawImageZoom(IntPtr sbuf, int sbw, int sbh, IntPtr dbuf, int dbw, int dbh, Int64 panx, Int64 pany, double zoom, int bytepp, int bgColor, bool bufIsFloat) {
+        private static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor) {
             // 인덱스 버퍼 생성
-            int[] siys = new int[dbh];
-            int[] sixs = new int[dbw];
-            for (int y = 0; y < dbh; y++) {
+            int[] siys = new int[dispBh];
+            int[] sixs = new int[dispBw];
+            for (int y = 0; y < dispBh; y++) {
                 int siy = (int)Math.Floor((y - pany) / zoom);
-                siys[y] = (sbuf == IntPtr.Zero || siy < 0 || siy >= sbh) ? -1 : siy;
+                siys[y] = (imgBuf == IntPtr.Zero || siy < 0 || siy >= imgBh) ? -1 : siy;
             }
-            for (int x = 0; x < dbw; x++) {
+            for (int x = 0; x < dispBw; x++) {
                 int six = (int)Math.Floor((x - panx) / zoom);
-                sixs[x] = (sbuf == IntPtr.Zero || six < 0 || six >= sbw) ? -1 : six;
+                sixs[x] = (imgBuf == IntPtr.Zero || six < 0 || six >= imgBw) ? -1 : six;
             }
 
-            for (int y = 0; y < dbh; y++) {
+            for (int y = 0; y < dispBh; y++) {
                 int siy = siys[y];
-                byte* sptr = (byte*)sbuf + (Int64)sbw * siy * bytepp;
-                int* dp = (int*)dbuf + (Int64)dbw * y;
-                for (int x = 0; x < dbw; x++, dp++) {
+                byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
+                int* dp = (int*)dispBuf + (Int64)dispBw * y;
+                for (int x = 0; x < dispBw; x++, dp++) {
                     int six = sixs[x];
-                    if (siy == -1 || six == -1) {   // out of boundary of image
+                    if (siy == -1 || six == -1) {       // out of boundary of image
                         *dp = bgColor;
                     } else {
                         byte* sp = &sptr[six * bytepp];
                         if (bufIsFloat) {
-                            if (bytepp == 4) {
+                            if (bytepp == 4) {          // 4byte float gray
                                 int v = (int)*(float*)sp;
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            } else if (bytepp == 8) {
+                            } else if (bytepp == 8) {   // 8byte double gray
                                 int v = (int)*(double*)sp;
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             }
                         } else {
-                            if (bytepp == 1) {          // 8bit gray
+                            if (bytepp == 1) {          // 1byte gray
                                 int v = sp[0];
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            } else if (bytepp == 2) {   // 16bit gray (*.hra)
+                            } else if (bytepp == 2) {   // 2byte gray (*.hra)
                                 int v = sp[0];
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            } else if (bytepp == 3) {   // 24bit bgr
+                            } else if (bytepp == 3) {   // 3byte bgr
                                 *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-                            } else if (bytepp == 4) {   // 32bit bgra
+                            } else if (bytepp == 4) {   // rbyte bgra
                                 *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
                             }
                         }
@@ -231,47 +223,12 @@ namespace ImageBox {
 
             var ig = new ImageGraphics(this, g);
             double zoom = GetZoomFactor();
-            var t0 = GetTimeMs();
-            DrawImageZoom(imgBuf, imgBw, imgBh, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, bytepp, BackColor.ToArgb(), bufIsFloat);
-            var t1 = GetTimeMs();
+            CopyImageBufferZoom(imgBuf, imgBw, imgBh, bytepp, bufIsFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             g.DrawImage(dispBmp, 0, 0);
-            var t2 = GetTimeMs();
             DrawPixelValue(ig);
-            var t3 = GetTimeMs();
             DrawCenterLine(ig);
-            var t4 = GetTimeMs();
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t5 = GetTimeMs();
             DrawCursorInfo(g, 2, 2);
-            var t6 = GetTimeMs();
-            
-            if (UseDrawDebufInfo) {
-                string debugInfo = string.Format(
-@"Image : {0}
-DrawImageZoom : {1:f2}ms
-DrawImage : {2:f2}ms
-DrawPixelValue : {3:f2}ms
-DrawCenterLine : {4:f2}ms
-OnPaint : {5:f2}ms
-DrawCursorInfo : {6:f2}ms
-Total : {7:f2}ms",
-                    imgBuf == IntPtr.Zero ? "null" : string.Format("{0}x{1},{2}byte", imgBw, imgBh, bytepp),
-                    t1 - t0,
-                    t2 - t1,
-                    t3 - t2,
-                    t4 - t3,
-                    t5 - t4,
-                    t6 - t5,
-                    t6 - t0);
-                DrawDebufInfo(g, debugInfo);
-            }
-        }
-
-        // 디버그 정보 표시
-        private void DrawDebufInfo(Graphics g, string debugInfo) {
-            var size = g.MeasureString(debugInfo, Font);
-            g.FillRectangle(Brushes.White, Width - size.Width, 0, size.Width, size.Height);
-            g.DrawString(debugInfo, Font, Brushes.Black, Width - size.Width, 0);
         }
 
         // 픽셀값 표시
