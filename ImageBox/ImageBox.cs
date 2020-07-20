@@ -86,7 +86,8 @@ namespace ImageBox {
         private int dispBh = 0;
         private Bitmap dispBmp = null;
 
-        private Point ptPan = new Point(2, 2);  // 패닝 옵셋
+        // 패닝 옵셋(픽셀)
+        private Point ptPan = new Point(2, 2);
         private Point PtPan {
             get { return ptPan; }
             set {
@@ -100,14 +101,29 @@ namespace ImageBox {
                 }
             } 
         }
-        private int zoomLevel = 0;          // 줌 레벨 0 = 1x
+        // 줌 레벨(0 = 1x)
+        private int zoomLevel = 0;
         private int ZoomLevel {
             get { return zoomLevel; }
-            set { zoomLevel = Math.Max(Math.Min(value, 6), -10); }
+            set { zoomLevel = Math.Max(Math.Min(value, 16), -16); }
         }
-
-        private double GetZoomFactor() {
-            return Math.Pow(2, ZoomLevel);
+        private void GetZoomFactorComponents(out int exp_num, out int c) {
+            exp_num = (ZoomLevel >= 0) ? ZoomLevel / 2 : (ZoomLevel - 1) / 2;
+            if (ZoomLevel % 2 != 0)
+                exp_num--;
+            c = (ZoomLevel % 2 != 0) ? 3 : 1;
+        }
+        public double GetZoomFactor() {
+            int exp_num;
+            int c;
+            GetZoomFactorComponents(out exp_num, out c);
+            return c * Math.Pow(2, exp_num);
+        }
+        private string GetZoomText() {
+            int exp_num;
+            int c;
+            GetZoomFactorComponents(out exp_num, out c);
+            return (exp_num >= 0) ? (c * (int)Math.Pow(2, exp_num)).ToString() : c.ToString() + "/" + ((int)Math.Pow(2, -exp_num)).ToString();
         }
 
         // 디버그 정보 표시
@@ -352,7 +368,7 @@ Total : {7:f2}ms",
             int ix = (int)Math.Round(ptImg.X);
             int iy = (int)Math.Round(ptImg.Y);
             var colText = GetImagePixelValueText(ix, iy, false);
-            string zoomText = (ZoomLevel < 0) ? ("1/" + ((int)Math.Pow(2, -ZoomLevel)).ToString()) : ((int)Math.Pow(2, ZoomLevel)).ToString();
+            string zoomText = GetZoomText();
             string text = string.Format("zoom={0} ({1},{2})={3}", zoomText, ix, iy, colText);
             g.FillRectangle(Brushes.Black, ofsx, ofsy, 200, Font.Height);
             g.DrawString(text, Font, Brushes.White, ofsx, ofsy);
