@@ -39,7 +39,7 @@ namespace ImageBox_Test {
         private void SetImage(Bitmap bmp) {
             Util.FreeBuffer(ref imgBuf);
             Util.BitmapToImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
-            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp);
+            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
             imgBox.Invalidate();
         }
 

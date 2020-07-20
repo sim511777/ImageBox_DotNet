@@ -80,6 +80,7 @@ namespace ImageBox {
         private int imgBw = 0;
         private int imgBh = 0;
         private int bytepp = 0;
+        private bool bufIsFloat = false;
 
         private IntPtr dispBuf = IntPtr.Zero;
         private int dispBw = 0;
@@ -130,11 +131,12 @@ namespace ImageBox {
         public bool UseDrawDebufInfo { get; set; }
 
         // 이미지 버퍼 설정
-        public void SetImageBuffer(IntPtr _buf, int _bw, int _bh, int _bytepp) {
+        public void SetImageBuffer(IntPtr _buf, int _bw, int _bh, int _bytepp, bool _bufIsFloat) {
             imgBuf = _buf;
             imgBw = _bw;
             imgBh = _bh;
             bytepp = _bytepp;
+            bufIsFloat = _bufIsFloat;
         }
 
         // 줌 리셋
@@ -230,7 +232,7 @@ namespace ImageBox {
             var ig = new ImageGraphics(this, g);
             double zoom = GetZoomFactor();
             var t0 = GetTimeMs();
-            DrawImageZoom(imgBuf, imgBw, imgBh, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, bytepp, BackColor.ToArgb(), false);
+            DrawImageZoom(imgBuf, imgBw, imgBh, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, bytepp, BackColor.ToArgb(), bufIsFloat);
             var t1 = GetTimeMs();
             g.DrawImage(dispBmp, 0, 0);
             var t2 = GetTimeMs();
@@ -270,13 +272,6 @@ Total : {7:f2}ms",
             var size = g.MeasureString(debugInfo, Font);
             g.FillRectangle(Brushes.White, Width - size.Width, 0, size.Width, size.Height);
             g.DrawString(debugInfo, Font, Brushes.Black, Width - size.Width, 0);
-        }
-
-        // 이미지 버퍼 표시
-        private void DrawImageBuffer(Graphics g) {
-            double zoom = GetZoomFactor();
-            DrawImageZoom(imgBuf, imgBw, imgBh, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, bytepp, BackColor.ToArgb(), false);
-            g.DrawImage(dispBmp, 0, 0);
         }
 
         // 픽셀값 표시
