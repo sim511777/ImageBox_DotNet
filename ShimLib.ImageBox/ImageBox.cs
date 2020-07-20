@@ -73,6 +73,9 @@ namespace ShimLib {
         private int imgBh = 0;
         private int bytepp = 0;
         private bool bufIsFloat = false;
+        public IntPtr ImgBuf { get { return imgBuf; } }
+        public int ImtBw { get { return imgBw; } }
+        public int ImgBh { get { return imgBh; } }
 
         private IntPtr dispBuf = IntPtr.Zero;
         private int dispBw = 0;
