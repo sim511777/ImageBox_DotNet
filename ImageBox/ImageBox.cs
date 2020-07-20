@@ -212,34 +212,39 @@ namespace ImageBox {
             }
 
             var ig = new ImageGraphics(this, g);
+            double zoom = GetZoomFactor();
             var t0 = GetTimeMs();
-            DrawImageBuffer(g);
+            DrawImageZoom(imgBuf, imgBw, imgBh, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, bytepp, BackColor.ToArgb(), false);
             var t1 = GetTimeMs();
-            DrawPixelValue(ig);
+            g.DrawImage(dispBmp, 0, 0);
             var t2 = GetTimeMs();
-            DrawCenterLine(ig);
+            DrawPixelValue(ig);
             var t3 = GetTimeMs();
-            base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
+            DrawCenterLine(ig);
             var t4 = GetTimeMs();
-            DrawCursorInfo(g, 2, 2);
+            base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             var t5 = GetTimeMs();
+            DrawCursorInfo(g, 2, 2);
+            var t6 = GetTimeMs();
             
             if (UseDrawDebufInfo) {
                 string debugInfo = string.Format(
 @"Image : {0}
-DrawImagebuffer : {1:f2}ms
-DrawPixelValue : {2:f2}ms
-DrawCenterLine : {3:f2}ms
-OnPaint : {4:f2}ms
-DrawCursorInfo : {5:f2}ms
-Total : {6:f2}ms",
+DrawImageZoom : {1:f2}ms
+DrawImage : {2:f2}ms
+DrawPixelValue : {3:f2}ms
+DrawCenterLine : {4:f2}ms
+OnPaint : {5:f2}ms
+DrawCursorInfo : {6:f2}ms
+Total : {7:f2}ms",
                     imgBuf == IntPtr.Zero ? "null" : string.Format("{0}x{1},{2}byte", imgBw, imgBh, bytepp),
                     t1 - t0,
                     t2 - t1,
                     t3 - t2,
                     t4 - t3,
                     t5 - t4,
-                    t5 - t0);
+                    t6 - t5,
+                    t6 - t0);
                 DrawDebufInfo(g, debugInfo);
             }
         }
