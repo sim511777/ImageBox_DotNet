@@ -289,9 +289,13 @@ Total : {7:f2}ms",
 
             float fontSize = 0;
             if (bytepp == 1) {
-                fontSize = (zoom <= 17) ? 6 : 10;
+                if (zoom <= 17) fontSize = 6;
+                else if (zoom <= 25) fontSize = 8;
+                else fontSize = 10;
             } else {
-                fontSize = (zoom <= 33) ? 6 : 10;
+                if (zoom <= 33) fontSize = 6;
+                else if (zoom <= 49) fontSize = 8;
+                else fontSize = 10;
             }
 
             using (var font = new Font("arial", fontSize)) {
