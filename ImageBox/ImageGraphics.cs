@@ -29,5 +29,43 @@ namespace ImageBox {
         public void DrawString(string s, Font font, Brush brush, float x, float y) {
             this.DrawString(s, font, brush, new PointF(x, y));
         }
+
+        public void DrawEllipse(Pen pen, RectangleF rect) {
+            g.DrawEllipse(pen, imgBox.ImgToDisp(rect));
+        }
+
+        public void DrawEllipse(Pen pen, float x, float y, float width, float height) {
+            this.DrawEllipse(pen, new RectangleF(x, y, width, height));
+        }
+
+        public void DrawRectangle(Pen pen, RectangleF rect) {
+            g.DrawRectangle(pen, imgBox.ImgToDisp(rect));
+        }
+
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height) {
+            this.DrawRectangle(pen, new RectangleF(x, y, width, height));
+        }
+
+        public void DrawCircle(Pen pen, float x, float y, float r) {
+            float left = x - r;
+            float top = y - r;
+            float size = r + r;
+            this.DrawEllipse(pen, left, top, size, size);
+        }
+
+        public void DrawCircle(Pen pen, PointF pt, float r) {
+            this.DrawCircle(pen, pt.X, pt.Y, r);
+        }
+
+        public void DrawSquare(Pen pen, float x, float y, float r) {
+            float left = x - r;
+            float top = y - r;
+            float size = r + r;
+            this.DrawRectangle(pen, left, top, size, size);
+        }
+
+        public void DrawSquare(Pen pen, PointF pt, float r) {
+            this.DrawSquare(pen, pt.X, pt.Y, r);
+        }
     }
 }

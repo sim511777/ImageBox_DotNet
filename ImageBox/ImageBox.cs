@@ -81,7 +81,7 @@ namespace ImageBox {
 
         // 패닝 옵셋(픽셀)
         private Point ptPan = new Point(2, 2);
-        private Point PtPan {
+        public Point PtPan {
             get { return ptPan; }
             set {
                 if (imgBuf == IntPtr.Zero)
@@ -143,6 +143,16 @@ namespace ImageBox {
             int dispX = (int)Math.Floor((ptImg.X + 0.5) * zoom + PtPan.X);
             int dispY = (int)Math.Floor((ptImg.Y + 0.5) * zoom + PtPan.Y);
             return new Point(dispX, dispY);
+        }
+
+        // 이미지 좌표 -> 화면 좌료
+        public Rectangle ImgToDisp(RectangleF rectImg) {
+            double zoom = GetZoomFactor();
+            int dispX = (int)Math.Floor((rectImg.X + 0.5) * zoom + PtPan.X);
+            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * zoom + PtPan.Y);
+            int dispWidth = (int)Math.Floor(rectImg.Width * zoom);
+            int dispHeight = (int)Math.Floor(rectImg.Height * zoom);
+            return new Rectangle(dispX, dispY, dispWidth, dispHeight);
         }
 
         // 화면 좌표 -> 이미지 좌표
