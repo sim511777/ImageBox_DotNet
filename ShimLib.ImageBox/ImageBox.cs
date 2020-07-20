@@ -11,7 +11,7 @@ using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace ImageBox {
+namespace ShimLib {
     public partial class ImageBox : Control {
         public ImageBox() {
             InitializeComponent();

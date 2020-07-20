@@ -83,12 +83,6 @@
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageBox\ImageBox.csproj">
-      <Project>{AF27C1E9-D990-434D-AA3F-B277D51DE726}</Project>
-      <Name>ImageBox</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Lenna_8.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Chess.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShimLib.ImageBox\ShimLib.ImageBox.csproj">
+      <Project>{AF27C1E9-D990-434D-AA3F-B277D51DE726}</Project>
+      <Name>ShimLib.ImageBox</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

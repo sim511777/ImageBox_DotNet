@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using ImageBox_Test.Properties;
-using ImageBox;
+using ShimLib;
 
 namespace ImageBox_Test {
     public partial class FormMain : Form {

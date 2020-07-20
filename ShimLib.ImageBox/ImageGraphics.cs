@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace ImageBox {
+namespace ShimLib {
     public class ImageGraphics {
         private ImageBox imgBox;
         private Graphics g;

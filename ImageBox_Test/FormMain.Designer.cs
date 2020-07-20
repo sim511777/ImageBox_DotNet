@@ -31,7 +31,7 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
-            this.imgBox = new ImageBox.ImageBox();
+            this.imgBox = new ShimLib.ImageBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -143,7 +143,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private ImageBox.ImageBox imgBox;
+        private ShimLib.ImageBox imgBox;
         private System.Windows.Forms.Button btnResetZoom;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;

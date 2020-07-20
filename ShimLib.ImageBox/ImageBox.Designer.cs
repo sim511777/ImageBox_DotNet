@@ -1,4 +1,4 @@
-﻿namespace ImageBox {
+﻿namespace ShimLib {
     partial class ImageBox {
         /// <summary>
         /// 필수 디자이너 변수입니다.
