@@ -292,7 +292,14 @@ namespace ShimLib {
             if (bytepp == 1) {
                 return (*ptr).ToString();
             } else {
-                return string.Format(multiLine ? "{0},\r\n{1},\r\n{2}" : "{0},{1},{2}", ptr[2], ptr[1], ptr[0]);
+                if (bufIsFloat) {
+                    if (bytepp == 4)
+                        return string.Format("{0:f2}",*(float*)ptr);
+                    else
+                        return string.Format("{0:f2}", *(double*)ptr);
+                } else {
+                    return string.Format(multiLine ? "{0},\r\n{1},\r\n{2}" : "{0},{1},{2}", ptr[2], ptr[1], ptr[0]);
+                }
             }
         }
 
@@ -304,7 +311,14 @@ namespace ShimLib {
             if (bytepp == 1) {
                 return (*ptr) / 32;
             } else {
-                return (ptr[2] + ptr[1] + ptr[0]) / 96;
+                if (bufIsFloat) {
+                    if (bytepp == 4)
+                        return Math.Min(Math.Max((int)*(float*)ptr, 0), 255) / 32;
+                    else
+                        return Math.Min(Math.Max((int)*(double*)ptr, 0), 255) / 32;
+                } else {
+                    return (ptr[2] + ptr[1] + ptr[0]) / 96;
+                }
             }
         }
 
