@@ -123,7 +123,6 @@
             this.imgBox.Size = new System.Drawing.Size(721, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
-            this.imgBox.UseDrawDebufInfo = true;
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
             // FormMain

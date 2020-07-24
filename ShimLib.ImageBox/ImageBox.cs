@@ -68,15 +68,14 @@ namespace ShimLib {
             }
         }
 
-        private IntPtr imgBuf = IntPtr.Zero;    // 이미지 버퍼
+        // 이미지 버퍼 정보
+        private IntPtr imgBuf = IntPtr.Zero;
         private int imgBw = 0;
         private int imgBh = 0;
-        private int bytepp = 0;
-        private bool bufIsFloat = false;
-        public IntPtr ImgBuf { get { return imgBuf; } }
-        public int ImtBw { get { return imgBw; } }
-        public int ImgBh { get { return imgBh; } }
+        private int imgBytepp = 0;
+        private bool isImgbufFloat = false;
 
+        // 디스플레이 버퍼 정보
         private IntPtr dispBuf = IntPtr.Zero;
         private int dispBw = 0;
         private int dispBh = 0;
@@ -84,7 +83,7 @@ namespace ShimLib {
 
         // 패닝 옵셋(픽셀)
         private Point ptPan = new Point(2, 2);
-        public Point PtPan {
+        private Point PtPan {
             get { return ptPan; }
             set {
                 if (imgBuf == IntPtr.Zero)
@@ -122,16 +121,13 @@ namespace ShimLib {
             return (exp_num >= 0) ? (c * (int)Math.Pow(2, exp_num)).ToString() : c.ToString() + "/" + ((int)Math.Pow(2, -exp_num)).ToString();
         }
 
-        // 디버그 정보 표시
-        public bool UseDrawDebufInfo { get; set; }
-
         // 이미지 버퍼 설정
-        public void SetImageBuffer(IntPtr _buf, int _bw, int _bh, int _bytepp, bool _bufIsFloat) {
+        public void SetImageBuffer(IntPtr _buf, int _bw, int _bh, int _bytepp, bool _isFloat) {
             imgBuf = _buf;
             imgBw = _bw;
             imgBh = _bh;
-            bytepp = _bytepp;
-            bufIsFloat = _bufIsFloat;
+            imgBytepp = _bytepp;
+            isImgbufFloat = _isFloat;
         }
 
         // 줌 리셋
@@ -236,7 +232,7 @@ namespace ShimLib {
 
             var ig = new ImageGraphics(this, g);
             double zoom = GetZoomFactor();
-            CopyImageBufferZoom(imgBuf, imgBw, imgBh, bytepp, bufIsFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
+            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             g.DrawImage(dispBmp, 0, 0);
             DrawPixelValue(ig);
             DrawCenterLine(ig);
@@ -249,11 +245,11 @@ namespace ShimLib {
             if (imgBuf == IntPtr.Zero)
                 return;
             var zoom = GetZoomFactor();
-            if (zoom < 16 || (bytepp != 1 && zoom < 32))
+            if (zoom < 16 || (imgBytepp != 1 && zoom < 32))
                 return;
 
             float fontSize = 0;
-            if (bytepp == 1) {
+            if (imgBytepp == 1) {
                 if (zoom <= 17) fontSize = 6;
                 else if (zoom <= 25) fontSize = 8;
                 else fontSize = 10;
@@ -288,12 +284,12 @@ namespace ShimLib {
         private unsafe string GetImagePixelValueText(int ix, int iy, bool multiLine) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return string.Empty;
-            var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * bytepp;
-            if (bytepp == 1) {
+            var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * imgBytepp;
+            if (imgBytepp == 1) {
                 return (*ptr).ToString();
             } else {
-                if (bufIsFloat) {
-                    if (bytepp == 4)
+                if (isImgbufFloat) {
+                    if (imgBytepp == 4)
                         return string.Format("{0:f2}",*(float*)ptr);
                     else
                         return string.Format("{0:f2}", *(double*)ptr);
@@ -307,12 +303,12 @@ namespace ShimLib {
         private unsafe int GetImagePixelValueColorIndex(int ix, int iy) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return 0;
-            var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * bytepp;
-            if (bytepp == 1) {
+            var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * imgBytepp;
+            if (imgBytepp == 1) {
                 return (*ptr) / 32;
             } else {
-                if (bufIsFloat) {
-                    if (bytepp == 4)
+                if (isImgbufFloat) {
+                    if (imgBytepp == 4)
                         return Math.Min(Math.Max((int)*(float*)ptr, 0), 255) / 32;
                     else
                         return Math.Min(Math.Max((int)*(double*)ptr, 0), 255) / 32;
