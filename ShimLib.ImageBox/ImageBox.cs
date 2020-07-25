@@ -168,8 +168,8 @@ namespace ShimLib {
                 dispBmp.Dispose();
                 Marshal.FreeHGlobal(dispBuf);
             }
-            dispBw = Width;
-            dispBh = Height;
+            dispBw = Math.Max(Width, 64);
+            dispBh = Math.Max(Height, 64);
             dispBuf = Marshal.AllocHGlobal(dispBw * 4 * dispBh);
             dispBmp = new Bitmap(dispBw, dispBh, dispBw * 4, PixelFormat.Format32bppPArgb, dispBuf);
             Invalidate();
