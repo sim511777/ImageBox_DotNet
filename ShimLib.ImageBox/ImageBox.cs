@@ -108,7 +108,7 @@ namespace ShimLib {
                 exp_num--;
             c = (ZoomLevel % 2 != 0) ? 3 : 1;
         }
-        public double GetZoomFactor() {
+        private double GetZoomFactor() {
             int exp_num;
             int c;
             GetZoomFactorComponents(out exp_num, out c);
