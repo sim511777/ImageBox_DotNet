@@ -16,6 +16,10 @@ namespace ShimLib {
         public ImageBox() {
             InitializeComponent();
             DoubleBuffered = true;
+
+            UseDrawPixelValue = true;
+            UseDrawCenterLine = true;
+            UseDrawCursorInfo = true;
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
@@ -67,6 +71,11 @@ namespace ShimLib {
                 }
             }
         }
+
+        // 표시 옵션
+        public bool UseDrawPixelValue { get; set; }
+        public bool UseDrawCenterLine { get; set; }
+        public bool UseDrawCursorInfo { get; set; }
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
@@ -192,12 +201,14 @@ namespace ShimLib {
                 ptDown = e.Location;
                 Invalidate();
             } else {
-                using (Bitmap bmp = new Bitmap(200, Font.Height)) {
-                    using (Graphics bg = Graphics.FromImage(bmp)) {
-                        DrawCursorInfo(bg, 0, 0);
-                    }
-                    using (Graphics g = CreateGraphics()) {
-                        g.DrawImage(bmp, 2, 2);
+                if (UseDrawCursorInfo) {
+                    using (Bitmap bmp = new Bitmap(200, Font.Height)) {
+                        using (Graphics bg = Graphics.FromImage(bmp)) {
+                            DrawCursorInfo(bg, 0, 0);
+                        }
+                        using (Graphics g = CreateGraphics()) {
+                            g.DrawImage(bmp, 2, 2);
+                        }
                     }
                 }
             }
@@ -234,10 +245,13 @@ namespace ShimLib {
             double zoom = GetZoomFactor();
             CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             g.DrawImage(dispBmp, 0, 0);
-            DrawPixelValue(ig);
-            DrawCenterLine(ig);
+            if (UseDrawPixelValue)
+                DrawPixelValue(ig);
+            if (UseDrawCenterLine)
+                DrawCenterLine(ig);
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            DrawCursorInfo(g, 2, 2);
+            if (UseDrawCursorInfo)
+                DrawCursorInfo(g, 2, 2);
         }
 
         // 픽셀값 표시

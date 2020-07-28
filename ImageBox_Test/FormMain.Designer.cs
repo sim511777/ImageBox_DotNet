@@ -24,12 +24,12 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnResetZoom = new System.Windows.Forms.Button();
-            this.btnOpen = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
             this.panel1.SuspendLayout();
@@ -48,6 +48,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(166, 568);
             this.panel1.TabIndex = 1;
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(6, 41);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(88, 23);
+            this.btnOpen.TabIndex = 6;
+            this.btnOpen.Text = "Open...";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // button4
             // 
@@ -99,16 +109,6 @@
             this.btnResetZoom.UseVisualStyleBackColor = true;
             this.btnResetZoom.Click += new System.EventHandler(this.btnResetZoom_Click);
             // 
-            // btnOpen
-            // 
-            this.btnOpen.Location = new System.Drawing.Point(6, 41);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(88, 23);
-            this.btnOpen.TabIndex = 6;
-            this.btnOpen.Text = "Open...";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
             // dlgOpen
             // 
             this.dlgOpen.FileName = "openFileDialog1";
@@ -123,6 +123,9 @@
             this.imgBox.Size = new System.Drawing.Size(721, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
+            this.imgBox.UseDrawCenterLine = true;
+            this.imgBox.UseDrawCursorInfo = true;
+            this.imgBox.UseDrawPixelValue = true;
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
             // FormMain
