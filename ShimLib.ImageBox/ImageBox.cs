@@ -241,21 +241,20 @@ namespace ShimLib {
                 return;
             }
 
-            var ig = new ImageGraphics(this, g);
             double zoom = GetZoomFactor();
             CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             g.DrawImage(dispBmp, 0, 0);
             if (UseDrawPixelValue)
-                DrawPixelValue(ig);
+                DrawPixelValue(g);
             if (UseDrawCenterLine)
-                DrawCenterLine(ig);
+                DrawCenterLine(g);
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             if (UseDrawCursorInfo)
                 DrawCursorInfo(g, 2, 2);
         }
 
         // 픽셀값 표시
-        private void DrawPixelValue(ImageGraphics ig) {
+        private void DrawPixelValue(Graphics g) {
             if (imgBuf == IntPtr.Zero)
                 return;
             var zoom = GetZoomFactor();
@@ -288,7 +287,7 @@ namespace ShimLib {
                     for (int ix = ix1; ix <= ix2; ix++) {
                         string pixelValueText = GetImagePixelValueText(ix, iy, true);
                         int colIdx = GetImagePixelValueColorIndex(ix, iy);
-                        ig.DrawString(pixelValueText, font, pseudo[colIdx], ix - 0.5f, iy - 0.5f);
+                        DrawString(g, pixelValueText, font, pseudo[colIdx], ix - 0.5f, iy - 0.5f);
                     }
                 }
             }
@@ -345,13 +344,13 @@ namespace ShimLib {
         };
 
         // 중심선 표시
-        private void DrawCenterLine(ImageGraphics ig) {
+        private void DrawCenterLine(Graphics g) {
             if (imgBuf == IntPtr.Zero)
                 return;
             using (var pen = new Pen(Color.Yellow)) {
                 pen.DashStyle = DashStyle.Dot;
-                ig.DrawLine(pen, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
-                ig.DrawLine(pen, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
+                DrawLine(g, pen, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
+                DrawLine(g, pen, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
             }
         }
 
@@ -365,6 +364,61 @@ namespace ShimLib {
             string text = string.Format("zoom={0} ({1},{2})={3}", zoomText, ix, iy, colText);
             g.FillRectangle(Brushes.Black, ofsx, ofsy, 200, Font.Height);
             g.DrawString(text, Font, Brushes.White, ofsx, ofsy);
+        }
+
+        // ==== GDI 함수 ====
+        public void DrawLine(Graphics g, Pen pen, PointF pt1, PointF pt2) {
+            g.DrawLine(pen, ImgToDisp(pt1), ImgToDisp(pt2));
+        }
+
+        public void DrawLine(Graphics g, Pen pen, float x1, float y1, float x2, float y2) {
+            this.DrawLine(g, pen, new PointF(x1, y1), new PointF(x2, y2));
+        }
+
+        public void DrawString(Graphics g, string s, Font font, Brush brush, PointF pt) {
+            g.DrawString(s, font, brush, ImgToDisp(pt));
+        }
+
+        public void DrawString(Graphics g, string s, Font font, Brush brush, float x, float y) {
+            this.DrawString(g, s, font, brush, new PointF(x, y));
+        }
+
+        public void DrawEllipse(Graphics g, Pen pen, RectangleF rect) {
+            g.DrawEllipse(pen, ImgToDisp(rect));
+        }
+
+        public void DrawEllipse(Graphics g, Pen pen, float x, float y, float width, float height) {
+            this.DrawEllipse(g, pen, new RectangleF(x, y, width, height));
+        }
+
+        public void DrawRectangle(Graphics g, Pen pen, RectangleF rect) {
+            g.DrawRectangle(pen, ImgToDisp(rect));
+        }
+
+        public void DrawRectangle(Graphics g, Pen pen, float x, float y, float width, float height) {
+            this.DrawRectangle(g, pen, new RectangleF(x, y, width, height));
+        }
+
+        public void DrawCircle(Graphics g, Pen pen, float x, float y, float r) {
+            float left = x - r;
+            float top = y - r;
+            float size = r + r;
+            this.DrawEllipse(g, pen, left, top, size, size);
+        }
+
+        public void DrawCircle(Graphics g, Pen pen, PointF pt, float r) {
+            this.DrawCircle(g, pen, pt.X, pt.Y, r);
+        }
+
+        public void DrawSquare(Graphics g, Pen pen, float x, float y, float r) {
+            float left = x - r;
+            float top = y - r;
+            float size = r + r;
+            this.DrawRectangle(g, pen, left, top, size, size);
+        }
+
+        public void DrawSquare(Graphics g, Pen pen, PointF pt, float r) {
+            this.DrawSquare(g, pen, pt.X, pt.Y, r);
         }
     }
 }

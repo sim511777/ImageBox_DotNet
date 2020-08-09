@@ -18,12 +18,12 @@ namespace ImageBox_Test {
         }
 
         private void imageBox_Paint(object sender, PaintEventArgs e) {
-            ImageGraphics ig = new ImageGraphics(imgBox, e.Graphics);
-            ig.DrawLine(Pens.Red, 0, 0, 32, 32);
-            ig.DrawLine(Pens.Red, 32 - 0.5f, 32 - 0.5f, 48 - 0.5f, 32 - 0.5f);
-            ig.DrawLine(Pens.Red, 48 - 0.5f, 32 - 0.5f, 48 - 0.5f, 48 - 0.5f);
-            ig.DrawLine(Pens.Red, 48 - 0.5f, 48 - 0.5f, 32 - 0.5f, 48 - 0.5f);
-            ig.DrawLine(Pens.Red, 32 - 0.5f, 48 - 0.5f, 32 - 0.5f, 32 - 0.5f);
+            var g = e.Graphics;
+            imgBox.DrawLine(g, Pens.Red, 0, 0, 32, 32);
+            imgBox.DrawLine(g, Pens.Red, 32 - 0.5f, 32 - 0.5f, 48 - 0.5f, 32 - 0.5f);
+            imgBox.DrawLine(g, Pens.Red, 48 - 0.5f, 32 - 0.5f, 48 - 0.5f, 48 - 0.5f);
+            imgBox.DrawLine(g, Pens.Red, 48 - 0.5f, 48 - 0.5f, 32 - 0.5f, 48 - 0.5f);
+            imgBox.DrawLine(g, Pens.Red, 32 - 0.5f, 48 - 0.5f, 32 - 0.5f, 32 - 0.5f);
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
