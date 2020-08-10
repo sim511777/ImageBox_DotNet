@@ -19,11 +19,9 @@ namespace ImageBox_Test {
 
         private void imageBox_Paint(object sender, PaintEventArgs e) {
             var g = e.Graphics;
-            imgBox.DrawLine(g, Pens.Red, 0, 0, 32, 32);
-            imgBox.DrawLine(g, Pens.Red, 32 - 0.5f, 32 - 0.5f, 48 - 0.5f, 32 - 0.5f);
-            imgBox.DrawLine(g, Pens.Red, 48 - 0.5f, 32 - 0.5f, 48 - 0.5f, 48 - 0.5f);
-            imgBox.DrawLine(g, Pens.Red, 48 - 0.5f, 48 - 0.5f, 32 - 0.5f, 48 - 0.5f);
-            imgBox.DrawLine(g, Pens.Red, 32 - 0.5f, 48 - 0.5f, 32 - 0.5f, 32 - 0.5f);
+            imgBox.DrawLine(g, Pens.Red, 0, 0, 8, 8);
+            imgBox.DrawRectangle(g, Pens.Red, 8, 8, 4, 4);
+            imgBox.DrawString(g, "Hello, World", Font, Brushes.Lime, 12, 12);
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {

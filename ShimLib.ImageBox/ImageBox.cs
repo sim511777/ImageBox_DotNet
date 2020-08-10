@@ -258,7 +258,7 @@ namespace ShimLib {
             if (imgBuf == IntPtr.Zero)
                 return;
             var zoom = GetZoomFactor();
-            if (zoom < 16 || (imgBytepp != 1 && zoom < 32))
+            if (zoom < 16 || (imgBytepp != 1 && zoom < 48))
                 return;
 
             float fontSize = 0;
@@ -267,8 +267,8 @@ namespace ShimLib {
                 else if (zoom <= 25) fontSize = 8;
                 else fontSize = 10;
             } else {
-                if (zoom <= 33) fontSize = 6;
-                else if (zoom <= 49) fontSize = 8;
+                if (zoom <= 49) fontSize = 6;
+                else if (zoom <= 65) fontSize = 8;
                 else fontSize = 10;
             }
 
@@ -285,7 +285,7 @@ namespace ShimLib {
                 iy2 = Math.Min(iy2, imgBh - 1);
                 for (int iy = iy1; iy <= iy2; iy++) {
                     for (int ix = ix1; ix <= ix2; ix++) {
-                        string pixelValueText = GetImagePixelValueText(ix, iy, true);
+                        string pixelValueText = GetImagePixelValueText(ix, iy);
                         int colIdx = GetImagePixelValueColorIndex(ix, iy);
                         DrawString(g, pixelValueText, font, pseudo[colIdx], ix - 0.5f, iy - 0.5f);
                     }
@@ -294,7 +294,7 @@ namespace ShimLib {
         }
 
         // 픽셀 표지 문자열
-        private unsafe string GetImagePixelValueText(int ix, int iy, bool multiLine) {
+        private unsafe string GetImagePixelValueText(int ix, int iy) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return string.Empty;
             var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * imgBytepp;
@@ -307,7 +307,7 @@ namespace ShimLib {
                     else
                         return string.Format("{0:f2}", *(double*)ptr);
                 } else {
-                    return string.Format(multiLine ? "{0},\r\n{1},\r\n{2}" : "{0},{1},{2}", ptr[2], ptr[1], ptr[0]);
+                    return string.Format("{0},{1},{2}", ptr[2], ptr[1], ptr[0]);
                 }
             }
         }
@@ -359,7 +359,7 @@ namespace ShimLib {
             var ptImg = DispToImg(ptMove);
             int ix = (int)Math.Round(ptImg.X);
             int iy = (int)Math.Round(ptImg.Y);
-            var colText = GetImagePixelValueText(ix, iy, false);
+            var colText = GetImagePixelValueText(ix, iy);
             string zoomText = GetZoomText();
             string text = string.Format("zoom={0} ({1},{2})={3}", zoomText, ix, iy, colText);
             g.FillRectangle(Brushes.Black, ofsx, ofsy, 200, Font.Height);
