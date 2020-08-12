@@ -399,26 +399,60 @@ namespace ShimLib {
             this.DrawRectangle(g, pen, new RectangleF(x, y, width, height));
         }
 
-        public void DrawCircle(Graphics g, Pen pen, float x, float y, float r) {
+        public void DrawCircle(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
+            if (pixelSize)
+                r = (float)(r / GetZoomFactor());
             float left = x - r;
             float top = y - r;
             float size = r + r;
             this.DrawEllipse(g, pen, left, top, size, size);
         }
 
-        public void DrawCircle(Graphics g, Pen pen, PointF pt, float r) {
-            this.DrawCircle(g, pen, pt.X, pt.Y, r);
+        public void DrawCircle(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
+            this.DrawCircle(g, pen, pt.X, pt.Y, r, pixelSize);
         }
 
-        public void DrawSquare(Graphics g, Pen pen, float x, float y, float r) {
+        public void DrawSquare(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
+            if (pixelSize)
+                r = (float)(r / GetZoomFactor());
             float left = x - r;
             float top = y - r;
             float size = r + r;
             this.DrawRectangle(g, pen, left, top, size, size);
         }
 
-        public void DrawSquare(Graphics g, Pen pen, PointF pt, float r) {
-            this.DrawSquare(g, pen, pt.X, pt.Y, r);
+        public void DrawSquare(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
+            this.DrawSquare(g, pen, pt.X, pt.Y, r, pixelSize);
+        }
+
+        public void DrawCross(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
+            if (pixelSize)
+                r = (float)(r / GetZoomFactor());
+            float left = x - r;
+            float top = y - r;
+            float right = x + r;
+            float bottom = y + r;
+            this.DrawLine(g, pen, left, top, right, bottom);
+            this.DrawLine(g, pen, right, top, left, bottom);
+        }
+
+        public void DrawCross(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
+            this.DrawCross(g, pen, pt.X, pt.Y, r, pixelSize);
+        }
+
+        public void DrawPlus(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
+            if (pixelSize)
+                r = (float)(r / GetZoomFactor());
+            float left = x - r;
+            float top = y - r;
+            float right = x + r;
+            float bottom = y + r;
+            this.DrawLine(g, pen, x, top, x, bottom);
+            this.DrawLine(g, pen, left, y, right, y);
+        }
+
+        public void DrawPlus(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
+            this.DrawPlus(g, pen, pt.X, pt.Y, r, pixelSize);
         }
     }
 }
