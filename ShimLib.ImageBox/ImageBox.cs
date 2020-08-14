@@ -399,60 +399,50 @@ namespace ShimLib {
             this.DrawRectangle(g, pen, new RectangleF(x, y, width, height));
         }
 
-        public void DrawCircle(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            if (pixelSize)
-                r = (float)(r / GetZoomFactor());
-            float left = x - r;
-            float top = y - r;
-            float size = r + r;
-            this.DrawEllipse(g, pen, left, top, size, size);
+        public void DrawCircle(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
+            int half = sized / 2;
+            g.DrawEllipse(pen, ptd.X - half, ptd.Y - half, sized, sized);
         }
 
-        public void DrawCircle(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
-            this.DrawCircle(g, pen, pt.X, pt.Y, r, pixelSize);
+        public void DrawCircle(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
+            this.DrawCircle(g, pen, new PointF(x, y), r, pixelSize);
+        }
+
+        public void DrawSquare(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
+            int half = sized / 2;
+            g.DrawRectangle(pen, ptd.X - half, ptd.Y - half, sized, sized);
         }
 
         public void DrawSquare(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            if (pixelSize)
-                r = (float)(r / GetZoomFactor());
-            float left = x - r;
-            float top = y - r;
-            float size = r + r;
-            this.DrawRectangle(g, pen, left, top, size, size);
+            this.DrawSquare(g, pen, new PointF(x, y), r, pixelSize);
         }
 
-        public void DrawSquare(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
-            this.DrawSquare(g, pen, pt.X, pt.Y, r, pixelSize);
+        public void DrawCross(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
+            int half = sized / 2;
+            g.DrawLine(pen, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half);
+            g.DrawLine(pen, ptd.X - half, ptd.Y + half, ptd.X + half, ptd.Y - half);
         }
 
         public void DrawCross(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            if (pixelSize)
-                r = (float)(r / GetZoomFactor());
-            float left = x - r;
-            float top = y - r;
-            float right = x + r;
-            float bottom = y + r;
-            this.DrawLine(g, pen, left, top, right, bottom);
-            this.DrawLine(g, pen, right, top, left, bottom);
+            this.DrawCross(g, pen, new PointF(x, y), r, pixelSize);
         }
 
-        public void DrawCross(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
-            this.DrawCross(g, pen, pt.X, pt.Y, r, pixelSize);
+        public void DrawPlus(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
+            int half = sized / 2;
+            g.DrawLine(pen, ptd.X, ptd.Y - half, ptd.X, ptd.Y + half);
+            g.DrawLine(pen, ptd.X - half, ptd.Y, ptd.X + half, ptd.Y);
         }
 
         public void DrawPlus(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            if (pixelSize)
-                r = (float)(r / GetZoomFactor());
-            float left = x - r;
-            float top = y - r;
-            float right = x + r;
-            float bottom = y + r;
-            this.DrawLine(g, pen, x, top, x, bottom);
-            this.DrawLine(g, pen, left, y, right, y);
-        }
-
-        public void DrawPlus(Graphics g, Pen pen, PointF pt, float r, bool pixelSize) {
-            this.DrawPlus(g, pen, pt.X, pt.Y, r, pixelSize);
+            this.DrawPlus(g, pen, new PointF(x, y), r, pixelSize);
         }
     }
 }

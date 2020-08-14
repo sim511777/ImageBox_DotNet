@@ -22,6 +22,18 @@ namespace ImageBox_Test {
             imgBox.DrawLine(g, Pens.Red, 0, 0, 8, 8);
             imgBox.DrawRectangle(g, Pens.Red, 8, 8, 4, 4);
             imgBox.DrawString(g, "Hello, World", Font, Brushes.Lime, 12, 12);
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    //imgBox.DrawCircle(g, Pens.Lime, j, i, 1, false);
+                    //imgBox.DrawSquare(g, Pens.Lime, j, i, 1, false);
+                    //imgBox.DrawCross(g, Pens.Lime, j, i, 1, false);
+                    //imgBox.DrawPlus(g, Pens.Lime, j, i, 1, false);
+                    //imgBox.DrawCircle(g, Pens.Lime, j, i, 8, true);
+                    //imgBox.DrawSquare(g, Pens.Lime, j, i, 8, true);
+                    //imgBox.DrawCross(g, Pens.Lime, j, i, 8, true);
+                    //imgBox.DrawPlus(g, Pens.Lime, j, i, 8, true);
+                }
+            }
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
