@@ -1,0 +1,9 @@
+- ToolBox 아이콘 추가
+- Drawing 함수 추가
+- ImageFont 함수 추가
+  - 폰트 여러개 choice, int fontWidth로 입력 받음
+- OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
+- DrawPixelValue 에서 ImageFont 사용
+- 디버그창 추가
+- DoubleBuffered proerty 대신 BufferedGraphics 사용
+- BufferedGraphics 에서 백버퍼 포인터 액세스 방법
