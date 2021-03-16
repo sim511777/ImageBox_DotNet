@@ -1,9 +1,23 @@
-- ToolBox 아이콘 추가
+[todo]
 - Drawing 함수 추가
+  - ForceInlining Attribute
+  - .net version에 따라 ForceInlining 또는 풀어쓰는 코드로 변경 되도록 구분
+  - DrawEllipse 추가
+  - FillEllipse 추가
 - ImageFont 함수 추가
   - 폰트 여러개 choice, int fontWidth로 입력 받음
+  - DrawPixelValue 에서 ImageFont 사용
 - OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
-- DrawPixelValue 에서 ImageFont 사용
-- 디버그창 추가
-- DoubleBuffered proerty 대신 BufferedGraphics 사용
-- BufferedGraphics 에서 백버퍼 포인터 액세스 방법
+- 디버그 정보 표시 추가
+  - Load된 이미지 버퍼 정표 표시
+  - 설정값들 표시
+  - 전체 Time
+  - 부분 Time
+- 설정창 추가
+  - 버퍼 클립보드 copy 기능
+  - 중심선 표시 여부
+  - 픽셀값 표시 여부
+  - 커서 픽셀 정보 표시 여부
+  - 디비그 정보 표시 여부
+
+ok - ToolBox 아이콘 추가

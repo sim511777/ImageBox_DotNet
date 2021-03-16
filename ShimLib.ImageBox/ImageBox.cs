@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ShimLib {
+    [ToolboxBitmap(typeof(ImageBox), "ImageBox.bmp")]
     public partial class ImageBox : Control {
         public ImageBox() {
             InitializeComponent();
