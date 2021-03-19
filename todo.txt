@@ -4,20 +4,28 @@
   - .net version에 따라 ForceInlining 또는 풀어쓰는 코드로 변경 되도록 구분
   - DrawEllipse 추가
   - FillEllipse 추가
+  - 고속화 위해 Clipping 처리
+
 - ImageFont 함수 추가
   - 폰트 여러개 choice, int fontWidth로 입력 받음
   - DrawPixelValue 에서 ImageFont 사용
+  - 고속화 위해 Clipping 처리
+
 - OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
+
 - 디버그 정보 표시 추가
   - Load된 이미지 버퍼 정표 표시
   - 설정값들 표시
   - 전체 Time
   - 부분 Time
+
 - 설정창 추가
   - 버퍼 클립보드 copy 기능
   - 중심선 표시 여부
   - 픽셀값 표시 여부
   - 커서 픽셀 정보 표시 여부
   - 디비그 정보 표시 여부
+
+- ToolBox 아이콘 표준리소스 처리
 
 ok - ToolBox 아이콘 추가
