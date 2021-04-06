@@ -99,14 +99,14 @@ namespace ShimLib {
                 bytepp = 3;
             else if (bmp.PixelFormat == PixelFormat.Format32bppRgb || bmp.PixelFormat == PixelFormat.Format32bppArgb || bmp.PixelFormat == PixelFormat.Format32bppPArgb)
                 bytepp = 4;
-            long bufSize = (long)bw * bh * bytepp;
+            Int64 bufSize = (Int64)bw * bh * bytepp;
             imgBuf = AllocBuffer(bufSize);
 
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.ReadOnly, bmp.PixelFormat);
             int copySize = bw * bytepp;
             for (int y = 0; y < bh; y++) {
-                IntPtr dstPtr = (IntPtr)((long)imgBuf + bw * y * bytepp);
-                IntPtr srcPtr = (IntPtr)((long)bmpData.Scan0 + bmpData.Stride * y);
+                IntPtr dstPtr = (IntPtr)((byte*)imgBuf + bw * y * bytepp);
+                IntPtr srcPtr = (IntPtr)((byte*)bmpData.Scan0 + bmpData.Stride * y);
                 Memcpy(dstPtr, srcPtr, copySize);
             }
 

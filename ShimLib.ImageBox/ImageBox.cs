@@ -298,7 +298,7 @@ namespace ShimLib {
         private unsafe string GetImagePixelValueText(int ix, int iy) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return string.Empty;
-            var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * imgBytepp;
+            var ptr = (byte*)imgBuf + ((Int64)imgBw * iy + ix) * imgBytepp;
             if (imgBytepp == 1) {
                 return (*ptr).ToString();
             } else {
@@ -317,7 +317,7 @@ namespace ShimLib {
         private unsafe int GetImagePixelValueColorIndex(int ix, int iy) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return 0;
-            var ptr = (byte*)imgBuf.ToPointer() + ((long)imgBw * iy + ix) * imgBytepp;
+            var ptr = (byte*)imgBuf + ((Int64)imgBw * iy + ix) * imgBytepp;
             if (imgBytepp == 1) {
                 return (*ptr) / 32;
             } else {
