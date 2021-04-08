@@ -6,13 +6,13 @@ using System.Text;
 
 namespace ShimLib {
     public class Drawing {
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void DrawPixel(int* ptr, int bw, int bh, int x, int y, int iCol) {
             if (x >= 0 && x < bw && y >= 0 && y < bh)
                 *(ptr + bw * y + x) = iCol;
         }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void DrawHLine(int* ptr, int bw, int bh, int x1, int x2, int y, int iCol) {
             if (y < 0 || y >= bh || x1 >= bw || x2 < 0)
                 return;
