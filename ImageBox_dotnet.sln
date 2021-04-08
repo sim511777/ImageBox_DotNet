@@ -1,6 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 15 for Windows Desktop
+VisualStudioVersion = 15.0.28307.1433
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E0CCC1C-3A3B-4DFA-AA13-FBF73C7A578A}"
+	ProjectSection(SolutionItems) = preProject
+		todo.txt = todo.txt
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageBox_Test", "ImageBox_Test\ImageBox_Test.csproj", "{C36340DF-E604-49E6-AF35-D90DBAC00959}"
 	ProjectSection(ProjectDependencies) = postProject
 		{754433CB-9EFE-48F1-8769-74973CCBB6A3} = {754433CB-9EFE-48F1-8769-74973CCBB6A3}
@@ -9,11 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShimLib.ImageBox", "ShimLib.ImageBox\ShimLib.ImageBox.csproj", "{AF27C1E9-D990-434D-AA3F-B277D51DE726}"
 	ProjectSection(ProjectDependencies) = postProject
 		{754433CB-9EFE-48F1-8769-74973CCBB6A3} = {754433CB-9EFE-48F1-8769-74973CCBB6A3}
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E0CCC1C-3A3B-4DFA-AA13-FBF73C7A578A}"
-	ProjectSection(SolutionItems) = preProject
-		todo.txt = todo.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShimLib.Util", "ShimLib.Util\ShimLib.Util.csproj", "{754433CB-9EFE-48F1-8769-74973CCBB6A3}"
@@ -39,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {77912C86-36E1-42E0-9A8A-653B76A48D4A}
 	EndGlobalSection
 EndGlobal
