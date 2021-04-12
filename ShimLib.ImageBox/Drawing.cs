@@ -191,9 +191,16 @@ namespace ShimLib {
             }
         }
 
+        private static void Swap<T>(ref T a, ref T b) {
+            T temp = a;
+            a = b;
+            b = temp;
+        }
+
+
         public static unsafe void DrawRectangle(IntPtr buf, int bw, int bh, int x1, int y1, int x2, int y2, int iCol, bool fill) {
-            if (x1 > x2) Util.Swap(ref x1, ref x2);
-            if (y1 > y2) Util.Swap(ref y1, ref y2);
+            if (x1 > x2) Swap(ref x1, ref x2);
+            if (y1 > y2) Swap(ref y1, ref y2);
             if (x1 >= bw || x2 < 0 || y1 >= bh || y2 < 0)
                 return;
 
@@ -208,6 +215,23 @@ namespace ShimLib {
                 DrawLine(buf, bw, bh, x2, y2, x1, y2, iCol);
                 DrawLine(buf, bw, bh, x1, y2, x1, y1, iCol);
             }
+        }
+
+        private static unsafe IntPtr Memcpy(IntPtr _Dst, IntPtr _Src, Int64 _Size) {
+            Int64 size4 = _Size / 4;
+            Int64 size1 = _Size % 4;
+
+            int* pdst4 = (int*)_Dst;
+            int* psrc4 = (int*)_Src;
+            while (size4-- > 0)
+                *pdst4++ = *psrc4++;
+
+            byte* pdst1 = (byte*)pdst4;
+            byte* psrc1 = (byte*)psrc4;
+            while (size1-- > 0)
+                *pdst1++ = *psrc1++;
+
+            return _Dst;
         }
 
         public static unsafe void DrawImage(IntPtr buf, int bw, int bh, IntPtr sbuf, int sw, int sh, int x0, int y0) {
@@ -246,7 +270,7 @@ namespace ShimLib {
             for (int dy = dy1, sy = sy1; dy < dy2; dy++, sy++) {
                 int* dptr = (int*)buf + bw * dy + dx1;
                 int* sptr = (int*)sbuf + sw * sy + sx1;
-                Util.Memcpy((IntPtr)dptr, (IntPtr)sptr, copyw * 4);
+                Memcpy((IntPtr)dptr, (IntPtr)sptr, copyw * 4);
             }
         }
     }
