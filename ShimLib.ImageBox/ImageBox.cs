@@ -17,10 +17,6 @@ namespace ShimLib {
         public ImageBox() {
             InitializeComponent();
             DoubleBuffered = true;
-
-            UseDrawPixelValue = true;
-            UseDrawCenterLine = true;
-            UseDrawCursorInfo = true;
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
@@ -74,9 +70,9 @@ namespace ShimLib {
         }
 
         // 표시 옵션
-        public bool UseDrawPixelValue { get; set; }
-        public bool UseDrawCenterLine { get; set; }
-        public bool UseDrawCursorInfo { get; set; }
+        public bool UseDrawPixelValue { get; set; } = true;
+        public bool UseDrawCenterLine { get; set; } = true;
+        public bool UseDrawCursorInfo { get; set; } = true;
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
