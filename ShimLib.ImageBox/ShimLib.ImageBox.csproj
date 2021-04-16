@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing.cs" />
+    <Compile Include="ImaegBoxUtil.cs" />
     <Compile Include="ImageBox.cs">
       <SubType>Component</SubType>
     </Compile>

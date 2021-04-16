@@ -74,6 +74,7 @@ namespace ShimLib {
         public bool UseDrawPixelValue { get; set; } = true;
         public bool UseDrawCenterLine { get; set; } = true;
         public bool UseDrawCursorInfo { get; set; } = true;
+        public bool UseDrawDebugInfo { get; set; } = true;
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
@@ -230,25 +231,85 @@ namespace ShimLib {
         // 배경컬러 배경이미지 아무것도 안그림
         protected override void OnPaintBackground(PaintEventArgs pevent) { }
 
+        double t_01, t_12, t_23, t_34, t_45, t_56, t_67, t_total;
         // 페인트
         protected override void OnPaint(PaintEventArgs pe) {
             var g = pe.Graphics;
+            
+            // 디자인 모드
             if (DesignMode) {
                 g.Clear(BackColor);
                 g.DrawString(Name, Font, Brushes.Black, 0, 0);
                 return;
             }
 
+            var t0 = ImageBoxUtil.GetTimeMs();
+            
+            // 이미지 확대 축소
             double zoom = GetZoomFactor();
             CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
+            var t1 = ImageBoxUtil.GetTimeMs();
+            
+            // 이미지 그리기
             g.DrawImage(dispBmp, 0, 0);
+            var t2 = ImageBoxUtil.GetTimeMs();
+            
+            // 픽셀값 표시
             if (UseDrawPixelValue)
                 DrawPixelValue(g);
+            var t3 = ImageBoxUtil.GetTimeMs();
+            
+            // 중심선 표시
             if (UseDrawCenterLine)
                 DrawCenterLine(g);
+            var t4 = ImageBoxUtil.GetTimeMs();
+
+            // Paint이벤트 발생
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
+            var t5 = ImageBoxUtil.GetTimeMs();
+            
+            // 커서 정보 표시
             if (UseDrawCursorInfo)
                 DrawCursorInfo(g, 2, 2);
+            var t6 = ImageBoxUtil.GetTimeMs();
+
+            // 디비그 정보 표시
+            if (UseDrawDebugInfo)
+                DrawDebugInfo(g);
+            var t7 = ImageBoxUtil.GetTimeMs();
+
+            t_01 = t1 - t0;
+            t_12 = t2 - t1;
+            t_23 = t3 - t2;
+            t_34 = t4 - t3;
+            t_45 = t5 - t4;
+            t_56 = t6 - t5;
+            t_67 = t7 - t6;
+            t_total = t7 - t0;
+        }
+
+        private void DrawDebugInfo(Graphics g) {
+            string info =
+$@"== Image ==
+{(imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}")}
+
+== Draw ==
+UseDrawPixelValue : {(UseDrawPixelValue ? "O" : "X")}
+UseDrawCenterLine : {(UseDrawCenterLine ? "O" : "X")}
+UseDrawCursorInfo : {(UseDrawCursorInfo ? "O" : "X")}
+UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
+
+== Time ==
+CopyImageBufferZoom : {t_01:0.0}ms
+DrawImage : {t_12:0.0}ms
+DrawPixelValue : {t_23:0.0}ms
+DrawCenterLine : {t_34:0.0}ms
+OnPaint : {t_45:0.0}ms
+DrawCursorInfo : {t_67:0.0}ms
+Total : {t_total:0.0}ms
+";
+            g.FillRectangle(Brushes.White, this.Width - 200, 0, 200, 400);
+            g.DrawString(info, Font, Brushes.Black, this.Width - 200, 0);
         }
 
         // 픽셀값 표시
