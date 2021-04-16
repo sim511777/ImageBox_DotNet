@@ -17,6 +17,7 @@ namespace ShimLib {
         public ImageBox() {
             InitializeComponent();
             DoubleBuffered = true;
+            SetStyle(ControlStyles.Opaque, true);
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
