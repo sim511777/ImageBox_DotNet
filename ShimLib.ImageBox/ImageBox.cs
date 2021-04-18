@@ -116,7 +116,7 @@ namespace ShimLib {
                 exp_num--;
             c = (ZoomLevel % 2 != 0) ? 3 : 1;
         }
-        private double GetZoomFactor() {
+        public double GetZoomFactor() {
             int exp_num;
             int c;
             GetZoomFactorComponents(out exp_num, out c);
@@ -234,14 +234,15 @@ namespace ShimLib {
         double t_01, t_12, t_23, t_34, t_45, t_56, t_67, t_total;
         // 페인트
         protected override void OnPaint(PaintEventArgs pe) {
-            var g = pe.Graphics;
-            
+            Graphics g = pe.Graphics;
             // 디자인 모드
             if (DesignMode) {
                 g.Clear(BackColor);
                 g.DrawString(Name, Font, Brushes.Black, 0, 0);
                 return;
             }
+
+            ImageGraphics ig = this.GetImageGraphics(g);
 
             var t0 = ImageBoxUtil.GetTimeMs();
             
@@ -256,12 +257,12 @@ namespace ShimLib {
             
             // 픽셀값 표시
             if (UseDrawPixelValue)
-                DrawPixelValue(g);
+                DrawPixelValue(ig);
             var t3 = ImageBoxUtil.GetTimeMs();
             
             // 중심선 표시
             if (UseDrawCenterLine)
-                DrawCenterLine(g);
+                DrawCenterLine(ig);
             var t4 = ImageBoxUtil.GetTimeMs();
 
             // Paint이벤트 발생
@@ -313,7 +314,7 @@ Total : {t_total:0.0}ms
         }
 
         // 픽셀값 표시
-        private void DrawPixelValue(Graphics g) {
+        private void DrawPixelValue(ImageGraphics ig) {
             if (imgBuf == IntPtr.Zero)
                 return;
             var zoom = GetZoomFactor();
@@ -346,7 +347,7 @@ Total : {t_total:0.0}ms
                     for (int ix = ix1; ix <= ix2; ix++) {
                         string pixelValueText = GetImagePixelValueText(ix, iy);
                         int colIdx = GetImagePixelValueColorIndex(ix, iy);
-                        DrawString(g, pixelValueText, font, pseudo[colIdx], ix - 0.5f, iy - 0.5f);
+                        ig.DrawString(pixelValueText, font, pseudo[colIdx], ix - 0.5f, iy - 0.5f);
                     }
                 }
             }
@@ -403,13 +404,13 @@ Total : {t_total:0.0}ms
         };
 
         // 중심선 표시
-        private void DrawCenterLine(Graphics g) {
+        private void DrawCenterLine(ImageGraphics ig) {
             if (imgBuf == IntPtr.Zero)
                 return;
             using (var pen = new Pen(Color.Yellow)) {
                 pen.DashStyle = DashStyle.Dot;
-                DrawLine(g, pen, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
-                DrawLine(g, pen, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
+                ig.DrawLine(pen, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
+                ig.DrawLine(pen, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
             }
         }
 
@@ -425,83 +426,10 @@ Total : {t_total:0.0}ms
             g.DrawString(text, Font, Brushes.White, ofsx, ofsy);
         }
 
-        // ==== GDI 함수 ====
-        public void DrawLine(Graphics g, Pen pen, PointF pt1, PointF pt2) {
-            g.DrawLine(pen, ImgToDisp(pt1), ImgToDisp(pt2));
-        }
 
-        public void DrawLine(Graphics g, Pen pen, float x1, float y1, float x2, float y2) {
-            this.DrawLine(g, pen, new PointF(x1, y1), new PointF(x2, y2));
-        }
-
-        public void DrawString(Graphics g, string s, Font font, Brush brush, PointF pt) {
-            g.DrawString(s, font, brush, ImgToDisp(pt));
-        }
-
-        public void DrawString(Graphics g, string s, Font font, Brush brush, float x, float y) {
-            this.DrawString(g, s, font, brush, new PointF(x, y));
-        }
-
-        public void DrawEllipse(Graphics g, Pen pen, RectangleF rect) {
-            g.DrawEllipse(pen, ImgToDisp(rect));
-        }
-
-        public void DrawEllipse(Graphics g, Pen pen, float x, float y, float width, float height) {
-            this.DrawEllipse(g, pen, new RectangleF(x, y, width, height));
-        }
-
-        public void DrawRectangle(Graphics g, Pen pen, RectangleF rect) {
-            g.DrawRectangle(pen, ImgToDisp(rect));
-        }
-
-        public void DrawRectangle(Graphics g, Pen pen, float x, float y, float width, float height) {
-            this.DrawRectangle(g, pen, new RectangleF(x, y, width, height));
-        }
-
-        public void DrawCircle(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
-            int half = sized / 2;
-            g.DrawEllipse(pen, ptd.X - half, ptd.Y - half, sized, sized);
-        }
-
-        public void DrawCircle(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            this.DrawCircle(g, pen, new PointF(x, y), r, pixelSize);
-        }
-
-        public void DrawSquare(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
-            int half = sized / 2;
-            g.DrawRectangle(pen, ptd.X - half, ptd.Y - half, sized, sized);
-        }
-
-        public void DrawSquare(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            this.DrawSquare(g, pen, new PointF(x, y), r, pixelSize);
-        }
-
-        public void DrawCross(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
-            int half = sized / 2;
-            g.DrawLine(pen, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half);
-            g.DrawLine(pen, ptd.X - half, ptd.Y + half, ptd.X + half, ptd.Y - half);
-        }
-
-        public void DrawCross(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            this.DrawCross(g, pen, new PointF(x, y), r, pixelSize);
-        }
-
-        public void DrawPlus(Graphics g, Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * GetZoomFactor(), MidpointRounding.AwayFromZero);
-            int half = sized / 2;
-            g.DrawLine(pen, ptd.X, ptd.Y - half, ptd.X, ptd.Y + half);
-            g.DrawLine(pen, ptd.X - half, ptd.Y, ptd.X + half, ptd.Y);
-        }
-
-        public void DrawPlus(Graphics g, Pen pen, float x, float y, float r, bool pixelSize) {
-            this.DrawPlus(g, pen, new PointF(x, y), r, pixelSize);
+        // ImageGraphics 리턴
+        public ImageGraphics GetImageGraphics(Graphics g) {
+            return new ImageGraphics(this, g);
         }
     }
 }

@@ -18,23 +18,23 @@ namespace ImageBox_Test {
         }
 
         private void imageBox_Paint(object sender, PaintEventArgs e) {
-            var g = e.Graphics;
-            imgBox.DrawLine(g, Pens.Red, 0, 0, 8, 8);
-            imgBox.DrawRectangle(g, Pens.Red, 8, 8, 4, 4);
-            imgBox.DrawString(g, "Hello, World", Font, Brushes.Lime, 12, 12);
-            imgBox.DrawRectangle(g, Pens.Red, 16.5f, 16.5f, 4f, 4f);
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    //imgBox.DrawCircle(g, Pens.Lime, j, i, 1, false);
-                    //imgBox.DrawSquare(g, Pens.Lime, j, i, 1, false);
-                    //imgBox.DrawCross(g, Pens.Lime, j, i, 1, false);
-                    //imgBox.DrawPlus(g, Pens.Lime, j, i, 1, false);
-                    //imgBox.DrawCircle(g, Pens.Lime, j, i, 8, true);
-                    //imgBox.DrawSquare(g, Pens.Lime, j, i, 8, true);
-                    //imgBox.DrawCross(g, Pens.Lime, j, i, 8, true);
-                    //imgBox.DrawPlus(g, Pens.Lime, j, i, 8, true);
-                }
-            }
+            ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
+            ig.DrawLine(Pens.Red, 0, 0, 8, 8);
+            ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
+            ig.DrawString("Hello, World", Font, Brushes.Lime, 12, 12);
+            ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
+            //for (int i = 0; i < 10; i++) {
+            //    for (int j = 0; j < 10; j++) {
+            //        ig.DrawCircle(Pens.Lime, j, i, 1, false);
+            //        ig.DrawSquare(Pens.Lime, j, i, 1, false);
+            //        ig.DrawCross(Pens.Lime, j, i, 1, false);
+            //        ig.DrawPlus(Pens.Lime, j, i, 1, false);
+            //        ig.DrawCircle(Pens.Lime, j, i, 8, true);
+            //        ig.DrawSquare(Pens.Lime, j, i, 8, true);
+            //        ig.DrawCross(Pens.Lime, j, i, 8, true);
+            //        ig.DrawPlus(Pens.Lime, j, i, 8, true);
+            //    }
+            //}
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
