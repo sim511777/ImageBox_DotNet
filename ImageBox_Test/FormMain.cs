@@ -17,14 +17,37 @@ namespace ImageBox_Test {
             InitializeComponent();
         }
 
+
+        private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
+            ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
+            id.DrawLine(Color.Red, 0, 0, 8, 8);
+            id.DrawRectangle(Color.Red, 8, 8, 4, 4);
+            //id.DrawString("Hello, World", Font, Brushes.Lime, 12, 12);
+            id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
+
+            //for (int i = 0; i < 100; i++) {
+            //    for (int j = 0; j < 100; j++) {
+            //        id.DrawCircle(Color.Lime, j, i, 1, false);
+            //        id.DrawSquare(Color.Lime, j, i, 1, false);
+            //        id.DrawCross(Color.Lime, j, i, 1, false);
+            //        id.DrawPlus(Color.Lime, j, i, 1, false);
+            //        id.DrawCircle(Color.Lime, j, i, 8, true);
+            //        id.DrawSquare(Color.Lime, j, i, 8, true);
+            //        id.DrawCross(Color.Lime, j, i, 8, true);
+            //        id.DrawPlus(Color.Lime, j, i, 8, true);
+            //    }
+            //}
+        }
+
         private void imageBox_Paint(object sender, PaintEventArgs e) {
-            ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
-            ig.DrawLine(Pens.Red, 0, 0, 8, 8);
-            ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
-            ig.DrawString("Hello, World", Font, Brushes.Lime, 12, 12);
-            ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
-            //for (int i = 0; i < 10; i++) {
-            //    for (int j = 0; j < 10; j++) {
+            //ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
+            //ig.DrawLine(Pens.Red, 0, 0, 8, 8);
+            //ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
+            //ig.DrawString("Hello, World", Font, Brushes.Lime, 12, 12);
+            //ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
+
+            //for (int i = 0; i < 100; i++) {
+            //    for (int j = 0; j < 100; j++) {
             //        ig.DrawCircle(Pens.Lime, j, i, 1, false);
             //        ig.DrawSquare(Pens.Lime, j, i, 1, false);
             //        ig.DrawCross(Pens.Lime, j, i, 1, false);

@@ -125,7 +125,9 @@
             this.imgBox.Text = "imageBox1";
             this.imgBox.UseDrawCenterLine = true;
             this.imgBox.UseDrawCursorInfo = true;
+            this.imgBox.UseDrawDebugInfo = true;
             this.imgBox.UseDrawPixelValue = true;
+            this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
             // FormMain

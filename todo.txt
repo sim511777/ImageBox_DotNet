@@ -4,7 +4,8 @@
   ok - .net version에 따라 AggressiveInlining 또는 풀어쓰는 코드로 변경 되도록 구분
   ok - DrawEllipse 추가
   ok - FillEllipse 추가
-  - ImageBox에 적용
+  ok - ImageBox에 적용
+  - ImageBox 기본 표시 Drawing 함수로 대채
   - 고속화 위해 Clipping 처리
 
 - ImageFont 함수 추가
@@ -12,7 +13,7 @@
   - DrawPixelValue 에서 ImageFont 사용
   - 고속화 위해 Clipping 처리
 
-- OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
+ok - OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
 
 - 디버그 정보 표시 추가
   ok - Load된 이미지 버퍼 정표 표시

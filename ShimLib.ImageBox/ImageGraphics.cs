@@ -15,7 +15,7 @@ namespace ShimLib {
             this.g = graphics;
         }
 
-                // ==== GDI 함수 ====
+        // ==== GDI 함수 ====
         public void DrawLine(Pen pen, PointF pt1, PointF pt2) {
             g.DrawLine(pen, ib.ImgToDisp(pt1), ib.ImgToDisp(pt2));
         }

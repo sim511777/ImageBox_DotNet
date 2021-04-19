@@ -12,8 +12,17 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace ShimLib {
+    public delegate void PaintBackbufferEventHandler(object sender, IntPtr buf, int bw, int bh);
+
     [ToolboxBitmap(typeof(ImageBox), "ImageBox.bmp")]
     public partial class ImageBox : Control {
+        // 백버퍼 그리기
+        public event PaintBackbufferEventHandler PaintBackBuffer;
+        protected void OnPaintBackBuffer(IntPtr buf, int bw, int bh) {
+            if (PaintBackBuffer != null)
+                PaintBackBuffer(this, buf, bw, bh);
+        }
+
         public ImageBox() {
             InitializeComponent();
             DoubleBuffered = true;
@@ -231,7 +240,7 @@ namespace ShimLib {
         // 배경컬러 배경이미지 아무것도 안그림
         protected override void OnPaintBackground(PaintEventArgs pevent) { }
 
-        double t_01, t_12, t_23, t_34, t_45, t_56, t_67, t_total;
+        double t_01, t_12, t_23, t_34, t_45, t_56, t_67, t_78, t_total;
         // 페인트
         protected override void OnPaint(PaintEventArgs pe) {
             Graphics g = pe.Graphics;
@@ -250,34 +259,38 @@ namespace ShimLib {
             double zoom = GetZoomFactor();
             CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             var t1 = ImageBoxUtil.GetTimeMs();
+
+            // PaintBackBuffer이벤트 발생
+            OnPaintBackBuffer(dispBuf, dispBw, dispBh); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
+            var t2 = ImageBoxUtil.GetTimeMs();
             
             // 이미지 그리기
             g.DrawImage(dispBmp, 0, 0);
-            var t2 = ImageBoxUtil.GetTimeMs();
+            var t3 = ImageBoxUtil.GetTimeMs();
             
             // 픽셀값 표시
             if (UseDrawPixelValue)
                 DrawPixelValue(ig);
-            var t3 = ImageBoxUtil.GetTimeMs();
+            var t4 = ImageBoxUtil.GetTimeMs();
             
             // 중심선 표시
             if (UseDrawCenterLine)
                 DrawCenterLine(ig);
-            var t4 = ImageBoxUtil.GetTimeMs();
+            var t5 = ImageBoxUtil.GetTimeMs();
 
             // Paint이벤트 발생
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t5 = ImageBoxUtil.GetTimeMs();
+            var t6 = ImageBoxUtil.GetTimeMs();
             
             // 커서 정보 표시
             if (UseDrawCursorInfo)
                 DrawCursorInfo(g, 2, 2);
-            var t6 = ImageBoxUtil.GetTimeMs();
+            var t7 = ImageBoxUtil.GetTimeMs();
 
             // 디비그 정보 표시
             if (UseDrawDebugInfo)
                 DrawDebugInfo(g);
-            var t7 = ImageBoxUtil.GetTimeMs();
+            var t8 = ImageBoxUtil.GetTimeMs();
 
             t_01 = t1 - t0;
             t_12 = t2 - t1;
@@ -286,7 +299,8 @@ namespace ShimLib {
             t_45 = t5 - t4;
             t_56 = t6 - t5;
             t_67 = t7 - t6;
-            t_total = t7 - t0;
+            t_78 = t8 - t7;
+            t_total = t8 - t0;
         }
 
         private void DrawDebugInfo(Graphics g) {
@@ -302,11 +316,13 @@ UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
 
 == Time ==
 CopyImageBufferZoom : {t_01:0.0}ms
-DrawImage : {t_12:0.0}ms
-DrawPixelValue : {t_23:0.0}ms
-DrawCenterLine : {t_34:0.0}ms
-OnPaint : {t_45:0.0}ms
+OnPaintBackBuffer : {t_12:0.0}ms
+DrawImage : {t_23:0.0}ms
+DrawPixelValue : {t_34:0.0}ms
+DrawCenterLine : {t_45:0.0}ms
+OnPaint : {t_56:0.0}ms
 DrawCursorInfo : {t_67:0.0}ms
+DrawDebugInfo : {t_78:0.0}ms
 Total : {t_total:0.0}ms
 ";
             g.FillRectangle(Brushes.White, this.Width - 200, 0, 200, 400);
@@ -426,10 +442,14 @@ Total : {t_total:0.0}ms
             g.DrawString(text, Font, Brushes.White, ofsx, ofsy);
         }
 
-
         // ImageGraphics 리턴
         public ImageGraphics GetImageGraphics(Graphics g) {
             return new ImageGraphics(this, g);
+        }
+
+        // ImageDrawing 리턴
+        public ImageDrawing GetImageDrawing(IntPtr buf, int bw, int bh) {
+            return new ImageDrawing(this, buf, bw, bh);
         }
     }
 }
