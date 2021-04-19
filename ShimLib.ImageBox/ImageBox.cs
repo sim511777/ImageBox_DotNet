@@ -237,9 +237,6 @@ namespace ShimLib {
             base.OnMouseWheel(e);
         }
         
-        // 배경컬러 배경이미지 아무것도 안그림
-        protected override void OnPaintBackground(PaintEventArgs pevent) { }
-
         double t_01, t_12, t_23, t_34, t_45, t_56, t_67, t_78, t_total;
         // 페인트
         protected override void OnPaint(PaintEventArgs pe) {
