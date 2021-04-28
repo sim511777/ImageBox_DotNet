@@ -7,17 +7,18 @@
   ok - ImageBox에 적용
   ok - ImageBox 기본 표시 Drawing 함수로 대채
   ok - OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
-  ok - 고속화 위해 Box Occulusion 처리
+  ok - 고속화 위해 Box Culling 처리
   - 고속화 위해 부분 Clipping 처리
 
 - ImageFont 함수 추가
   ok - 폰트 여러개 choice, int fontWidth로 입력 받음
   ok - DrawPixelValue 에서 ImageFont 사용
-  ok - 고속화 위해 Box Occulusion 처리
+  ok - 고속화 위해 Box Culling 처리
   - Unicode 지원
   - BitmapFont 폰트개수 가변 처리
   - Unicode BitmapFont 생성
-  - Bitmap 용량 줄이기 위해 8비트 이미지, 1비트 이미지 지원
+  ok - Bitmap리소스 용량 줄이기 위해 8비트 이미지 지원
+  - 1비트 이미지 지원
 
 - 디버그 정보 표시 추가
   ok - Load된 이미지 버퍼 정표 표시
