@@ -17,6 +17,7 @@
   - Unicode 지원
   - BitmapFont 폰트개수 가변 처리
   - Unicode BitmapFont 생성
+  - Bitmap 용량 줄이기 위해 8비트 이미지, 1비트 이미지 지원
 
 - 디버그 정보 표시 추가
   ok - Load된 이미지 버퍼 정표 표시

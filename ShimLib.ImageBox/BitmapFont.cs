@@ -15,7 +15,7 @@ namespace ShimLib {
         private int fh;
         private int bytepp;
         public BitmapFont(Bitmap bmp) {
-            ImageBoxUtil.BitmapToImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
+            ImageBoxUtil.BitmapToGrayImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
             fw = fontBw / 32;
             fh = fontBh / 3;
         }
