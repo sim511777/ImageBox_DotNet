@@ -22,7 +22,7 @@ namespace ImageBox_Test {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
             id.DrawLine(Color.Red, 0, 0, 8, 8);
             id.DrawRectangle(Color.Red, 8, 8, 4, 4);
-            //id.DrawString("Hello, World", Font, Brushes.Lime, 12, 12);
+            id.DrawString("Hello, World", BitmapFonts.Ascii_12x27, Color.Lime, 12, 12);
             id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
 
             //for (int i = 0; i < 100; i++) {

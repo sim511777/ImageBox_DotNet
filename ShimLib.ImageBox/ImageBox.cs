@@ -248,8 +248,6 @@ namespace ShimLib {
                 return;
             }
 
-            ImageGraphics ig = this.GetImageGraphics(g);
-
             var t0 = ImageBoxUtil.GetTimeMs();
             
             // 이미지 확대 축소
@@ -257,19 +255,23 @@ namespace ShimLib {
             CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             var t1 = ImageBoxUtil.GetTimeMs();
 
+            var id = new ImageDrawing(this, dispBuf, dispBw, dispBh);
+
+            // 픽셀값 표시
+            if (UseDrawPixelValue)
+                DrawPixelValue(id);
+            var t2 = ImageBoxUtil.GetTimeMs();
+            
             // PaintBackBuffer이벤트 발생
             OnPaintBackBuffer(dispBuf, dispBw, dispBh); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t2 = ImageBoxUtil.GetTimeMs();
+            var t3 = ImageBoxUtil.GetTimeMs();
             
             // 이미지 그리기
             g.DrawImage(dispBmp, 0, 0);
-            var t3 = ImageBoxUtil.GetTimeMs();
-            
-            // 픽셀값 표시
-            if (UseDrawPixelValue)
-                DrawPixelValue(ig);
             var t4 = ImageBoxUtil.GetTimeMs();
             
+            ImageGraphics ig = this.GetImageGraphics(g);
+
             // 중심선 표시
             if (UseDrawCenterLine)
                 DrawCenterLine(ig);
@@ -313,9 +315,9 @@ UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
 
 == Time ==
 CopyImageBufferZoom : {t_01:0.0}ms
-OnPaintBackBuffer : {t_12:0.0}ms
-DrawImage : {t_23:0.0}ms
-DrawPixelValue : {t_34:0.0}ms
+DrawPixelValue : {t_12:0.0}ms
+OnPaintBackBuffer : {t_23:0.0}ms
+DrawImage : {t_34:0.0}ms
 DrawCenterLine : {t_45:0.0}ms
 OnPaint : {t_56:0.0}ms
 DrawCursorInfo : {t_67:0.0}ms
@@ -326,48 +328,50 @@ Total : {t_total:0.0}ms
             g.DrawString(info, Font, Brushes.Black, this.Width - 200, 0);
         }
 
-        // 픽셀값 표시
-        private void DrawPixelValue(ImageGraphics ig) {
+        // 픽셀값 표
+        private void DrawPixelValue(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
             var zoom = GetZoomFactor();
-            if (zoom < 16 || (imgBytepp != 1 && zoom < 48))
+            if (zoom < 16 || (imgBytepp != 1 && zoom < 32))
                 return;
 
-            float fontSize = 0;
+            BitmapFont font;
+            bool multiLine = false;
             if (imgBytepp == 1) {
-                if (zoom <= 17) fontSize = 6;
-                else if (zoom <= 25) fontSize = 8;
-                else fontSize = 10;
+                if (zoom <= 17) font = BitmapFonts.Ascii_05x08;
+                else if (zoom <= 25) font = BitmapFonts.Ascii_06x13;
+                else if (zoom <= 33) font = BitmapFonts.Ascii_08x16;
+                else font = BitmapFonts.Ascii_10x18;
             } else {
-                if (zoom <= 49) fontSize = 6;
-                else if (zoom <= 65) fontSize = 8;
-                else fontSize = 10;
+                multiLine = true;
+                if (zoom <= 33) font = BitmapFonts.Ascii_05x08;
+                else if (zoom <= 49) font = BitmapFonts.Ascii_06x13;
+                else if (zoom <= 65) font = BitmapFonts.Ascii_08x16;
+                else font = BitmapFonts.Ascii_10x18;
             }
 
-            using (var font = new Font("arial", fontSize)) {
-                var ptImgLT = DispToImg(Point.Empty);
-                var ptImgRB = DispToImg((Point)Size);
-                int ix1 = (int)Math.Round(ptImgLT.X);
-                int iy1 = (int)Math.Round(ptImgLT.Y);
-                int ix2 = (int)Math.Round(ptImgRB.X);
-                int iy2 = (int)Math.Round(ptImgRB.Y);
-                ix1 = Math.Max(ix1, 0);
-                iy1 = Math.Max(iy1, 0);
-                ix2 = Math.Min(ix2, imgBw - 1);
-                iy2 = Math.Min(iy2, imgBh - 1);
-                for (int iy = iy1; iy <= iy2; iy++) {
-                    for (int ix = ix1; ix <= ix2; ix++) {
-                        string pixelValueText = GetImagePixelValueText(ix, iy);
-                        int colIdx = GetImagePixelValueColorIndex(ix, iy);
-                        ig.DrawString(pixelValueText, font, pseudo[colIdx], ix - 0.5f, iy - 0.5f);
-                    }
+            var ptImgLT = DispToImg(Point.Empty);
+            var ptImgRB = DispToImg((Point)Size);
+            int ix1 = (int)Math.Round(ptImgLT.X);
+            int iy1 = (int)Math.Round(ptImgLT.Y);
+            int ix2 = (int)Math.Round(ptImgRB.X);
+            int iy2 = (int)Math.Round(ptImgRB.Y);
+            ix1 = Math.Max(ix1, 0);
+            iy1 = Math.Max(iy1, 0);
+            ix2 = Math.Min(ix2, imgBw - 1);
+            iy2 = Math.Min(iy2, imgBh - 1);
+            for (int iy = iy1; iy <= iy2; iy++) {
+                for (int ix = ix1; ix <= ix2; ix++) {
+                    string pixelValueText = GetImagePixelValueText(ix, iy, multiLine);
+                    int colIdx = GetImagePixelValueColorIndex(ix, iy);
+                    id.DrawString(pixelValueText, font, pseudoColor[colIdx], ix - 0.5f, iy - 0.5f);
                 }
             }
         }
 
         // 픽셀 표지 문자열
-        private unsafe string GetImagePixelValueText(int ix, int iy) {
+        private unsafe string GetImagePixelValueText(int ix, int iy, bool multiLine = false) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return string.Empty;
             var ptr = (byte*)imgBuf + ((Int64)imgBw * iy + ix) * imgBytepp;
@@ -380,7 +384,10 @@ Total : {t_total:0.0}ms
                     else
                         return string.Format("{0:f2}", *(double*)ptr);
                 } else {
-                    return string.Format("{0},{1},{2}", ptr[2], ptr[1], ptr[0]);
+                    if (multiLine)
+                        return string.Format("{0}\n{1}\n{2}", ptr[2], ptr[1], ptr[0]);
+                    else
+                        return string.Format("{0},{1},{2}", ptr[2], ptr[1], ptr[0]);
                 }
             }
         }
@@ -405,15 +412,15 @@ Total : {t_total:0.0}ms
         }
 
         // 픽셀값 표시 컬러
-        private static readonly Brush[] pseudo = {
-            Brushes.White,      // 0~31
-            Brushes.Cyan,       // 32~63
-            Brushes.DodgerBlue, // 63~95
-            Brushes.Yellow,     // 96~127
-            Brushes.Brown,      // 128~159
-            Brushes.DarkViolet, // 160~191
-            Brushes.Red    ,    // 192~223
-            Brushes.Black,      // 224~255
+        private static readonly Color[] pseudoColor = {
+            Color.White,      // 0~31
+            Color.Cyan,       // 32~63
+            Color.DodgerBlue, // 63~95
+            Color.Yellow,     // 96~127
+            Color.Brown,      // 128~159
+            Color.DarkViolet, // 160~191
+            Color.Red    ,    // 192~223
+            Color.Black,      // 224~255
         };
 
         // 중심선 표시

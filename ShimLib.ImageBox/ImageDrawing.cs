@@ -107,5 +107,22 @@ namespace ShimLib {
         public void DrawPlus(Color col, float x, float y, float r, bool pixelSize) {
             this.DrawPlus(col, new PointF(x, y), r, pixelSize);
         }
+
+        public void DrawString(string text, BitmapFont font, Color col, PointF pt) {
+            Point ptd = ib.ImgToDisp(pt);
+            DrawStringWnd(text, font, col, ptd);
+        }
+
+        public void DrawString(string text, BitmapFont font, Color col, float x, float y) {
+            DrawString(text, font, col, new PointF(x, y));
+        }
+
+        public void DrawStringWnd(string text, BitmapFont font, Color col, Point ptd) {
+            font.DrawString(text, buf, bw, bh, ptd.X, ptd.Y, col);
+        }
+
+        public void DrawStringWnd(string text, BitmapFont font, Color col, int x, int y) {
+            DrawStringWnd(text, font, col, new Point(x, y));
+        }
     }
 }
