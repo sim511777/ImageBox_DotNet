@@ -30,14 +30,6 @@ namespace ShimLib {
             this.DrawLine(col, new PointF(x1, y1), new PointF(x2, y2));
         }
 
-        //public void DrawString(string s, Font font, Brush brush, PointF pt) {
-        //    g.DrawString(s, font, brush, ib.ImgToDisp(pt));
-        //}
-
-        //public void DrawString(string s, Font font, Brush brush, float x, float y) {
-        //    this.DrawString(s, font, brush, new PointF(x, y));
-        //}
-
         public void DrawEllipse(Color col, RectangleF rect) {
             Rectangle rectd = ib.ImgToDisp(rect);
             int cx = (rectd.Left + rectd.Right) / 2;
@@ -51,6 +43,19 @@ namespace ShimLib {
             this.DrawEllipse(col, new RectangleF(x, y, width, height));
         }
 
+        public void FillEllipse(Color col, RectangleF rect) {
+            Rectangle rectd = ib.ImgToDisp(rect);
+            int cx = (rectd.Left + rectd.Right) / 2;
+            int cy = (rectd.Top + rectd.Bottom) / 2;
+            int rx = rectd.Width / 2;
+            int ry = rectd.Height / 2;
+            Drawing.DrawEllipse(buf, bw, bh, cx, cy, rx, ry, col.ToArgb(), true);
+        }
+
+        public void FillEllipse(Color col, float x, float y, float width, float height) {
+            this.FillEllipse(col, new RectangleF(x, y, width, height));
+        }
+
         public void DrawRectangle(Color col, RectangleF rect) {
             Rectangle rectd = ib.ImgToDisp(rect);
             Drawing.DrawRectangle(buf, bw, bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb(), false);
@@ -58,6 +63,15 @@ namespace ShimLib {
 
         public void DrawRectangle(Color col, float x, float y, float width, float height) {
             this.DrawRectangle(col, new RectangleF(x, y, width, height));
+        }
+
+        public void FillRectangle(Color col, RectangleF rect) {
+            Rectangle rectd = ib.ImgToDisp(rect);
+            Drawing.DrawRectangle(buf, bw, bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb(), true);
+        }
+
+        public void FillRectangle(Color col, float x, float y, float width, float height) {
+            this.FillRectangle(col, new RectangleF(x, y, width, height));
         }
 
         public void DrawCircle(Color col, PointF pt, float size, bool pixelSize) {
@@ -71,6 +85,17 @@ namespace ShimLib {
             this.DrawCircle(col, new PointF(x, y), r, pixelSize);
         }
 
+        public void FillCircle(Color col, PointF pt, float size, bool pixelSize) {
+            Point ptd = ib.ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
+            int half = sized / 2;
+            Drawing.DrawCircle(buf, bw, bh, ptd.X, ptd.Y, half, col.ToArgb(), true);
+        }
+
+        public void FillCircle(Color col, float x, float y, float r, bool pixelSize) {
+            this.FillCircle(col, new PointF(x, y), r, pixelSize);
+        }
+
         public void DrawSquare(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ib.ImgToDisp(pt);
             int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
@@ -80,6 +105,17 @@ namespace ShimLib {
 
         public void DrawSquare(Color col, float x, float y, float r, bool pixelSize) {
             this.DrawSquare(col, new PointF(x, y), r, pixelSize);
+        }
+
+        public void FillSquare(Color col, PointF pt, float size, bool pixelSize) {
+            Point ptd = ib.ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
+            int half = sized / 2;
+            Drawing.DrawRectangle(buf, bw, bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, col.ToArgb(), true);
+        }
+
+        public void FillSquare(Color col, float x, float y, float r, bool pixelSize) {
+            this.FillSquare(col, new PointF(x, y), r, pixelSize);
         }
 
         public void DrawCross(Color col, PointF pt, float size, bool pixelSize) {
@@ -108,21 +144,25 @@ namespace ShimLib {
             this.DrawPlus(col, new PointF(x, y), r, pixelSize);
         }
 
-        public void DrawString(string text, BitmapFont font, Color col, PointF pt) {
+        public void DrawString(string text, BitmapFont font, Color col, PointF pt, Color? backColor = null) {
             Point ptd = ib.ImgToDisp(pt);
-            DrawStringWnd(text, font, col, ptd);
+            DrawStringWnd(text, font, col, ptd, backColor);
         }
 
-        public void DrawString(string text, BitmapFont font, Color col, float x, float y) {
-            DrawString(text, font, col, new PointF(x, y));
+        public void DrawString(string text, BitmapFont font, Color col, float x, float y, Color? backColor = null) {
+            DrawString(text, font, col, new PointF(x, y), backColor);
         }
 
-        public void DrawStringWnd(string text, BitmapFont font, Color col, Point ptd) {
+        public void DrawStringWnd(string text, BitmapFont font, Color col, Point ptd, Color? backColor = null) {
+            if (backColor != null) {
+                var size = font.MeasureString(text);
+                Drawing.DrawRectangle(buf, bw, bh, ptd.X, ptd.Y, ptd.X + size.Width, ptd.Y + size.Height, backColor.Value.ToArgb(), true);
+            }
             font.DrawString(text, buf, bw, bh, ptd.X, ptd.Y, col);
         }
 
-        public void DrawStringWnd(string text, BitmapFont font, Color col, int x, int y) {
-            DrawStringWnd(text, font, col, new Point(x, y));
+        public void DrawStringWnd(string text, BitmapFont font, Color col, int x, int y, Color? backColor = null) {
+            DrawStringWnd(text, font, col, new Point(x, y), backColor);
         }
     }
 }
