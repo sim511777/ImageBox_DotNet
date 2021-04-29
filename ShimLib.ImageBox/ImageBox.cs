@@ -263,48 +263,48 @@ namespace ShimLib {
                 return;
             }
 
-            var t0 = ImageBoxUtil.GetTimeMs();
+            var t0 = Util.GetTimeMs();
             
             // 이미지 확대 축소
             double zoom = GetZoomFactor();
             CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
-            var t1 = ImageBoxUtil.GetTimeMs();
+            var t1 = Util.GetTimeMs();
 
             var id = new ImageDrawing(this, dispBuf, dispBw, dispBh);
 
             // 픽셀값 표시
             if (UseDrawPixelValue)
                 DrawPixelValue(id);
-            var t2 = ImageBoxUtil.GetTimeMs();
+            var t2 = Util.GetTimeMs();
             
             // 중심선 표시
             if (UseDrawCenterLine)
                 DrawCenterLine(id);
-            var t3 = ImageBoxUtil.GetTimeMs();
+            var t3 = Util.GetTimeMs();
 
             // PaintBackBuffer이벤트 발생
             OnPaintBackBuffer(dispBuf, dispBw, dispBh); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t4 = ImageBoxUtil.GetTimeMs();
+            var t4 = Util.GetTimeMs();
             
             // 이미지 그리기
             g.DrawImage(dispBmp, 0, 0);
-            var t5 = ImageBoxUtil.GetTimeMs();
+            var t5 = Util.GetTimeMs();
             
             ImageGraphics ig = this.GetImageGraphics(g);
 
             // Paint이벤트 발생
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t6 = ImageBoxUtil.GetTimeMs();
+            var t6 = Util.GetTimeMs();
             
             // 커서 정보 표시
             if (UseDrawCursorInfo)
                 DrawCursorInfo(g, 2, 2);
-            var t7 = ImageBoxUtil.GetTimeMs();
+            var t7 = Util.GetTimeMs();
 
             // 디비그 정보 표시
             if (UseDrawDebugInfo)
                 DrawDebugInfo(g);
-            var t8 = ImageBoxUtil.GetTimeMs();
+            var t8 = Util.GetTimeMs();
 
             t_01 = t1 - t0;
             t_12 = t2 - t1;

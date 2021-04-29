@@ -194,8 +194,8 @@ namespace ShimLib {
         }
 
         public static unsafe void DrawRectangle(IntPtr buf, int bw, int bh, int x1, int y1, int x2, int y2, int iCol, bool fill) {
-            if (x1 > x2) ImageBoxUtil.Swap(ref x1, ref x2);
-            if (y1 > y2) ImageBoxUtil.Swap(ref y1, ref y2);
+            if (x1 > x2) Util.Swap(ref x1, ref x2);
+            if (y1 > y2) Util.Swap(ref y1, ref y2);
             if (x1 >= bw || x2 < 0 || y1 >= bh || y2 < 0)
                 return;
 
@@ -248,7 +248,7 @@ namespace ShimLib {
             for (int dy = dy1, sy = sy1; dy < dy2; dy++, sy++) {
                 int* dptr = (int*)buf + bw * dy + dx1;
                 int* sptr = (int*)sbuf + sw * sy + sx1;
-                ImageBoxUtil.Memcpy((IntPtr)dptr, (IntPtr)sptr, copyw * 4);
+                Util.Memcpy((IntPtr)dptr, (IntPtr)sptr, copyw * 4);
             }
         }
     }

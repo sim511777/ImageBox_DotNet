@@ -44,13 +44,13 @@ namespace ShimLib {
         }
 
         public BitmapFont(Bitmap bmp) {
-            ImageBoxUtil.BitmapToGrayImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
+            Util.BitmapToGrayImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
             fw = fontBw / 32;
             fh = fontBh / 3;
         }
         
         ~BitmapFont() {
-            ImageBoxUtil.FreeBuffer(ref fontBuf);
+            Util.FreeBuffer(ref fontBuf);
         }
 
         public void DrawString(string text, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, Color color) {
