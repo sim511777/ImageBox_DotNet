@@ -83,14 +83,14 @@ namespace ShimLib {
 
         public void FromImageBox(ImageBox pbx) {
             this.UseDrawPixelValue = pbx.UseDrawPixelValue;
-            this.UseDrawCursorInfo = pbx.UseDrawCursorInfo;
+            this.UseDrawCenterLine = pbx.UseDrawCenterLine;
             this.UseDrawCursorInfo = pbx.UseDrawCursorInfo;
             this.UseDrawDebugInfo = pbx.UseDrawDebugInfo;
         }
 
         public void ToImageBox(ImageBox pbx) {
             pbx.UseDrawPixelValue = this.UseDrawPixelValue;
-            pbx.UseDrawCursorInfo = this.UseDrawCursorInfo;
+            pbx.UseDrawCenterLine = this.UseDrawCenterLine;
             pbx.UseDrawCursorInfo = this.UseDrawCursorInfo;
             pbx.UseDrawDebugInfo = this.UseDrawDebugInfo;
         }

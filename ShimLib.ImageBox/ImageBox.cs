@@ -277,20 +277,20 @@ namespace ShimLib {
                 DrawPixelValue(id);
             var t2 = ImageBoxUtil.GetTimeMs();
             
+            // 중심선 표시
+            if (UseDrawCenterLine)
+                DrawCenterLine(id);
+            var t3 = ImageBoxUtil.GetTimeMs();
+
             // PaintBackBuffer이벤트 발생
             OnPaintBackBuffer(dispBuf, dispBw, dispBh); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t3 = ImageBoxUtil.GetTimeMs();
+            var t4 = ImageBoxUtil.GetTimeMs();
             
             // 이미지 그리기
             g.DrawImage(dispBmp, 0, 0);
-            var t4 = ImageBoxUtil.GetTimeMs();
+            var t5 = ImageBoxUtil.GetTimeMs();
             
             ImageGraphics ig = this.GetImageGraphics(g);
-
-            // 중심선 표시
-            if (UseDrawCenterLine)
-                DrawCenterLine(ig);
-            var t5 = ImageBoxUtil.GetTimeMs();
 
             // Paint이벤트 발생
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
@@ -331,9 +331,9 @@ UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
 == Time ==
 CopyImageBufferZoom : {t_01:0.0}ms
 DrawPixelValue : {t_12:0.0}ms
-OnPaintBackBuffer : {t_23:0.0}ms
-DrawImage : {t_34:0.0}ms
-DrawCenterLine : {t_45:0.0}ms
+DrawCenterLine : {t_23:0.0}ms
+OnPaintBackBuffer : {t_34:0.0}ms
+DrawImage : {t_45:0.0}ms
 OnPaint : {t_56:0.0}ms
 DrawCursorInfo : {t_67:0.0}ms
 DrawDebugInfo : {t_78:0.0}ms
@@ -439,14 +439,11 @@ Total : {t_total:0.0}ms
         };
 
         // 중심선 표시
-        private void DrawCenterLine(ImageGraphics ig) {
+        private void DrawCenterLine(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
-            using (var pen = new Pen(Color.Yellow)) {
-                pen.DashStyle = DashStyle.Dot;
-                ig.DrawLine(pen, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
-                ig.DrawLine(pen, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
-            }
+            id.DrawLine(Color.Yellow, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
+            id.DrawLine(Color.Yellow, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
         }
 
         // 커서 정보 표시
