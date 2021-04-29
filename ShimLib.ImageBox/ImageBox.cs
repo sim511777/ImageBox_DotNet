@@ -179,6 +179,21 @@ namespace ShimLib {
             return new PointF(imgX, imgY);
         }
 
+        protected override void OnMouseDoubleClick(MouseEventArgs e) {
+            if (ModifierKeys.HasFlag(Keys.Control) && e.Button == MouseButtons.Left) {
+                ShowAbout();
+            } else {
+                base.OnDoubleClick(e);
+            }
+        }
+
+        private void ShowAbout() {
+            var frmAbout = new FormAbout(this);
+            frmAbout.ShowDialog(this);
+        }
+
+
+
         // 리사이즈
         protected override void OnLayout(LayoutEventArgs levent) {
             if (dispBmp != null) {
