@@ -328,7 +328,7 @@ Total : {t_total:0.0}ms
             g.DrawString(info, Font, Brushes.Black, this.Width - 200, 0);
         }
 
-        // 픽셀값 표
+        // 픽셀값 표시
         private void DrawPixelValue(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;

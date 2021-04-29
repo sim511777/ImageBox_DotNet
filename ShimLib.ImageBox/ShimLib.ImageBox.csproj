@@ -57,8 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapFonts.cs" />
-    <Compile Include="Drawing.cs" />
     <Compile Include="BitmapFont.cs" />
     <Compile Include="ImaegBoxUtil.cs" />
     <Compile Include="ImageBox.cs">
