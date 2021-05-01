@@ -1,4 +1,8 @@
 [todo]
+- ImageBox
+  - 1비트 버퍼 표시 지원
+  - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것
+
 - Drawing 함수 추가
   ok - AggressiveInlining Attribute
   ok - .net version에 따라 AggressiveInlining 또는 풀어쓰는 코드로 변경 되도록 구분
@@ -14,29 +18,27 @@
   ok - 폰트 여러개 choice, int fontWidth로 입력 받음
   ok - DrawPixelValue 에서 ImageFont 사용
   ok - 고속화 위해 Box Culling 처리
-  - Unicode 지원
-  - BitmapFont 폰트개수 가변 처리
-  - Unicode BitmapFont 생성
-  ok - Bitmap리소스 용량 줄이기 위해 8비트 이미지 지원
-  - 1비트 이미지 지원
+  ok - Unicode 지원
+  ok - BitmapFont 폰트개수 가변 처리
+  ok - Unicode BitmapFont 생성
+  ok - Bitmap리소스 용량 줄이기 위해 8비트 폰트버퍼 8비트로 변환
+  - 가변폰트 표시 기능, Unifont에서 Ascii 폰트 폭이 너무 넓음
+  - 유니코드 폰트 버퍼 용량 크므로 1비트 버퍼 지원
 
 - 디버그 정보 표시 추가
   ok - Load된 이미지 버퍼 정표 표시
   ok - 설정값들 표시
   ok - 전체 Time
   ok - 부분 Time
-  - double buffering시 내부적으로 소요되는 시간도 계측하여 표시
+  no - double buffering시 내부적으로 소요되는 시간도 계측하여 표시 : 이건 Application 에서 구현 되어야 함
 
 - 설정창 추가
-  - 버퍼 클립보드 copy 기능
   ok - 중심선 표시 여부
   ok - 픽셀값 표시 여부
   ok - 커서 픽셀 정보 표시 여부
   ok - 디비그 정보 표시 여부
+  - 버퍼 클립보드 copy 기능
 
 - ToolBox 아이콘
   ok - ToolBox 아이콘 추가
   - ToolBox 아이콘 표준리소스 처리
-
-- 1bit 이미지 버퍼로딩할때 8bit로 변환하지 않고 raw 데이터 그대로 로딩하여 화면에 표시
-- 1bit 이미지 8bit로 변환할때 비트 연산자만 사용
