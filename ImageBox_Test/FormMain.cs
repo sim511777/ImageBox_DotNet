@@ -15,8 +15,10 @@ namespace ImageBox_Test {
     public partial class FormMain : Form {
         public FormMain() {
             InitializeComponent();
+            var fonts = typeof(BitmapFonts).GetFields().Select(fi => Tuple.Create(fi.Name, fi.GetValue(null))).ToArray();
+            cbxFont.DataSource = fonts;
+            cbxFont.SelectedIndex = 14;
         }
-
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
@@ -24,8 +26,7 @@ namespace ImageBox_Test {
             id.DrawRectangle(Color.Red, 8, 8, 4, 4);
             id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
 
-            var text = "Hello(안녕),\nWorlld(세상)";
-            id.DrawString(text, BitmapFonts.Ascii_12x27, Color.Lime, 12, 12);
+            id.DrawString(tbxExample.Text, (BitmapFont)cbxFont.SelectedValue, Color.Lime, 12, 12);
 
             //for (int i = 0; i < 100; i++) {
             //    for (int j = 0; j < 100; j++) {
@@ -100,6 +101,14 @@ namespace ImageBox_Test {
                 return;
             Bitmap bmp = new Bitmap(dlgOpen.FileName);
             SetImage(bmp);
+        }
+
+        private void tbxExample_TextChanged(object sender, EventArgs e) {
+            imgBox.Invalidate();
+        }
+
+        private void cbxFont_SelectedIndexChanged(object sender, EventArgs e) {
+            imgBox.Invalidate();
         }
     }
 }

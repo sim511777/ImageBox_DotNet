@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tbxExample = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -32,11 +33,14 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
+            this.cbxFont = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbxFont);
+            this.panel1.Controls.Add(this.tbxExample);
             this.panel1.Controls.Add(this.btnOpen);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
@@ -44,16 +48,26 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnResetZoom);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(721, 0);
+            this.panel1.Location = new System.Drawing.Point(709, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(166, 568);
+            this.panel1.Size = new System.Drawing.Size(178, 568);
             this.panel1.TabIndex = 1;
+            // 
+            // tbxExample
+            // 
+            this.tbxExample.Location = new System.Drawing.Point(6, 202);
+            this.tbxExample.Multiline = true;
+            this.tbxExample.Name = "tbxExample";
+            this.tbxExample.Size = new System.Drawing.Size(164, 123);
+            this.tbxExample.TabIndex = 7;
+            this.tbxExample.Text = "Hello(안녕),\r\nWorlld(세상)";
+            this.tbxExample.TextChanged += new System.EventHandler(this.tbxExample_TextChanged);
             // 
             // btnOpen
             // 
             this.btnOpen.Location = new System.Drawing.Point(6, 41);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(88, 23);
+            this.btnOpen.Size = new System.Drawing.Size(164, 23);
             this.btnOpen.TabIndex = 6;
             this.btnOpen.Text = "Open...";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -63,7 +77,7 @@
             // 
             this.button4.Location = new System.Drawing.Point(6, 173);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(88, 23);
+            this.button4.Size = new System.Drawing.Size(164, 23);
             this.button4.TabIndex = 5;
             this.button4.Text = "Chess";
             this.button4.UseVisualStyleBackColor = true;
@@ -73,7 +87,7 @@
             // 
             this.button3.Location = new System.Drawing.Point(6, 144);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(88, 23);
+            this.button3.Size = new System.Drawing.Size(164, 23);
             this.button3.TabIndex = 4;
             this.button3.Text = "Lenna_32";
             this.button3.UseVisualStyleBackColor = true;
@@ -83,7 +97,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(6, 115);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(88, 23);
+            this.button2.Size = new System.Drawing.Size(164, 23);
             this.button2.TabIndex = 3;
             this.button2.Text = "Lenna_24";
             this.button2.UseVisualStyleBackColor = true;
@@ -93,7 +107,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(6, 86);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 23);
+            this.button1.Size = new System.Drawing.Size(164, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Lenna_8";
             this.button1.UseVisualStyleBackColor = true;
@@ -103,7 +117,7 @@
             // 
             this.btnResetZoom.Location = new System.Drawing.Point(6, 12);
             this.btnResetZoom.Name = "btnResetZoom";
-            this.btnResetZoom.Size = new System.Drawing.Size(88, 23);
+            this.btnResetZoom.Size = new System.Drawing.Size(164, 23);
             this.btnResetZoom.TabIndex = 1;
             this.btnResetZoom.Text = "Reset Zoom";
             this.btnResetZoom.UseVisualStyleBackColor = true;
@@ -120,7 +134,7 @@
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            this.imgBox.Size = new System.Drawing.Size(721, 568);
+            this.imgBox.Size = new System.Drawing.Size(709, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
             this.imgBox.UseDrawCenterLine = true;
@@ -129,6 +143,18 @@
             this.imgBox.UseDrawPixelValue = true;
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
+            // 
+            // cbxFont
+            // 
+            this.cbxFont.DisplayMember = "Item1";
+            this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFont.FormattingEnabled = true;
+            this.cbxFont.Location = new System.Drawing.Point(6, 331);
+            this.cbxFont.Name = "cbxFont";
+            this.cbxFont.Size = new System.Drawing.Size(160, 20);
+            this.cbxFont.TabIndex = 9;
+            this.cbxFont.ValueMember = "Item2";
+            this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
             // 
             // FormMain
             // 
@@ -140,6 +166,7 @@
             this.Name = "FormMain";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -155,6 +182,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.OpenFileDialog dlgOpen;
+        private System.Windows.Forms.TextBox tbxExample;
+        private System.Windows.Forms.ComboBox cbxFont;
     }
 }
 
