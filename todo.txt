@@ -22,7 +22,8 @@
   ok - BitmapFont 폰트개수 가변 처리
   ok - Unicode BitmapFont 생성
   ok - Bitmap리소스 용량 줄이기 위해 8비트 폰트버퍼 8비트로 변환
-  - 가변폰트 표시 기능, Unifont에서 Ascii 폰트 폭이 너무 넓음
+  ok - Unifont에서 Ascii 폰트 절반으로 표시
+  - 가변폰트 표시 기능
   - 유니코드 폰트 버퍼 용량 크므로 1비트 버퍼 지원
 
 - 디버그 정보 표시 추가

@@ -411,5 +411,9 @@ namespace ShimLib {
         public void DrawStringWnd(string text, BitmapFont font, Color col, int x, int y, Color? backColor = null) {
             DrawStringWnd(text, font, col, new Point(x, y), backColor);
         }
+
+        public Size MeasureString(string text, BitmapFont font) {
+            return font.MeasureString(text);
+        }
     }
 }

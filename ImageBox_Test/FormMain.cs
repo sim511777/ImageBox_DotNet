@@ -26,7 +26,12 @@ namespace ImageBox_Test {
             id.DrawRectangle(Color.Red, 8, 8, 4, 4);
             id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
 
-            id.DrawString(tbxExample.Text, (BitmapFont)cbxFont.SelectedValue, Color.Lime, 50, 50);
+            var text = tbxExample.Text;
+            var font = (BitmapFont)cbxFont.SelectedValue;
+            id.DrawString(text, font, Color.Blue, 50, 50);
+            id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
+
+
 
             //for (int i = 0; i < 100; i++) {
             //    for (int j = 0; j < 100; j++) {

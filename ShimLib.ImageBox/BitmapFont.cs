@@ -26,7 +26,7 @@ namespace ShimLib {
         public static BitmapFont Ascii_12x27 = new BitmapFont(Resource.Raster_12x27, 12, 27, 0, 0, 32);
         public static BitmapFont Ascii_16x08 = new BitmapFont(Resource.Raster_16x08, 16, 08, 0, 0, 32);
         public static BitmapFont Ascii_16x12 = new BitmapFont(Resource.Raster_16x12, 16, 12, 0, 0, 32);
-        public static BitmapFont Unicode_16x12 = new BitmapFont(Resource.Unifont_16x16, 16, 16, 32, 64, 0);
+        public static BitmapFont Unicode_16x16 = new BitmapFont(Resource.Unifont_16x16, 16, 16, 32, 64, 0, true);
     }
 
     public class BitmapFont {
@@ -42,9 +42,9 @@ namespace ShimLib {
         private int ny;
         private ushort charSI;
         private ushort charEI;
+        private bool asciiHalfWidth;
 
-
-        public BitmapFont(Bitmap bmp, int fw, int fh, int bufSx, int bufSy, ushort charSI) {
+        public BitmapFont(Bitmap bmp, int fw, int fh, int bufSx, int bufSy, ushort charSI, bool asciiHalfWidth = false) {
             int bytepp = 0;
             Util.BitmapToGrayImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
             this.fw = fw;
@@ -60,6 +60,8 @@ namespace ShimLib {
             this.ny = useBh / fh;
 
             charEI = (ushort)(charSI + nx * ny - 1);
+
+            this.asciiHalfWidth = asciiHalfWidth;
         }
         
         ~BitmapFont() {
@@ -79,13 +81,15 @@ namespace ShimLib {
                     y += fh;
                     continue;
                 }
+                
+                bool halfSize = (ch >= 0 && ch <= 127 && asciiHalfWidth);
                 if (ch >= charSI && ch <= charEI) {
                     int fontIdx = ch - charSI;
                     int fontImgY = fontIdx / nx * fh + bufSy;
                     int fontImgX = fontIdx % nx * fw + bufSx;
-                    DrawChar(fontImgX, fontImgY, dispBuf, dispBW, dispBH, x, y, icolor);
+                    DrawChar(fontImgX, fontImgY, dispBuf, dispBW, dispBH, x, y, icolor, halfSize);
                 }
-                x += fw;
+                x += halfSize ? fw / 2 : fw;
             }
         }
 
@@ -103,18 +107,21 @@ namespace ShimLib {
                     y += fh;
                     continue;
                 }
-                maxX = Math.Max(maxX, x + fw);
+                bool halfSize = (ch >= 0 && ch <= 127 && asciiHalfWidth);
+                int _fw = halfSize ? fw / 2 : fw;
+                maxX = Math.Max(maxX, x + _fw);
                 maxY = Math.Max(maxY, y + fh);
-                x += fw;
+                x += _fw;
             }
 
             return new Size(maxX, maxY);
         }
 
-        private unsafe void DrawChar(int fontImgX, int fontImgY, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, int icolor) {
+        private unsafe void DrawChar(int fontImgX, int fontImgY, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, int icolor, bool halfSize) {
+            int _fw = halfSize ? fw / 2 : fw;
             int x1 = dx;
             int y1 = dy;
-            int x2 = dx + fw - 1;
+            int x2 = dx + _fw - 1;
             int y2 = dy + fh - 1;
             if (x1 >= dispBW || x2 < 0 || y1 >= dispBH || y2 < 0)
                 return;
@@ -124,7 +131,7 @@ namespace ShimLib {
                     continue;
                 int* dst = (int*)dispBuf + dispBW * (dy + y) + dx;
                 byte* src = (byte*)fontBuf + fontBw * (fontImgY + y) + fontImgX;
-                for (int x = 0; x < fw; x++, src++, dst++) {
+                for (int x = 0; x < _fw; x++, src++, dst++) {
                     if (dx + x < 0 || dx + x >= dispBW)
                         continue;
                     if (*src == 0) {
