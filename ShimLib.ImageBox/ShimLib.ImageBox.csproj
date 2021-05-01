@@ -93,7 +93,9 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Unifont_16x16.bmp" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_04x06.bmp" />
   </ItemGroup>
