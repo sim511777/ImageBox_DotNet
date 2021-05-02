@@ -104,8 +104,9 @@ namespace ImageBox_Test {
         private void btnOpen_Click(object sender, EventArgs e) {
             if (dlgOpen.ShowDialog() != DialogResult.OK)
                 return;
-            Bitmap bmp = new Bitmap(dlgOpen.FileName);
-            SetImage(bmp);
+            using (Bitmap bmp = new Bitmap(dlgOpen.FileName)) {
+                SetImage(bmp);
+            }
         }
 
         private void tbxExample_TextChanged(object sender, EventArgs e) {
