@@ -92,10 +92,7 @@ namespace ShimLib {
         private int imgBytepp = 0;
         private bool isImgbufFloat = false;
 
-        // 디스플레이 버퍼 정보
-        private IntPtr dispBuf = IntPtr.Zero;
-        private int dispBw = 0;
-        private int dispBh = 0;
+        // 디스플레이 버퍼
         private Bitmap dispBmp = null;
 
         // 패닝 옵셋(픽셀)
@@ -196,14 +193,10 @@ namespace ShimLib {
 
         // 리사이즈
         protected override void OnLayout(LayoutEventArgs levent) {
-            if (dispBmp != null) {
+            if (dispBmp != null)
                 dispBmp.Dispose();
-                Marshal.FreeHGlobal(dispBuf);
-            }
-            dispBw = Math.Max(Width, 64);
-            dispBh = Math.Max(Height, 64);
-            dispBuf = Marshal.AllocHGlobal(dispBw * 4 * dispBh);
-            dispBmp = new Bitmap(dispBw, dispBh, dispBw * 4, PixelFormat.Format32bppPArgb, dispBuf);
+
+            dispBmp = new Bitmap(Math.Max(Width, 64), Math.Max(Height, 64), PixelFormat.Format32bppPArgb);
             Invalidate();
             base.OnLayout(levent);
         }
@@ -264,13 +257,15 @@ namespace ShimLib {
             }
 
             var t0 = Util.GetTimeMs();
+
+            var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
             
             // 이미지 확대 축소
             double zoom = GetZoomFactor();
-            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
+            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
             var t1 = Util.GetTimeMs();
 
-            var id = new ImageDrawing(this, dispBuf, dispBw, dispBh);
+            var id = new ImageDrawing(this, bmpData.Scan0, bmpData.Width, bmpData.Height);
 
             // 픽셀값 표시
             if (UseDrawPixelValue)
@@ -283,8 +278,10 @@ namespace ShimLib {
             var t3 = Util.GetTimeMs();
 
             // PaintBackBuffer이벤트 발생
-            OnPaintBackBuffer(dispBuf, dispBw, dispBh); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
+            OnPaintBackBuffer(bmpData.Scan0, bmpData.Width, bmpData.Height); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             var t4 = Util.GetTimeMs();
+
+            dispBmp.UnlockBits(bmpData);
             
             // 이미지 그리기
             g.DrawImage(dispBmp, 0, 0);
