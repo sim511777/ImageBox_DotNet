@@ -1,7 +1,9 @@
 [todo]
 - ImageBox
   - 1비트 버퍼 표시 지원
+  - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리, palette 관리
   - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것
+  - float 타입, 밝기 Range : 0~1로 하고 원복을 변환 할지, 아니면 Range를 지정하게 할지
 
 - Drawing 함수 추가
   ok - AggressiveInlining Attribute
@@ -12,6 +14,7 @@
   ok - ImageBox 기본 표시 Drawing 함수로 대채
   ok - OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
   ok - 고속화 위해 Box Culling 처리
+  - DrawLine 끝점 찍지 않기
   - 고속화 위해 부분 Clipping 처리
 
 - ImageFont 함수 추가
@@ -23,23 +26,28 @@
   ok - Unicode BitmapFont 생성
   ok - Bitmap리소스 용량 줄이기 위해 8비트 폰트버퍼 8비트로 변환
   ok - Unifont에서 Ascii 폰트 절반으로 표시
-  - 가변폰트 표시 기능
   - 유니코드 폰트 버퍼 용량 크므로 1비트 버퍼 지원
+  - 가변폰트 표시 기능(BDF, PCF 폰트), UniFont BDF,PCF 파일 지원
+  - UniFont 한글폰트 이쁜걸로 바꿀것
 
 - 디버그 정보 표시 추가
   ok - Load된 이미지 버퍼 정표 표시
   ok - 설정값들 표시
   ok - 전체 Time
   ok - 부분 Time
-  no - double buffering시 내부적으로 소요되는 시간도 계측하여 표시 : 이건 Application 에서 구현 되어야 함
+  - double buffering시 내부적으로 소요되는 시간도 계측하여 표시
 
 - 설정창 추가
   ok - 중심선 표시 여부
   ok - 픽셀값 표시 여부
   ok - 커서 픽셀 정보 표시 여부
   ok - 디비그 정보 표시 여부
-  - 버퍼 클립보드 copy 기능
+  - 클립보드로 copy 기능, API로 구현
 
 - ToolBox 아이콘
   ok - ToolBox 아이콘 추가
   - ToolBox 아이콘 표준리소스 처리
+
+- Test Application
+  - Drag & Drop 기능 구현
+  - 클립보드로 부터 Paste 기능 구현
