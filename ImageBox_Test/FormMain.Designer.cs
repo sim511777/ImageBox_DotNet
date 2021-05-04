@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbxFont = new System.Windows.Forms.ComboBox();
             this.tbxExample = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -33,12 +34,13 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.cbxFont = new System.Windows.Forms.ComboBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.cbxFont);
             this.panel1.Controls.Add(this.tbxExample);
             this.panel1.Controls.Add(this.btnOpen);
@@ -53,9 +55,21 @@
             this.panel1.Size = new System.Drawing.Size(178, 568);
             this.panel1.TabIndex = 1;
             // 
+            // cbxFont
+            // 
+            this.cbxFont.DisplayMember = "Item1";
+            this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxFont.FormattingEnabled = true;
+            this.cbxFont.Location = new System.Drawing.Point(6, 388);
+            this.cbxFont.Name = "cbxFont";
+            this.cbxFont.Size = new System.Drawing.Size(164, 20);
+            this.cbxFont.TabIndex = 9;
+            this.cbxFont.ValueMember = "Item2";
+            this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
+            // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 202);
+            this.tbxExample.Location = new System.Drawing.Point(6, 259);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(164, 123);
@@ -144,17 +158,15 @@
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
-            // cbxFont
+            // button5
             // 
-            this.cbxFont.DisplayMember = "Item1";
-            this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 331);
-            this.cbxFont.Name = "cbxFont";
-            this.cbxFont.Size = new System.Drawing.Size(160, 20);
-            this.cbxFont.TabIndex = 9;
-            this.cbxFont.ValueMember = "Item2";
-            this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
+            this.button5.Location = new System.Drawing.Point(6, 202);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(164, 23);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "Lenna_8 to float";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // FormMain
             // 
@@ -184,6 +196,7 @@
         private System.Windows.Forms.OpenFileDialog dlgOpen;
         private System.Windows.Forms.TextBox tbxExample;
         private System.Windows.Forms.ComboBox cbxFont;
+        private System.Windows.Forms.Button button5;
     }
 }
 

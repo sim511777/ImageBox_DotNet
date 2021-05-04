@@ -5,7 +5,7 @@
   - 1비트 버퍼 표시 지원
   - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리, palette 관리
   no - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것 : 성능차이 미세, 구현 번거러움
-  - float 타입, 밝기 Range : 0~1로 하고 원복을 변환 할지, 아니면 Range를 지정하게 할지
+  ok - float 타입 밝기값 Range를 속성에서 지정하게 함
 
 - Drawing 함수 추가
   ok - AggressiveInlining Attribute

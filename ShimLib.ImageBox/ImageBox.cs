@@ -30,7 +30,7 @@ namespace ShimLib {
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        private static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor) {
+        private static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax) {
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];
@@ -42,6 +42,9 @@ namespace ShimLib {
                 int six = (int)Math.Floor((x - panx) / zoom);
                 sixs[x] = (imgBuf == IntPtr.Zero || six < 0 || six >= imgBw) ? -1 : six;
             }
+
+            float floatScale = (float)(255 / floatValueMax);
+            double doubleScale = 255 / floatValueMax;
 
             for (int y = 0; y < dispBh; y++) {
                 int siy = siys[y];
@@ -55,10 +58,10 @@ namespace ShimLib {
                         byte* sp = &sptr[six * bytepp];
                         if (bufIsFloat) {
                             if (bytepp == 4) {          // 4byte float gray
-                                int v = (int)*(float*)sp;
+                                int v = (int)(*(float*)sp * floatScale);
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             } else if (bytepp == 8) {   // 8byte double gray
-                                int v = (int)*(double*)sp;
+                                int v = (int)(*(double*)sp * doubleScale);
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             }
                         } else {
@@ -84,6 +87,7 @@ namespace ShimLib {
         public bool UseDrawCenterLine { get; set; } = true;
         public bool UseDrawCursorInfo { get; set; } = true;
         public bool UseDrawDebugInfo { get; set; } = false;
+        public double FloatValueMax {  get; set; } = 1.0;
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
@@ -262,7 +266,7 @@ namespace ShimLib {
             
             // 이미지 확대 축소
             double zoom = GetZoomFactor();
-            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb());
+            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), FloatValueMax);
             var t1 = Util.GetTimeMs();
 
             var id = new ImageDrawing(this, bmpData.Scan0, bmpData.Width, bmpData.Height);
@@ -392,9 +396,9 @@ Total : {t_total:0.0}ms
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
-                        return string.Format("{0:f2}",*(float*)ptr);
+                        return string.Format("{0:.000}",*(float*)ptr);
                     else
-                        return string.Format("{0:f2}", *(double*)ptr);
+                        return string.Format("{0:.000}", *(double*)ptr);
                 } else {
                     if (multiLine)
                         return string.Format("{0}\n{1}\n{2}", ptr[2], ptr[1], ptr[0]);
@@ -414,9 +418,9 @@ Total : {t_total:0.0}ms
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
-                        return Math.Min(Math.Max((int)*(float*)ptr, 0), 255) / 32;
+                        return Math.Min(Math.Max((int)(*(float*)ptr * 255 / FloatValueMax), 0), 255) / 32;
                     else
-                        return Math.Min(Math.Max((int)*(double*)ptr, 0), 255) / 32;
+                        return Math.Min(Math.Max((int)((*(double*)ptr * 255 / FloatValueMax)), 0), 255) / 32;
                 } else {
                     return (ptr[2] + ptr[1] + ptr[0]) / 96;
                 }

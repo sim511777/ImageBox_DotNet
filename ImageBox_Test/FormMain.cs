@@ -85,6 +85,29 @@ namespace ImageBox_Test {
             imgBox.Invalidate();
         }
 
+        private void SetImage_toFloat(Bitmap bmp) {
+            Util.FreeBuffer(ref imgBuf);
+            Util.BitmapToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
+
+            // byte -> float
+            unsafe {
+                var bufOld = imgBuf;
+                imgBuf = Marshal.AllocHGlobal(bw * bh * 4);
+                for (int y = 0; y < bh; y++) {
+                    var pbyte = (byte*)bufOld + y * bw;
+                    var pfloat = (float*)imgBuf + y * bw;
+                    for (int x = 0; x < bw; x++, pbyte++, pfloat++) {
+                        *pfloat = (float)*pbyte / 255;
+                    }
+                }
+                Marshal.FreeHGlobal(bufOld);
+            }
+
+            bytepp = 4;
+            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, true);
+            imgBox.Invalidate();
+        }
+
         private void button1_Click(object sender, EventArgs e) {
             SetImage(Resources.Lenna_8);
         }
@@ -99,6 +122,10 @@ namespace ImageBox_Test {
 
         private void button4_Click(object sender, EventArgs e) {
             SetImage(Resources.Chess);
+        }
+
+        private void button5_Click(object sender, EventArgs e) {
+            SetImage_toFloat(Resources.Lenna_8);
         }
 
         private void btnOpen_Click(object sender, EventArgs e) {
