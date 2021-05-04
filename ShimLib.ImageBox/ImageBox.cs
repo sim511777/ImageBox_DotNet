@@ -83,7 +83,7 @@ namespace ShimLib {
         public bool UseDrawPixelValue { get; set; } = true;
         public bool UseDrawCenterLine { get; set; } = true;
         public bool UseDrawCursorInfo { get; set; } = true;
-        public bool UseDrawDebugInfo { get; set; } = true;
+        public bool UseDrawDebugInfo { get; set; } = false;
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
