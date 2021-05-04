@@ -70,6 +70,9 @@
     <Compile Include="ImageBox.Designer.cs">
       <DependentUpon>ImageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageBox.Util.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ImageDrawing.cs" />
     <Compile Include="ImageGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
