@@ -231,12 +231,44 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
+        ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
+        ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
+        ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555
+        ///0003:AAAA00018000000180007BA5C1247919C1247925800000018000000180005555
+        ///0004:AAAA000180000001800079BFC2487A49C2487989800000018000000180005555
+        ///0005:AAAA00018000000180007A4DC2527B53C2D67A4F800000018000000180005555
+        ///0006:AAAA000180000001800031A5CA287A31CA2849A5800000018000000180005555
+        ///0007:AAAA0001800000018[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string unifont_13_0_06 {
+            get {
+                return ResourceManager.GetString("unifont_13_0_06", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
         internal static System.Drawing.Bitmap Unifont_16x16 {
             get {
                 object obj = ResourceManager.GetObject("Unifont_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
+        ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
+        ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555
+        ///0003:AAAA00018000000180007BA5C1247919C1247925800000018000000180005555
+        ///0004:AAAA000180000001800079BFC2487A49C2487989800000018000000180005555
+        ///0005:AAAA00018000000180007A4DC2527B53C2D67A4F800000018000000180005555
+        ///0006:AAAA000180000001800031A5CA287A31CA2849A5800000018000000180005555
+        ///0007:AAAA0001800000018[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string unifont_sample_13_0_06 {
+            get {
+                return ResourceManager.GetString("unifont_sample_13_0_06", resourceCulture);
             }
         }
     }

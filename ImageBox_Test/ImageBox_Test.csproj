@@ -90,6 +90,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\unifont-13.0.06.hex" />
+    <None Include="Resources\unifont_sample-13.0.06.hex" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Lenna_8.bmp" />

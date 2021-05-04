@@ -94,7 +94,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\unifont-13.0.06.hex" />
     <None Include="Resources\Unifont_16x16.bmp" />
+    <None Include="Resources\unifont_sample-13.0.06.hex" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_04x06.bmp" />

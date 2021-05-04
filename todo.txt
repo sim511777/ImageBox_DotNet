@@ -3,9 +3,10 @@ ok - float 이미지 컬러로 표시되는 버그 수정
 
 - ImageBox
   - 1비트 버퍼 표시 지원
-  - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리, palette 관리
+  - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리
   no - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것 : 성능차이 미세, 구현 번거러움
   ok - float 타입 밝기값 Range를 속성에서 지정하게 함
+  - 스크롤바 추가
 
 - Drawing 함수 추가
   ok - AggressiveInlining Attribute
@@ -28,8 +29,7 @@ ok - float 이미지 컬러로 표시되는 버그 수정
   ok - Unicode BitmapFont 생성
   ok - Bitmap리소스 용량 줄이기 위해 8비트 폰트버퍼 8비트로 변환
   ok - Unifont에서 Ascii 폰트 절반으로 표시
-  - 유니코드 폰트 버퍼 용량 크므로 1비트 버퍼 지원
-  - 가변폰트 표시 기능(BDF, PCF 폰트), UniFont BDF,PCF 파일 지원
+  ok - 가변폰트 표시 기능(Unifont .hex 폰트)
   - UniFont 한글폰트 이쁜걸로 바꿀것
 
 - 디버그 정보 표시 추가

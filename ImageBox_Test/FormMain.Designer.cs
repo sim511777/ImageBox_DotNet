@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.cbxFont = new System.Windows.Forms.ComboBox();
             this.tbxExample = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -34,12 +35,15 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button7);
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.cbxFont);
             this.panel1.Controls.Add(this.tbxExample);
@@ -55,12 +59,22 @@
             this.panel1.Size = new System.Drawing.Size(178, 568);
             this.panel1.TabIndex = 1;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(6, 202);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(164, 23);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "Lenna_8 to float";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // cbxFont
             // 
             this.cbxFont.DisplayMember = "Item1";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 388);
+            this.cbxFont.Location = new System.Drawing.Point(6, 437);
             this.cbxFont.Name = "cbxFont";
             this.cbxFont.Size = new System.Drawing.Size(164, 20);
             this.cbxFont.TabIndex = 9;
@@ -69,7 +83,7 @@
             // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 259);
+            this.tbxExample.Location = new System.Drawing.Point(6, 308);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(164, 123);
@@ -146,6 +160,7 @@
             // 
             this.imgBox.BackColor = System.Drawing.Color.Gray;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
             this.imgBox.Size = new System.Drawing.Size(709, 568);
@@ -158,15 +173,25 @@
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
-            // button5
+            // button6
             // 
-            this.button5.Location = new System.Drawing.Point(6, 202);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(164, 23);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "Lenna_8 to float";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button6.Location = new System.Drawing.Point(6, 231);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(164, 23);
+            this.button6.TabIndex = 11;
+            this.button6.Text = "Unifont hex";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(6, 260);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(164, 23);
+            this.button7.TabIndex = 12;
+            this.button7.Text = "Unifont Sample hex";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // FormMain
             // 
@@ -197,6 +222,8 @@
         private System.Windows.Forms.TextBox tbxExample;
         private System.Windows.Forms.ComboBox cbxFont;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
     }
 }
 

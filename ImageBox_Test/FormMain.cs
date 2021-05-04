@@ -128,6 +128,22 @@ namespace ImageBox_Test {
             SetImage_toFloat(Resources.Lenna_8);
         }
 
+        private void button6_Click(object sender, EventArgs e) {
+            SetImageUnifont(Resources.unifont_13_0_06);
+        }
+
+        private void button7_Click(object sender, EventArgs e) {
+            SetImageUnifont(Resources.unifont_sample_13_0_06);
+        }
+
+        private void SetImageUnifont(string hex) {
+            Util.FreeBuffer(ref imgBuf);
+            int[] fws = null;
+            BitmapFont.HexToImageBuffer(hex, ref imgBuf, ref bw, ref bh, ref bytepp, ref fws);
+            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
+            imgBox.Invalidate();
+        }
+
         private void btnOpen_Click(object sender, EventArgs e) {
             if (dlgOpen.ShowDialog() != DialogResult.OK)
                 return;
