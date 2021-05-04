@@ -41,10 +41,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ShimLib.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ShimLib.Util\bin\Release\ShimLib.Util.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -111,6 +107,10 @@
     <ProjectReference Include="..\ShimLib.ImageBox\ShimLib.ImageBox.csproj">
       <Project>{AF27C1E9-D990-434D-AA3F-B277D51DE726}</Project>
       <Name>ShimLib.ImageBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShimLib.Util\ShimLib.Util.csproj">
+      <Project>{754433cb-9efe-48f1-8769-74973ccbb6a3}</Project>
+      <Name>ShimLib.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -41,9 +41,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ShimLib.Util">
-      <HintPath>..\ShimLib.Util\bin\Release\ShimLib.Util.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -146,6 +143,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_16x12.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShimLib.Util\ShimLib.Util.csproj">
+      <Project>{754433cb-9efe-48f1-8769-74973ccbb6a3}</Project>
+      <Name>ShimLib.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
