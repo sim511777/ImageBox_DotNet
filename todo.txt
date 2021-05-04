@@ -1,5 +1,4 @@
 [todo]
-- 1bit 이미지 로드시 회색 들어가는 문제
 - float 이미지 컬러로 표시되는 문제
 
 - ImageBox
