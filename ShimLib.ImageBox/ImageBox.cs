@@ -58,10 +58,10 @@ namespace ShimLib {
                         byte* sp = &sptr[six * bytepp];
                         if (bufIsFloat) {
                             if (bytepp == 4) {          // 4byte float gray
-                                int v = (int)(*(float*)sp * floatScale);
+                                int v = (int)(*(float*)sp * floatScale) & 0x000000ff;
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             } else if (bytepp == 8) {   // 8byte double gray
-                                int v = (int)(*(double*)sp * doubleScale);
+                                int v = (int)(*(double*)sp * doubleScale) & 0x000000ff;
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             }
                         } else {
