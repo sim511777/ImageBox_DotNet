@@ -108,31 +108,31 @@ namespace ImageBox_Test {
             imgBox.Invalidate();
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void btnLenna8_Click(object sender, EventArgs e) {
             SetImage(Resources.Lenna_8);
         }
 
-        private void button2_Click(object sender, EventArgs e) {
+        private void btnLenna24_Click(object sender, EventArgs e) {
             SetImage(Resources.Lenna_24);
         }
 
-        private void button3_Click(object sender, EventArgs e) {
+        private void btnLenna32_Click(object sender, EventArgs e) {
             SetImage(Resources.Lenna_32);
         }
 
-        private void button4_Click(object sender, EventArgs e) {
+        private void btnChess_Click(object sender, EventArgs e) {
             SetImage(Resources.Chess);
         }
 
-        private void button5_Click(object sender, EventArgs e) {
+        private void btnLenna8ToFloat_Click(object sender, EventArgs e) {
             SetImage_toFloat(Resources.Lenna_8);
         }
 
-        private void button6_Click(object sender, EventArgs e) {
+        private void btnUnifontHex_Click(object sender, EventArgs e) {
             SetImageUnifont(Resources.unifont_13_0_06);
         }
 
-        private void button7_Click(object sender, EventArgs e) {
+        private void btnUnifontSampleHex_Click(object sender, EventArgs e) {
             SetImageUnifont(Resources.unifont_sample_13_0_06);
         }
 
@@ -149,6 +149,16 @@ namespace ImageBox_Test {
                 return;
             using (Bitmap bmp = new Bitmap(dlgOpen.FileName)) {
                 SetImage(bmp);
+            }
+        }
+
+        private void btnPaste_Click(object sender, EventArgs e) {
+            if (Clipboard.ContainsImage() == false)
+                return;
+            using (var img = Clipboard.GetImage()) {
+                using (var bmp = new Bitmap(img)) {
+                    SetImage(bmp);
+                }
             }
         }
 

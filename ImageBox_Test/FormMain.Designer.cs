@@ -24,34 +24,36 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnUnifontSampleHex = new System.Windows.Forms.Button();
+            this.btnUnifontHex = new System.Windows.Forms.Button();
+            this.btnLenna8ToFloat = new System.Windows.Forms.Button();
             this.cbxFont = new System.Windows.Forms.ComboBox();
             this.tbxExample = new System.Windows.Forms.TextBox();
+            this.btnPaste = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnChess = new System.Windows.Forms.Button();
+            this.btnLenna32 = new System.Windows.Forms.Button();
+            this.btnLenna24 = new System.Windows.Forms.Button();
+            this.btnLenna8 = new System.Windows.Forms.Button();
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.btnUnifontSampleHex);
+            this.panel1.Controls.Add(this.btnUnifontHex);
+            this.panel1.Controls.Add(this.btnLenna8ToFloat);
             this.panel1.Controls.Add(this.cbxFont);
             this.panel1.Controls.Add(this.tbxExample);
+            this.panel1.Controls.Add(this.btnPaste);
             this.panel1.Controls.Add(this.btnOpen);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnChess);
+            this.panel1.Controls.Add(this.btnLenna32);
+            this.panel1.Controls.Add(this.btnLenna24);
+            this.panel1.Controls.Add(this.btnLenna8);
             this.panel1.Controls.Add(this.btnResetZoom);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(709, 0);
@@ -59,22 +61,42 @@
             this.panel1.Size = new System.Drawing.Size(178, 568);
             this.panel1.TabIndex = 1;
             // 
-            // button5
+            // btnUnifontSampleHex
             // 
-            this.button5.Location = new System.Drawing.Point(6, 202);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(164, 23);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "Lenna_8 to float";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnUnifontSampleHex.Location = new System.Drawing.Point(6, 282);
+            this.btnUnifontSampleHex.Name = "btnUnifontSampleHex";
+            this.btnUnifontSampleHex.Size = new System.Drawing.Size(164, 23);
+            this.btnUnifontSampleHex.TabIndex = 12;
+            this.btnUnifontSampleHex.Text = "Unifont Sample hex";
+            this.btnUnifontSampleHex.UseVisualStyleBackColor = true;
+            this.btnUnifontSampleHex.Click += new System.EventHandler(this.btnUnifontSampleHex_Click);
+            // 
+            // btnUnifontHex
+            // 
+            this.btnUnifontHex.Location = new System.Drawing.Point(6, 253);
+            this.btnUnifontHex.Name = "btnUnifontHex";
+            this.btnUnifontHex.Size = new System.Drawing.Size(164, 23);
+            this.btnUnifontHex.TabIndex = 11;
+            this.btnUnifontHex.Text = "Unifont hex";
+            this.btnUnifontHex.UseVisualStyleBackColor = true;
+            this.btnUnifontHex.Click += new System.EventHandler(this.btnUnifontHex_Click);
+            // 
+            // btnLenna8ToFloat
+            // 
+            this.btnLenna8ToFloat.Location = new System.Drawing.Point(6, 224);
+            this.btnLenna8ToFloat.Name = "btnLenna8ToFloat";
+            this.btnLenna8ToFloat.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna8ToFloat.TabIndex = 10;
+            this.btnLenna8ToFloat.Text = "Lenna_8 to float";
+            this.btnLenna8ToFloat.UseVisualStyleBackColor = true;
+            this.btnLenna8ToFloat.Click += new System.EventHandler(this.btnLenna8ToFloat_Click);
             // 
             // cbxFont
             // 
             this.cbxFont.DisplayMember = "Item1";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 437);
+            this.cbxFont.Location = new System.Drawing.Point(6, 459);
             this.cbxFont.Name = "cbxFont";
             this.cbxFont.Size = new System.Drawing.Size(164, 20);
             this.cbxFont.TabIndex = 9;
@@ -83,7 +105,7 @@
             // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 308);
+            this.tbxExample.Location = new System.Drawing.Point(6, 330);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(164, 123);
@@ -91,9 +113,19 @@
             this.tbxExample.Text = "Hello(안녕),\r\nWorlld(세상)";
             this.tbxExample.TextChanged += new System.EventHandler(this.tbxExample_TextChanged);
             // 
+            // btnPaste
+            // 
+            this.btnPaste.Location = new System.Drawing.Point(6, 79);
+            this.btnPaste.Name = "btnPaste";
+            this.btnPaste.Size = new System.Drawing.Size(164, 23);
+            this.btnPaste.TabIndex = 6;
+            this.btnPaste.Text = "Past from clipboard";
+            this.btnPaste.UseVisualStyleBackColor = true;
+            this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
+            // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(6, 41);
+            this.btnOpen.Location = new System.Drawing.Point(6, 50);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(164, 23);
             this.btnOpen.TabIndex = 6;
@@ -101,45 +133,45 @@
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // button4
+            // btnChess
             // 
-            this.button4.Location = new System.Drawing.Point(6, 173);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(164, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Chess";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnChess.Location = new System.Drawing.Point(6, 195);
+            this.btnChess.Name = "btnChess";
+            this.btnChess.Size = new System.Drawing.Size(164, 23);
+            this.btnChess.TabIndex = 5;
+            this.btnChess.Text = "Chess";
+            this.btnChess.UseVisualStyleBackColor = true;
+            this.btnChess.Click += new System.EventHandler(this.btnChess_Click);
             // 
-            // button3
+            // btnLenna32
             // 
-            this.button3.Location = new System.Drawing.Point(6, 144);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(164, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Lenna_32";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnLenna32.Location = new System.Drawing.Point(6, 166);
+            this.btnLenna32.Name = "btnLenna32";
+            this.btnLenna32.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna32.TabIndex = 4;
+            this.btnLenna32.Text = "Lenna_32";
+            this.btnLenna32.UseVisualStyleBackColor = true;
+            this.btnLenna32.Click += new System.EventHandler(this.btnLenna32_Click);
             // 
-            // button2
+            // btnLenna24
             // 
-            this.button2.Location = new System.Drawing.Point(6, 115);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(164, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Lenna_24";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnLenna24.Location = new System.Drawing.Point(6, 137);
+            this.btnLenna24.Name = "btnLenna24";
+            this.btnLenna24.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna24.TabIndex = 3;
+            this.btnLenna24.Text = "Lenna_24";
+            this.btnLenna24.UseVisualStyleBackColor = true;
+            this.btnLenna24.Click += new System.EventHandler(this.btnLenna24_Click);
             // 
-            // button1
+            // btnLenna8
             // 
-            this.button1.Location = new System.Drawing.Point(6, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Lenna_8";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnLenna8.Location = new System.Drawing.Point(6, 108);
+            this.btnLenna8.Name = "btnLenna8";
+            this.btnLenna8.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna8.TabIndex = 2;
+            this.btnLenna8.Text = "Lenna_8";
+            this.btnLenna8.UseVisualStyleBackColor = true;
+            this.btnLenna8.Click += new System.EventHandler(this.btnLenna8_Click);
             // 
             // btnResetZoom
             // 
@@ -173,26 +205,6 @@
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(6, 231);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(164, 23);
-            this.button6.TabIndex = 11;
-            this.button6.Text = "Unifont hex";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(6, 260);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(164, 23);
-            this.button7.TabIndex = 12;
-            this.button7.Text = "Unifont Sample hex";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -213,17 +225,18 @@
         private System.Windows.Forms.Panel panel1;
         private ShimLib.ImageBox imgBox;
         private System.Windows.Forms.Button btnResetZoom;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnChess;
+        private System.Windows.Forms.Button btnLenna32;
+        private System.Windows.Forms.Button btnLenna24;
+        private System.Windows.Forms.Button btnLenna8;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.OpenFileDialog dlgOpen;
         private System.Windows.Forms.TextBox tbxExample;
         private System.Windows.Forms.ComboBox cbxFont;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnLenna8ToFloat;
+        private System.Windows.Forms.Button btnUnifontSampleHex;
+        private System.Windows.Forms.Button btnUnifontHex;
+        private System.Windows.Forms.Button btnPaste;
     }
 }
 

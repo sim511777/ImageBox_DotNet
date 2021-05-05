@@ -25,7 +25,6 @@
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCopy = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.grdOption = new System.Windows.Forms.PropertyGrid();
@@ -43,7 +42,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.btnCopy);
-            this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnOk);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -54,23 +52,13 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(97, 6);
+            this.btnCopy.Location = new System.Drawing.Point(4, 6);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(79, 23);
             this.btnCopy.TabIndex = 3;
             this.btnCopy.Text = "Copy Buffer";
             this.btnCopy.UseVisualStyleBackColor = true;
             this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(12, 6);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(79, 23);
-            this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "Save Buffer";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
@@ -188,7 +176,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btnCopy;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.SaveFileDialog dlgSaveFile;
     }
 }

@@ -54,17 +54,11 @@ namespace ShimLib {
         }
 
         private void btnCopy_Click(object sender, EventArgs e) {
-            //if (pbx.ImgBuf == IntPtr.Zero) {
-            //    return;
-            //}
-
-            //if (pbx.BufIsFloat) {
-            //    return;
-            //}
-
-            //var bmp = ImageUtil.ImageBufferToBitmap(pbx.ImgBuf, pbx.ImgBW, pbx.ImgBH, pbx.ImgBytepp);
-            //Clipboard.SetImage(bmp);
-            //bmp.Dispose();
+            var bmp = pbx.GetBitmap();
+            if (bmp != null) {
+                Clipboard.SetImage(bmp);
+                bmp.Dispose();
+            }
         }
 
         private void grdOption_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {

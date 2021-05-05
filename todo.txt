@@ -44,7 +44,7 @@ ok - float 이미지 컬러로 표시되는 버그 수정
   ok - 픽셀값 표시 여부
   ok - 커서 픽셀 정보 표시 여부
   ok - 디비그 정보 표시 여부
-  - 클립보드로 copy 기능, API로 구현
+  ok - 클립보드로 copy 기능, API로 구현
 
 - ToolBox 아이콘
   ok - ToolBox 아이콘 추가
@@ -52,4 +52,4 @@ ok - float 이미지 컬러로 표시되는 버그 수정
 
 - Test Application
   - Drag & Drop 기능 구현
-  - 클립보드로 부터 Paste 기능 구현
+  ok - 클립보드로 부터 Paste 기능 구현

@@ -468,5 +468,12 @@ Total : {t_total:0.0}ms
                 }
             }
         }
+
+        public Bitmap GetBitmap() {
+            if (imgBuf == null || isImgbufFloat)
+                return null;
+            Bitmap bmp = ImageUtil.ImageBufferToBitmap(imgBuf, imgBw, imgBh, imgBytepp);
+            return bmp;
+        }
     }
 }
