@@ -87,7 +87,7 @@ namespace ImageBox_Test {
 
         private void SetImage_toFloat(Bitmap bmp) {
             Util.FreeBuffer(ref imgBuf);
-            Util.BitmapToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
+            ImageUtil.BitmapToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
 
             // byte -> float
             unsafe {

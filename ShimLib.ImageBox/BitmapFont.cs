@@ -49,7 +49,7 @@ namespace ShimLib {
         public BitmapFont(Bitmap bmp, int fw, int fh, int bufSx, int bufSy, ushort charSI) {
             fws = null;
             int bytepp = 0;
-            Util.BitmapToGrayImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
+            ImageUtil.BitmapToGrayImageBuffer(bmp, ref fontBuf, ref fontBw, ref fontBh, ref bytepp);
             this.fw = fw;
             this.fh = fh;
             this.bufSx = bufSx;
