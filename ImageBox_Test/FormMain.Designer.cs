@@ -190,6 +190,7 @@
             // 
             // imgBox
             // 
+            this.imgBox.AllowDrop = true;
             this.imgBox.BackColor = System.Drawing.Color.Gray;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.FloatValueMax = 1D;
@@ -203,6 +204,8 @@
             this.imgBox.UseDrawDebugInfo = true;
             this.imgBox.UseDrawPixelValue = true;
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
+            this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
+            this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
             // FormMain

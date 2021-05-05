@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using ImageBox_Test.Properties;
 using ShimLib;
+using System.IO;
 
 namespace ImageBox_Test {
     public partial class FormMain : Form {
@@ -168,6 +169,44 @@ namespace ImageBox_Test {
 
         private void cbxFont_SelectedIndexChanged(object sender, EventArgs e) {
             imgBox.Invalidate();
+        }
+
+        private string GetDragDataImageFile(IDataObject data) {
+            string[] extList = { ".bmp", ".jpg", ".png", ".hra", ".tif" };
+
+            string[] files = (string[])data.GetData(DataFormats.FileDrop);
+            if (files.Length != 1)
+                return null;
+            
+            string file = files[0];
+            FileAttributes attr = File.GetAttributes(file);
+            if (attr.HasFlag(FileAttributes.Directory))
+                return null;
+
+            string ext = Path.GetExtension(file).ToLower();
+            if (extList.Contains(ext) == false)
+                return null;
+
+            return file;
+        }
+
+        private void imgBox_DragEnter(object sender, DragEventArgs e) {
+            string imageFile = GetDragDataImageFile(e.Data);
+            if (imageFile == null) {
+                e.Effect = DragDropEffects.None;
+                return;
+            }
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void imgBox_DragDrop(object sender, DragEventArgs e) {
+            string filePath = GetDragDataImageFile(e.Data);
+            if (filePath == null)
+                return;
+
+            using (Bitmap bmp = new Bitmap(filePath)) {
+                SetImage(bmp);
+            }
         }
     }
 }

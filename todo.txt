@@ -51,5 +51,5 @@ ok - float 이미지 컬러로 표시되는 버그 수정
   - ToolBox 아이콘 표준리소스 처리
 
 - Test Application
-  - Drag & Drop 기능 구현
+  ok - Drag & Drop 기능 구현
   ok - 클립보드로 부터 Paste 기능 구현
