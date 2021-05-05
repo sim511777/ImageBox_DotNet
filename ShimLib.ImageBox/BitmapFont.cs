@@ -9,6 +9,8 @@ using ShimLib.Properties;
 
 namespace ShimLib {
     public class BitmapFonts {
+        public static BitmapFont Ascii_TomThumb1 = new BitmapFont(Resource.TomThumb1, 04, 06, 0, 0, 32);
+        public static BitmapFont Ascii_TomThumb2 = new BitmapFont(Resource.TomThumb2, 04, 06, 0, 0, 32);
         public static BitmapFont Ascii_04x06 = new BitmapFont(Resource.Raster_04x06, 04, 06, 0, 0, 32);
         public static BitmapFont Ascii_05x08 = new BitmapFont(Resource.Raster_05x08, 05, 08, 0, 0, 32);
         public static BitmapFont Ascii_05x12 = new BitmapFont(Resource.Raster_05x12, 05, 12, 0, 0, 32);

@@ -110,7 +110,8 @@
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(164, 123);
             this.tbxExample.TabIndex = 7;
-            this.tbxExample.Text = "Hello(안녕),\r\nWorlld(세상)";
+            this.tbxExample.Text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\r\nabcdefghijklmnopqrstuvwxyz\r\n1234567890`-=[]\\;\',./\r\n~!" +
+    "@#$%^&*()_+{}|:\"<>?\r\nHello(안녕), World(세상)";
             this.tbxExample.TextChanged += new System.EventHandler(this.tbxExample_TextChanged);
             // 
             // btnPaste

@@ -231,6 +231,26 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap TomThumb1 {
+            get {
+                object obj = ResourceManager.GetObject("TomThumb1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap TomThumb2 {
+            get {
+                object obj = ResourceManager.GetObject("TomThumb2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
         ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
         ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555
