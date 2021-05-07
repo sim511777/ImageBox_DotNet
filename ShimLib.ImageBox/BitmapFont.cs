@@ -171,7 +171,7 @@ namespace ShimLib {
             for (int ci = 0; ci < fws.Length; ci++)
                 fws[ci] = 16;
             byte[] pal = { 255, 0 };
-            string[] lines = hex.Split(new char[]{'\n'}, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = hex.Split(new char[]{'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var line in lines) {
                 var words = line.Split(':');
                 int charIdx = int.Parse(words[0], System.Globalization.NumberStyles.HexNumber);
@@ -196,7 +196,7 @@ namespace ShimLib {
         private static uint[] HexToUint(string hex) {
             var arr = new uint[hex.Length / 8];
             for (int i = 0; i < arr.Length; i++) {
-                arr[i] = uint.Parse(new String(hex.Substring(i*8, 8).ToArray()), System.Globalization.NumberStyles.HexNumber);
+                arr[i] = uint.Parse(hex.Substring(i*8, 8), System.Globalization.NumberStyles.HexNumber);
             }
             return arr;
         }

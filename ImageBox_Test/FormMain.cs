@@ -16,9 +16,9 @@ namespace ImageBox_Test {
     public partial class FormMain : Form {
         public FormMain() {
             InitializeComponent();
-            var fonts = typeof(BitmapFonts).GetFields().Select(fi => Tuple.Create(fi.Name, fi.GetValue(null))).ToArray();
+            var fonts = typeof(BitmapFonts).GetFields().Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) }).ToArray();
             cbxFont.DataSource = fonts;
-            cbxFont.SelectedIndex = 14;
+            cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
         }
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {

@@ -93,14 +93,14 @@
             // 
             // cbxFont
             // 
-            this.cbxFont.DisplayMember = "Item1";
+            this.cbxFont.DisplayMember = "FontName";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
             this.cbxFont.Location = new System.Drawing.Point(6, 459);
             this.cbxFont.Name = "cbxFont";
             this.cbxFont.Size = new System.Drawing.Size(164, 20);
             this.cbxFont.TabIndex = 9;
-            this.cbxFont.ValueMember = "Item2";
+            this.cbxFont.ValueMember = "Font";
             this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
             // 
             // tbxExample
