@@ -24,12 +24,17 @@ namespace ShimLib {
             this.DrawLine(pen, new PointF(x1, y1), new PointF(x2, y2));
         }
 
-        public void DrawString(string s, Font font, Brush brush, PointF pt) {
-            g.DrawString(s, font, brush, ib.ImgToDisp(pt));
+        public void DrawString(string s, Font font, Brush brush, PointF pt, Brush backBrush = null) {
+            var ptWnd = ib.ImgToDisp(pt);
+            if (backBrush != null) {
+                var size = g.MeasureString(s, font);
+                g.FillRectangle(backBrush, ptWnd.X, ptWnd.Y, size.Width, size.Height);
+            }
+            g.DrawString(s, font, brush, ptWnd);
         }
 
-        public void DrawString(string s, Font font, Brush brush, float x, float y) {
-            this.DrawString(s, font, brush, new PointF(x, y));
+        public void DrawString(string s, Font font, Brush brush, float x, float y, Brush backBrush = null) {
+            this.DrawString(s, font, brush, new PointF(x, y), backBrush);
         }
 
         public void DrawEllipse(Pen pen, RectangleF rect) {

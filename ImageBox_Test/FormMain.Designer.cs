@@ -38,11 +38,15 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbxDrawTest = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.btnUnifontSampleHex);
             this.panel1.Controls.Add(this.btnUnifontHex);
             this.panel1.Controls.Add(this.btnLenna8ToFloat);
@@ -56,16 +60,16 @@
             this.panel1.Controls.Add(this.btnLenna8);
             this.panel1.Controls.Add(this.btnResetZoom);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(709, 0);
+            this.panel1.Location = new System.Drawing.Point(601, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(178, 568);
+            this.panel1.Size = new System.Drawing.Size(286, 568);
             this.panel1.TabIndex = 1;
             // 
             // btnUnifontSampleHex
             // 
-            this.btnUnifontSampleHex.Location = new System.Drawing.Point(6, 282);
+            this.btnUnifontSampleHex.Location = new System.Drawing.Point(143, 186);
             this.btnUnifontSampleHex.Name = "btnUnifontSampleHex";
-            this.btnUnifontSampleHex.Size = new System.Drawing.Size(164, 23);
+            this.btnUnifontSampleHex.Size = new System.Drawing.Size(131, 23);
             this.btnUnifontSampleHex.TabIndex = 12;
             this.btnUnifontSampleHex.Text = "Unifont Sample hex";
             this.btnUnifontSampleHex.UseVisualStyleBackColor = true;
@@ -73,9 +77,9 @@
             // 
             // btnUnifontHex
             // 
-            this.btnUnifontHex.Location = new System.Drawing.Point(6, 253);
+            this.btnUnifontHex.Location = new System.Drawing.Point(143, 157);
             this.btnUnifontHex.Name = "btnUnifontHex";
-            this.btnUnifontHex.Size = new System.Drawing.Size(164, 23);
+            this.btnUnifontHex.Size = new System.Drawing.Size(131, 23);
             this.btnUnifontHex.TabIndex = 11;
             this.btnUnifontHex.Text = "Unifont hex";
             this.btnUnifontHex.UseVisualStyleBackColor = true;
@@ -83,9 +87,9 @@
             // 
             // btnLenna8ToFloat
             // 
-            this.btnLenna8ToFloat.Location = new System.Drawing.Point(6, 224);
+            this.btnLenna8ToFloat.Location = new System.Drawing.Point(143, 128);
             this.btnLenna8ToFloat.Name = "btnLenna8ToFloat";
-            this.btnLenna8ToFloat.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna8ToFloat.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8ToFloat.TabIndex = 10;
             this.btnLenna8ToFloat.Text = "Lenna_8 to float";
             this.btnLenna8ToFloat.UseVisualStyleBackColor = true;
@@ -96,19 +100,19 @@
             this.cbxFont.DisplayMember = "FontName";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 459);
+            this.cbxFont.Location = new System.Drawing.Point(6, 344);
             this.cbxFont.Name = "cbxFont";
-            this.cbxFont.Size = new System.Drawing.Size(164, 20);
+            this.cbxFont.Size = new System.Drawing.Size(268, 20);
             this.cbxFont.TabIndex = 9;
             this.cbxFont.ValueMember = "Font";
             this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
             // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 330);
+            this.tbxExample.Location = new System.Drawing.Point(6, 215);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
-            this.tbxExample.Size = new System.Drawing.Size(164, 123);
+            this.tbxExample.Size = new System.Drawing.Size(268, 123);
             this.tbxExample.TabIndex = 7;
             this.tbxExample.Text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\r\nabcdefghijklmnopqrstuvwxyz\r\n1234567890`-=[]\\;\',./\r\n~!" +
     "@#$%^&*()_+{}|:\"<>?\r\nHello(안녕), World(세상)";
@@ -118,7 +122,7 @@
             // 
             this.btnPaste.Location = new System.Drawing.Point(6, 79);
             this.btnPaste.Name = "btnPaste";
-            this.btnPaste.Size = new System.Drawing.Size(164, 23);
+            this.btnPaste.Size = new System.Drawing.Size(131, 23);
             this.btnPaste.TabIndex = 6;
             this.btnPaste.Text = "Past from clipboard";
             this.btnPaste.UseVisualStyleBackColor = true;
@@ -128,7 +132,7 @@
             // 
             this.btnOpen.Location = new System.Drawing.Point(6, 50);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(164, 23);
+            this.btnOpen.Size = new System.Drawing.Size(131, 23);
             this.btnOpen.TabIndex = 6;
             this.btnOpen.Text = "Open...";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -136,9 +140,9 @@
             // 
             // btnChess
             // 
-            this.btnChess.Location = new System.Drawing.Point(6, 195);
+            this.btnChess.Location = new System.Drawing.Point(143, 99);
             this.btnChess.Name = "btnChess";
-            this.btnChess.Size = new System.Drawing.Size(164, 23);
+            this.btnChess.Size = new System.Drawing.Size(131, 23);
             this.btnChess.TabIndex = 5;
             this.btnChess.Text = "Chess";
             this.btnChess.UseVisualStyleBackColor = true;
@@ -146,9 +150,9 @@
             // 
             // btnLenna32
             // 
-            this.btnLenna32.Location = new System.Drawing.Point(6, 166);
+            this.btnLenna32.Location = new System.Drawing.Point(143, 70);
             this.btnLenna32.Name = "btnLenna32";
-            this.btnLenna32.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna32.Size = new System.Drawing.Size(131, 23);
             this.btnLenna32.TabIndex = 4;
             this.btnLenna32.Text = "Lenna_32";
             this.btnLenna32.UseVisualStyleBackColor = true;
@@ -156,9 +160,9 @@
             // 
             // btnLenna24
             // 
-            this.btnLenna24.Location = new System.Drawing.Point(6, 137);
+            this.btnLenna24.Location = new System.Drawing.Point(143, 41);
             this.btnLenna24.Name = "btnLenna24";
-            this.btnLenna24.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna24.Size = new System.Drawing.Size(131, 23);
             this.btnLenna24.TabIndex = 3;
             this.btnLenna24.Text = "Lenna_24";
             this.btnLenna24.UseVisualStyleBackColor = true;
@@ -166,9 +170,9 @@
             // 
             // btnLenna8
             // 
-            this.btnLenna8.Location = new System.Drawing.Point(6, 108);
+            this.btnLenna8.Location = new System.Drawing.Point(143, 12);
             this.btnLenna8.Name = "btnLenna8";
-            this.btnLenna8.Size = new System.Drawing.Size(164, 23);
+            this.btnLenna8.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8.TabIndex = 2;
             this.btnLenna8.Text = "Lenna_8";
             this.btnLenna8.UseVisualStyleBackColor = true;
@@ -178,7 +182,7 @@
             // 
             this.btnResetZoom.Location = new System.Drawing.Point(6, 12);
             this.btnResetZoom.Name = "btnResetZoom";
-            this.btnResetZoom.Size = new System.Drawing.Size(164, 23);
+            this.btnResetZoom.Size = new System.Drawing.Size(131, 23);
             this.btnResetZoom.TabIndex = 1;
             this.btnResetZoom.Text = "Reset Zoom";
             this.btnResetZoom.UseVisualStyleBackColor = true;
@@ -197,7 +201,7 @@
             this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            this.imgBox.Size = new System.Drawing.Size(709, 568);
+            this.imgBox.Size = new System.Drawing.Size(601, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
             this.imgBox.UseDrawCenterLine = true;
@@ -208,6 +212,30 @@
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbxDrawTest);
+            this.groupBox1.Location = new System.Drawing.Point(6, 370);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(268, 118);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Draw Test";
+            // 
+            // lbxDrawTest
+            // 
+            this.lbxDrawTest.FormattingEnabled = true;
+            this.lbxDrawTest.ItemHeight = 12;
+            this.lbxDrawTest.Items.AddRange(new object[] {
+            "ImageDrawing",
+            "ImageGraphics",
+            "Not Draw"});
+            this.lbxDrawTest.Location = new System.Drawing.Point(6, 20);
+            this.lbxDrawTest.Name = "lbxDrawTest";
+            this.lbxDrawTest.Size = new System.Drawing.Size(256, 88);
+            this.lbxDrawTest.TabIndex = 0;
+            this.lbxDrawTest.SelectedIndexChanged += new System.EventHandler(this.lbxDrawTest_SelectedIndexChanged);
             // 
             // FormMain
             // 
@@ -220,6 +248,7 @@
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -241,6 +270,8 @@
         private System.Windows.Forms.Button btnUnifontSampleHex;
         private System.Windows.Forms.Button btnUnifontHex;
         private System.Windows.Forms.Button btnPaste;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListBox lbxDrawTest;
     }
 }
 

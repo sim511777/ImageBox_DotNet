@@ -19,10 +19,34 @@ namespace ImageBox_Test {
             var fonts = typeof(BitmapFonts).GetFields().Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) }).ToArray();
             cbxFont.DataSource = fonts;
             cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
+            lbxDrawTest.SelectedIndex = 0;
         }
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
+            if (lbxDrawTest.SelectedIndex == 0)
+                ImageDrawingTest(id);
+        }
+
+        private void imageBox_Paint(object sender, PaintEventArgs e) {
+            ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
+            if (lbxDrawTest.SelectedIndex == 1)
+                ImageGraphicsTest(ig);
+        }
+
+        private void ImageDrawingTest(ImageDrawing id) {
+            for (int i = 0; i < 100; i++) {
+                for (int j = 0; j < 100; j++) {
+                    id.DrawCircle(Color.Lime, j, i, 1, false);
+                    id.DrawSquare(Color.Lime, j, i, 1, false);
+                    id.DrawCross(Color.Lime, j, i, 1, false);
+                    id.DrawPlus(Color.Lime, j, i, 1, false);
+                    id.DrawCircle(Color.Lime, j, i, 8, true);
+                    id.DrawSquare(Color.Lime, j, i, 8, true);
+                    id.DrawCross(Color.Lime, j, i, 8, true);
+                    id.DrawPlus(Color.Lime, j, i, 8, true);
+                }
+            }
             id.DrawLine(Color.Red, 0, 0, 8, 8);
             id.DrawRectangle(Color.Red, 8, 8, 4, 4);
             id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
@@ -31,42 +55,29 @@ namespace ImageBox_Test {
             var font = (BitmapFont)cbxFont.SelectedValue;
             id.DrawString(text, font, Color.Blue, 50, 50);
             id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
-
-
-
-            //for (int i = 0; i < 100; i++) {
-            //    for (int j = 0; j < 100; j++) {
-            //        id.DrawCircle(Color.Lime, j, i, 1, false);
-            //        id.DrawSquare(Color.Lime, j, i, 1, false);
-            //        id.DrawCross(Color.Lime, j, i, 1, false);
-            //        id.DrawPlus(Color.Lime, j, i, 1, false);
-            //        id.DrawCircle(Color.Lime, j, i, 8, true);
-            //        id.DrawSquare(Color.Lime, j, i, 8, true);
-            //        id.DrawCross(Color.Lime, j, i, 8, true);
-            //        id.DrawPlus(Color.Lime, j, i, 8, true);
-            //    }
-            //}
         }
 
-        private void imageBox_Paint(object sender, PaintEventArgs e) {
-            //ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
-            //ig.DrawLine(Pens.Red, 0, 0, 8, 8);
-            //ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
-            //ig.DrawString("Hello, World", Font, Brushes.Lime, 12, 12);
-            //ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
+        private void ImageGraphicsTest(ImageGraphics ig) {
+            for (int i = 0; i < 100; i++) {
+                for (int j = 0; j < 100; j++) {
+                    ig.DrawCircle(Pens.Lime, j, i, 1, false);
+                    ig.DrawSquare(Pens.Lime, j, i, 1, false);
+                    ig.DrawCross(Pens.Lime, j, i, 1, false);
+                    ig.DrawPlus(Pens.Lime, j, i, 1, false);
+                    ig.DrawCircle(Pens.Lime, j, i, 8, true);
+                    ig.DrawSquare(Pens.Lime, j, i, 8, true);
+                    ig.DrawCross(Pens.Lime, j, i, 8, true);
+                    ig.DrawPlus(Pens.Lime, j, i, 8, true);
+                }
+            }
+            ig.DrawLine(Pens.Red, 0, 0, 8, 8);
+            ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
+            ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
 
-            //for (int i = 0; i < 100; i++) {
-            //    for (int j = 0; j < 100; j++) {
-            //        ig.DrawCircle(Pens.Lime, j, i, 1, false);
-            //        ig.DrawSquare(Pens.Lime, j, i, 1, false);
-            //        ig.DrawCross(Pens.Lime, j, i, 1, false);
-            //        ig.DrawPlus(Pens.Lime, j, i, 1, false);
-            //        ig.DrawCircle(Pens.Lime, j, i, 8, true);
-            //        ig.DrawSquare(Pens.Lime, j, i, 8, true);
-            //        ig.DrawCross(Pens.Lime, j, i, 8, true);
-            //        ig.DrawPlus(Pens.Lime, j, i, 8, true);
-            //    }
-            //}
+            var text = tbxExample.Text;
+            var font = (BitmapFont)cbxFont.SelectedValue;
+            ig.DrawString(text, Font, Brushes.Blue, 50, 50);
+            ig.DrawString(text, Font, Brushes.Blue, 200, 200, Brushes.Yellow);
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
@@ -207,6 +218,10 @@ namespace ImageBox_Test {
             using (Bitmap bmp = new Bitmap(filePath)) {
                 SetImage(bmp);
             }
+        }
+
+        private void lbxDrawTest_SelectedIndexChanged(object sender, EventArgs e) {
+            this.imgBox.Invalidate();
         }
     }
 }
