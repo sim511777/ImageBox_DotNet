@@ -57,13 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BdfFont.cs" />
     <Compile Include="BitmapFont.cs" />
+    <Compile Include="BmpFont.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="HexFont.cs" />
+    <Compile Include="IFont.cs" />
     <Compile Include="ImageBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -91,8 +95,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\unibit.bdf" />
+    <None Include="Resources\unifont-13.0.06.bdf" />
     <None Include="Resources\unifont-13.0.06.hex" />
     <None Include="Resources\Unifont_16x16.bmp" />
+    <None Include="Resources\unifont_jp-13.0.06.bdf" />
     <None Include="Resources\unifont_sample-13.0.06.hex" />
   </ItemGroup>
   <ItemGroup>

@@ -169,13 +169,13 @@
   <data name="Raster_16x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Raster_16x12.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="unifont_13_0_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="unifont_hex" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unifont-13.0.06.hex;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
   <data name="Unifont_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Unifont_16x16.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="unifont_sample_13_0_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="unifont_sample_hex" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unifont_sample-13.0.06.hex;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
   <data name="TomThumb1" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -183,5 +183,14 @@
   </data>
   <data name="TomThumb2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TomThumb2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unibit_bdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unibit.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  </data>
+  <data name="unifont_bdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unifont-13.0.06.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  </data>
+  <data name="unifont_jp_bdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unifont_jp-13.0.06.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
 </root>

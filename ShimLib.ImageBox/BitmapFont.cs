@@ -29,8 +29,8 @@ namespace ShimLib {
         public static BitmapFont Ascii_16x08 = new BitmapFont(Resource.Raster_16x08, 16, 08, 0, 0, 32);
         public static BitmapFont Ascii_16x12 = new BitmapFont(Resource.Raster_16x12, 16, 12, 0, 0, 32);
         public static BitmapFont Unicode_16x16 = new BitmapFont(Resource.Unifont_16x16, 16, 16, 32, 64, 0);
-        public static BitmapFont Unicode_16x16_hex = new BitmapFont(Resource.unifont_13_0_06);
-        public static BitmapFont Unicode_16x16_sample_hex = new BitmapFont(Resource.unifont_sample_13_0_06);
+        public static BitmapFont Unicode_16x16_hex = new BitmapFont(Resource.unifont_hex);
+        public static BitmapFont Unicode_16x16_sample_hex = new BitmapFont(Resource.unifont_sample_hex);
     }
 
     public class BitmapFont {
