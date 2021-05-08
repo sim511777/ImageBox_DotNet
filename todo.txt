@@ -1,7 +1,12 @@
 [todo]
+- 버그
 ok - float 이미지 컬러로 표시되는 버그 수정
 
+- 테스트
+  - 이미지 버퍼를 byte[] 타입으로 만들었을때 성능 차이
+
 - ImageBox
+  - ImageBuffer 클래스로 만듦
   - 1비트 버퍼 표시 지원
   - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리
   no - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것 : 성능차이 미세, 구현 번거러움
@@ -31,6 +36,7 @@ ok - float 이미지 컬러로 표시되는 버그 수정
   ok - Unifont에서 Ascii 폰트 절반으로 표시
   ok - 가변폰트 표시 기능(Unifont .hex 폰트)
   - UniFont 한글폰트 이쁜걸로 바꿀것
+  - *.bdf, *.fon, *.pcf 폰트 파일 지원
 
 - 디버그 정보 표시 추가
   ok - Load된 이미지 버퍼 정표 표시
