@@ -24,6 +24,7 @@ ok - float 이미지 컬러로 표시되는 버그 수정
   ok - 고속화 위해 Box Culling 처리
   - DrawLine 끝점 찍지 않기
   - 고속화 위해 부분 Clipping 처리
+  - Dot HLine, VLine 함수 추가
 
 - ImageFont 함수 추가
   ok - 폰트 여러개 choice, int fontWidth로 입력 받음

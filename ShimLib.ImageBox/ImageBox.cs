@@ -35,6 +35,7 @@ namespace ShimLib {
         public bool UseDrawCursorInfo { get; set; } = true;
         public bool UseDrawDebugInfo { get; set; } = false;
         public double FloatValueMax {  get; set; } = 1.0;
+        public Color CenterLineColor { get; set; } = Color.Yellow;
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
@@ -67,6 +68,7 @@ namespace ShimLib {
             get { return zoomLevel; }
             set { zoomLevel = Math.Max(Math.Min(value, 16), -16); }
         }
+
         private void GetZoomFactorComponents(out int exp_num, out int c) {
             exp_num = (ZoomLevel >= 0) ? ZoomLevel / 2 : (ZoomLevel - 1) / 2;
             if (ZoomLevel % 2 != 0)
@@ -390,8 +392,8 @@ Total : {t_total:0.0}ms
         private void DrawCenterLine(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
-            id.DrawLine(Color.Yellow, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
-            id.DrawLine(Color.Yellow, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
+            id.DrawLine(CenterLineColor, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
+            id.DrawLine(CenterLineColor, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
         }
 
         // 커서 정보 표시

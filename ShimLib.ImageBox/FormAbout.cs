@@ -75,6 +75,7 @@ namespace ShimLib {
         public bool UseDrawCursorInfo { get; set; } = true;
         public bool UseDrawDebugInfo { get; set; } = true;
         public double FloatValueMax { get; set; } = 1.0;
+        public Color CenterLineColor { get; set; } = Color.Yellow;
 
         public void FromImageBox(ImageBox pbx) {
             this.UseDrawPixelValue = pbx.UseDrawPixelValue;
@@ -82,6 +83,7 @@ namespace ShimLib {
             this.UseDrawCursorInfo = pbx.UseDrawCursorInfo;
             this.UseDrawDebugInfo = pbx.UseDrawDebugInfo;
             this.FloatValueMax = pbx.FloatValueMax;
+            this.CenterLineColor = pbx.CenterLineColor;
         }
 
         public void ToImageBox(ImageBox pbx) {
@@ -90,6 +92,7 @@ namespace ShimLib {
             pbx.UseDrawCursorInfo = this.UseDrawCursorInfo;
             pbx.UseDrawDebugInfo = this.UseDrawDebugInfo;
             pbx.FloatValueMax = this.FloatValueMax;
+            pbx.CenterLineColor = this.CenterLineColor;
         }
     }
 }
