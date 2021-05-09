@@ -91,6 +91,16 @@ namespace ImageBox_Test {
         int bytepp = 0;
 
         private void SetImage(Bitmap bmp) {
+            PixelFormat[] supportedFormats = {
+                PixelFormat.Format8bppIndexed,
+                PixelFormat.Format16bppGrayScale,
+                PixelFormat.Format24bppRgb,
+                PixelFormat.Format32bppArgb,
+                PixelFormat.Format32bppPArgb,
+                PixelFormat.Format32bppRgb,
+            };
+            if (supportedFormats.Contains(bmp.PixelFormat) == false)
+                return;
             Util.FreeBuffer(ref imgBuf);
             Util.BitmapToImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
             imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
@@ -159,8 +169,10 @@ namespace ImageBox_Test {
         private void btnOpen_Click(object sender, EventArgs e) {
             if (dlgOpen.ShowDialog() != DialogResult.OK)
                 return;
-            using (Bitmap bmp = new Bitmap(dlgOpen.FileName)) {
-                SetImage(bmp);
+            using (var img = Image.FromFile(dlgOpen.FileName)) {
+                using (Bitmap bmp = new Bitmap(img)) {
+                    SetImage(bmp);
+                }
             }
         }
 
@@ -215,8 +227,10 @@ namespace ImageBox_Test {
             if (filePath == null)
                 return;
 
-            using (Bitmap bmp = new Bitmap(filePath)) {
-                SetImage(bmp);
+            using (var img = Image.FromFile(filePath)) {
+                using (Bitmap bmp = new Bitmap(img)) {
+                    SetImage(bmp);
+                }
             }
         }
 
