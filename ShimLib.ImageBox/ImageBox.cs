@@ -30,12 +30,12 @@ namespace ShimLib {
         }
 
         // 표시 옵션
-        public bool UseDrawPixelValue { get; set; } = true;
-        public bool UseDrawCenterLine { get; set; } = true;
-        public bool UseDrawCursorInfo { get; set; } = true;
-        public bool UseDrawDebugInfo { get; set; } = false;
-        public double FloatValueMax {  get; set; } = 1.0;
-        public Color CenterLineColor { get; set; } = Color.Yellow;
+        [Category("ImageBox")] public bool UseDrawPixelValue { get; set; } = true;
+        [Category("ImageBox")] public bool UseDrawCenterLine { get; set; } = true;
+        [Category("ImageBox")] public bool UseDrawCursorInfo { get; set; } = true;
+        [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
+        [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
+        [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
