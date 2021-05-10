@@ -16,19 +16,6 @@ namespace ShimLib {
 
     [ToolboxBitmap(typeof(ImageBox), "ImageBox.bmp")]
     public partial class ImageBox : Control {
-        // 백버퍼 그리기
-        public event PaintBackbufferEventHandler PaintBackBuffer;
-        protected void OnPaintBackBuffer(IntPtr buf, int bw, int bh) {
-            if (PaintBackBuffer != null)
-                PaintBackBuffer(this, buf, bw, bh);
-        }
-
-        public ImageBox() {
-            InitializeComponent();
-            DoubleBuffered = true;
-            SetStyle(ControlStyles.Opaque, true);
-        }
-
         // 표시 옵션
         [Category("ImageBox")] public bool UseDrawPixelValue { get; set; } = true;
         [Category("ImageBox")] public bool UseDrawCenterLine { get; set; } = true;
@@ -37,6 +24,20 @@ namespace ShimLib {
         [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
         [Category("ImageBox")] public string FloatValueFormat { get; set; } = "{0:.000}";
+
+        // 생성자
+        public ImageBox() {
+            InitializeComponent();
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.Opaque, true);
+        }
+
+        // 백버퍼 그리기 이벤트
+        public event PaintBackbufferEventHandler PaintBackBuffer;
+        protected void OnPaintBackBuffer(IntPtr buf, int bw, int bh) {
+            if (PaintBackBuffer != null)
+                PaintBackBuffer(this, buf, bw, bh);
+        }
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
@@ -143,8 +144,6 @@ namespace ShimLib {
             frmAbout.ShowDialog(this);
         }
 
-
-
         // 리사이즈
         protected override void OnLayout(LayoutEventArgs levent) {
             if (dispBmp != null)
@@ -243,8 +242,6 @@ namespace ShimLib {
             g.DrawImage(dispBmp, 0, 0);
             var t5 = Util.GetTimeMs();
             
-            ImageGraphics ig = this.GetImageGraphics(g);
-
             // Paint이벤트 발생
             base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             var t6 = Util.GetTimeMs();
@@ -338,7 +335,7 @@ Total : {t_total:0.0}ms
             }
         }
 
-        // 픽셀 표지 문자열
+        // 픽셀값 표시 문자열
         private unsafe string GetImagePixelValueText(int ix, int iy, bool multiLine = false) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return string.Empty;
@@ -360,7 +357,7 @@ Total : {t_total:0.0}ms
             }
         }
 
-        // 픽셀 표시 컬러 인덱스
+        // 픽셀값 표시 컬러 인덱스
         private unsafe int GetImagePixelValueColorIndex(int ix, int iy) {
             if (imgBuf == IntPtr.Zero || ix < 0 || ix >= imgBw || iy < 0 || iy >= imgBh)
                 return 0;
