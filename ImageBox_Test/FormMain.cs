@@ -24,13 +24,13 @@ namespace ImageBox_Test {
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
-            if (lbxDrawTest.SelectedIndex == 0)
+            if (lbxDrawTest.SelectedIndex == 1)
                 ImageDrawingTest(id);
         }
 
         private void imageBox_Paint(object sender, PaintEventArgs e) {
             ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
-            if (lbxDrawTest.SelectedIndex == 1)
+            if (lbxDrawTest.SelectedIndex == 2)
                 ImageGraphicsTest(ig);
         }
 

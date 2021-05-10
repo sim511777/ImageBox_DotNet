@@ -24,6 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbxDrawTest = new System.Windows.Forms.ListBox();
             this.btnUnifontSampleHex = new System.Windows.Forms.Button();
             this.btnUnifontHex = new System.Windows.Forms.Button();
             this.btnLenna8ToFloat = new System.Windows.Forms.Button();
@@ -38,8 +40,6 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lbxDrawTest = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,30 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 568);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbxDrawTest);
+            this.groupBox1.Location = new System.Drawing.Point(6, 370);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(268, 118);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Draw Test";
+            // 
+            // lbxDrawTest
+            // 
+            this.lbxDrawTest.FormattingEnabled = true;
+            this.lbxDrawTest.ItemHeight = 12;
+            this.lbxDrawTest.Items.AddRange(new object[] {
+            "Not Draw",
+            "ImageDrawing",
+            "ImageGraphics"});
+            this.lbxDrawTest.Location = new System.Drawing.Point(6, 20);
+            this.lbxDrawTest.Name = "lbxDrawTest";
+            this.lbxDrawTest.Size = new System.Drawing.Size(256, 88);
+            this.lbxDrawTest.TabIndex = 0;
+            this.lbxDrawTest.SelectedIndexChanged += new System.EventHandler(this.lbxDrawTest_SelectedIndexChanged);
             // 
             // btnUnifontSampleHex
             // 
@@ -197,6 +221,7 @@
             // 
             this.imgBox.AllowDrop = true;
             this.imgBox.BackColor = System.Drawing.Color.Gray;
+            this.imgBox.CenterLineColor = System.Drawing.Color.Yellow;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
@@ -212,30 +237,6 @@
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.lbxDrawTest);
-            this.groupBox1.Location = new System.Drawing.Point(6, 370);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(268, 118);
-            this.groupBox1.TabIndex = 13;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Draw Test";
-            // 
-            // lbxDrawTest
-            // 
-            this.lbxDrawTest.FormattingEnabled = true;
-            this.lbxDrawTest.ItemHeight = 12;
-            this.lbxDrawTest.Items.AddRange(new object[] {
-            "ImageDrawing",
-            "ImageGraphics",
-            "Not Draw"});
-            this.lbxDrawTest.Location = new System.Drawing.Point(6, 20);
-            this.lbxDrawTest.Name = "lbxDrawTest";
-            this.lbxDrawTest.Size = new System.Drawing.Size(256, 88);
-            this.lbxDrawTest.TabIndex = 0;
-            this.lbxDrawTest.SelectedIndexChanged += new System.EventHandler(this.lbxDrawTest_SelectedIndexChanged);
             // 
             // FormMain
             // 
