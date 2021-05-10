@@ -36,6 +36,7 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
         [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
+        [Category("ImageBox")] public string FloatValueFormat { get; set; } = "{0:.000}";
 
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
@@ -347,9 +348,9 @@ Total : {t_total:0.0}ms
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
-                        return string.Format("{0:.000}",*(float*)ptr);
+                        return string.Format(FloatValueFormat,*(float*)ptr);
                     else
-                        return string.Format("{0:.000}", *(double*)ptr);
+                        return string.Format(FloatValueFormat, *(double*)ptr);
                 } else {
                     if (multiLine)
                         return string.Format("{0}\n{1}\n{2}", ptr[2], ptr[1], ptr[0]);

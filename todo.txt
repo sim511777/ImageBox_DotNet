@@ -9,6 +9,7 @@ ok - float 이미지 컬러로 표시되는 버그 수정
   no - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것 : 성능차이 미세, 구현 번거러움
   ok - float 타입 밝기값 Range를 속성에서 지정하게 함
   ok - 마우스 왼쪽으로버튼으로만 Panning 되도록 할것
+  ok - FloatValueFormat 속성 추가
   - ImageBuffer 클래스로 만듦
   - 1비트 버퍼 표시 지원
   - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리
