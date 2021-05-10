@@ -193,4 +193,7 @@
   <data name="unifont_jp_bdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unifont_jp-13.0.06.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
+  <data name="todo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\todo.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
 </root>

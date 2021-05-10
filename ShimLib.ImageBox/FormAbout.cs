@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ShimLib.Properties;
 
 namespace ShimLib {
     public partial class FormAbout : Form {
@@ -15,6 +16,7 @@ namespace ShimLib {
         public FormAbout(ImageBox pbx) {
             this.pbx = pbx;
             InitializeComponent();
+            tbxVersion.Text = Resource.todo;
         }
 
         ImageBoxOption optBackup;

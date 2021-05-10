@@ -450,12 +450,14 @@ Total : {t_total:0.0}ms
                         byte* sp = &sptr[six * bytepp];
                         if (bufIsFloat) {
                             if (bytepp == 4) {          // 4byte float gray
-                                int v = (int)(*(float*)sp * floatScale) & 0x000000ff;
+                                int v = (int)(*(float*)sp * floatScale);
                                 if (v > 255) v = 255;
+                                if (v < 0) v = 255;
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             } else if (bytepp == 8) {   // 8byte double gray
-                                int v = (int)(*(double*)sp * doubleScale) & 0x000000ff;
+                                int v = (int)(*(double*)sp * doubleScale);
                                 if (v > 255) v = 255;
+                                if (v < 0) v = 0;
                                 *dp = v | v << 8 | v << 16 | 0xff << 24;
                             }
                         } else {
