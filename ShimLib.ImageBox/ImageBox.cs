@@ -159,8 +159,10 @@ namespace ShimLib {
         private Point ptDown;
         private bool bDown = false;
         protected override void OnMouseDown(MouseEventArgs e) {
-            ptDown = e.Location;
-            bDown = true;
+            if (e.Button.HasFlag(MouseButtons.Left)) {
+                ptDown = e.Location;
+                bDown = true;
+            }
             base.OnMouseDown(e);
         }
         protected override void OnMouseMove(MouseEventArgs e) {
