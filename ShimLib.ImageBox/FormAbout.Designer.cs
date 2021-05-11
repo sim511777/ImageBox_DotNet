@@ -33,6 +33,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dlgSaveFile = new System.Windows.Forms.SaveFileDialog();
+            this.btnRoiListClear = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -41,6 +42,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnRoiListClear);
             this.panel1.Controls.Add(this.btnCopy);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnOk);
@@ -143,6 +145,16 @@
             // 
             this.dlgSaveFile.Filter = "Bmp File(*.bmp)|*.bmp";
             // 
+            // btnRoiListClear
+            // 
+            this.btnRoiListClear.Location = new System.Drawing.Point(89, 6);
+            this.btnRoiListClear.Name = "btnRoiListClear";
+            this.btnRoiListClear.Size = new System.Drawing.Size(102, 23);
+            this.btnRoiListClear.TabIndex = 4;
+            this.btnRoiListClear.Text = "Clear ROI List";
+            this.btnRoiListClear.UseVisualStyleBackColor = true;
+            this.btnRoiListClear.Click += new System.EventHandler(this.btnRoiListClear_Click);
+            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -177,5 +189,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.SaveFileDialog dlgSaveFile;
+        private System.Windows.Forms.Button btnRoiListClear;
     }
 }

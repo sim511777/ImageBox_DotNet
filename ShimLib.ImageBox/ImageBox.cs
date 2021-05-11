@@ -21,15 +21,20 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawCenterLine { get; set; } = true;
         [Category("ImageBox")] public bool UseDrawCursorInfo { get; set; } = true;
         [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
+        [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
         [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
         [Category("ImageBox")] public string FloatValueFormat { get; set; } = "{0:.000}";
+        [Category("ImageBox")] public bool RoiInputMode { get; set; } = false;
+        
+        [Browsable(false)] public List<Rectangle> RoiList { get; } = new List<Rectangle>();
 
         // 생성자
         public ImageBox() {
             InitializeComponent();
             DoubleBuffered = true;
             SetStyle(ControlStyles.Opaque, true);
+            this.RoiList = new List<Rectangle>();
         }
 
         // 백버퍼 그리기 이벤트
@@ -154,22 +159,35 @@ namespace ShimLib {
             base.OnLayout(levent);
         }
 
+        private Point ptMove = new Point(-1, -1);    // 마우스 커서 픽셀정보 표시용
         // 마우스 패닝
-        private Point ptMove = new Point(-1, -1);
-        private Point ptDown;
-        private bool bDown = false;
+        private Point ptPanningOld;
+        private bool isPanningDown = false;
+        // ROI 입력
+        private Point ptRoiStart;
+        private Point ptRoiEnd;
+        private bool isRoiDown = false;
+        private Point ToInt(PointF ptf) { return new Point((int)Math.Ceiling(ptf.X), (int)Math.Ceiling(ptf.Y));}
         protected override void OnMouseDown(MouseEventArgs e) {
             if (e.Button.HasFlag(MouseButtons.Left)) {
-                ptDown = e.Location;
-                bDown = true;
+                if (RoiInputMode) {
+                    ptRoiEnd = ptRoiStart = ToInt(DispToImg(e.Location));
+                    isRoiDown = true;
+                } else {
+                    ptPanningOld = e.Location;
+                    isPanningDown = true;
+                }
             }
             base.OnMouseDown(e);
         }
         protected override void OnMouseMove(MouseEventArgs e) {
             ptMove = e.Location;
-            if (bDown) {
-                PtPan += (Size)e.Location - (Size)ptDown;
-                ptDown = e.Location;
+            if (RoiInputMode && isRoiDown) {
+                ptRoiEnd = ToInt(DispToImg(e.Location));
+                Invalidate();
+            } else  if (isPanningDown) {
+                PtPan += (Size)e.Location - (Size)ptPanningOld;
+                ptPanningOld = e.Location;
                 Invalidate();
             } else {
                 if (UseDrawCursorInfo) {
@@ -186,7 +204,14 @@ namespace ShimLib {
             base.OnMouseMove(e);
         }
         protected override void OnMouseUp(MouseEventArgs e) {
-            bDown = false;
+            if (RoiInputMode && isRoiDown) {
+                ptRoiEnd = ToInt(DispToImg(e.Location));
+                var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
+                RoiList.Add(roi);
+                isRoiDown = false;
+                Invalidate();
+            }
+            isPanningDown = false;
             base.OnMouseUp(e);
         }
 
@@ -226,6 +251,13 @@ namespace ShimLib {
             if (UseDrawPixelValue)
                 DrawPixelValue(id);
             var t2 = Util.GetTimeMs();
+
+            if (UseDrawRoiRectangles) {
+                DrawRoiRectangles(id);
+            }
+            if (isRoiDown) {
+                DrawRoiDown(id);
+            }
             
             // 중심선 표시
             if (UseDrawCenterLine)
@@ -265,6 +297,19 @@ namespace ShimLib {
             t_67 = t7 - t6;
             t_78 = t8 - t7;
             t_total = t8 - t0;
+        }
+
+        private void DrawRoiDown(ImageDrawing id) {
+            var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
+            var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
+            id.DrawRectangle(Color.Blue, roiF);
+        }
+
+        private void DrawRoiRectangles(ImageDrawing id) {
+            foreach (var roi in RoiList) {
+                var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
+                id.DrawRectangle(Color.Blue, roiF);
+            }
         }
 
         private void DrawDebugInfo(Graphics g) {

@@ -68,6 +68,11 @@ namespace ShimLib {
             option.ToImageBox(pbx);
             pbx.Invalidate();
         }
+
+        private void btnRoiListClear_Click(object sender, EventArgs e) {
+            pbx.RoiList.Clear();
+            pbx.Invalidate();
+        }
     }
 
     public class ImageBoxOption {
@@ -76,18 +81,24 @@ namespace ShimLib {
         public bool UseDrawCenterLine { get; set; } = true;
         public bool UseDrawCursorInfo { get; set; } = true;
         public bool UseDrawDebugInfo { get; set; } = true;
-        public double FloatValueMax { get; set; } = 1.0;
+        public bool UseDrawRoiRectangles { get; set; } = true;
+
         public Color CenterLineColor { get; set; } = Color.Yellow;
+        public double FloatValueMax { get; set; } = 1.0;
         public string FloatValueFormat { get; set; } = "{0:.000}";
+        public bool RoiInputMode { get; set; } = true;
 
         public void FromImageBox(ImageBox pbx) {
             this.UseDrawPixelValue = pbx.UseDrawPixelValue;
             this.UseDrawCenterLine = pbx.UseDrawCenterLine;
             this.UseDrawCursorInfo = pbx.UseDrawCursorInfo;
             this.UseDrawDebugInfo = pbx.UseDrawDebugInfo;
-            this.FloatValueMax = pbx.FloatValueMax;
+            this.UseDrawRoiRectangles = pbx.UseDrawRoiRectangles;
+            
             this.CenterLineColor = pbx.CenterLineColor;
+            this.FloatValueMax = pbx.FloatValueMax;
             this.FloatValueFormat = pbx.FloatValueFormat;
+            this.RoiInputMode = pbx.RoiInputMode;
         }
 
         public void ToImageBox(ImageBox pbx) {
@@ -95,9 +106,12 @@ namespace ShimLib {
             pbx.UseDrawCenterLine = this.UseDrawCenterLine;
             pbx.UseDrawCursorInfo = this.UseDrawCursorInfo;
             pbx.UseDrawDebugInfo = this.UseDrawDebugInfo;
-            pbx.FloatValueMax = this.FloatValueMax;
+            pbx.UseDrawRoiRectangles = this.UseDrawRoiRectangles;
+            
             pbx.CenterLineColor = this.CenterLineColor;
+            pbx.FloatValueMax = this.FloatValueMax;
             pbx.FloatValueFormat = this.FloatValueFormat;
+            pbx.RoiInputMode = this.RoiInputMode;
         }
     }
 }
