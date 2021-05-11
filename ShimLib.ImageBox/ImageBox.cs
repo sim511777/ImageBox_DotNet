@@ -160,6 +160,14 @@ namespace ShimLib {
             base.OnLayout(levent);
         }
 
+        protected override void OnKeyDown(KeyEventArgs e) {
+            if (isRoiDown) {
+                isRoiDown = false;
+                Invalidate();
+            }
+            base.OnKeyDown(e);
+        }
+
         private Point ptMove = new Point(-1, -1);    // 마우스 커서 픽셀정보 표시용
         // 마우스 패닝
         private Point ptPanningOld;
@@ -170,6 +178,7 @@ namespace ShimLib {
         private bool isRoiDown = false;
         private Point ToInt(PointF ptf) { return new Point((int)Math.Ceiling(ptf.X), (int)Math.Ceiling(ptf.Y));}
         protected override void OnMouseDown(MouseEventArgs e) {
+            Focus();
             if (e.Button.HasFlag(MouseButtons.Left)) {
                 ptPanningOld = e.Location;
                 isPanningDown = true;
