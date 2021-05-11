@@ -371,7 +371,8 @@ Total : {t_total:0.0}ms
                     else
                         return Math.Min(Math.Max((int)((*(double*)ptr * 255 / FloatValueMax)), 0), 255) / 32;
                 } else {
-                    return (ptr[2] + ptr[1] + ptr[0]) / 96;
+                    // rgb -> gray
+                    return (ptr[2] * 3 + ptr[1] * 6 + ptr[0]) / 320;
                 }
             }
         }
