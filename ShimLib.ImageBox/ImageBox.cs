@@ -22,8 +22,10 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawCursorInfo { get; set; } = true;
         [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
         [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
-        [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
+
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
+        [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Blue;
+        [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
         [Category("ImageBox")] public string FloatValueFormat { get; set; } = "{0:.000}";
         [Category("ImageBox")] public bool RoiInputMode { get; set; } = false;
         
@@ -302,13 +304,13 @@ namespace ShimLib {
         private void DrawRoiDown(ImageDrawing id) {
             var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
             var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
-            id.DrawRectangle(Color.Blue, roiF);
+            id.DrawRectangleDot(RoiRectangleColor, roiF);
         }
 
         private void DrawRoiRectangles(ImageDrawing id) {
             foreach (var roi in RoiList) {
                 var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
-                id.DrawRectangle(Color.Blue, roiF);
+                id.DrawRectangle(RoiRectangleColor, roiF);
             }
         }
 
@@ -438,8 +440,8 @@ Total : {t_total:0.0}ms
         private void DrawCenterLine(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
-            id.DrawLine(CenterLineColor, imgBw / 2.0f - 0.5f, -0.5f, imgBw / 2.0f - 0.5f, imgBh - 0.5f);
-            id.DrawLine(CenterLineColor, -0.5f, imgBh / 2.0f - 0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
+            id.DrawVLineDot(CenterLineColor, -0.5f, imgBh - 0.5f, imgBw / 2.0f - 0.5f);
+            id.DrawHLineDot(CenterLineColor, -0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
         }
 
         // 커서 정보 표시

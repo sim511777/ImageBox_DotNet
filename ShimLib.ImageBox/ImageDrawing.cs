@@ -30,6 +30,54 @@ namespace ShimLib {
                 *ptr1++ = iCol;
         }
 
+        public static unsafe void DrawHLineDot(IntPtr buf, int bw, int bh, int x1, int x2, int y, int iCol) {
+            if (y < 0 || y >= bh || x1 >= bw || x2 < 0)
+                return;
+
+            if (x1 < 0)
+                x1 = 0;
+            if (x2 >= bw)
+                x2 = bw - 1;
+
+            int* ptr = (int*)buf + (bw * y) + x1;
+            int size = x2 - x1 + 1;
+
+            while (size > 0) {
+                *ptr = iCol;
+                ptr += 2;
+                size -= 2;
+            }
+        }
+
+        public static unsafe void DrawVLineDot(IntPtr buf, int bw, int bh, int y1, int y2, int x, int iCol) {
+            if (x < 0 || x >= bw || y1 >= bh || y2 < 0)
+                return;
+
+            if (y1 < 0)
+                y1 = 0;
+            if (y2 >= bh)
+                y2 = bh - 1;
+
+            int* ptr = (int*)buf + (bw * y1) + x;
+            int size = y2 - y1 + 1;
+            while (size > 0) {
+                *ptr = iCol;
+                ptr += 2 * bw;
+                size -= 2;
+            }
+        }
+
+        public static unsafe void DrawRectangleDot(IntPtr buf, int bw, int bh, int x1, int y1, int x2, int y2, int iCol) {
+            if (x1 > x2) Util.Swap(ref x1, ref x2);
+            if (y1 > y2) Util.Swap(ref y1, ref y2);
+            if (x1 >= bw || x2 < 0 || y1 >= bh || y2 < 0)
+                return;
+            DrawHLineDot(buf, bw, bh, x1, x2, y1, iCol);
+            DrawHLineDot(buf, bw, bh, x1, x2, y2, iCol);
+            DrawVLineDot(buf, bw, bh, y1, y2, x1, iCol);
+            DrawVLineDot(buf, bw, bh, y1, y2, x2, iCol);
+        }
+
         public static unsafe void DrawPixel(IntPtr buf, int bw, int bh, int x, int y, int iCol) {
             DrawPixel((int*)buf, bw, bh, x, y, iCol);
         }
@@ -277,6 +325,18 @@ namespace ShimLib {
             this.DrawLine(col, new PointF(x1, y1), new PointF(x2, y2));
         }
 
+        public void DrawHLineDot(Color col, float x1, float x2, float y) {
+            var ptd1 = ib.ImgToDisp(new PointF(x1, y));
+            var ptd2 = ib.ImgToDisp(new PointF(x2, y));
+            Drawing.DrawHLineDot(buf, bw, bh, ptd1.X, ptd2.X, ptd1.Y, col.ToArgb());
+        }
+
+        public void DrawVLineDot(Color col, float y1, float y2, float x) {
+            var ptd1 = ib.ImgToDisp(new PointF(x, y1));
+            var ptd2 = ib.ImgToDisp(new PointF(x, y2));
+            Drawing.DrawVLineDot(buf, bw, bh, ptd1.Y, ptd2.Y, ptd1.X, col.ToArgb());
+        }
+
         public void DrawEllipse(Color col, RectangleF rect) {
             Rectangle rectd = ib.ImgToDisp(rect);
             int cx = (rectd.Left + rectd.Right) / 2;
@@ -310,6 +370,15 @@ namespace ShimLib {
 
         public void DrawRectangle(Color col, float x, float y, float width, float height) {
             this.DrawRectangle(col, new RectangleF(x, y, width, height));
+        }
+
+        public void DrawRectangleDot(Color col, RectangleF rect) {
+            Rectangle rectd = ib.ImgToDisp(rect);
+            Drawing.DrawRectangleDot(buf, bw, bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb());
+        }
+
+        public void DrawRectangleDot(Color col, float x, float y, float width, float height) {
+            this.DrawRectangleDot(col, new RectangleF(x, y, width, height));
         }
 
         public void FillRectangle(Color col, RectangleF rect) {
