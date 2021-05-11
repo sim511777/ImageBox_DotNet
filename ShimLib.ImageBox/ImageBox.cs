@@ -24,10 +24,9 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
 
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
-        [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Blue;
+        [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Fuchsia;
         [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
         [Category("ImageBox")] public string FloatValueFormat { get; set; } = "{0:.000}";
-        [Category("ImageBox")] public bool RoiInputMode { get; set; } = false;
         
         [Browsable(false)] public List<Rectangle> RoiList { get; } = new List<Rectangle>();
 
@@ -172,19 +171,17 @@ namespace ShimLib {
         private Point ToInt(PointF ptf) { return new Point((int)Math.Ceiling(ptf.X), (int)Math.Ceiling(ptf.Y));}
         protected override void OnMouseDown(MouseEventArgs e) {
             if (e.Button.HasFlag(MouseButtons.Left)) {
-                if (RoiInputMode) {
-                    ptRoiEnd = ptRoiStart = ToInt(DispToImg(e.Location));
-                    isRoiDown = true;
-                } else {
-                    ptPanningOld = e.Location;
-                    isPanningDown = true;
-                }
+                ptPanningOld = e.Location;
+                isPanningDown = true;
+            } else if (e.Button.HasFlag(MouseButtons.Middle)) {
+                ptRoiEnd = ptRoiStart = ToInt(DispToImg(e.Location));
+                isRoiDown = true;
             }
             base.OnMouseDown(e);
         }
         protected override void OnMouseMove(MouseEventArgs e) {
             ptMove = e.Location;
-            if (RoiInputMode && isRoiDown) {
+            if (isRoiDown) {
                 ptRoiEnd = ToInt(DispToImg(e.Location));
                 Invalidate();
             } else  if (isPanningDown) {
@@ -206,10 +203,12 @@ namespace ShimLib {
             base.OnMouseMove(e);
         }
         protected override void OnMouseUp(MouseEventArgs e) {
-            if (RoiInputMode && isRoiDown) {
+            if (isRoiDown) {
                 ptRoiEnd = ToInt(DispToImg(e.Location));
-                var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
-                RoiList.Add(roi);
+                if (ptRoiStart.X != ptRoiEnd.X && ptRoiStart.Y != ptRoiEnd.Y) {
+                    var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
+                    RoiList.Add(roi);
+                }
                 isRoiDown = false;
                 Invalidate();
             }

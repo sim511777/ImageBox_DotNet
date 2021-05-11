@@ -223,6 +223,7 @@
             this.imgBox.BackColor = System.Drawing.Color.Gray;
             this.imgBox.CenterLineColor = System.Drawing.Color.Yellow;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imgBox.FloatValueFormat = "{0:.000}";
             this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
@@ -233,6 +234,7 @@
             this.imgBox.UseDrawCursorInfo = true;
             this.imgBox.UseDrawDebugInfo = true;
             this.imgBox.UseDrawPixelValue = true;
+            this.imgBox.UseDrawRoiRectangles = true;
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
