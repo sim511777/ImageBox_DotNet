@@ -95,15 +95,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\unibit.bdf" />
+    <None Include="Resources\Raster_04x06.bmp" />
     <None Include="Resources\unifont-13.0.06.bdf" />
     <None Include="Resources\unifont-13.0.06.hex" />
-    <None Include="Resources\Unifont_16x16.bmp" />
-    <None Include="Resources\unifont_jp-13.0.06.bdf" />
-    <None Include="Resources\unifont_sample-13.0.06.hex" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_04x06.bmp" />
+    <None Include="Resources\unifont-13.0.06.pcf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_05x08.bmp" />
@@ -160,13 +155,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\TomThumb1.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TomThumb2.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unifont-13.0.06.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

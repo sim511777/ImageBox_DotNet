@@ -26,8 +26,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbxDrawTest = new System.Windows.Forms.ListBox();
-            this.btnUnifontSampleHex = new System.Windows.Forms.Button();
-            this.btnUnifontHex = new System.Windows.Forms.Button();
             this.btnLenna8ToFloat = new System.Windows.Forms.Button();
             this.cbxFont = new System.Windows.Forms.ComboBox();
             this.tbxExample = new System.Windows.Forms.TextBox();
@@ -47,8 +45,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.btnUnifontSampleHex);
-            this.panel1.Controls.Add(this.btnUnifontHex);
             this.panel1.Controls.Add(this.btnLenna8ToFloat);
             this.panel1.Controls.Add(this.cbxFont);
             this.panel1.Controls.Add(this.tbxExample);
@@ -68,7 +64,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbxDrawTest);
-            this.groupBox1.Location = new System.Drawing.Point(6, 370);
+            this.groupBox1.Location = new System.Drawing.Point(6, 337);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 118);
             this.groupBox1.TabIndex = 13;
@@ -89,26 +85,6 @@
             this.lbxDrawTest.TabIndex = 0;
             this.lbxDrawTest.SelectedIndexChanged += new System.EventHandler(this.lbxDrawTest_SelectedIndexChanged);
             // 
-            // btnUnifontSampleHex
-            // 
-            this.btnUnifontSampleHex.Location = new System.Drawing.Point(143, 186);
-            this.btnUnifontSampleHex.Name = "btnUnifontSampleHex";
-            this.btnUnifontSampleHex.Size = new System.Drawing.Size(131, 23);
-            this.btnUnifontSampleHex.TabIndex = 12;
-            this.btnUnifontSampleHex.Text = "Unifont Sample hex";
-            this.btnUnifontSampleHex.UseVisualStyleBackColor = true;
-            this.btnUnifontSampleHex.Click += new System.EventHandler(this.btnUnifontSampleHex_Click);
-            // 
-            // btnUnifontHex
-            // 
-            this.btnUnifontHex.Location = new System.Drawing.Point(143, 157);
-            this.btnUnifontHex.Name = "btnUnifontHex";
-            this.btnUnifontHex.Size = new System.Drawing.Size(131, 23);
-            this.btnUnifontHex.TabIndex = 11;
-            this.btnUnifontHex.Text = "Unifont hex";
-            this.btnUnifontHex.UseVisualStyleBackColor = true;
-            this.btnUnifontHex.Click += new System.EventHandler(this.btnUnifontHex_Click);
-            // 
             // btnLenna8ToFloat
             // 
             this.btnLenna8ToFloat.Location = new System.Drawing.Point(143, 128);
@@ -124,7 +100,7 @@
             this.cbxFont.DisplayMember = "FontName";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 344);
+            this.cbxFont.Location = new System.Drawing.Point(6, 311);
             this.cbxFont.Name = "cbxFont";
             this.cbxFont.Size = new System.Drawing.Size(268, 20);
             this.cbxFont.TabIndex = 9;
@@ -133,7 +109,7 @@
             // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 215);
+            this.tbxExample.Location = new System.Drawing.Point(6, 182);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(268, 123);
@@ -271,8 +247,6 @@
         private System.Windows.Forms.TextBox tbxExample;
         private System.Windows.Forms.ComboBox cbxFont;
         private System.Windows.Forms.Button btnLenna8ToFloat;
-        private System.Windows.Forms.Button btnUnifontSampleHex;
-        private System.Windows.Forms.Button btnUnifontHex;
         private System.Windows.Forms.Button btnPaste;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbxDrawTest;

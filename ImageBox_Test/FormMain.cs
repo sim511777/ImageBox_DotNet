@@ -150,14 +150,6 @@ namespace ImageBox_Test {
             SetImage_toFloat(Resources.Lenna_8);
         }
 
-        private void btnUnifontHex_Click(object sender, EventArgs e) {
-            SetImageUnifont(Resources.unifont_13_0_06);
-        }
-
-        private void btnUnifontSampleHex_Click(object sender, EventArgs e) {
-            SetImageUnifont(Resources.unifont_sample_13_0_06);
-        }
-
         private void SetImageUnifont(string hex) {
             Util.FreeBuffer(ref imgBuf);
             int[] fws = null;
