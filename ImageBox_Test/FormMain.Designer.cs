@@ -148,7 +148,7 @@
             this.btnPaste.Name = "btnPaste";
             this.btnPaste.Size = new System.Drawing.Size(131, 23);
             this.btnPaste.TabIndex = 6;
-            this.btnPaste.Text = "Past from clipboard";
+            this.btnPaste.Text = "Paste from clipboard";
             this.btnPaste.UseVisualStyleBackColor = true;
             this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
             // 
@@ -227,6 +227,7 @@
             this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
+            this.imgBox.RoiRectangleColor = System.Drawing.Color.Fuchsia;
             this.imgBox.Size = new System.Drawing.Size(601, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
