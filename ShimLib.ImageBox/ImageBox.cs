@@ -145,9 +145,15 @@ namespace ShimLib {
             }
         }
 
+        private FormAbout frmAbout = null;
         private void ShowAbout() {
-            var frmAbout = new FormAbout(this);
-            frmAbout.ShowDialog(this);
+            if (frmAbout == null) {
+                frmAbout = new FormAbout(this);
+                frmAbout.FormClosed += (o, e) => frmAbout = null;
+                frmAbout.Show(this);
+            } else {
+                frmAbout.Activate();
+            }
         }
 
         // 리사이즈

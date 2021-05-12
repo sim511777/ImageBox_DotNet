@@ -24,16 +24,15 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRoiListClear = new System.Windows.Forms.Button();
             this.btnCopy = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOk = new System.Windows.Forms.Button();
             this.grdOption = new System.Windows.Forms.PropertyGrid();
             this.tbxVersion = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dlgSaveFile = new System.Windows.Forms.SaveFileDialog();
-            this.btnRoiListClear = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -45,12 +44,21 @@
             this.panel1.Controls.Add(this.btnRoiListClear);
             this.panel1.Controls.Add(this.btnCopy);
             this.panel1.Controls.Add(this.btnCancel);
-            this.panel1.Controls.Add(this.btnOk);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 358);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(443, 35);
             this.panel1.TabIndex = 0;
+            // 
+            // btnRoiListClear
+            // 
+            this.btnRoiListClear.Location = new System.Drawing.Point(89, 6);
+            this.btnRoiListClear.Name = "btnRoiListClear";
+            this.btnRoiListClear.Size = new System.Drawing.Size(102, 23);
+            this.btnRoiListClear.TabIndex = 4;
+            this.btnRoiListClear.Text = "Clear ROI List";
+            this.btnRoiListClear.UseVisualStyleBackColor = true;
+            this.btnRoiListClear.Click += new System.EventHandler(this.btnRoiListClear_Click);
             // 
             // btnCopy
             // 
@@ -72,17 +80,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnOk
-            // 
-            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(275, 6);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 0;
-            this.btnOk.Text = "Ok";
-            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // grdOption
             // 
@@ -145,16 +143,6 @@
             // 
             this.dlgSaveFile.Filter = "Bmp File(*.bmp)|*.bmp";
             // 
-            // btnRoiListClear
-            // 
-            this.btnRoiListClear.Location = new System.Drawing.Point(89, 6);
-            this.btnRoiListClear.Name = "btnRoiListClear";
-            this.btnRoiListClear.Size = new System.Drawing.Size(102, 23);
-            this.btnRoiListClear.TabIndex = 4;
-            this.btnRoiListClear.Text = "Clear ROI List";
-            this.btnRoiListClear.UseVisualStyleBackColor = true;
-            this.btnRoiListClear.Click += new System.EventHandler(this.btnRoiListClear_Click);
-            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -181,7 +169,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.PropertyGrid grdOption;
         private System.Windows.Forms.TextBox tbxVersion;
         private System.Windows.Forms.TabControl tabControl1;

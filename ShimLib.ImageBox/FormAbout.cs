@@ -37,24 +37,6 @@ namespace ShimLib {
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e) {
-            //if (pbx.ImgBuf == IntPtr.Zero) {
-            //    MessageBox.Show(this, "pbx.ImgBuf == IntPtr.Zero");
-            //    return;
-            //}
-
-            //if (pbx.BufIsFloat) {
-            //    MessageBox.Show(this, "Floating point image buffer can not be converted to Bitmap object.");
-            //    return;
-            //}
-
-            //var ok = dlgSaveFile.ShowDialog(this);
-            //if (ok != DialogResult.OK)
-            //    return;
-
-            //ImageUtil.SaveBmpFile(dlgSaveFile.FileName, pbx.ImgBuf, pbx.ImgBW, pbx.ImgBH, pbx.ImgBytepp);
-        }
-
         private void btnCopy_Click(object sender, EventArgs e) {
             var bmp = pbx.GetBitmap();
             if (bmp != null) {
@@ -72,6 +54,10 @@ namespace ShimLib {
         private void btnRoiListClear_Click(object sender, EventArgs e) {
             pbx.RoiList.Clear();
             pbx.Invalidate();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e) {
+            this.Close();
         }
     }
 
