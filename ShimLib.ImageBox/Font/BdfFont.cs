@@ -23,6 +23,14 @@ namespace ShimLib {
         public int Height;              // 높이
         public BdfChar[] Chars;         // 문자 배열
 
+        public BdfFont(string bdf) {
+            string[] lines = bdf.Split(new char[]{'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var line in lines) {
+
+            }
+        }
+
+
         public void DrawString(string text, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, Color color) {
             throw new NotImplementedException();
         }
