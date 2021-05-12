@@ -13,7 +13,7 @@ namespace ShimLib {
     }
 
     public class HexFont : IFont {
-        private HexChar[] fontChars = new HexChar[65536];
+        private Dictionary<int, HexChar> fontChars = new Dictionary<int, HexChar>();
         private int fw;
         private int fh;
 
@@ -67,7 +67,7 @@ namespace ShimLib {
                 }
                 
                 int _fw = fw;
-                if (fontChars[ch] != null) {
+                if (fontChars.ContainsKey(ch)) {
                     _fw = fontChars[ch].fw;
                     DrawChar(fontChars[ch], dispBuf, dispBW, dispBH, x, y, icolor);
                 }
@@ -90,8 +90,8 @@ namespace ShimLib {
                     continue;
                 }
                 int _fw = fw;
-                if (fontChars[ch] != null)
-                        _fw = fontChars[ch].fw;
+                if (fontChars.ContainsKey(ch))
+                    _fw = fontChars[ch].fw;
                 maxX = Math.Max(maxX, x + _fw);
                 maxY = Math.Max(maxY, y + fh);
                 x += _fw;
