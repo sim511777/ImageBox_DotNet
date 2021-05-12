@@ -9,7 +9,7 @@ namespace ShimLib {
     public class HexChar {
         public int fw;
         public int fh;
-        public byte[] charBuf;
+        public byte[] bitmap;
     }
 
     public class HexFont : IFont {
@@ -31,13 +31,13 @@ namespace ShimLib {
                 fontChars[charIdx] = fontChar;
                 fontChar.fw = words[1].Length > 32 ? 16 : 8;
                 fontChar.fh = 16;
-                fontChar.charBuf = new byte[fontChar.fw * fontChar.fh];
+                fontChar.bitmap = new byte[fontChar.fw * fontChar.fh];
                 uint[] uints = HexToUint(words[1]);
                 int ii = 0;
                 for (int i = 0; i < uints.Length; i++) {
                     uint val = uints[i];
                     for (int j = 0; j < 32; j++) {
-                        fontChar.charBuf[ii] = pal[(val >> (31-j)) & 1];
+                        fontChar.bitmap[ii] = pal[(val >> (31-j)) & 1];
                         ii++;
                     }
                 }
@@ -108,7 +108,7 @@ namespace ShimLib {
             int y2 = dy + fh - 1;
             if (x1 >= dispBW || x2 < 0 || y1 >= dispBH || y2 < 0)
                 return;
-            byte[] src = fontChar.charBuf;
+            byte[] src = fontChar.bitmap;
             for (int y = 0; y < fh; y++) {
                 if (dy + y < 0 || dy + y >= dispBH)
                     continue;

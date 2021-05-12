@@ -261,33 +261,6 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
-        ///   STARTFONT 2.1
-        ///FONT -gnu-Unifont-Medium-R-Normal-Sans-16-160-75-75-c-80-iso10646-1
-        ///SIZE 16 75 75
-        ///FONTBOUNDINGBOX 16 16 0 -2
-        ///STARTPROPERTIES 24
-        ///COPYRIGHT &quot;Copyright (C) 1998-2021 Roman Czyborra, Paul Hardy, Qianqian Fang, Andrew Miller, Johnnie Weaver, David Corbett, Nils Moskopp, Rebecca Bettencourt, et al. License: SIL Open Font License version 1.1 and GPLv2+: GNU GPL version 2 or later &lt;http://gnu.org/licenses/gpl.html&gt; with the GNU Font Embedding Exception.&quot;
-        ///FONT_VERSION &quot;13.0.06&quot;
-        ///FONT_TYPE &quot;Bitmap&quot;
-        ///FOUND[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string unifont_13_0_06_bdf {
-            get {
-                return ResourceManager.GetString("unifont_13_0_06_bdf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap unifont_13_0_06_bmp {
-            get {
-                object obj = ResourceManager.GetObject("unifont_13_0_06_bmp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
         ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
         ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555
@@ -297,19 +270,9 @@ namespace ShimLib.Properties {
         ///0006:AAAA000180000001800031A5CA287A31CA2849A5800000018000000180005555
         ///0007:AAAA0001800000018[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string unifont_13_0_062_hex {
+        internal static string unifont_13_0_06_hex {
             get {
-                return ResourceManager.GetString("unifont_13_0_062_hex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] unifont_13_0_063_pcf {
-            get {
-                object obj = ResourceManager.GetObject("unifont_13_0_063_pcf", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("unifont_13_0_06_hex", resourceCulture);
             }
         }
     }

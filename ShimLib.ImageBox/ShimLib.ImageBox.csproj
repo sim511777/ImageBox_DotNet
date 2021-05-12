@@ -96,9 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_04x06.bmp" />
-    <None Include="Resources\unifont-13.0.06.bdf" />
     <None Include="Resources\unifont-13.0.06.hex" />
-    <None Include="Resources\unifont-13.0.06.pcf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_05x08.bmp" />
@@ -156,9 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\unifont-13.0.06.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
