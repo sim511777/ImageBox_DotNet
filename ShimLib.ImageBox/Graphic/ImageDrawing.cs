@@ -460,16 +460,16 @@ namespace ShimLib {
             this.DrawPlus(col, new PointF(x, y), r, pixelSize);
         }
 
-        public void DrawString(string text, BitmapFont font, Color col, PointF pt, Color? backColor = null) {
+        public void DrawString(string text, IFont font, Color col, PointF pt, Color? backColor = null) {
             Point ptd = ib.ImgToDisp(pt);
             DrawStringWnd(text, font, col, ptd, backColor);
         }
 
-        public void DrawString(string text, BitmapFont font, Color col, float x, float y, Color? backColor = null) {
+        public void DrawString(string text, IFont font, Color col, float x, float y, Color? backColor = null) {
             DrawString(text, font, col, new PointF(x, y), backColor);
         }
 
-        public void DrawStringWnd(string text, BitmapFont font, Color col, Point ptd, Color? backColor = null) {
+        public void DrawStringWnd(string text, IFont font, Color col, Point ptd, Color? backColor = null) {
             if (backColor != null) {
                 var size = font.MeasureString(text);
                 Drawing.DrawRectangle(buf, bw, bh, ptd.X, ptd.Y, ptd.X + size.Width, ptd.Y + size.Height, backColor.Value.ToArgb(), true);
@@ -477,11 +477,11 @@ namespace ShimLib {
             font.DrawString(text, buf, bw, bh, ptd.X, ptd.Y, col);
         }
 
-        public void DrawStringWnd(string text, BitmapFont font, Color col, int x, int y, Color? backColor = null) {
+        public void DrawStringWnd(string text, IFont font, Color col, int x, int y, Color? backColor = null) {
             DrawStringWnd(text, font, col, new Point(x, y), backColor);
         }
 
-        public Size MeasureString(string text, BitmapFont font) {
+        public Size MeasureString(string text, IFont font) {
             return font.MeasureString(text);
         }
     }

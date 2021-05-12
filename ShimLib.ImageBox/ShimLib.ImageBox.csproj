@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Font\BdfFont.cs" />
-    <Compile Include="Font\BitmapFont.cs" />
+    <Compile Include="Font\Fonts.cs" />
     <Compile Include="Font\BmpFont.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>

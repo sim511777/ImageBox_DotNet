@@ -77,8 +77,10 @@
             this.lbxDrawTest.ItemHeight = 12;
             this.lbxDrawTest.Items.AddRange(new object[] {
             "Not Draw",
-            "ImageDrawing",
-            "ImageGraphics"});
+            "Drawing Shapes",
+            "Graphics Shapes",
+            "Drawing Repeat",
+            "Graphics Repeat"});
             this.lbxDrawTest.Location = new System.Drawing.Point(6, 20);
             this.lbxDrawTest.Name = "lbxDrawTest";
             this.lbxDrawTest.Size = new System.Drawing.Size(256, 88);

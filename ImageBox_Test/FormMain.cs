@@ -16,7 +16,7 @@ namespace ImageBox_Test {
     public partial class FormMain : Form {
         public FormMain() {
             InitializeComponent();
-            var fonts = typeof(BitmapFonts).GetFields().Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) }).ToArray();
+            var fonts = typeof(Fonts).GetFields().Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) }).ToArray();
             cbxFont.DataSource = fonts;
             cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
             lbxDrawTest.SelectedIndex = 0;
@@ -25,16 +25,20 @@ namespace ImageBox_Test {
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
             if (lbxDrawTest.SelectedIndex == 1)
-                ImageDrawingTest(id);
+                ImageDrawingShape(id);
+            else if (lbxDrawTest.SelectedIndex == 3)
+                ImageDrawingRepeat(id);
         }
 
         private void imageBox_Paint(object sender, PaintEventArgs e) {
             ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
             if (lbxDrawTest.SelectedIndex == 2)
-                ImageGraphicsTest(ig);
+                ImageGraphicsShape(ig);
+            else if (lbxDrawTest.SelectedIndex == 4)
+                ImageGraphicsRepeat(ig);
         }
 
-        private void ImageDrawingTest(ImageDrawing id) {
+        private void ImageDrawingRepeat(ImageDrawing id) {
             for (int i = 0; i < 100; i++) {
                 for (int j = 0; j < 100; j++) {
                     id.DrawCircle(Color.Lime, j, i, 1, false);
@@ -47,17 +51,9 @@ namespace ImageBox_Test {
                     id.DrawPlus(Color.Lime, j, i, 8, true);
                 }
             }
-            id.DrawLine(Color.Red, 0, 0, 8, 8);
-            id.DrawRectangle(Color.Red, 8, 8, 4, 4);
-            id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
-
-            var text = tbxExample.Text;
-            var font = (BitmapFont)cbxFont.SelectedValue;
-            id.DrawString(text, font, Color.Blue, 50, 50);
-            id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
         }
 
-        private void ImageGraphicsTest(ImageGraphics ig) {
+        private void ImageGraphicsRepeat(ImageGraphics ig) {
             for (int i = 0; i < 100; i++) {
                 for (int j = 0; j < 100; j++) {
                     ig.DrawCircle(Pens.Lime, j, i, 1, false);
@@ -70,12 +66,25 @@ namespace ImageBox_Test {
                     ig.DrawPlus(Pens.Lime, j, i, 8, true);
                 }
             }
+        }
+
+        private void ImageDrawingShape(ImageDrawing id) {
+            id.DrawLine(Color.Red, 0, 0, 8, 8);
+            id.DrawRectangle(Color.Red, 8, 8, 4, 4);
+            id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
+
+            var text = tbxExample.Text;
+            var font = (IFont)cbxFont.SelectedValue;
+            id.DrawString(text, font, Color.Blue, 50, 50);
+            id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
+        }
+
+        private void ImageGraphicsShape(ImageGraphics ig) {
             ig.DrawLine(Pens.Red, 0, 0, 8, 8);
             ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
             ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
 
             var text = tbxExample.Text;
-            var font = (BitmapFont)cbxFont.SelectedValue;
             ig.DrawString(text, Font, Brushes.Blue, 50, 50);
             ig.DrawString(text, Font, Brushes.Blue, 200, 200, Brushes.Yellow);
         }
@@ -148,14 +157,6 @@ namespace ImageBox_Test {
 
         private void btnLenna8ToFloat_Click(object sender, EventArgs e) {
             SetImage_toFloat(Resources.Lenna_8);
-        }
-
-        private void SetImageUnifont(string hex) {
-            Util.FreeBuffer(ref imgBuf);
-            int[] fws = null;
-            BitmapFont.HexToImageBuffer(hex, ref imgBuf, ref bw, ref bh, ref bytepp, ref fws);
-            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
-            imgBox.Invalidate();
         }
 
         private void btnOpen_Click(object sender, EventArgs e) {

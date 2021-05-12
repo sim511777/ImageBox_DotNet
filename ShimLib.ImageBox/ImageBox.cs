@@ -356,19 +356,19 @@ Total : {t_total:0.0}ms
             if (zoom < 16 || (imgBytepp != 1 && zoom < 32))
                 return;
 
-            BitmapFont font;
+            IFont font;
             bool multiLine = false;
             if (imgBytepp == 1) {
-                if (zoom <= 17) font = BitmapFonts.Ascii_05x08;
-                else if (zoom <= 25) font = BitmapFonts.Ascii_06x13;
-                else if (zoom <= 33) font = BitmapFonts.Ascii_08x16;
-                else font = BitmapFonts.Ascii_10x18;
+                if (zoom <= 17) font = Fonts.Ascii_05x08;
+                else if (zoom <= 25) font = Fonts.Ascii_06x13;
+                else if (zoom <= 33) font = Fonts.Ascii_08x16;
+                else font = Fonts.Ascii_10x18;
             } else {
                 multiLine = true;
-                if (zoom <= 33) font = BitmapFonts.Ascii_05x08;
-                else if (zoom <= 49) font = BitmapFonts.Ascii_06x13;
-                else if (zoom <= 65) font = BitmapFonts.Ascii_08x16;
-                else font = BitmapFonts.Ascii_10x18;
+                if (zoom <= 33) font = Fonts.Ascii_05x08;
+                else if (zoom <= 49) font = Fonts.Ascii_06x13;
+                else if (zoom <= 65) font = Fonts.Ascii_08x16;
+                else font = Fonts.Ascii_10x18;
             }
 
             var ptImgLT = DispToImg(Point.Empty);
