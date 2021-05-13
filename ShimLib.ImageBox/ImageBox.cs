@@ -220,8 +220,14 @@ namespace ShimLib {
         protected override void OnMouseUp(MouseEventArgs e) {
             if (isRoiDown) {
                 ptRoiEnd = ToInt(DispToImg(e.Location));
-                if (ptRoiStart.X != ptRoiEnd.X && ptRoiStart.Y != ptRoiEnd.Y) {
-                    var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
+                int x1 = ptRoiStart.X;
+                int y1 = ptRoiStart.Y;
+                int x2 = ptRoiEnd.X;
+                int y2 = ptRoiEnd.Y;
+                if (x1 > x2) Util.Swap(ref x1, ref x2);
+                if (y1 > y2) Util.Swap(ref y1, ref y2);
+                if (x1 != x2 && y1 != y2) {
+                    var roi = new Rectangle(x1, y1, x2 - x1, y2 - y1);
                     RoiList.Add(roi);
                     if (frmAbout != null)
                         frmAbout.UpdateRoiList();
