@@ -223,6 +223,8 @@ namespace ShimLib {
                 if (ptRoiStart.X != ptRoiEnd.X && ptRoiStart.Y != ptRoiEnd.Y) {
                     var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
                     RoiList.Add(roi);
+                    if (frmAbout != null)
+                        frmAbout.UpdateRoiList();
                 }
                 isRoiDown = false;
                 Invalidate();

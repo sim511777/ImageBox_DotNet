@@ -12,13 +12,12 @@ using ShimLib.Properties;
 
 namespace ShimLib {
     public partial class FormAbout : Form {
-        private ImageBox pbx;
         public FormAbout(ImageBox pbx) {
             this.pbx = pbx;
             InitializeComponent();
-            tbxVersion.Text = Resource.todo;
         }
 
+        private ImageBox pbx;
         ImageBoxOption optBackup;
 
         private void FormAbout_Load(object sender, EventArgs e) {
@@ -27,6 +26,15 @@ namespace ShimLib {
             ImageBoxOption option = new ImageBoxOption();
             option.FromImageBox(pbx);
             grdOption.SelectedObject = option;
+
+            UpdateRoiList();
+
+            tbxVersion.Text = Resource.todo;
+        }
+
+        public void UpdateRoiList() {
+            lbxRoi.Items.Clear();
+            lbxRoi.Items.AddRange(pbx.RoiList.Cast<object>().ToArray());
         }
 
         private void FormAbout_FormClosed(object sender, FormClosedEventArgs e) {
@@ -51,8 +59,19 @@ namespace ShimLib {
             pbx.Invalidate();
         }
 
+        private void btnRoiDelete_Click(object sender, EventArgs e) {
+            var selIdxs = lbxRoi.SelectedIndices;
+            var idxs = selIdxs.Cast<int>().OrderByDescending(i => i);
+            foreach (var idx in idxs) {
+                pbx.RoiList.RemoveAt(idx);
+                lbxRoi.Items.RemoveAt(idx);
+            }
+            pbx.Invalidate();
+        }
+
         private void btnRoiListClear_Click(object sender, EventArgs e) {
             pbx.RoiList.Clear();
+            UpdateRoiList();
             pbx.Invalidate();
         }
 
