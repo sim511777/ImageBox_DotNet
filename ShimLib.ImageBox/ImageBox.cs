@@ -324,8 +324,21 @@ namespace ShimLib {
         }
 
         private void DrawRoiDown(ImageDrawing id) {
-            var roi = new Rectangle(ptRoiStart.X, ptRoiStart.Y, ptRoiEnd.X - ptRoiStart.X, ptRoiEnd.Y - ptRoiStart.Y);
+            int x1 = ptRoiStart.X;
+            int y1 = ptRoiStart.Y;
+            int x2 = ptRoiEnd.X;
+            int y2 = ptRoiEnd.Y;
+            if (x1 > x2) Util.Swap(ref x1, ref x2);
+            if (y1 > y2) Util.Swap(ref y1, ref y2);
+
+            var roi = new Rectangle(x1, y1, x2 - x1, y2 - y1);
             var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
+            string roiStart = $"({roi.Left},{roi.Top})";
+            string roiEnd = $"({roi.Width},{roi.Height})";
+            var sizeStart = id.MeasureString(roiStart, Fonts.Ascii_10x18);
+            var zoom = GetZoomFactor();
+            id.DrawString(roiStart, Fonts.Ascii_10x18, RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
+            id.DrawString(roiEnd, Fonts.Ascii_10x18, RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
             id.DrawRectangleDot(RoiRectangleColor, roiF);
         }
 
