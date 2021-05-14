@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnFont = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbxDrawTest = new System.Windows.Forms.ListBox();
             this.btnLenna8ToFloat = new System.Windows.Forms.Button();
@@ -38,12 +39,14 @@
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.imgBox = new ShimLib.ImageBox();
+            this.dlgFont = new System.Windows.Forms.FontDialog();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnFont);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.btnLenna8ToFloat);
             this.panel1.Controls.Add(this.cbxFont);
@@ -61,10 +64,21 @@
             this.panel1.Size = new System.Drawing.Size(286, 568);
             this.panel1.TabIndex = 1;
             // 
+            // btnFont
+            // 
+            this.btnFont.Location = new System.Drawing.Point(6, 337);
+            this.btnFont.Name = "btnFont";
+            this.btnFont.Size = new System.Drawing.Size(268, 95);
+            this.btnFont.TabIndex = 14;
+            this.btnFont.Text = "button1";
+            this.btnFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFont.UseVisualStyleBackColor = true;
+            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbxDrawTest);
-            this.groupBox1.Location = new System.Drawing.Point(6, 337);
+            this.groupBox1.Location = new System.Drawing.Point(6, 438);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 118);
             this.groupBox1.TabIndex = 13;
@@ -219,6 +233,10 @@
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
+            // dlgFont
+            // 
+            this.dlgFont.Font = new System.Drawing.Font("돋움체", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -252,6 +270,8 @@
         private System.Windows.Forms.Button btnPaste;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox lbxDrawTest;
+        private System.Windows.Forms.Button btnFont;
+        private System.Windows.Forms.FontDialog dlgFont;
     }
 }
 

@@ -20,6 +20,7 @@ namespace ImageBox_Test {
             cbxFont.DataSource = fonts;
             cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
             lbxDrawTest.SelectedIndex = 0;
+            this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
         }
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
@@ -80,13 +81,14 @@ namespace ImageBox_Test {
         }
 
         private void ImageGraphicsShape(ImageGraphics ig) {
+            var font = dlgFont.Font;
             ig.DrawLine(Pens.Red, 0, 0, 8, 8);
             ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
             ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
 
             var text = tbxExample.Text;
-            ig.DrawString(text, Font, Brushes.Blue, 50, 50);
-            ig.DrawString(text, Font, Brushes.Blue, 200, 200, Brushes.Yellow);
+            ig.DrawString(text, font, Brushes.Blue, 50, 50);
+            ig.DrawString(text, font, Brushes.Blue, 200, 200, Brushes.Yellow);
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
@@ -228,6 +230,14 @@ namespace ImageBox_Test {
         }
 
         private void lbxDrawTest_SelectedIndexChanged(object sender, EventArgs e) {
+            this.imgBox.Invalidate();
+        }
+
+        private void btnFont_Click(object sender, EventArgs e) {
+            var dr = dlgFont.ShowDialog(this);
+            if (dr != DialogResult.OK)
+                return;
+            this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
             this.imgBox.Invalidate();
         }
     }
