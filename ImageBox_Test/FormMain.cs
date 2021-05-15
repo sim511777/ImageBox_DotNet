@@ -14,13 +14,18 @@ using System.IO;
 
 namespace ImageBox_Test {
     public partial class FormMain : Form {
-        public FormMain() {
+        public FormMain(string[] args) {
             InitializeComponent();
+            
             var fonts = typeof(Fonts).GetFields().Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) }).ToArray();
             cbxFont.DataSource = fonts;
             cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
             lbxDrawTest.SelectedIndex = 0;
             this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
+            
+            if (args.Length > 0) {
+                LoadImageFile(args[0]);
+            }
         }
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
@@ -164,11 +169,17 @@ namespace ImageBox_Test {
         private void btnOpen_Click(object sender, EventArgs e) {
             if (dlgOpen.ShowDialog() != DialogResult.OK)
                 return;
-            using (var img = Image.FromFile(dlgOpen.FileName)) {
-                using (Bitmap bmp = new Bitmap(img)) {
-                    SetImage(bmp);
+            LoadImageFile(dlgOpen.FileName);
+        }
+
+        private void LoadImageFile(string fileName) {
+            try {
+                using (var img = Image.FromFile(fileName)) {
+                    using (Bitmap bmp = new Bitmap(img)) {
+                        SetImage(bmp);
+                    }
                 }
-            }
+            } catch {}
         }
 
         private void btnPaste_Click(object sender, EventArgs e) {
