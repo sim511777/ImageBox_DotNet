@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Font\HexFont.cs" />
     <Compile Include="Font\IFont.cs" />
+    <Compile Include="Graphic\Drawing.cs" />
     <Compile Include="ImageBox.cs">
       <SubType>Component</SubType>
     </Compile>
