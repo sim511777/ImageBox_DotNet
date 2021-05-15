@@ -83,6 +83,9 @@ namespace ImageBox_Test {
             var font = (IFont)cbxFont.SelectedValue;
             id.DrawString(text, font, Color.Blue, 50, 50);
             id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
+            
+            for (int i = 0; i < 100; i+= 5)
+                id.DrawPixel(Color.Yellow, 150 + i, 150);
         }
 
         private void ImageGraphicsShape(ImageGraphics ig) {

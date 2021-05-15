@@ -315,6 +315,15 @@ namespace ShimLib {
         }
 
         // ==== GDI 함수 ====
+        public void DrawPixel(Color col, PointF pt) {
+            Point ptd = ib.ImgToDisp(pt);
+            Drawing.DrawPixel(buf, bw, bh, ptd.X, ptd.Y, col.ToArgb());
+        }
+
+        public void DrawPixel(Color col, float x, float y) {
+            DrawPixel(col, new PointF(x, y));
+        }
+
         public void DrawLine(Color col, PointF pt1, PointF pt2) {
             Point ptd1 = ib.ImgToDisp(pt1);
             Point ptd2 = ib.ImgToDisp(pt2);
