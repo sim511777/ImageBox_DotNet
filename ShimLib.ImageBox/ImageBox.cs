@@ -26,9 +26,14 @@ namespace ShimLib {
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
         [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Fuchsia;
         [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
-        [Category("ImageBox")] public string FloatValueFormat { get; set; } = "{0:.000}";
+        [Category("ImageBox")] public int FloatValueDigit { get; set; } = 3;
         
         [Browsable(false)] public List<Rectangle> RoiList { get; } = new List<Rectangle>();
+        [Browsable(false)] private string FloatValueFormat {
+            get {
+                return $"{{0:.{new string('0', Math.Max(FloatValueDigit, 0))}}}";
+            }
+        }
 
         // 생성자
         public ImageBox() {

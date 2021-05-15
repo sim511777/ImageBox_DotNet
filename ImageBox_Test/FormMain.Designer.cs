@@ -215,7 +215,7 @@
             this.imgBox.BackColor = System.Drawing.Color.Gray;
             this.imgBox.CenterLineColor = System.Drawing.Color.Yellow;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgBox.FloatValueFormat = "{0:.000}";
+            this.imgBox.FloatValueDigit = 3;
             this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";

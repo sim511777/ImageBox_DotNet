@@ -91,7 +91,7 @@ namespace ShimLib {
         public Color CenterLineColor { get; set; } = Color.Yellow;
         public Color RoiRectangleColor { get; set; } = Color.Blue;
         public double FloatValueMax { get; set; } = 1.0;
-        public string FloatValueFormat { get; set; } = "{0:.000}";
+        public int FloatValueDigit { get; set; } = 3;
 
         public void FromImageBox(ImageBox pbx) {
             this.UseDrawPixelValue = pbx.UseDrawPixelValue;
@@ -103,7 +103,7 @@ namespace ShimLib {
             this.CenterLineColor = pbx.CenterLineColor;
             this.RoiRectangleColor = pbx.RoiRectangleColor;
             this.FloatValueMax = pbx.FloatValueMax;
-            this.FloatValueFormat = pbx.FloatValueFormat;
+            this.FloatValueDigit = pbx.FloatValueDigit;
         }
 
         public void ToImageBox(ImageBox pbx) {
@@ -116,7 +116,7 @@ namespace ShimLib {
             pbx.CenterLineColor = this.CenterLineColor;
             pbx.RoiRectangleColor = this.RoiRectangleColor;
             pbx.FloatValueMax = this.FloatValueMax;
-            pbx.FloatValueFormat = this.FloatValueFormat;
+            pbx.FloatValueDigit = this.FloatValueDigit;
         }
     }
 }
