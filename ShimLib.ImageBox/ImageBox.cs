@@ -40,7 +40,6 @@ namespace ShimLib {
             InitializeComponent();
             DoubleBuffered = true;
             SetStyle(ControlStyles.Opaque, true);
-            this.RoiList = new List<Rectangle>();
         }
 
         // 백버퍼 그리기 이벤트
