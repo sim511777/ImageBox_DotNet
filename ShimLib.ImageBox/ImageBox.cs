@@ -44,7 +44,7 @@ namespace ShimLib {
 
         // 백버퍼 그리기 이벤트
         [Category("ImageBox")] public event PaintBackbufferEventHandler PaintBackBuffer;
-        protected void OnPaintBackBuffer(IntPtr buf, int bw, int bh) {
+        protected virtual void OnPaintBackBuffer(IntPtr buf, int bw, int bh) {
             if (PaintBackBuffer != null)
                 PaintBackBuffer(this, buf, bw, bh);
         }
