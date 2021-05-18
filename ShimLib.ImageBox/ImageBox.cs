@@ -250,7 +250,7 @@ namespace ShimLib {
             base.OnMouseWheel(e);
         }
         
-        double t01, t12, t23, t34, t45, t56, t67, t78, tTotal;
+        double t01, t12, t23, t34, t45, t56, t67, t78, t89, t910, tTotal;
         public void Redraw() {
 
             var t0 = Util.GetTimeMs();
@@ -275,15 +275,16 @@ namespace ShimLib {
             if (isRoiDown) {
                 DrawRoiDown(id);
             }
+            var t3 = Util.GetTimeMs();
             
             // 중심선 표시
             if (UseDrawCenterLine)
                 DrawCenterLine(id);
-            var t3 = Util.GetTimeMs();
+            var t4 = Util.GetTimeMs();
 
             // PaintBackBuffer이벤트 발생
             OnPaintBackBuffer(bmpData.Scan0, bmpData.Width, bmpData.Height); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t4 = Util.GetTimeMs();
+            var t5 = Util.GetTimeMs();
 
             dispBmp.UnlockBits(bmpData);
             
@@ -291,24 +292,26 @@ namespace ShimLib {
 
             // Paint이벤트 발생
             base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t5 = Util.GetTimeMs();
+            var t6 = Util.GetTimeMs();
             
             // 커서 정보 표시
             if (UseDrawCursorInfo)
                 DrawCursorInfo(g, 2, 2);
-            var t6 = Util.GetTimeMs();
+            var t7 = Util.GetTimeMs();
 
             // 디비그 정보 표시
             if (UseDrawDebugInfo)
                 DrawDebugInfo(g);
-            var t7 = Util.GetTimeMs();
+            var t8 = Util.GetTimeMs();
 
             g.Dispose();
 
             bfg.Graphics.DrawImage(dispBmp, 0, 0);
+            var t9 = Util.GetTimeMs();
+            
             bfg.Render();
-            var t8 = Util.GetTimeMs();
-
+            var t10 = Util.GetTimeMs();
+            
             t01 = t1 - t0;
             t12 = t2 - t1;
             t23 = t3 - t2;
@@ -317,7 +320,9 @@ namespace ShimLib {
             t56 = t6 - t5;
             t67 = t7 - t6;
             t78 = t8 - t7;
-            tTotal = t8 - t0;
+            t89 = t9 - t8;
+            t910 = t10 - t9;
+            tTotal = t10 - t0;
          }
 
         // 페인트
@@ -369,16 +374,19 @@ UseDrawPixelValue : {(UseDrawPixelValue ? "O" : "X")}
 UseDrawCenterLine : {(UseDrawCenterLine ? "O" : "X")}
 UseDrawCursorInfo : {(UseDrawCursorInfo ? "O" : "X")}
 UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
+UseDrawRoiRectangles : {(UseDrawRoiRectangles ? "O" : "X")}
 
 == Time ==
 CopyImageBufferZoom : {t01:0.0}ms
 DrawPixelValue : {t12:0.0}ms
-DrawCenterLine : {t23:0.0}ms
-OnPaintBackBuffer : {t34:0.0}ms
-OnPaint : {t45:0.0}ms
-DrawCursorInfo : {t56:0.0}ms
-DrawDebugInfo : {t67:0.0}ms
-DrawImage & Render : {t78:0.0}ms
+DrawRoiRectangles : {t23:0.0}ms
+DrawCenterLine : {t34:0.0}ms
+OnPaintBackBuffer : {t45:0.0}ms
+OnPaint : {t56:0.0}ms
+DrawCursorInfo : {t67:0.0}ms
+DrawDebugInfo : {t78:0.0}ms
+DrawImage : {t89:0.0}ms
+Render : {t910:0.0}ms
 Total : {tTotal:0.0}ms
 ";
             g.FillRectangle(Brushes.White, this.Width - 200, 0, 200, 400);
