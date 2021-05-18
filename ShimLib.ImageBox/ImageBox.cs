@@ -38,7 +38,6 @@ namespace ShimLib {
         // 생성자
         public ImageBox() {
             InitializeComponent();
-            DoubleBuffered = true;
             SetStyle(ControlStyles.Opaque, true);
         }
 
@@ -58,6 +57,7 @@ namespace ShimLib {
 
         // 디스플레이 버퍼
         private Bitmap dispBmp = null;
+        private BufferedGraphics bfg = null;
 
         // 패닝 옵셋(픽셀)
         private Point ptPan = new Point(2, 2);
@@ -164,8 +164,12 @@ namespace ShimLib {
         protected override void OnLayout(LayoutEventArgs levent) {
             if (dispBmp != null)
                 dispBmp.Dispose();
-
             dispBmp = new Bitmap(Math.Max(Width, 64), Math.Max(Height, 64), PixelFormat.Format32bppPArgb);
+
+            if (bfg != null)
+                bfg.Dispose();
+            bfg = BufferedGraphicsManager.Current.Allocate(this.CreateGraphics(), ClientRectangle);
+
             Redraw();
             base.OnLayout(levent);
         }
@@ -301,7 +305,8 @@ namespace ShimLib {
 
             g.Dispose();
 
-            Refresh();
+            bfg.Graphics.DrawImage(dispBmp, 0, 0);
+            bfg.Render();
             var t8 = Util.GetTimeMs();
 
             t01 = t1 - t0;
@@ -325,7 +330,7 @@ namespace ShimLib {
             }
             
             // 이미지 그리기
-            pe.Graphics.DrawImage(dispBmp, 0, 0);
+            bfg.Render();
         }
 
         private void DrawRoiDown(ImageDrawing id) {
@@ -373,7 +378,7 @@ OnPaintBackBuffer : {t34:0.0}ms
 OnPaint : {t45:0.0}ms
 DrawCursorInfo : {t56:0.0}ms
 DrawDebugInfo : {t67:0.0}ms
-Refresh : {t78:0.0}ms
+DrawImage & Render : {t78:0.0}ms
 Total : {tTotal:0.0}ms
 ";
             g.FillRectangle(Brushes.White, this.Width - 200, 0, 200, 400);
