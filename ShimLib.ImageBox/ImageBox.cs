@@ -68,8 +68,8 @@ namespace ShimLib {
                     ptPan = new Point(2, 2);
                 else {
                     var zoom = GetZoomFactor();
-                    int x = Math.Max(Math.Min(value.X, 2), -(int)(imgBw * zoom) + 2);
-                    int y = Math.Max(Math.Min(value.Y, 2), -(int)(imgBh * zoom) + 2);
+                    int x = Util.Clamp(value.X, -(int)(imgBw * zoom) + 2, 2);
+                    int y = Util.Clamp(value.Y, -(int)(imgBh * zoom) + 2, 2);
                     ptPan = new Point(x, y);
                 }
             } 
@@ -78,7 +78,7 @@ namespace ShimLib {
         private int zoomLevel = 0;
         private int ZoomLevel {
             get { return zoomLevel; }
-            set { zoomLevel = Math.Max(Math.Min(value, 16), -16); }
+            set { zoomLevel = Util.Clamp(value, -16, 16); }
         }
 
         private void GetZoomFactorComponents(out int exp_num, out int c) {
@@ -460,9 +460,9 @@ Total : {tTotal:0.0}ms
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
-                        return Math.Min(Math.Max((int)(*(float*)ptr * 255 / FloatValueMax), 0), 255) / 32;
+                        return Util.Clamp((int)(*(float*)ptr * 255 / FloatValueMax), 0, 255) / 32;
                     else
-                        return Math.Min(Math.Max((int)((*(double*)ptr * 255 / FloatValueMax)), 0), 255) / 32;
+                        return Util.Clamp((int)((*(double*)ptr * 255 / FloatValueMax)), 0, 255) / 32;
                 } else {
                     // rgb -> gray
                     return (ptr[2] * 3 + ptr[1] * 6 + ptr[0]) / 320;
