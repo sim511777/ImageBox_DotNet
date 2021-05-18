@@ -166,7 +166,7 @@ namespace ShimLib {
                 dispBmp.Dispose();
 
             dispBmp = new Bitmap(Math.Max(Width, 64), Math.Max(Height, 64), PixelFormat.Format32bppPArgb);
-            Invalidate();
+            Redraw();
             base.OnLayout(levent);
         }
 
@@ -195,11 +195,11 @@ namespace ShimLib {
             ptMove = e.Location;
             if (isRoiDown) {
                 ptRoiEnd = ToInt(DispToImg(e.Location));
-                Invalidate();
+                Redraw();
             } else  if (isPanningDown) {
                 PtPan += (Size)e.Location - (Size)ptPanningOld;
                 ptPanningOld = e.Location;
-                Invalidate();
+                Redraw();
             } else {
                 if (UseDrawCursorInfo) {
                     using (Bitmap bmp = new Bitmap(200, Font.Height)) {
@@ -230,7 +230,7 @@ namespace ShimLib {
                         frmAbout.UpdateRoiList();
                 }
                 isRoiDown = false;
-                Invalidate();
+                Redraw();
             }
             isPanningDown = false;
             base.OnMouseUp(e);
@@ -242,20 +242,12 @@ namespace ShimLib {
             ZoomLevel += (e.Delta > 0) ? 1 : -1;
             var ptDisp = ImgToDisp(ptImg);
             PtPan += ((Size)e.Location - (Size)ptDisp);
-            Invalidate();
+            Redraw();
             base.OnMouseWheel(e);
         }
         
-        double t_01, t_12, t_23, t_34, t_45, t_56, t_67, t_78, t_total;
-        // 페인트
-        protected override void OnPaint(PaintEventArgs pe) {
-            Graphics g = pe.Graphics;
-            // 디자인 모드
-            if (DesignMode) {
-                g.Clear(BackColor);
-                g.DrawString(Name, Font, Brushes.Black, 0, 0);
-                return;
-            }
+        double t01, t12, t23, t34, t45, t56, t67, t78, tTotal;
+        public void Redraw() {
 
             var t0 = Util.GetTimeMs();
 
@@ -291,33 +283,49 @@ namespace ShimLib {
 
             dispBmp.UnlockBits(bmpData);
             
-            // 이미지 그리기
-            g.DrawImage(dispBmp, 0, 0);
-            var t5 = Util.GetTimeMs();
-            
+            var g = Graphics.FromImage(dispBmp);
+
             // Paint이벤트 발생
-            base.OnPaint(pe);   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t6 = Util.GetTimeMs();
+            base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
+            var t5 = Util.GetTimeMs();
             
             // 커서 정보 표시
             if (UseDrawCursorInfo)
                 DrawCursorInfo(g, 2, 2);
-            var t7 = Util.GetTimeMs();
+            var t6 = Util.GetTimeMs();
 
             // 디비그 정보 표시
             if (UseDrawDebugInfo)
                 DrawDebugInfo(g);
+            var t7 = Util.GetTimeMs();
+
+            g.Dispose();
+
+            Refresh();
             var t8 = Util.GetTimeMs();
 
-            t_01 = t1 - t0;
-            t_12 = t2 - t1;
-            t_23 = t3 - t2;
-            t_34 = t4 - t3;
-            t_45 = t5 - t4;
-            t_56 = t6 - t5;
-            t_67 = t7 - t6;
-            t_78 = t8 - t7;
-            t_total = t8 - t0;
+            t01 = t1 - t0;
+            t12 = t2 - t1;
+            t23 = t3 - t2;
+            t34 = t4 - t3;
+            t45 = t5 - t4;
+            t56 = t6 - t5;
+            t67 = t7 - t6;
+            t78 = t8 - t7;
+            tTotal = t8 - t0;
+         }
+
+        // 페인트
+        protected override void OnPaint(PaintEventArgs pe) {
+            // 디자인 모드
+            if (DesignMode) {
+                pe.Graphics.Clear(BackColor);
+                pe.Graphics.DrawString(Name, Font, Brushes.Black, 0, 0);
+                return;
+            }
+            
+            // 이미지 그리기
+            pe.Graphics.DrawImage(dispBmp, 0, 0);
         }
 
         private void DrawRoiDown(ImageDrawing id) {
@@ -358,19 +366,20 @@ UseDrawCursorInfo : {(UseDrawCursorInfo ? "O" : "X")}
 UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
 
 == Time ==
-CopyImageBufferZoom : {t_01:0.0}ms
-DrawPixelValue : {t_12:0.0}ms
-DrawCenterLine : {t_23:0.0}ms
-OnPaintBackBuffer : {t_34:0.0}ms
-DrawImage : {t_45:0.0}ms
-OnPaint : {t_56:0.0}ms
-DrawCursorInfo : {t_67:0.0}ms
-DrawDebugInfo : {t_78:0.0}ms
-Total : {t_total:0.0}ms
+CopyImageBufferZoom : {t01:0.0}ms
+DrawPixelValue : {t12:0.0}ms
+DrawCenterLine : {t23:0.0}ms
+OnPaintBackBuffer : {t34:0.0}ms
+OnPaint : {t45:0.0}ms
+DrawCursorInfo : {t56:0.0}ms
+DrawDebugInfo : {t67:0.0}ms
+Refresh : {t78:0.0}ms
+Total : {tTotal:0.0}ms
 ";
             g.FillRectangle(Brushes.White, this.Width - 200, 0, 200, 400);
             g.DrawString(info, Font, Brushes.Black, this.Width - 200, 0);
         }
+
 
         // 픽셀값 표시
         private void DrawPixelValue(ImageDrawing id) {

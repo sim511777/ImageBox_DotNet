@@ -101,7 +101,7 @@ namespace ImageBox_Test {
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
             imgBox.ResetZoom();
-            imgBox.Invalidate();
+            imgBox.Redraw();
         }
 
         IntPtr imgBuf = IntPtr.Zero;
@@ -123,7 +123,7 @@ namespace ImageBox_Test {
             Util.FreeBuffer(ref imgBuf);
             Util.BitmapToImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
             imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
-            imgBox.Invalidate();
+            imgBox.Redraw();
         }
 
         private void SetImage_toFloat(Bitmap bmp) {
@@ -146,7 +146,7 @@ namespace ImageBox_Test {
 
             bytepp = 4;
             imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, true);
-            imgBox.Invalidate();
+            imgBox.Redraw();
         }
 
         private void btnLenna8_Click(object sender, EventArgs e) {
@@ -196,11 +196,11 @@ namespace ImageBox_Test {
         }
 
         private void tbxExample_TextChanged(object sender, EventArgs e) {
-            imgBox.Invalidate();
+            imgBox.Redraw();
         }
 
         private void cbxFont_SelectedIndexChanged(object sender, EventArgs e) {
-            imgBox.Invalidate();
+            imgBox.Redraw();
         }
 
         private string GetDragDataImageFile(IDataObject data) {
@@ -244,7 +244,7 @@ namespace ImageBox_Test {
         }
 
         private void lbxDrawTest_SelectedIndexChanged(object sender, EventArgs e) {
-            this.imgBox.Invalidate();
+            this.imgBox.Redraw();
         }
 
         private void btnFont_Click(object sender, EventArgs e) {
@@ -252,7 +252,7 @@ namespace ImageBox_Test {
             if (dr != DialogResult.OK)
                 return;
             this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
-            this.imgBox.Invalidate();
+            this.imgBox.Redraw();
         }
     }
 }
