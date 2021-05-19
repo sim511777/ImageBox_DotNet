@@ -166,5 +166,9 @@ namespace ShimLib {
                 }
             }
         }
+
+        public int GetFontHeight() {
+            return fbH;
+        }
     }
 }
