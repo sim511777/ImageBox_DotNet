@@ -121,7 +121,7 @@ namespace ImageBox_Test {
             if (supportedFormats.Contains(bmp.PixelFormat) == false)
                 return;
             Util.FreeBuffer(ref imgBuf);
-            Util.BitmapToImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
+            ImageUtil.BitmapToImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
             imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
             imgBox.Redraw();
         }

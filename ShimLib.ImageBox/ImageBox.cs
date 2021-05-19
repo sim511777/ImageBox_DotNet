@@ -538,39 +538,43 @@ Total : {tTotal:0.0}ms
             double doubleScale = 255 / floatValueMax;
 
             for (int y = 0; y < dispBh; y++) {
-                int siy = siys[y];
-                byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
+                int siy = siys[y];
+                if (siy == -1) {
+                    Util.Memset4((IntPtr)dp, bgColor, dispBw);
+                    continue;
+                }
+                byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
                 for (int x = 0; x < dispBw; x++, dp++) {
                     int six = sixs[x];
-                    if (siy == -1 || six == -1) {       // out of boundary of image
+                    if (six == -1) {       // out of boundary of image
                         *dp = bgColor;
+                        continue;
+                    }
+                    byte* sp = &sptr[six * bytepp];
+                    if (bufIsFloat) {
+                        if (bytepp == 4) {          // 4byte float gray
+                            int v = (int)(*(float*)sp * floatScale);
+                            if (v > 255) v = 255;
+                            if (v < 0) v = 0;
+                            *dp = v | v << 8 | v << 16 | 0xff << 24;
+                        } else if (bytepp == 8) {   // 8byte double gray
+                            int v = (int)(*(double*)sp * doubleScale);
+                            if (v > 255) v = 255;
+                            if (v < 0) v = 0;
+                            *dp = v | v << 8 | v << 16 | 0xff << 24;
+                        }
                     } else {
-                        byte* sp = &sptr[six * bytepp];
-                        if (bufIsFloat) {
-                            if (bytepp == 4) {          // 4byte float gray
-                                int v = (int)(*(float*)sp * floatScale);
-                                if (v > 255) v = 255;
-                                if (v < 0) v = 0;
-                                *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            } else if (bytepp == 8) {   // 8byte double gray
-                                int v = (int)(*(double*)sp * doubleScale);
-                                if (v > 255) v = 255;
-                                if (v < 0) v = 0;
-                                *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            }
-                        } else {
-                            if (bytepp == 1) {          // 1byte gray
-                                int v = sp[0];
-                                *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            } else if (bytepp == 2) {   // 2byte gray (*.hra)
-                                int v = sp[0];
-                                *dp = v | v << 8 | v << 16 | 0xff << 24;
-                            } else if (bytepp == 3) {   // 3byte bgr
-                                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-                            } else if (bytepp == 4) {   // rbyte bgra
-                                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-                            }
+                        if (bytepp == 1) {          // 1byte gray
+                            int v = sp[0];
+                            *dp = v | v << 8 | v << 16 | 0xff << 24;
+                        } else if (bytepp == 2) {   // 2byte gray (*.hra)
+                            int v = sp[0];
+                            *dp = v | v << 8 | v << 16 | 0xff << 24;
+                        } else if (bytepp == 3) {   // 3byte bgr
+                            *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
+                        } else if (bytepp == 4) {   // rbyte bgra
+                            *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
                         }
                     }
                 }

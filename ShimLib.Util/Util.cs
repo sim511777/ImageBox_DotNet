@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace ShimLib {
     public class Util {
@@ -86,36 +82,6 @@ namespace ShimLib {
             IntPtr buf = Marshal.AllocHGlobal((IntPtr)size);
             Util.Memset(buf, 0, size);
             return buf;
-        }
-
-        public unsafe static void BitmapToImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
-            if (bmp.PixelFormat == PixelFormat.Format1bppIndexed) {
-                ImageUtil.Bitmap1BitToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
-                return;
-            }
-
-            bw = bmp.Width;
-            bh = bmp.Height;
-            if (bmp.PixelFormat == PixelFormat.Format8bppIndexed)
-                bytepp = 1;
-            else if (bmp.PixelFormat == PixelFormat.Format16bppGrayScale)
-                bytepp = 2;
-            else if (bmp.PixelFormat == PixelFormat.Format24bppRgb)
-                bytepp = 3;
-            else if (bmp.PixelFormat == PixelFormat.Format32bppRgb || bmp.PixelFormat == PixelFormat.Format32bppArgb || bmp.PixelFormat == PixelFormat.Format32bppPArgb)
-                bytepp = 4;
-            Int64 bufSize = (Int64)bw * bh * bytepp;
-            imgBuf = AllocBuffer(bufSize);
-
-            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.ReadOnly, bmp.PixelFormat);
-            int copySize = bw * bytepp;
-            for (int y = 0; y < bh; y++) {
-                IntPtr dstPtr = (IntPtr)((byte*)imgBuf + bw * y * bytepp);
-                IntPtr srcPtr = (IntPtr)((byte*)bmpData.Scan0 + bmpData.Stride * y);
-                Memcpy(dstPtr, srcPtr, copySize);
-            }
-
-            bmp.UnlockBits(bmpData);
         }
     }
 }
