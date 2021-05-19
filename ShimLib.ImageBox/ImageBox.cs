@@ -578,9 +578,9 @@ Total : {tTotal:0.0}ms
         }
 
         public Bitmap GetBitmap() {
-            if (imgBuf == null || isImgbufFloat)
+            if (imgBuf == null)
                 return null;
-            Bitmap bmp = ImageUtil.ImageBufferToBitmap(imgBuf, imgBw, imgBh, imgBytepp);
+            Bitmap bmp = ImageUtil.ImageBufferToBitmap(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, FloatValueMax);
             return bmp;
         }
     }

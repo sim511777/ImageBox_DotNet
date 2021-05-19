@@ -227,9 +227,12 @@ namespace ShimLib {
         }
 
         // Save Bitmap from Buffer
-        public unsafe static Bitmap ImageBufferToBitmap(IntPtr imgBuf, int bw, int bh, int bytepp) {
+        public unsafe static Bitmap ImageBufferToBitmap(IntPtr imgBuf, int bw, int bh, int bytepp, bool isImgbufFloat, double floatValueMax) {
+            if (isImgbufFloat) {
+                return FloatBufferToBitmap8(imgBuf, bw, bh, bytepp, floatValueMax);
+            }
             if (bytepp == 2) {
-                return HraToBmp24(imgBuf, bw, bh, bytepp);
+                return HraBufferToBitmap24(imgBuf, bw, bh, bytepp);
             }
             PixelFormat pixelFormat;
             if (bytepp == 1)
@@ -264,8 +267,40 @@ namespace ShimLib {
             return bmp;
         }
 
+        private unsafe static Bitmap FloatBufferToBitmap8(IntPtr imgBuf, int bw, int bh, int bytepp, double floatValueMax) {
+            Bitmap bmp = new Bitmap(bw, bh, PixelFormat.Format8bppIndexed);
+            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.WriteOnly, bmp.PixelFormat);
+            float floatScale = 255 / (float)floatValueMax;
+            int copySize = bw * bytepp;
+            int paddingSize = bmpData.Stride - copySize;
+            byte[] paddingBuf = { 0, 0, 0, 0 };
+            for (int y = 0; y < bh; y++) {
+                IntPtr srcPtr = imgBuf + bw * y * bytepp;
+                IntPtr dstPtr = bmpData.Scan0 + bmpData.Stride * y;
+                float* sp = (float*)srcPtr;
+                byte* dp = (byte*)dstPtr;
+                for (int x = 0; x < bw; x++, sp++, dp++) {
+                    float gray = *(float*)sp * floatScale;
+                    if (gray > 255f) gray = 255f;
+                    if (gray < 0f) gray = 0f;
+                    *dp = (byte)gray;
+                }
+                if (paddingSize > 0)
+                    Marshal.Copy(paddingBuf, 0, dstPtr + copySize, paddingSize);
+            }
+            bmp.UnlockBits(bmpData);
+            if (bmp.PixelFormat == PixelFormat.Format8bppIndexed) {
+                var pal = bmp.Palette;
+                for (int i = 0; i < pal.Entries.Length; i++) {
+                    pal.Entries[i] = Color.FromArgb(i, i, i);
+                }
+                bmp.Palette = pal;
+            }
+            return bmp;
+        }
+
         // hra to bmp24
-        private unsafe static Bitmap HraToBmp24(IntPtr imgBuf, int bw, int bh, int bytepp) {
+        private unsafe static Bitmap HraBufferToBitmap24(IntPtr imgBuf, int bw, int bh, int bytepp) {
             Bitmap bmp = new Bitmap(bw, bh, PixelFormat.Format24bppRgb);
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.WriteOnly, bmp.PixelFormat);
             int paddingSize = bmpData.Stride - bw * 3;
