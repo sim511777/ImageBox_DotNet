@@ -206,10 +206,10 @@ namespace ShimLib {
                 Redraw();
             } else {
                 if (UseDrawCursorInfo) {
-                    using (Bitmap bmp = new Bitmap(200, Font.Height)) {
-                        using (Graphics bg = Graphics.FromImage(bmp)) {
-                            DrawCursorInfo(bg, 0, 0);
-                        }
+                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.Unicode_16x16_hex.GetFontHeight(), PixelFormat.Format32bppPArgb)) {
+                        var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
+                        DrawCursorInfo(bd.Scan0, bd.Width, bd.Height, 0, 0);
+                        bmp.UnlockBits(bd);
                         using (Graphics g = CreateGraphics()) {
                             g.DrawImage(bmp, 2, 2);
                         }
@@ -286,24 +286,24 @@ namespace ShimLib {
             OnPaintBackBuffer(bmpData.Scan0, bmpData.Width, bmpData.Height); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             var t5 = Util.GetTimeMs();
 
+            // 커서 정보 표시
+            if (UseDrawCursorInfo)
+                DrawCursorInfo(bmpData.Scan0, bmpData.Width, bmpData.Height, 2, 2);
+            var t6 = Util.GetTimeMs();
+
+            // 디비그 정보 표시
+            if (UseDrawDebugInfo)
+                DrawDebugInfo(id);
+            var t7 = Util.GetTimeMs();
+
             dispBmp.UnlockBits(bmpData);
             
             var g = Graphics.FromImage(dispBmp);
 
             // Paint이벤트 발생
             base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t6 = Util.GetTimeMs();
-            
-            // 커서 정보 표시
-            if (UseDrawCursorInfo)
-                DrawCursorInfo(g, 2, 2);
-            var t7 = Util.GetTimeMs();
-
-            // 디비그 정보 표시
-            if (UseDrawDebugInfo)
-                DrawDebugInfo(g);
             var t8 = Util.GetTimeMs();
-
+            
             g.Dispose();
 
             bfg.Graphics.DrawImage(dispBmp, 0, 0);
@@ -364,7 +364,7 @@ namespace ShimLib {
             }
         }
 
-        private void DrawDebugInfo(Graphics g) {
+        private void DrawDebugInfo(ImageDrawing id) {
             string info =
 $@"== Image ==
 {(imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}")}
@@ -382,15 +382,14 @@ DrawPixelValue : {t12:0.0}ms
 DrawRoiRectangles : {t23:0.0}ms
 DrawCenterLine : {t34:0.0}ms
 OnPaintBackBuffer : {t45:0.0}ms
-OnPaint : {t56:0.0}ms
-DrawCursorInfo : {t67:0.0}ms
-DrawDebugInfo : {t78:0.0}ms
+DrawCursorInfo : {t56:0.0}ms
+DrawDebugInfo : {t67:0.0}ms
+OnPaint : {t78:0.0}ms
 DrawImage : {t89:0.0}ms
 Render : {t910:0.0}ms
 Total : {tTotal:0.0}ms
 ";
-            g.FillRectangle(Brushes.White, this.Width - 200, 0, 200, 400);
-            g.DrawString(info, Font, Brushes.Black, this.Width - 200, 0);
+            id.DrawStringWnd(info, Fonts.Unicode_16x16_hex, Color.Black, this.Width - 230, 2, Color.White);
         }
 
 
@@ -499,15 +498,16 @@ Total : {tTotal:0.0}ms
         }
 
         // 커서 정보 표시
-        private void DrawCursorInfo(Graphics g, int ofsx, int ofsy) {
+        private void DrawCursorInfo(IntPtr dispBuf, int dispBw, int dispBh, int ofsx, int ofsy) {
             var ptImg = DispToImg(ptMove);
             int ix = (int)Math.Round(ptImg.X);
             int iy = (int)Math.Round(ptImg.Y);
             var colText = GetImagePixelValueText(ix, iy);
             string zoomText = GetZoomText();
-            string text = string.Format("zoom={0} ({1},{2})={3}", zoomText, ix, iy, colText);
-            g.FillRectangle(Brushes.Black, ofsx, ofsy, 200, Font.Height);
-            g.DrawString(text, Font, Brushes.White, ofsx, ofsy);
+            string text = $"{($"zoom={zoomText} ({ix},{iy})={colText}"), - 35}";
+            var size = Fonts.Unicode_16x16_hex.MeasureString(text);
+            Drawing.DrawRectangle(dispBuf, dispBw, dispBh, ofsx, ofsy, ofsx + size.Width - 1, ofsy + size.Height - 1, Color.Black.ToArgb(), true);
+            Fonts.Unicode_16x16_hex.DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
         }
 
         // ImageGraphics 리턴
