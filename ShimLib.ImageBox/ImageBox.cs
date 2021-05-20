@@ -24,7 +24,7 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
 
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
-        [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Fuchsia;
+        [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Blue;
         [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
         [Category("ImageBox")] public int FloatValueDigit { get; set; } = 3;
         

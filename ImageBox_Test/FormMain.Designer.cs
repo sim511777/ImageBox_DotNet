@@ -219,7 +219,7 @@
             this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            this.imgBox.RoiRectangleColor = System.Drawing.Color.Fuchsia;
+            this.imgBox.RoiRectangleColor = System.Drawing.Color.Blue;
             this.imgBox.Size = new System.Drawing.Size(601, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
