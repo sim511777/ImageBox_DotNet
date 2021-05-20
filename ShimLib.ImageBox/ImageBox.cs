@@ -269,11 +269,12 @@ namespace ShimLib {
                 DrawPixelValue(id);
             var t2 = Util.GetTimeMs();
 
+            // ROI 표시
             if (UseDrawRoiRectangles) {
                 DrawRoiRectangles(id);
-            }
-            if (isRoiDown) {
-                DrawRoiDown(id);
+                if (isRoiDown) {
+                    DrawRoiDown(id);
+                }
             }
             var t3 = Util.GetTimeMs();
             
@@ -298,17 +299,17 @@ namespace ShimLib {
 
             dispBmp.UnlockBits(bmpData);
             
-            var g = Graphics.FromImage(dispBmp);
-
             // Paint이벤트 발생
+            var g = Graphics.FromImage(dispBmp);
             base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t8 = Util.GetTimeMs();
-            
             g.Dispose();
+            var t8 = Util.GetTimeMs();
 
+            // 백버퍼에다 복사
             bfg.Graphics.DrawImage(dispBmp, 0, 0);
             var t9 = Util.GetTimeMs();
             
+            // 프런트버퍼에다 복사
             bfg.Render();
             var t10 = Util.GetTimeMs();
             
