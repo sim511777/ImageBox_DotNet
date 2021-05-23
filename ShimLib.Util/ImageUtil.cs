@@ -186,7 +186,7 @@ namespace ShimLib {
                 bytepp = 3;
             else if (bmp.PixelFormat == PixelFormat.Format32bppRgb || bmp.PixelFormat == PixelFormat.Format32bppArgb || bmp.PixelFormat == PixelFormat.Format32bppPArgb)
                 bytepp = 4;
-            long bufSize = (long)bw * bh * bytepp;
+            Int64 bufSize = (Int64)bw * bh * bytepp;
             imgBuf = Util.AllocBuffer(bufSize);
 
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.ReadOnly, bmp.PixelFormat);
