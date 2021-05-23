@@ -169,6 +169,12 @@ namespace ShimLib {
             if (bfg != null)
                 bfg.Dispose();
             bfg = BufferedGraphicsManager.Current.Allocate(this.CreateGraphics(), ClientRectangle);
+            bfg.Graphics.CompositingMode = CompositingMode.SourceCopy;
+            bfg.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+            bfg.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+            bfg.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+            bfg.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
+            bfg.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
             Redraw();
             base.OnLayout(levent);
