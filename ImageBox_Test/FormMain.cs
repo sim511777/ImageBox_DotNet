@@ -177,10 +177,8 @@ namespace ImageBox_Test {
 
         private void LoadImageFile(string fileName) {
             try {
-                using (var img = Image.FromFile(fileName)) {
-                    using (Bitmap bmp = new Bitmap(img)) {
-                        SetImage(bmp);
-                    }
+                using (var bmp = new Bitmap(fileName)) {
+                    SetImage(bmp);
                 }
             } catch {}
         }
