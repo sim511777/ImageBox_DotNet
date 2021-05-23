@@ -236,11 +236,7 @@ namespace ImageBox_Test {
             if (filePath == null)
                 return;
 
-            using (var img = Image.FromFile(filePath)) {
-                using (Bitmap bmp = new Bitmap(img)) {
-                    SetImage(bmp);
-                }
-            }
+            LoadImageFile(filePath);
         }
 
         private void lbxDrawTest_SelectedIndexChanged(object sender, EventArgs e) {
