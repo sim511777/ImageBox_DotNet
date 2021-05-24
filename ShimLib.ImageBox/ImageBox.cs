@@ -433,10 +433,10 @@ Total : {tTotal:0.0}ms
             int iy2 = (int)Math.Round(ptImgRB.Y);
             ix1 = Math.Max(ix1, 0);
             iy1 = Math.Max(iy1, 0);
-            ix2 = Math.Min(ix2, imgBw - 1);
-            iy2 = Math.Min(iy2, imgBh - 1);
-            for (int iy = iy1; iy <= iy2; iy++) {
-                for (int ix = ix1; ix <= ix2; ix++) {
+            ix2 = Math.Min(ix2, imgBw - 1) + 1; // ix end exclusive
+            iy2 = Math.Min(iy2, imgBh - 1) + 1; // iy end exclusive
+            for (int iy = iy1; iy < iy2; iy++) {
+                for (int ix = ix1; ix < ix2; ix++) {
                     string pixelValueText = GetImagePixelValueText(ix, iy, multiLine);
                     int colIdx = GetImagePixelValueColorIndex(ix, iy);
                     id.DrawString(pixelValueText, font, pseudoColor[colIdx], ix - 0.5f, iy - 0.5f);
