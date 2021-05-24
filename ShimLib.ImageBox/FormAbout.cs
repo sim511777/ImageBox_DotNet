@@ -87,6 +87,7 @@ namespace ShimLib {
         public bool UseDrawCursorInfo { get; set; } = true;
         public bool UseDrawDebugInfo { get; set; } = true;
         public bool UseDrawRoiRectangles { get; set; } = true;
+        public bool UseParallelToDraw { get; set; } = false;
 
         public Color CenterLineColor { get; set; } = Color.Yellow;
         public Color RoiRectangleColor { get; set; } = Color.Blue;
@@ -99,6 +100,7 @@ namespace ShimLib {
             this.UseDrawCursorInfo = pbx.UseDrawCursorInfo;
             this.UseDrawDebugInfo = pbx.UseDrawDebugInfo;
             this.UseDrawRoiRectangles = pbx.UseDrawRoiRectangles;
+            this.UseParallelToDraw = pbx.UseParallelToDraw;
             
             this.CenterLineColor = pbx.CenterLineColor;
             this.RoiRectangleColor = pbx.RoiRectangleColor;
@@ -112,6 +114,7 @@ namespace ShimLib {
             pbx.UseDrawCursorInfo = this.UseDrawCursorInfo;
             pbx.UseDrawDebugInfo = this.UseDrawDebugInfo;
             pbx.UseDrawRoiRectangles = this.UseDrawRoiRectangles;
+            pbx.UseParallelToDraw = this.UseParallelToDraw;
             
             pbx.CenterLineColor = this.CenterLineColor;
             pbx.RoiRectangleColor = this.RoiRectangleColor;

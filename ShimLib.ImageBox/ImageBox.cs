@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace ShimLib {
     public delegate void PaintBackbufferEventHandler(object sender, IntPtr buf, int bw, int bh);
@@ -22,6 +23,7 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawCursorInfo { get; set; } = true;
         [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
         [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
+        [Category("ImageBox")] public bool UseParallelToDraw { get; set; } = false;
 
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
         [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Blue;
@@ -265,7 +267,7 @@ namespace ShimLib {
             
             // 이미지 확대 축소
             double zoom = GetZoomFactor();
-            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), FloatValueMax);
+            CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), FloatValueMax, UseParallelToDraw);
             var t1 = Util.GetTimeMs();
 
             var id = new ImageDrawing(this, bmpData.Scan0, bmpData.Width, bmpData.Height);
@@ -435,13 +437,17 @@ Total : {tTotal:0.0}ms
             iy1 = Math.Max(iy1, 0);
             ix2 = Math.Min(ix2, imgBw - 1) + 1; // ix end exclusive
             iy2 = Math.Min(iy2, imgBh - 1) + 1; // iy end exclusive
-            for (int iy = iy1; iy < iy2; iy++) {
+            void iyAction(int iy) {
                 for (int ix = ix1; ix < ix2; ix++) {
                     string pixelValueText = GetImagePixelValueText(ix, iy, multiLine);
                     int colIdx = GetImagePixelValueColorIndex(ix, iy);
                     id.DrawString(pixelValueText, font, pseudoColor[colIdx], ix - 0.5f, iy - 0.5f);
                 }
             }
+            if (UseParallelToDraw)
+                Parallel.For(iy1, iy2, iyAction);
+            else
+                for (int iy = iy1; iy < iy2; iy++) { iyAction(iy); }
         }
 
         // 픽셀값 표시 문자열
@@ -530,7 +536,7 @@ Total : {tTotal:0.0}ms
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        private static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax) {
+        private static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, bool useParallel) {
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];
@@ -546,12 +552,12 @@ Total : {tTotal:0.0}ms
             float floatScale = (float)(255 / floatValueMax);
             double doubleScale = 255 / floatValueMax;
 
-            for (int y = 0; y < dispBh; y++) {
+            Action<int> yAction = y => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
                 if (siy == -1) {
                     Util.Memset4((IntPtr)dp, bgColor, dispBw);
-                    continue;
+                    return;
                 }
                 byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
                 for (int x = 0; x < dispBw; x++, dp++) {
@@ -587,7 +593,11 @@ Total : {tTotal:0.0}ms
                         }
                     }
                 }
-            }
+            };
+            if (useParallel)
+                Parallel.For(0, dispBh, yAction);
+            else
+                for (int y = 0; y < dispBh; y++) { yAction(y); }
         }
 
         public Bitmap GetBitmap() {
