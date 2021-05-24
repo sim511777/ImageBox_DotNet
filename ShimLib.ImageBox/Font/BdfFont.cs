@@ -167,8 +167,6 @@ namespace ShimLib {
             }
         }
 
-        public int GetFontHeight() {
-            return fbH;
-        }
+        public int FontHeight => fbH;
     }
 }

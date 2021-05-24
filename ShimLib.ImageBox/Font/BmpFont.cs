@@ -66,9 +66,7 @@ namespace ShimLib {
             }
         }
 
-        public int GetFontHeight() {
-            return fh;
-        }
+        public int FontHeight => fh;
 
         public Size MeasureString(string text) {
             int maxX = 0;

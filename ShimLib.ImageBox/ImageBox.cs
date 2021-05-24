@@ -23,7 +23,7 @@ namespace ShimLib {
         [Category("ImageBox")] public bool UseDrawCursorInfo { get; set; } = true;
         [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
         [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
-        [Category("ImageBox")] public bool UseParallelToDraw { get; set; } = false;
+        [Category("ImageBox")] public bool UseParallelToDraw { get; set; } = true;
 
         [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
         [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Blue;
@@ -46,8 +46,7 @@ namespace ShimLib {
         // 백버퍼 그리기 이벤트
         [Category("ImageBox")] public event PaintBackbufferEventHandler PaintBackBuffer;
         protected virtual void OnPaintBackBuffer(IntPtr buf, int bw, int bh) {
-            if (PaintBackBuffer != null)
-                PaintBackBuffer(this, buf, bw, bh);
+            PaintBackBuffer?.Invoke(this, buf, bw, bh);
         }
 
         // 이미지 버퍼 정보
@@ -90,15 +89,11 @@ namespace ShimLib {
             c = (ZoomLevel % 2 != 0) ? 3 : 1;
         }
         public double GetZoomFactor() {
-            int exp_num;
-            int c;
-            GetZoomFactorComponents(out exp_num, out c);
+            GetZoomFactorComponents(out int exp_num, out int c);
             return c * Math.Pow(2, exp_num);
         }
         private string GetZoomText() {
-            int exp_num;
-            int c;
-            GetZoomFactorComponents(out exp_num, out c);
+            GetZoomFactorComponents(out int exp_num, out int c);
             return (exp_num >= 0) ? (c * (int)Math.Pow(2, exp_num)).ToString() : c.ToString() + "/" + ((int)Math.Pow(2, -exp_num)).ToString();
         }
 
@@ -214,7 +209,7 @@ namespace ShimLib {
                 Redraw();
             } else {
                 if (UseDrawCursorInfo) {
-                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.Unicode_16x16_hex.GetFontHeight(), PixelFormat.Format32bppPArgb)) {
+                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.Unicode_16x16_hex.FontHeight, PixelFormat.Format32bppPArgb)) {
                         var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
                         DrawCursorInfo(bd.Scan0, bd.Width, bd.Height, 0, 0);
                         bmp.UnlockBits(bd);
@@ -552,7 +547,7 @@ Total : {tTotal:0.0}ms
             float floatScale = (float)(255 / floatValueMax);
             double doubleScale = 255 / floatValueMax;
 
-            Action<int> yAction = y => {
+            void yAction(int y) {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
                 if (siy == -1) {
@@ -593,7 +588,7 @@ Total : {tTotal:0.0}ms
                         }
                     }
                 }
-            };
+            }
             if (useParallel)
                 Parallel.For(0, dispBh, yAction);
             else

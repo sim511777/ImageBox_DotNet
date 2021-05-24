@@ -9,6 +9,6 @@ namespace ShimLib {
     public interface IFont {
         Size MeasureString(string text);
         void DrawString(string text, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, Color color);
-        int GetFontHeight();
+        int FontHeight { get; }
     }
 }
