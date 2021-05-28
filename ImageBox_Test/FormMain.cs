@@ -17,7 +17,10 @@ namespace ImageBox_Test {
         public FormMain(string[] args) {
             InitializeComponent();
             
-            var fonts = typeof(Fonts).GetFields().Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) }).ToArray();
+            var fonts = typeof(Fonts).GetFields()
+                .Where(fi => fi.FieldType == typeof(IFont))
+                .Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) })
+                .ToArray();
             cbxFont.DataSource = fonts;
             cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
             lbxDrawTest.SelectedIndex = 0;

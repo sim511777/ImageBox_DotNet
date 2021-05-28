@@ -82,17 +82,18 @@ namespace ShimLib {
 
     public class ImageBoxOption {
         // 화면 표시 옵션
-        public bool UseDrawPixelValue { get; set; } = true;
-        public bool UseDrawCenterLine { get; set; } = true;
-        public bool UseDrawCursorInfo { get; set; } = true;
-        public bool UseDrawDebugInfo { get; set; } = true;
-        public bool UseDrawRoiRectangles { get; set; } = true;
-        public bool UseParallelToDraw { get; set; } = false;
+        public bool UseDrawPixelValue { get; set; }
+        public bool UseDrawCenterLine { get; set; }
+        public bool UseDrawCursorInfo { get; set; }
+        public bool UseDrawDebugInfo { get; set; }
+        public bool UseDrawRoiRectangles { get; set; }
+        public bool UseParallelToDraw { get; set; }
 
-        public Color CenterLineColor { get; set; } = Color.Yellow;
-        public Color RoiRectangleColor { get; set; } = Color.Blue;
-        public double FloatValueMax { get; set; } = 1.0;
-        public int FloatValueDigit { get; set; } = 3;
+        public Color CenterLineColor { get; set; }
+        public Color RoiRectangleColor { get; set; }
+        public double FloatValueMax { get; set; }
+        public int FloatValueDigit { get; set; }
+        public EFont InfoFont { get; set; }
 
         public void FromImageBox(ImageBox pbx) {
             this.UseDrawPixelValue = pbx.UseDrawPixelValue;
@@ -106,6 +107,7 @@ namespace ShimLib {
             this.RoiRectangleColor = pbx.RoiRectangleColor;
             this.FloatValueMax = pbx.FloatValueMax;
             this.FloatValueDigit = pbx.FloatValueDigit;
+            this.InfoFont = pbx.InfoFont;
         }
 
         public void ToImageBox(ImageBox pbx) {
@@ -120,6 +122,7 @@ namespace ShimLib {
             pbx.RoiRectangleColor = this.RoiRectangleColor;
             pbx.FloatValueMax = this.FloatValueMax;
             pbx.FloatValueDigit = this.FloatValueDigit;
+            pbx.InfoFont = this.InfoFont;
         }
     }
 }
