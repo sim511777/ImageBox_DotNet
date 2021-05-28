@@ -231,36 +231,6 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
-        ///   [todo]
-        ///- 버그
-        ///ok - float 이미지 컬러로 표시되는 버그 수정
-        ///
-        ///- 테스트
-        ///  - 이미지 버퍼를 byte[] 타입으로 만들었을때 성능 차이
-        ///
-        ///- ImageBox
-        ///  no - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것 : 성능차이 미세, 구현 번거러움
-        ///  ok - float 타입 밝기값 Range를 속성에서 지정하게 함
-        ///  ok - 마우스 왼쪽으로버튼으로만 Panning 되도록 할것
-        ///  ok - FloatValueFormat 속성 추가
-        ///  ok - ROI 편집 기능 내장
-        ///  - ImageBuffer 클래스로 만듦
-        ///  - 1비트 버퍼 표시 지원
-        ///  - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리
-        ///  - 스크롤바 추가
-        ///  - ROI 라인, 폭 으로 입력 기능 추가
-        ///
-        ///- Drawing 함수 추가
-        ///  ok - AggressiveInlining Attribute
-        ///  ok - .net version에 따라 Aggressiv[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string todo {
-            get {
-                return ResourceManager.GetString("todo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
         ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
         ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555
@@ -268,11 +238,24 @@ namespace ShimLib.Properties {
         ///0004:AAAA000180000001800079BFC2487A49C2487989800000018000000180005555
         ///0005:AAAA00018000000180007A4DC2527B53C2D67A4F800000018000000180005555
         ///0006:AAAA000180000001800031A5CA287A31CA2849A5800000018000000180005555
-        ///0007:AAAA0001800000018[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///0007:AAAA000180[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string unifont_13_0_06_hex {
             get {
                 return ResourceManager.GetString("unifont_13_0_06_hex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ## Version Info
+        ///
+        ///### V1.0.0.0 - 2021.05.28
+        ///1. todo.txt Solution Item폴더로 이동
+        ///2. VersionInfo.md 리소스 추가 및 설정창에 표시과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string VersionInfo {
+            get {
+                return ResourceManager.GetString("VersionInfo", resourceCulture);
             }
         }
     }

@@ -1,0 +1,76 @@
+[todo]
+- 버그
+  ok - float 이미지 컬러로 표시되는 버그 수정
+
+- 테스트
+  - 이미지 버퍼를 byte[] 타입으로 만들었을때 성능 차이
+
+- Test Application
+  ok - 아이콘에 이미지 파일 Drag & Drop
+
+- ImageBox
+  no - 커서표시, 디버그 표시 ImageDrawing 으로 표시할것 : 성능차이 미세, 구현 번거러움
+  ok - float 타입 밝기값 Range를 속성에서 지정하게 함
+  ok - 마우스 왼쪽으로버튼으로만 Panning 되도록 할것
+  ok - FloatValueFormat 속성 추가
+  ok - ROI 편집 기능 내장
+  ok - 옵션창 모델리스로 변경
+  ok - ROI 선택 삭제 기능
+  ok - ROI 생성중 좌표, 사이즈 표시 기능 추가
+  ok - BufferedGraphics 사용
+  - ImageBuffer 클래스로 만듦
+  - 1비트 버퍼 표시 지원
+  - 이미지 로드시 라인단위로 읽지 않고 전체 버퍼 읽기, stride 관리
+  - 스크롤바 추가
+
+- Drawing 함수 추가
+  ok - AggressiveInlining Attribute
+  ok - .net version에 따라 AggressiveInlining 또는 풀어쓰는 코드로 변경 되도록 구분
+  ok - DrawEllipse 추가
+  ok - FillEllipse 추가
+  ok - ImageBox에 적용
+  ok - ImageBox 기본 표시 Drawing 함수로 대채
+  ok - OnPaintBuffer(object sender, IntPtr buf, int bw, int bh) 이벤트 추가
+  ok - 고속화 위해 Box Culling 처리
+  ok - Dot HLine, VLine 함수 추가
+  - DrawLine 끝점 찍지 않기
+  - 고속화 위해 부분 Clipping 처리
+
+- ImageFont 함수 추가
+  ok - 폰트 여러개 choice, int fontWidth로 입력 받음
+  ok - DrawPixelValue 에서 ImageFont 사용
+  ok - 고속화 위해 Box Culling 처리
+  ok - Unicode 지원
+  ok - BitmapFont 폰트개수 가변 처리
+  ok - Unicode BitmapFont 생성
+  ok - Bitmap리소스 용량 줄이기 위해 8비트 폰트버퍼 8비트로 변환
+  ok - Unifont에서 Ascii 폰트 절반으로 표시
+  ok - 가변폰트 표시 기능(Unifont .hex 폰트)
+  ok - 폰트 종류벌 상속 처리
+  ok - *.bdf 폰트 기능 추가
+  - UniFont 한글폰트 이쁜걸로 바꿀것
+  - *.fon 폰트 파일 지원
+  - *.pcf 폰트 파일 지원
+  - *.HAN(844), *.ENG 폰트 지원
+
+- 디버그 정보 표시 추가
+  ok - Load된 이미지 버퍼 정표 표시
+  ok - 설정값들 표시
+  ok - 전체 Time
+  ok - 부분 Time
+  ok - double buffering시 내부적으로 소요되는 시간도 계측하여 표시
+
+- 설정창 추가
+  ok - 중심선 표시 여부
+  ok - 픽셀값 표시 여부
+  ok - 커서 픽셀 정보 표시 여부
+  ok - 디비그 정보 표시 여부
+  ok - 클립보드로 copy 기능, API로 구현
+
+- ToolBox 아이콘
+  ok - ToolBox 아이콘 추가
+  - ToolBox 아이콘 표준리소스 처리
+
+- Test Application
+  ok - Drag & Drop 기능 구현
+  ok - 클립보드로 부터 Paste 기능 구현
