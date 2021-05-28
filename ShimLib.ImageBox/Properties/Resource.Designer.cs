@@ -231,6 +231,36 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
+        ///   STARTFONT 2.1
+        ///COMMENT Copyright (C) 1997-2020  MAMEDev and contributors
+        ///FONT -mamedev-uismall-Medium-R-Normal--16-120-96-96-P-100-ISO10646-1
+        ///SIZE 12 96 96
+        ///FONTBOUNDINGBOX 8 11 0 -2
+        ///STARTPROPERTIES 18
+        ///POINT_SIZE 120
+        ///PIXEL_SIZE 16
+        ///RESOLUTION_X 96
+        ///RESOLUTION_Y 96
+        ///FONT_ASCENT 9
+        ///FONT_DESCENT 2
+        ///AVERAGE_WIDTH 100
+        ///SPACING &quot;P&quot;
+        ///_GBDFED_INFO &quot;Edited with gbdfed 1.5.&quot;
+        ///FOUNDRY &quot;mamedev&quot;
+        ///FAMILY_NAME &quot;uismall&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string uismall {
+            get {
+                return ResourceManager.GetString("uismall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
         ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
         ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555

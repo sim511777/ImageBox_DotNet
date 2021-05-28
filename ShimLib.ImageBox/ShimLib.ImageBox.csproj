@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_04x06.bmp" />
+    <None Include="Resources\uismall.bdf" />
     <None Include="Resources\unifont-13.0.06.hex" />
   </ItemGroup>
   <ItemGroup>

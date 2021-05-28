@@ -9,6 +9,7 @@ using ShimLib.Properties;
 
 namespace ShimLib {
     public class Fonts {
+        public static IFont Mame_UnSmall = new BdfFont(Resource.uismall);
         public static IFont Ascii_04x06 = new BmpFont(Resource.Raster_04x06, 04, 06, 0, 0, 32);
         public static IFont Ascii_05x08 = new BmpFont(Resource.Raster_05x08, 05, 08, 0, 0, 32);
         public static IFont Ascii_05x12 = new BmpFont(Resource.Raster_05x12, 05, 12, 0, 0, 32);
