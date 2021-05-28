@@ -49,6 +49,9 @@ namespace ShimLib {
             PaintBackBuffer?.Invoke(this, buf, bw, bh);
         }
 
+        // info font
+        private IFont infoFont = Fonts.Unicode_16x16_hex;
+
         // 이미지 버퍼 정보
         private IntPtr imgBuf = IntPtr.Zero;
         private int imgBw = 0;
@@ -209,7 +212,7 @@ namespace ShimLib {
                 Redraw();
             } else {
                 if (UseDrawCursorInfo) {
-                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.Unicode_16x16_hex.FontHeight, PixelFormat.Format32bppPArgb)) {
+                    using (Bitmap bmp = new Bitmap(8 * 35, infoFont.FontHeight, PixelFormat.Format32bppPArgb)) {
                         var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
                         DrawCursorInfo(bd.Scan0, bd.Width, bd.Height, 0, 0);
                         bmp.UnlockBits(bd);
@@ -395,7 +398,7 @@ DrawImage : {t89:0.0}ms
 Render : {t910:0.0}ms
 Total : {tTotal:0.0}ms
 ";
-            id.DrawStringWnd(info, Fonts.Unicode_16x16_hex, Color.Black, this.Width - 230, 2, Color.White);
+            id.DrawStringWnd(info, infoFont, Color.Black, this.Width - 230, 2, Color.White);
         }
 
 
@@ -515,9 +518,9 @@ Total : {tTotal:0.0}ms
             var colText = GetImagePixelValueText(ix, iy);
             string zoomText = GetZoomText();
             string text = $"{($"zoom={zoomText} ({ix},{iy})={colText}"), - 35}";
-            var size = Fonts.Unicode_16x16_hex.MeasureString(text);
+            var size = infoFont.MeasureString(text);
             Drawing.DrawRectangle(dispBuf, dispBw, dispBh, ofsx, ofsy, ofsx + size.Width - 1, ofsy + size.Height - 1, Color.Black.ToArgb(), true);
-            Fonts.Unicode_16x16_hex.DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
+            infoFont.DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
         }
 
         // ImageGraphics 리턴
