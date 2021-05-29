@@ -121,6 +121,9 @@
   <data name="Raster_04x06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Raster_04x06.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Raster_04x06_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Raster_04x06_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Raster_05x08" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Raster_05x08.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

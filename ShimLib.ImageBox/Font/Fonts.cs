@@ -11,6 +11,7 @@ namespace ShimLib {
     public class Fonts {
         public static IFont Mame_UnSmall = new BdfFont(Resource.uismall);
         public static IFont Ascii_04x06 = new BmpFont(Resource.Raster_04x06, 04, 06, 0, 0, 32);
+        public static IFont Ascii_04x06_2 = new BmpFont(Resource.Raster_04x06_2, 04, 06, 0, 0, 32);
         public static IFont Ascii_05x08 = new BmpFont(Resource.Raster_05x08, 05, 08, 0, 0, 32);
         public static IFont Ascii_05x12 = new BmpFont(Resource.Raster_05x12, 05, 12, 0, 0, 32);
         public static IFont Ascii_06x08 = new BmpFont(Resource.Raster_06x08, 06, 08, 0, 0, 32);
@@ -45,6 +46,7 @@ namespace ShimLib {
     public enum EFont {
         Mame_UnSmall,
         Ascii_04x06,
+        Ascii_04x06_2,
         Ascii_05x08,
         Ascii_05x12,
         Ascii_06x08,
