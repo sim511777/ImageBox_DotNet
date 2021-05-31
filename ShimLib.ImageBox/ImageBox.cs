@@ -163,7 +163,7 @@ namespace ShimLib {
             bfg.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
             bfg.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixel;
 
-            Redraw();
+            Invalidate();
             base.OnLayout(levent);
         }
 
@@ -192,11 +192,11 @@ namespace ShimLib {
             ptMove = e.Location;
             if (isRoiDown) {
                 ptRoiEnd = ToInt(DispToImg(e.Location));
-                Redraw();
+                Invalidate();
             } else  if (isPanningDown) {
                 PtPan += (Size)e.Location - (Size)ptPanningOld;
                 ptPanningOld = e.Location;
-                Redraw();
+                Invalidate();
             } else {
                 if (Option.UseDrawCursorInfo) {
                     using (Bitmap bmp = new Bitmap(8 * 35, Fonts.dic[Option.InfoFont].FontHeight, PixelFormat.Format32bppPArgb)) {
@@ -227,7 +227,7 @@ namespace ShimLib {
                         frmAbout.UpdateRoiList();
                 }
                 isRoiDown = false;
-                Redraw();
+                Invalidate();
             }
             isPanningDown = false;
             base.OnMouseUp(e);
@@ -239,12 +239,12 @@ namespace ShimLib {
             ZoomLevel += (e.Delta > 0) ? 1 : -1;
             var ptDisp = ImgToDisp(ptImg);
             PtPan += ((Size)e.Location - (Size)ptDisp);
-            Redraw();
+            Invalidate();
             base.OnMouseWheel(e);
         }
         
         double t01, t12, t23, t34, t45, t56, t67, t78, t89, t910, tTotal;
-        public void Redraw() {
+        public new void Invalidate() {
 
             var t0 = Util.GetTimeMs();
 

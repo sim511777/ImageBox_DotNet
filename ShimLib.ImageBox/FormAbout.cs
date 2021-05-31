@@ -38,7 +38,7 @@ namespace ShimLib {
         private void FormAbout_FormClosed(object sender, FormClosedEventArgs e) {
             if (this.DialogResult == DialogResult.Cancel) {
                 pbx.Option = optBackup.Copy();
-                pbx.Redraw();
+                pbx.Invalidate();
                 return;
             }
         }
@@ -54,7 +54,7 @@ namespace ShimLib {
         private void grdOption_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {
             var option = grdOption.SelectedObject as ImageBoxOption;
             pbx.Option = option.Copy();
-            pbx.Redraw();
+            pbx.Invalidate();
         }
 
         private void btnRoiDelete_Click(object sender, EventArgs e) {
@@ -64,13 +64,13 @@ namespace ShimLib {
                 pbx.RoiList.RemoveAt(idx);
                 lbxRoi.Items.RemoveAt(idx);
             }
-            pbx.Redraw();
+            pbx.Invalidate();
         }
 
         private void btnRoiListClear_Click(object sender, EventArgs e) {
             pbx.RoiList.Clear();
             UpdateRoiList();
-            pbx.Redraw();
+            pbx.Invalidate();
         }
 
         private void btnCancel_Click(object sender, EventArgs e) {
