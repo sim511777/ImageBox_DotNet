@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Drawing.Text;
 
 namespace ShimLib {
     public delegate void PaintBackbufferEventHandler(object sender, IntPtr buf, int bw, int bh);
@@ -172,7 +173,7 @@ namespace ShimLib {
             bfg.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
             bfg.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
             bfg.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-            bfg.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+            bfg.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixel;
 
             Redraw();
             base.OnLayout(levent);
