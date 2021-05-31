@@ -18,24 +18,12 @@ namespace ShimLib {
 
     [ToolboxBitmap(typeof(ImageBox), "ImageBox.bmp")]
     public partial class ImageBox : Control {
-        // 표시 옵션
-        [Category("ImageBox")] public bool UseDrawPixelValue { get; set; } = true;
-        [Category("ImageBox")] public bool UseDrawCenterLine { get; set; } = true;
-        [Category("ImageBox")] public bool UseDrawCursorInfo { get; set; } = true;
-        [Category("ImageBox")] public bool UseDrawDebugInfo { get; set; } = false;
-        [Category("ImageBox")] public bool UseDrawRoiRectangles { get; set; } = true;
-        [Category("ImageBox")] public bool UseParallelToDraw { get; set; } = true;
-
-        [Category("ImageBox")] public Color CenterLineColor { get; set; } = Color.Yellow;
-        [Category("ImageBox")] public Color RoiRectangleColor { get; set; } = Color.Blue;
-        [Category("ImageBox")] public double FloatValueMax { get; set; } = 1.0;
-        [Category("ImageBox")] public int FloatValueDigit { get; set; } = 3;
-        [Category("ImageBox")] public EFont InfoFont { get; set; } = EFont.Unicode_16x16_hex;
+        public ImageBoxOption Option { get; set; } = new ImageBoxOption();
         
         [Browsable(false)] public List<Rectangle> RoiList { get; } = new List<Rectangle>();
         [Browsable(false)] private string FloatValueFormat {
             get {
-                return $"{{0:.{new string('0', Math.Max(FloatValueDigit, 0))}}}";
+                return $"{{0:.{new string('0', Math.Max(Option.FloatValueDigit, 0))}}}";
             }
         }
 
@@ -210,8 +198,8 @@ namespace ShimLib {
                 ptPanningOld = e.Location;
                 Redraw();
             } else {
-                if (UseDrawCursorInfo) {
-                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.dic[InfoFont].FontHeight, PixelFormat.Format32bppPArgb)) {
+                if (Option.UseDrawCursorInfo) {
+                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.dic[Option.InfoFont].FontHeight, PixelFormat.Format32bppPArgb)) {
                         var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
                         DrawCursorInfo(bd.Scan0, bd.Width, bd.Height, 0, 0);
                         bmp.UnlockBits(bd);
@@ -264,18 +252,18 @@ namespace ShimLib {
             
             // 이미지 확대 축소
             double zoom = GetZoomFactor();
-            ImageZoom.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), FloatValueMax, UseParallelToDraw);
+            ImageZoom.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
             var t1 = Util.GetTimeMs();
 
             var id = new ImageDrawing(this, bmpData.Scan0, bmpData.Width, bmpData.Height);
 
             // 픽셀값 표시
-            if (UseDrawPixelValue)
+            if (Option.UseDrawPixelValue)
                 DrawPixelValue(id);
             var t2 = Util.GetTimeMs();
 
             // ROI 표시
-            if (UseDrawRoiRectangles) {
+            if (Option.UseDrawRoiRectangles) {
                 DrawRoiRectangles(id);
                 if (isRoiDown) {
                     DrawRoiDown(id);
@@ -284,7 +272,7 @@ namespace ShimLib {
             var t3 = Util.GetTimeMs();
             
             // 중심선 표시
-            if (UseDrawCenterLine)
+            if (Option.UseDrawCenterLine)
                 DrawCenterLine(id);
             var t4 = Util.GetTimeMs();
 
@@ -301,12 +289,12 @@ namespace ShimLib {
             var t6 = Util.GetTimeMs();
 
             // 커서 정보 표시
-            if (UseDrawCursorInfo)
+            if (Option.UseDrawCursorInfo)
                 DrawCursorInfo(bmpData.Scan0, bmpData.Width, bmpData.Height, 2, 2);
             var t7 = Util.GetTimeMs();
 
             // 디비그 정보 표시
-            if (UseDrawDebugInfo)
+            if (Option.UseDrawDebugInfo)
                 DrawDebugInfo(id);
             var t8 = Util.GetTimeMs();
 
@@ -360,15 +348,15 @@ namespace ShimLib {
             string roiEnd = $"({roi.Width},{roi.Height})";
             var sizeStart = id.MeasureString(roiStart, Fonts.Ascii_10x18);
             var zoom = GetZoomFactor();
-            id.DrawString(roiStart, Fonts.Ascii_10x18, RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
-            id.DrawString(roiEnd, Fonts.Ascii_10x18, RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
-            id.DrawRectangleDot(RoiRectangleColor, roiF);
+            id.DrawString(roiStart, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
+            id.DrawString(roiEnd, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
+            id.DrawRectangleDot(Option.RoiRectangleColor, roiF);
         }
 
         private void DrawRoiRectangles(ImageDrawing id) {
             foreach (var roi in RoiList) {
                 var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
-                id.DrawRectangle(RoiRectangleColor, roiF);
+                id.DrawRectangle(Option.RoiRectangleColor, roiF);
             }
         }
 
@@ -378,11 +366,11 @@ $@"== Image ==
 {(imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}")}
 
 == Draw ==
-UseDrawPixelValue : {(UseDrawPixelValue ? "O" : "X")}
-UseDrawCenterLine : {(UseDrawCenterLine ? "O" : "X")}
-UseDrawCursorInfo : {(UseDrawCursorInfo ? "O" : "X")}
-UseDrawDebugInfo : {(UseDrawDebugInfo ? "O" : "X")}
-UseDrawRoiRectangles : {(UseDrawRoiRectangles ? "O" : "X")}
+UseDrawPixelValue : {(Option.UseDrawPixelValue ? "O" : "X")}
+UseDrawCenterLine : {(Option.UseDrawCenterLine ? "O" : "X")}
+UseDrawCursorInfo : {(Option.UseDrawCursorInfo ? "O" : "X")}
+UseDrawDebugInfo : {(Option.UseDrawDebugInfo ? "O" : "X")}
+UseDrawRoiRectangles : {(Option.UseDrawRoiRectangles ? "O" : "X")}
 
 == Time ==
 CopyImageBufferZoom : {t01:0.0}ms
@@ -397,7 +385,7 @@ DrawImage : {t89:0.0}ms
 Render : {t910:0.0}ms
 Total : {tTotal:0.0}ms
 ";
-            id.DrawStringWnd(info, Fonts.dic[InfoFont], Color.Black, this.Width - 230, 2, Color.White);
+            id.DrawStringWnd(info, Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
         }
 
 
@@ -441,7 +429,7 @@ Total : {tTotal:0.0}ms
                     id.DrawString(pixelValueText, font, pseudoColor[colIdx], ix - 0.5f, iy - 0.5f);
                 }
             }
-            if (UseParallelToDraw)
+            if (Option.UseParallelToDraw)
                 Parallel.For(iy1, iy2, iyAction);
             else
                 for (int iy = iy1; iy < iy2; iy++) { iyAction(iy); }
@@ -479,9 +467,9 @@ Total : {tTotal:0.0}ms
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
-                        return Util.Clamp((int)(*(float*)ptr * 255 / FloatValueMax), 0, 255) / 32;
+                        return Util.Clamp((int)(*(float*)ptr * 255 / Option.FloatValueMax), 0, 255) / 32;
                     else
-                        return Util.Clamp((int)((*(double*)ptr * 255 / FloatValueMax)), 0, 255) / 32;
+                        return Util.Clamp((int)((*(double*)ptr * 255 / Option.FloatValueMax)), 0, 255) / 32;
                 } else {
                     // rgb -> gray
                     return (ptr[2] * 3 + ptr[1] * 6 + ptr[0]) / 320;
@@ -505,8 +493,8 @@ Total : {tTotal:0.0}ms
         private void DrawCenterLine(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
-            id.DrawVLineDot(CenterLineColor, -0.5f, imgBh - 0.5f, imgBw / 2.0f - 0.5f);
-            id.DrawHLineDot(CenterLineColor, -0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
+            id.DrawVLineDot(Option.CenterLineColor, -0.5f, imgBh - 0.5f, imgBw / 2.0f - 0.5f);
+            id.DrawHLineDot(Option.CenterLineColor, -0.5f, imgBw - 0.5f, imgBh / 2.0f - 0.5f);
         }
 
         // 커서 정보 표시
@@ -517,9 +505,9 @@ Total : {tTotal:0.0}ms
             var colText = GetImagePixelValueText(ix, iy);
             string zoomText = GetZoomText();
             string text = $"{($"zoom={zoomText} ({ix},{iy})={colText}"), - 35}";
-            var size = Fonts.dic[InfoFont].MeasureString(text);
+            var size = Fonts.dic[Option.InfoFont].MeasureString(text);
             Drawing.DrawRectangle(dispBuf, dispBw, dispBh, ofsx, ofsy, ofsx + size.Width - 1, ofsy + size.Height - 1, Color.Black.ToArgb(), true);
-            Fonts.dic[InfoFont].DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
+            Fonts.dic[Option.InfoFont].DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
         }
 
         // ImageGraphics 리턴
@@ -535,7 +523,7 @@ Total : {tTotal:0.0}ms
         public Bitmap GetBitmap() {
             if (imgBuf == null)
                 return null;
-            Bitmap bmp = ImageUtil.ImageBufferToBitmap(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, FloatValueMax);
+            Bitmap bmp = ImageUtil.ImageBufferToBitmap(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, Option.FloatValueMax);
             return bmp;
         }
     }

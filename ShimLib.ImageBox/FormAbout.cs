@@ -21,10 +21,8 @@ namespace ShimLib {
         ImageBoxOption optBackup;
 
         private void FormAbout_Load(object sender, EventArgs e) {
-            optBackup = new ImageBoxOption();
-            optBackup.FromImageBox(pbx);
-            ImageBoxOption option = new ImageBoxOption();
-            option.FromImageBox(pbx);
+            optBackup = pbx.Option.Copy();
+            var option = pbx.Option.Copy();
             grdOption.SelectedObject = option;
 
             UpdateRoiList();
@@ -39,7 +37,7 @@ namespace ShimLib {
 
         private void FormAbout_FormClosed(object sender, FormClosedEventArgs e) {
             if (this.DialogResult == DialogResult.Cancel) {
-                optBackup.ToImageBox(pbx);
+                pbx.Option = optBackup.Copy();
                 pbx.Redraw();
                 return;
             }
@@ -55,7 +53,7 @@ namespace ShimLib {
 
         private void grdOption_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {
             var option = grdOption.SelectedObject as ImageBoxOption;
-            option.ToImageBox(pbx);
+            pbx.Option = option.Copy();
             pbx.Redraw();
         }
 
@@ -77,52 +75,6 @@ namespace ShimLib {
 
         private void btnCancel_Click(object sender, EventArgs e) {
             this.Close();
-        }
-    }
-
-    public class ImageBoxOption {
-        // 화면 표시 옵션
-        public bool UseDrawPixelValue { get; set; }
-        public bool UseDrawCenterLine { get; set; }
-        public bool UseDrawCursorInfo { get; set; }
-        public bool UseDrawDebugInfo { get; set; }
-        public bool UseDrawRoiRectangles { get; set; }
-        public bool UseParallelToDraw { get; set; }
-
-        public Color CenterLineColor { get; set; }
-        public Color RoiRectangleColor { get; set; }
-        public double FloatValueMax { get; set; }
-        public int FloatValueDigit { get; set; }
-        public EFont InfoFont { get; set; }
-
-        public void FromImageBox(ImageBox pbx) {
-            this.UseDrawPixelValue = pbx.UseDrawPixelValue;
-            this.UseDrawCenterLine = pbx.UseDrawCenterLine;
-            this.UseDrawCursorInfo = pbx.UseDrawCursorInfo;
-            this.UseDrawDebugInfo = pbx.UseDrawDebugInfo;
-            this.UseDrawRoiRectangles = pbx.UseDrawRoiRectangles;
-            this.UseParallelToDraw = pbx.UseParallelToDraw;
-            
-            this.CenterLineColor = pbx.CenterLineColor;
-            this.RoiRectangleColor = pbx.RoiRectangleColor;
-            this.FloatValueMax = pbx.FloatValueMax;
-            this.FloatValueDigit = pbx.FloatValueDigit;
-            this.InfoFont = pbx.InfoFont;
-        }
-
-        public void ToImageBox(ImageBox pbx) {
-            pbx.UseDrawPixelValue = this.UseDrawPixelValue;
-            pbx.UseDrawCenterLine = this.UseDrawCenterLine;
-            pbx.UseDrawCursorInfo = this.UseDrawCursorInfo;
-            pbx.UseDrawDebugInfo = this.UseDrawDebugInfo;
-            pbx.UseDrawRoiRectangles = this.UseDrawRoiRectangles;
-            pbx.UseParallelToDraw = this.UseParallelToDraw;
-            
-            pbx.CenterLineColor = this.CenterLineColor;
-            pbx.RoiRectangleColor = this.RoiRectangleColor;
-            pbx.FloatValueMax = this.FloatValueMax;
-            pbx.FloatValueDigit = this.FloatValueDigit;
-            pbx.InfoFont = this.InfoFont;
         }
     }
 }

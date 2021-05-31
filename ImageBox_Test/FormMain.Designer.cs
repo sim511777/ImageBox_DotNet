@@ -23,6 +23,7 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마십시오.
         /// </summary>
         private void InitializeComponent() {
+            ShimLib.ImageBoxOption imageBoxOption1 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnFont = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -38,8 +39,8 @@
             this.btnLenna8 = new System.Windows.Forms.Button();
             this.btnResetZoom = new System.Windows.Forms.Button();
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
-            this.imgBox = new ShimLib.ImageBox();
             this.dlgFont = new System.Windows.Forms.FontDialog();
+            this.imgBox = new ShimLib.ImageBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -209,33 +210,35 @@
             this.dlgOpen.FileName = "openFileDialog1";
             this.dlgOpen.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG;*.TIF)|*.BMP;*.JPG;*.GIF;*.PNG;*.TIF";
             // 
+            // dlgFont
+            // 
+            this.dlgFont.Font = new System.Drawing.Font("돋움체", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            // 
             // imgBox
             // 
-            this.imgBox.AllowDrop = true;
             this.imgBox.BackColor = System.Drawing.Color.Gray;
-            this.imgBox.CenterLineColor = System.Drawing.Color.Yellow;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgBox.FloatValueDigit = 3;
-            this.imgBox.FloatValueMax = 1D;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            this.imgBox.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption1.CenterLineColor = System.Drawing.Color.Yellow;
+            imageBoxOption1.FloatValueDigit = 3;
+            imageBoxOption1.FloatValueMax = 1D;
+            imageBoxOption1.InfoFont = ShimLib.EFont.Unicode_16x16_hex;
+            imageBoxOption1.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption1.UseDrawCenterLine = true;
+            imageBoxOption1.UseDrawCursorInfo = true;
+            imageBoxOption1.UseDrawDebugInfo = true;
+            imageBoxOption1.UseDrawPixelValue = true;
+            imageBoxOption1.UseDrawRoiRectangles = true;
+            imageBoxOption1.UseParallelToDraw = true;
+            this.imgBox.Option = imageBoxOption1;
             this.imgBox.Size = new System.Drawing.Size(601, 568);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
-            this.imgBox.UseDrawCenterLine = true;
-            this.imgBox.UseDrawCursorInfo = true;
-            this.imgBox.UseDrawDebugInfo = true;
-            this.imgBox.UseDrawPixelValue = true;
-            this.imgBox.UseDrawRoiRectangles = true;
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
-            // 
-            // dlgFont
-            // 
-            this.dlgFont.Font = new System.Drawing.Font("돋움체", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             // 
             // FormMain
             // 
@@ -256,7 +259,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private ShimLib.ImageBox imgBox;
         private System.Windows.Forms.Button btnResetZoom;
         private System.Windows.Forms.Button btnChess;
         private System.Windows.Forms.Button btnLenna32;
@@ -272,6 +274,7 @@
         private System.Windows.Forms.ListBox lbxDrawTest;
         private System.Windows.Forms.Button btnFont;
         private System.Windows.Forms.FontDialog dlgFont;
+        private ShimLib.ImageBox imgBox;
     }
 }
 
