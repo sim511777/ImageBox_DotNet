@@ -10,19 +10,30 @@ namespace ShimLib {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [DisplayName("ImageBox")]
     public class ImageBoxOption : ICloneable {
-        // 화면 표시 옵션
-        public bool UseDrawPixelValue { get; set; } = true;
-        public bool UseDrawCenterLine { get; set; } = true;
-        public bool UseDrawCursorInfo { get; set; } = true;
-        public bool UseDrawDebugInfo { get; set; } = false;
-        public bool UseDrawRoiRectangles { get; set; } = true;
-        public bool UseParallelToDraw { get; set; } = true;
+        private bool _useDrawPixelValue = true;
+        private bool _useDrawCenterLine = true;
+        private bool _useDrawCursorInfo = true;
+        private bool _useDrawDebugInfo = false;
+        private bool _useDrawRoiRectangles = true;
+        private bool _useParallelToDraw = true;
+        private Color _centerLineColor = Color.Yellow;
+        private Color _roiRectangleColor = Color.Blue;
+        private double _floatValueMax = 1.0;
+        private int _floatValueDigit = 3;
+        private EFont _infoFont = EFont.Unicode_16x16_hex;
 
-        public Color CenterLineColor { get; set; } = Color.Yellow;
-        public Color RoiRectangleColor { get; set; } = Color.Blue;
-        public double FloatValueMax { get; set; } = 1.0;
-        public int FloatValueDigit { get; set; } = 3;
-        public EFont InfoFont { get; set; } = EFont.Unicode_16x16_hex;
+        // 화면 표시 옵션
+        public bool UseDrawPixelValue { get => _useDrawPixelValue; set => _useDrawPixelValue = value; }
+        public bool UseDrawCenterLine { get => _useDrawCenterLine; set => _useDrawCenterLine = value; }
+        public bool UseDrawCursorInfo { get => _useDrawCursorInfo; set => _useDrawCursorInfo = value; }
+        public bool UseDrawDebugInfo { get => _useDrawDebugInfo; set => _useDrawDebugInfo = value; }
+        public bool UseDrawRoiRectangles { get => _useDrawRoiRectangles; set => _useDrawRoiRectangles = value; }
+        public bool UseParallelToDraw { get => _useParallelToDraw; set => _useParallelToDraw = value; }
+        public Color CenterLineColor { get => _centerLineColor; set => _centerLineColor = value; }
+        public Color RoiRectangleColor { get => _roiRectangleColor; set => _roiRectangleColor = value; }
+        public double FloatValueMax { get => _floatValueMax; set => _floatValueMax = value; }
+        public int FloatValueDigit { get => _floatValueDigit; set => _floatValueDigit = value; }
+        public EFont InfoFont { get => _infoFont; set => _infoFont = value; }
 
         public object Clone() {
             return MemberwiseClone();
@@ -32,4 +43,4 @@ namespace ShimLib {
             return Clone() as ImageBoxOption;
         }
     }
- }
+}
