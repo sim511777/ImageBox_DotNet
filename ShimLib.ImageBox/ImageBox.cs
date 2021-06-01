@@ -59,7 +59,7 @@ namespace ShimLib {
                 if (imgBuf == IntPtr.Zero)
                     ptPan = new Point(2, 2);
                 else {
-                    var zoom = GetZoomFactor();
+                    var zoom = ZoomFactor;
                     int x = Util.Clamp(value.X, -(int)(imgBw * zoom) + 2, 2);
                     int y = Util.Clamp(value.Y, -(int)(imgBh * zoom) + 2, 2);
                     ptPan = new Point(x, y);
@@ -79,10 +79,13 @@ namespace ShimLib {
                 exp_num--;
             c = (ZoomLevel % 2 != 0) ? 3 : 1;
         }
-        public double GetZoomFactor() {
-            GetZoomFactorComponents(out int exp_num, out int c);
-            return c * Math.Pow(2, exp_num);
+        public double ZoomFactor {
+            get {
+                GetZoomFactorComponents(out int exp_num, out int c);
+                return c * Math.Pow(2, exp_num);
+            }
         }
+
         private string GetZoomText() {
             GetZoomFactorComponents(out int exp_num, out int c);
             return (exp_num >= 0) ? (c * (int)Math.Pow(2, exp_num)).ToString() : c.ToString() + "/" + ((int)Math.Pow(2, -exp_num)).ToString();
@@ -104,29 +107,18 @@ namespace ShimLib {
         }
 
         // 이미지 좌표 -> 화면 좌료
-        public Point ImgToDisp(PointF ptImg) {
-            double zoom = GetZoomFactor();
-            int dispX = (int)Math.Floor((ptImg.X + 0.5) * zoom + PtPan.X);
-            int dispY = (int)Math.Floor((ptImg.Y + 0.5) * zoom + PtPan.Y);
-            return new Point(dispX, dispY);
+        private Point ImgToDisp(PointF ptImg) {
+            return ImageBoxUtil.ImgToDisp(ptImg, ZoomFactor, PtPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
-        public Rectangle ImgToDisp(RectangleF rectImg) {
-            double zoom = GetZoomFactor();
-            int dispX = (int)Math.Floor((rectImg.X + 0.5) * zoom + PtPan.X);
-            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * zoom + PtPan.Y);
-            int dispWidth = (int)Math.Floor(rectImg.Width * zoom);
-            int dispHeight = (int)Math.Floor(rectImg.Height * zoom);
-            return new Rectangle(dispX, dispY, dispWidth, dispHeight);
+        private Rectangle ImgToDisp(RectangleF rectImg) {
+            return ImageBoxUtil.ImgToDisp(rectImg, ZoomFactor, PtPan);
         }
 
         // 화면 좌표 -> 이미지 좌표
         public PointF DispToImg(Point ptDisp) {
-            double zoom = GetZoomFactor();
-            float imgX = (float)((ptDisp.X - PtPan.X) / zoom - 0.5);
-            float imgY = (float)((ptDisp.Y - PtPan.Y) / zoom - 0.5);
-            return new PointF(imgX, imgY);
+            return ImageBoxUtil.DispToImg(ptDisp, ZoomFactor, PtPan);
         }
 
         protected override void OnMouseDoubleClick(MouseEventArgs e) {
@@ -252,11 +244,11 @@ namespace ShimLib {
             var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
             
             // 이미지 확대 축소
-            double zoom = GetZoomFactor();
-            ImageZoom.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
+            double zoom = ZoomFactor;
+            ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
             var t1 = Util.GetTimeMs();
 
-            var id = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height, GetZoomFactor(), PtPan);
+            var id = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height, zoom, PtPan);
             var idWnd = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height);
 
             // 픽셀값 표시
@@ -349,7 +341,7 @@ namespace ShimLib {
             string roiStart = $"({roi.Left},{roi.Top})";
             string roiEnd = $"({roi.Width},{roi.Height})";
             var sizeStart = id.MeasureString(roiStart, Fonts.Ascii_10x18);
-            var zoom = GetZoomFactor();
+            var zoom = ZoomFactor;
             id.DrawString(roiStart, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
             id.DrawString(roiEnd, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
             id.DrawRectangleDot(Option.RoiRectangleColor, roiF);
@@ -395,7 +387,7 @@ Total : {tTotal:0.0}ms
         private void DrawPixelValue(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
-            var zoom = GetZoomFactor();
+            var zoom = ZoomFactor;
             if (zoom < 16 || (imgBytepp != 1 && zoom < 32))
                 return;
 
@@ -514,12 +506,12 @@ Total : {tTotal:0.0}ms
 
         // ImageGraphics 리턴
         public ImageGraphics GetImageGraphics(Graphics g) {
-            return new ImageGraphics(g, GetZoomFactor(), PtPan);
+            return new ImageGraphics(g, ZoomFactor, PtPan);
         }
 
         // ImageDrawing 리턴
         public ImageDrawing GetImageDrawing(IntPtr buf, int bw, int bh) {
-            return new ImageDrawing(buf, bw, bh, GetZoomFactor(), PtPan);
+            return new ImageDrawing(buf, bw, bh, ZoomFactor, PtPan);
         }
 
         public Bitmap GetBitmap() {

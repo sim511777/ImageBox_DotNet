@@ -78,7 +78,7 @@
     <Compile Include="Graphic\ImageDrawing.cs" />
     <Compile Include="Graphic\ImageGraphics.cs" />
     <Compile Include="ImageBoxOption.cs" />
-    <Compile Include="ImageZoom.cs" />
+    <Compile Include="ImageBoxUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

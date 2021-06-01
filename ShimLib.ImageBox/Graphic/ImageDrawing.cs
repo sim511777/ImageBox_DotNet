@@ -26,18 +26,12 @@ namespace ShimLib {
 
         // 이미지 좌표 -> 화면 좌료
         private Point ImgToDisp(PointF ptImg) {
-            int dispX = (int)Math.Floor((ptImg.X + 0.5) * ZoomFactor + PtPan.X);
-            int dispY = (int)Math.Floor((ptImg.Y + 0.5) * ZoomFactor + PtPan.Y);
-            return new Point(dispX, dispY);
+            return ImageBoxUtil.ImgToDisp(ptImg, ZoomFactor, PtPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
         private Rectangle ImgToDisp(RectangleF rectImg) {
-            int dispX = (int)Math.Floor((rectImg.X + 0.5) * ZoomFactor + PtPan.X);
-            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * ZoomFactor + PtPan.Y);
-            int dispWidth = (int)Math.Floor(rectImg.Width * ZoomFactor);
-            int dispHeight = (int)Math.Floor(rectImg.Height * ZoomFactor);
-            return new Rectangle(dispX, dispY, dispWidth, dispHeight);
+            return ImageBoxUtil.ImgToDisp(rectImg, ZoomFactor, PtPan);
         }
 
         // ==== GDI 함수 ====

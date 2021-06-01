@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
-    public class ImageZoom {
+    public class ImageBoxUtil {
         // 이미지 버퍼를 디스플레이 버퍼에 복사
         public static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, bool useParallel) {
             // 인덱스 버퍼 생성
@@ -69,6 +70,29 @@ namespace ShimLib {
                 Parallel.For(0, dispBh, yAction);
             else
                 for (int y = 0; y < dispBh; y++) { yAction(y); }
+        }
+
+        // 이미지 좌표 -> 화면 좌료
+        public static Point ImgToDisp(PointF ptImg, double zoomFactor, Point ptPan) {
+            int dispX = (int)Math.Floor((ptImg.X + 0.5) * zoomFactor + ptPan.X);
+            int dispY = (int)Math.Floor((ptImg.Y + 0.5) * zoomFactor + ptPan.Y);
+            return new Point(dispX, dispY);
+        }
+
+        // 이미지 좌표 -> 화면 좌료
+        public static Rectangle ImgToDisp(RectangleF rectImg, double zoomFactor, Point ptPan) {
+            int dispX = (int)Math.Floor((rectImg.X + 0.5) * zoomFactor + ptPan.X);
+            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * zoomFactor + ptPan.Y);
+            int dispWidth = (int)Math.Floor(rectImg.Width * zoomFactor);
+            int dispHeight = (int)Math.Floor(rectImg.Height * zoomFactor);
+            return new Rectangle(dispX, dispY, dispWidth, dispHeight);
+        }
+
+        // 화면 좌표 -> 이미지 좌표
+        public static PointF DispToImg(Point ptDisp, double zoomFactor, Point ptPan) {
+            float imgX = (float)((ptDisp.X - ptPan.X) / zoomFactor - 0.5);
+            float imgY = (float)((ptDisp.Y - ptPan.Y) / zoomFactor - 0.5);
+            return new PointF(imgX, imgY);
         }
     }
 }
