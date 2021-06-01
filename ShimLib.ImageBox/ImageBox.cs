@@ -52,7 +52,8 @@ namespace ShimLib {
 
         // 패닝 옵셋(픽셀)
         private Point ptPan = new Point(2, 2);
-        private Point PtPan {
+        [Browsable(false)]
+        public Point PtPan {
             get { return ptPan; }
             set {
                 if (imgBuf == IntPtr.Zero)
@@ -67,7 +68,7 @@ namespace ShimLib {
         }
         // 줌 레벨(0 = 1x)
         private int zoomLevel = 0;
-        private int ZoomLevel {
+        public int ZoomLevel {
             get { return zoomLevel; }
             set { zoomLevel = Util.Clamp(value, -16, 16); }
         }
@@ -255,7 +256,8 @@ namespace ShimLib {
             ImageZoom.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
             var t1 = Util.GetTimeMs();
 
-            var id = new ImageDrawing(this, bmpData.Scan0, bmpData.Width, bmpData.Height);
+            var id = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height, GetZoomFactor(), PtPan);
+            var idWnd = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height);
 
             // 픽셀값 표시
             if (Option.UseDrawPixelValue)
@@ -295,7 +297,7 @@ namespace ShimLib {
 
             // 디비그 정보 표시
             if (Option.UseDrawDebugInfo)
-                DrawDebugInfo(id);
+                DrawDebugInfo(idWnd);
             var t8 = Util.GetTimeMs();
 
             dispBmp.UnlockBits(bmpData);
@@ -360,7 +362,7 @@ namespace ShimLib {
             }
         }
 
-        private void DrawDebugInfo(ImageDrawing id) {
+        private void DrawDebugInfo(ImageDrawing idWnd) {
             string info =
 $@"== Image ==
 {(imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}")}
@@ -385,7 +387,7 @@ DrawImage : {t89:0.0}ms
 Render : {t910:0.0}ms
 Total : {tTotal:0.0}ms
 ";
-            id.DrawStringWnd(info, Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
+            idWnd.DrawString(info, Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
         }
 
 
@@ -512,12 +514,12 @@ Total : {tTotal:0.0}ms
 
         // ImageGraphics 리턴
         public ImageGraphics GetImageGraphics(Graphics g) {
-            return new ImageGraphics(this, g);
+            return new ImageGraphics(g, GetZoomFactor(), PtPan);
         }
 
         // ImageDrawing 리턴
         public ImageDrawing GetImageDrawing(IntPtr buf, int bw, int bh) {
-            return new ImageDrawing(this, buf, bw, bh);
+            return new ImageDrawing(buf, bw, bh, GetZoomFactor(), PtPan);
         }
 
         public Bitmap GetBitmap() {

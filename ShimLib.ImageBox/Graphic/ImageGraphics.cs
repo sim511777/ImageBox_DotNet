@@ -7,17 +7,37 @@ using System.Threading.Tasks;
 
 namespace ShimLib {
     public class ImageGraphics {
-        private ImageBox ib;
         private Graphics g;
+        public double ZoomFactor { get; }
+        public Point PtPan { get; }
 
-        public ImageGraphics(ImageBox imageBox, Graphics graphics) {
-            this.ib = imageBox;
-            this.g = graphics;
+        public ImageGraphics(Graphics graphics) : this(graphics, 1, Point.Empty) { }
+
+        public ImageGraphics(Graphics graphics, double zoomFactor, Point ptPan) {
+            g = graphics;
+            ZoomFactor = zoomFactor;
+            PtPan = ptPan;
+        }
+
+        // 이미지 좌표 -> 화면 좌료
+        private Point ImgToDisp(PointF ptImg) {
+            int dispX = (int)Math.Floor((ptImg.X + 0.5) * ZoomFactor + PtPan.X);
+            int dispY = (int)Math.Floor((ptImg.Y + 0.5) * ZoomFactor + PtPan.Y);
+            return new Point(dispX, dispY);
+        }
+
+        // 이미지 좌표 -> 화면 좌료
+        private Rectangle ImgToDisp(RectangleF rectImg) {
+            int dispX = (int)Math.Floor((rectImg.X + 0.5) * ZoomFactor + PtPan.X);
+            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * ZoomFactor + PtPan.Y);
+            int dispWidth = (int)Math.Floor(rectImg.Width * ZoomFactor);
+            int dispHeight = (int)Math.Floor(rectImg.Height * ZoomFactor);
+            return new Rectangle(dispX, dispY, dispWidth, dispHeight);
         }
 
         // ==== GDI 함수 ====
         public void DrawLine(Pen pen, PointF pt1, PointF pt2) {
-            g.DrawLine(pen, ib.ImgToDisp(pt1), ib.ImgToDisp(pt2));
+            g.DrawLine(pen, ImgToDisp(pt1), ImgToDisp(pt2));
         }
 
         public void DrawLine(Pen pen, float x1, float y1, float x2, float y2) {
@@ -25,7 +45,7 @@ namespace ShimLib {
         }
 
         public void DrawString(string s, Font font, Brush brush, PointF pt, Brush backBrush = null) {
-            var ptWnd = ib.ImgToDisp(pt);
+            var ptWnd = ImgToDisp(pt);
             if (backBrush != null) {
                 var size = g.MeasureString(s, font);
                 g.FillRectangle(backBrush, ptWnd.X, ptWnd.Y, size.Width, size.Height);
@@ -38,7 +58,7 @@ namespace ShimLib {
         }
 
         public void DrawEllipse(Pen pen, RectangleF rect) {
-            g.DrawEllipse(pen, ib.ImgToDisp(rect));
+            g.DrawEllipse(pen, ImgToDisp(rect));
         }
 
         public void DrawEllipse(Pen pen, float x, float y, float width, float height) {
@@ -46,7 +66,7 @@ namespace ShimLib {
         }
 
         public void DrawRectangle(Pen pen, RectangleF rect) {
-            g.DrawRectangle(pen, ib.ImgToDisp(rect));
+            g.DrawRectangle(pen, ImgToDisp(rect));
         }
 
         public void DrawRectangle(Pen pen, float x, float y, float width, float height) {
@@ -54,8 +74,8 @@ namespace ShimLib {
         }
 
         public void DrawCircle(Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ib.ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawEllipse(pen, ptd.X - half, ptd.Y - half, sized, sized);
         }
@@ -65,8 +85,8 @@ namespace ShimLib {
         }
 
         public void DrawSquare(Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ib.ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawRectangle(pen, ptd.X - half, ptd.Y - half, sized, sized);
         }
@@ -76,8 +96,8 @@ namespace ShimLib {
         }
 
         public void DrawCross(Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ib.ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawLine(pen, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half);
             g.DrawLine(pen, ptd.X - half, ptd.Y + half, ptd.X + half, ptd.Y - half);
@@ -88,8 +108,8 @@ namespace ShimLib {
         }
 
         public void DrawPlus(Pen pen, PointF pt, float size, bool pixelSize) {
-            Point ptd = ib.ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ib.GetZoomFactor(), MidpointRounding.AwayFromZero);
+            Point ptd = ImgToDisp(pt);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawLine(pen, ptd.X, ptd.Y - half, ptd.X, ptd.Y + half);
             g.DrawLine(pen, ptd.X - half, ptd.Y, ptd.X + half, ptd.Y);
