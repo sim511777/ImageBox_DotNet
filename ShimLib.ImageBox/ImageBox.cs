@@ -504,7 +504,7 @@ Total : {tTotal:0.0}ms
             int iy = (int)Math.Round(ptImg.Y);
             var colText = GetImagePixelValueText(ix, iy);
             string zoomText = GetZoomText();
-            string text = $"{($"zoom={zoomText} ({ix},{iy})={colText}"), - 35}";
+            string text = ($"zoom={zoomText} ({ix},{iy})={colText}").PadRight(35);
             var size = Fonts.dic[Option.InfoFont].MeasureString(text);
             Drawing.DrawRectangle(dispBuf, dispBw, dispBh, ofsx, ofsy, ofsx + size.Width - 1, ofsy + size.Height - 1, Color.Black.ToArgb(), true);
             Fonts.dic[Option.InfoFont].DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
