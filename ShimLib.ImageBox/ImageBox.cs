@@ -236,17 +236,17 @@ namespace ShimLib {
             base.OnMouseWheel(e);
         }
         
-        double t01, t12, t23, t34, t45, t56, t67, t78, t89, t910, tTotal;
+        List<Tuple<string, double>> dtList = Enumerable.Repeat(Tuple.Create(string.Empty, 0.0), 100).ToList();
         public new void Invalidate() {
-
-            var t0 = Util.GetTimeMs();
+            List<Tuple<string, double>> tList = new List<Tuple<string, double>>();
+            tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
 
             var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
             
             // 이미지 확대 축소
             double zoom = ZoomFactor;
             ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
-            var t1 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("CopyImageBufferZoom", Util.GetTimeMs()));
 
             var id = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height, zoom, PtPan);
             var idWnd = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height);
@@ -254,7 +254,7 @@ namespace ShimLib {
             // 픽셀값 표시
             if (Option.UseDrawPixelValue)
                 DrawPixelValue(id);
-            var t2 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("DrawPixelValue", Util.GetTimeMs()));
 
             // ROI 표시
             if (Option.UseDrawRoiRectangles) {
@@ -263,16 +263,16 @@ namespace ShimLib {
                     DrawRoiDown(id);
                 }
             }
-            var t3 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("DrawRoiRectangles", Util.GetTimeMs()));
             
             // 중심선 표시
             if (Option.UseDrawCenterLine)
                 DrawCenterLine(id);
-            var t4 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("DrawCenterLine", Util.GetTimeMs()));
 
             // PaintBackBuffer이벤트 발생
             OnPaintBackBuffer(bmpData.Scan0, bmpData.Width, bmpData.Height); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-            var t5 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("OnPaintBackBuffer", Util.GetTimeMs()));
 
             // Paint이벤트 발생
             using (var bmpTemp = new Bitmap(bmpData.Width, bmpData.Height, bmpData.Stride, bmpData.PixelFormat, bmpData.Scan0)) {
@@ -280,39 +280,32 @@ namespace ShimLib {
                 base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
                 g.Dispose();
             }
-            var t6 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("OnPaint", Util.GetTimeMs()));
 
             // 커서 정보 표시
             if (Option.UseDrawCursorInfo)
                 DrawCursorInfo(idWnd, 2, 2);
-            var t7 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("DrawCursorInfo", Util.GetTimeMs()));
 
             // 디비그 정보 표시
             if (Option.UseDrawDebugInfo)
                 DrawDebugInfo(idWnd);
-            var t8 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("DrawDebugInfo", Util.GetTimeMs()));
 
             dispBmp.UnlockBits(bmpData);
             
             // 백버퍼에다 복사
             bfg.Graphics.DrawImage(dispBmp, 0, 0);
-            var t9 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("DrawImage", Util.GetTimeMs()));
             
             // 프런트버퍼에다 복사
             bfg.Render();
-            var t10 = Util.GetTimeMs();
+            tList.Add(Tuple.Create("Render", Util.GetTimeMs()));
             
-            t01 = t1 - t0;
-            t12 = t2 - t1;
-            t23 = t3 - t2;
-            t34 = t4 - t3;
-            t45 = t5 - t4;
-            t56 = t6 - t5;
-            t67 = t7 - t6;
-            t78 = t8 - t7;
-            t89 = t9 - t8;
-            t910 = t10 - t9;
-            tTotal = t10 - t0;
+            // delta 계산 및 total 계산
+            var nextList = tList.Skip(1);
+            dtList = nextList.Zip(tList, (next, prev) => Tuple.Create(next.Item1, next.Item2 - prev.Item2)).ToList();
+            dtList.Add(Tuple.Create("Total", tList.Last().Item2 - tList.First().Item2));
          }
 
         // 페인트
@@ -355,34 +348,23 @@ namespace ShimLib {
         }
 
         private void DrawDebugInfo(ImageDrawing id) {
+            var sb = new StringBuilder();
             string imageInfo = imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}";
-            string info =
-$@"== Image ==
-{imageInfo}
-
-== Draw ==
-UseDrawPixelValue : {(Option.UseDrawPixelValue ? "O" : "X")}
-UseDrawCenterLine : {(Option.UseDrawCenterLine ? "O" : "X")}
-UseDrawCursorInfo : {(Option.UseDrawCursorInfo ? "O" : "X")}
-UseDrawDebugInfo : {(Option.UseDrawDebugInfo ? "O" : "X")}
-UseDrawRoiRectangles : {(Option.UseDrawRoiRectangles ? "O" : "X")}
-
-== Time ==
-CopyImageBufferZoom : {t01:0.0}ms
-DrawPixelValue : {t12:0.0}ms
-DrawRoiRectangles : {t23:0.0}ms
-DrawCenterLine : {t34:0.0}ms
-OnPaintBackBuffer : {t45:0.0}ms
-OnPaint : {t56:0.0}ms
-DrawCursorInfo : {t67:0.0}ms
-DrawDebugInfo : {t78:0.0}ms
-DrawImage : {t89:0.0}ms
-Render : {t910:0.0}ms
-Total : {tTotal:0.0}ms
-";
-            id.DrawString(info, Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
+            sb.AppendLine("== Image ==");
+            sb.AppendLine(imageInfo);
+            sb.AppendLine();
+            sb.AppendLine("== Draw ==");
+            sb.AppendLine($"UseDrawPixelValue : {(Option.UseDrawPixelValue ? "O" : "X")}");
+            sb.AppendLine($"UseDrawCenterLine : {(Option.UseDrawCenterLine ? "O" : "X")}");
+            sb.AppendLine($"UseDrawCursorInfo : {(Option.UseDrawCursorInfo ? "O" : "X")}");
+            sb.AppendLine($"UseDrawDebugInfo : {(Option.UseDrawDebugInfo ? "O" : "X")}");
+            sb.AppendLine($"UseDrawRoiRectangles : {(Option.UseDrawRoiRectangles ? "O" : "X")}");
+            sb.AppendLine();
+            sb.AppendLine("== Time ==");
+            var dtTextList = dtList.Select(dt => $"{dt.Item1} : {dt.Item2:0.0}ms");
+            sb.Append(string.Join("\r\n", dtTextList));
+            id.DrawString(sb.ToString(), Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
         }
-
 
         // 픽셀값 표시
         private void DrawPixelValue(ImageDrawing id) {
