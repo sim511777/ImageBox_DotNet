@@ -194,7 +194,7 @@ namespace ShimLib {
                 if (Option.UseDrawCursorInfo) {
                     using (Bitmap bmp = new Bitmap(8 * 35, Fonts.dic[Option.InfoFont].FontHeight, PixelFormat.Format32bppPArgb)) {
                         var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
-                        DrawCursorInfo(bd.Scan0, bd.Width, bd.Height, 0, 0);
+                        DrawCursorInfo(new ImageDrawing(bd.Scan0, bd.Width, bd.Height), 0, 0);
                         bmp.UnlockBits(bd);
                         using (Graphics g = CreateGraphics()) {
                             g.DrawImage(bmp, 2, 2);
@@ -284,7 +284,7 @@ namespace ShimLib {
 
             // 커서 정보 표시
             if (Option.UseDrawCursorInfo)
-                DrawCursorInfo(bmpData.Scan0, bmpData.Width, bmpData.Height, 2, 2);
+                DrawCursorInfo(idWnd, 2, 2);
             var t7 = Util.GetTimeMs();
 
             // 디비그 정보 표시
@@ -354,10 +354,11 @@ namespace ShimLib {
             }
         }
 
-        private void DrawDebugInfo(ImageDrawing idWnd) {
+        private void DrawDebugInfo(ImageDrawing id) {
+            string imageInfo = imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}";
             string info =
 $@"== Image ==
-{(imgBuf == IntPtr.Zero ? "X" : $"{imgBw}*{imgBh}*{imgBytepp*8}bpp{(isImgbufFloat ? "(float)" : "")}")}
+{imageInfo}
 
 == Draw ==
 UseDrawPixelValue : {(Option.UseDrawPixelValue ? "O" : "X")}
@@ -379,7 +380,7 @@ DrawImage : {t89:0.0}ms
 Render : {t910:0.0}ms
 Total : {tTotal:0.0}ms
 ";
-            idWnd.DrawString(info, Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
+            id.DrawString(info, Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
         }
 
 
@@ -492,7 +493,7 @@ Total : {tTotal:0.0}ms
         }
 
         // 커서 정보 표시
-        private void DrawCursorInfo(IntPtr dispBuf, int dispBw, int dispBh, int ofsx, int ofsy) {
+        private void DrawCursorInfo(ImageDrawing id, int ofsx, int ofsy) {
             var ptImg = DispToImg(ptMove);
             int ix = (int)Math.Round(ptImg.X);
             int iy = (int)Math.Round(ptImg.Y);
@@ -500,8 +501,7 @@ Total : {tTotal:0.0}ms
             string zoomText = GetZoomText();
             string text = ($"zoom={zoomText} ({ix},{iy})={colText}").PadRight(35);
             var size = Fonts.dic[Option.InfoFont].MeasureString(text);
-            Drawing.DrawRectangle(dispBuf, dispBw, dispBh, ofsx, ofsy, ofsx + size.Width - 1, ofsy + size.Height - 1, Color.Black.ToArgb(), true);
-            Fonts.dic[Option.InfoFont].DrawString(text, dispBuf, dispBw, dispBh, ofsx, ofsy, Color.White);
+            id.DrawString(text, Fonts.dic[Option.InfoFont], Color.White, ofsx, ofsy, Color.Black);
         }
 
         // ImageGraphics 리턴
