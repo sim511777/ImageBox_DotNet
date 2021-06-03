@@ -26,6 +26,8 @@ namespace ShimLib {
                 int six = (int)Math.Floor((x - panx) / zoom);
                 sixs[x] = (six < 0 || six >= imgBw) ? -1 : six;
             }
+            int x1Include = sixs.ToList().FindIndex(six => six != -1);
+            int x2Exclude = sixs.ToList().FindLastIndex(six => six != -1) + 1;
 
             float floatScale = (float)(255 / floatValueMax);
             double doubleScale = 255 / floatValueMax;
@@ -33,17 +35,17 @@ namespace ShimLib {
             void yAction(int y) {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
-                if (siy == -1) {
+                if (siy == -1 || x1Include == -1) {
                     Util.Memset4((IntPtr)dp, bgColor, dispBw);
                     return;
                 }
+                if (x1Include > 0) {
+                    Util.Memset4((IntPtr)dp, bgColor, x1Include);
+                }
+                dp += x1Include;
                 byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
-                for (int x = 0; x < dispBw; x++, dp++) {
+                for (int x = x1Include; x < x2Exclude; x++, dp++) {
                     int six = sixs[x];
-                    if (six == -1) {       // out of boundary of image
-                        *dp = bgColor;
-                        continue;
-                    }
                     byte* sp = &sptr[six * bytepp];
                     if (bufIsFloat) {
                         if (bytepp == 4) {          // 4byte float gray
@@ -70,6 +72,9 @@ namespace ShimLib {
                             *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
                         }
                     }
+                }
+                if (x2Exclude < dispBw) {
+                    Util.Memset4((IntPtr)dp, bgColor, dispBw - x2Exclude);
                 }
             }
             if (useParallel)
