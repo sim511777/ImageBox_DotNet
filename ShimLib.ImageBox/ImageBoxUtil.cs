@@ -32,7 +32,7 @@ namespace ShimLib {
             float floatScale = (float)(255 / floatValueMax);
             double doubleScale = 255 / floatValueMax;
 
-            void yAction(int y) {
+            Action<int> LineAction = (int y) => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
                 if (siy == -1 || x1Include == -1) {
@@ -76,11 +76,11 @@ namespace ShimLib {
                 if (x2Exclude < dispBw) {
                     Util.Memset4((IntPtr)dp, bgColor, dispBw - x2Exclude);
                 }
-            }
+            };
             if (useParallel)
-                Parallel.For(0, dispBh, yAction);
+                Parallel.For(0, dispBh, LineAction);
             else
-                for (int y = 0; y < dispBh; y++) { yAction(y); }
+                for (int y = 0; y < dispBh; y++) { LineAction(y); }
         }
 
         // 이미지 좌표 -> 화면 좌료
