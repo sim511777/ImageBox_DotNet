@@ -20,8 +20,10 @@ namespace ShimLib {
     public partial class ImageBox : Control {
         public ImageBoxOption Option { get; set; } = new ImageBoxOption();
         
-        [Browsable(false)] public List<Rectangle> RoiList { get; } = new List<Rectangle>();
-        [Browsable(false)] private string FloatValueFormat {
+        [Browsable(false)]
+        public List<Rectangle> RoiList { get; } = new List<Rectangle>();
+        [Browsable(false)]
+        private string FloatValueFormat {
             get {
                 return $"{{0:.{new string('0', Math.Max(Option.FloatValueDigit, 0))}}}";
             }
@@ -79,6 +81,7 @@ namespace ShimLib {
                 exp_num--;
             c = (ZoomLevel % 2 != 0) ? 3 : 1;
         }
+        [Browsable(false)]
         public double ZoomFactor {
             get {
                 GetZoomFactorComponents(out int exp_num, out int c);
