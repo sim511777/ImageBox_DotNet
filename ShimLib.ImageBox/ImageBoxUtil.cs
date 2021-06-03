@@ -9,12 +9,6 @@ namespace ShimLib {
     public class ImageBoxUtil {
         // 이미지 버퍼를 디스플레이 버퍼에 복사
         public static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, bool useParallel) {
-            // 이미지 버퍼가 없으면 clear
-            if (imgBuf == IntPtr.Zero) {
-                Util.Memset4(dispBuf, bgColor, (Int64)dispBw * dispBh);
-                return;
-            }
-
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];

@@ -245,14 +245,22 @@ namespace ShimLib {
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
 
             var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
+            IntPtr dispBuf = bmpData.Scan0;
+            int dispBw = bmpData.Width;
+            int dispBh = bmpData.Height;
             
             // 이미지 확대 축소
             double zoom = ZoomFactor;
-            ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, bmpData.Scan0, bmpData.Width, bmpData.Height, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
+            if (imgBuf == IntPtr.Zero) {
+                Util.Memset4(dispBuf, BackColor.ToArgb(), (Int64)dispBw * dispBh);
+            } else {
+                ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
+            }
+
             tList.Add(Tuple.Create("CopyImageBufferZoom", Util.GetTimeMs()));
 
-            var id = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height, zoom, PtPan);
-            var idWnd = new ImageDrawing(bmpData.Scan0, bmpData.Width, bmpData.Height);
+            var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, PtPan);
+            var idWnd = new ImageDrawing(dispBuf, dispBw, dispBh);
 
             // 픽셀값 표시
             if (Option.UseDrawPixelValue)
@@ -274,11 +282,11 @@ namespace ShimLib {
             tList.Add(Tuple.Create("DrawCenterLine", Util.GetTimeMs()));
 
             // PaintBackBuffer이벤트 발생
-            OnPaintBackBuffer(bmpData.Scan0, bmpData.Width, bmpData.Height); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
+            OnPaintBackBuffer(dispBuf, dispBw, dispBh); // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             tList.Add(Tuple.Create("OnPaintBackBuffer", Util.GetTimeMs()));
 
             // Paint이벤트 발생
-            using (var bmpTemp = new Bitmap(bmpData.Width, bmpData.Height, bmpData.Stride, bmpData.PixelFormat, bmpData.Scan0)) {
+            using (var bmpTemp = new Bitmap(dispBw, dispBh, bmpData.Stride, bmpData.PixelFormat, dispBuf)) {
                 var g = Graphics.FromImage(bmpTemp);
                 base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
                 g.Dispose();
