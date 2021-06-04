@@ -47,6 +47,7 @@ namespace ShimLib {
         private int imgBh = 0;
         private int imgBytepp = 0;
         private bool isImgbufFloat = false;
+        private LineDispAction lineDispAction = null;
 
         // 디스플레이 버퍼
         private Bitmap dispBmp = null;
@@ -95,12 +96,29 @@ namespace ShimLib {
         }
 
         // 이미지 버퍼 설정
-        public void SetImageBuffer(IntPtr _buf, int _bw, int _bh, int _bytepp, bool _isFloat) {
+        public unsafe void SetImageBuffer(IntPtr _buf, int _bw, int _bh, int _bytepp, bool _isFloat) {
             imgBuf = _buf;
             imgBw = _bw;
             imgBh = _bh;
             imgBytepp = _bytepp;
             isImgbufFloat = _isFloat;
+            if (isImgbufFloat) {
+                if (imgBytepp == 4) {          // 4byte float gray
+                    lineDispAction = ImageBoxUtil.LineDispActionFloat4;
+                } else if (imgBytepp == 8) {   // 8byte double gray
+                    lineDispAction = ImageBoxUtil.LineDispActionFloat4;
+                }
+            } else {
+                if (imgBytepp == 1) {          // 1byte gray
+                    lineDispAction = ImageBoxUtil.LineDispActionByte1;
+                } else if (imgBytepp == 2) {   // 2byte gray (*.hra)
+                    lineDispAction = ImageBoxUtil.LineDispActionByte2;
+                } else if (imgBytepp == 3) {   // 3byte bgr
+                    lineDispAction = ImageBoxUtil.LineDispActionByte3;
+                } else if (imgBytepp == 4) {   // rbyte bgra
+                    lineDispAction = ImageBoxUtil.LineDispActionByte4;
+                }
+            }
         }
 
         // 줌 리셋
@@ -254,7 +272,7 @@ namespace ShimLib {
             if (imgBuf == IntPtr.Zero) {
                 Util.Memset4(dispBuf, BackColor.ToArgb(), (Int64)dispBw * dispBh);
             } else {
-                ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
+                ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDispAction, Option.UseParallelToDraw);
             }
 
             tList.Add(Tuple.Create("CopyImageBufferZoom", Util.GetTimeMs()));

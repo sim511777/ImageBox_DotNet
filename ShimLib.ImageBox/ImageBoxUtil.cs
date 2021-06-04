@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ShimLib {
     public class ImageBoxUtil {
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        public static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, bool useParallel) {
+        public static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, LineDispAction listDispAction, bool useParallel) {
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];
@@ -36,45 +36,80 @@ namespace ShimLib {
                 if (x1Include > 0) {
                     Util.Memset4((IntPtr)dp, bgColor, x1Include);
                 }
-                dp += x1Include;
+
                 byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
-                for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                    int six = sixs[x];
-                    byte* sp = &sptr[six * bytepp];
-                    if (bufIsFloat) {
-                        if (bytepp == 4) {          // 4byte float gray
-                            int v = (int)(*(float*)sp * floatScale);
-                            if (v > 255) v = 255;
-                            if (v < 0) v = 0;
-                            *dp = v | v << 8 | v << 16 | 0xff << 24;
-                        } else if (bytepp == 8) {   // 8byte double gray
-                            int v = (int)(*(double*)sp * doubleScale);
-                            if (v > 255) v = 255;
-                            if (v < 0) v = 0;
-                            *dp = v | v << 8 | v << 16 | 0xff << 24;
-                        }
-                    } else {
-                        if (bytepp == 1) {          // 1byte gray
-                            int v = sp[0];
-                            *dp = v | v << 8 | v << 16 | 0xff << 24;
-                        } else if (bytepp == 2) {   // 2byte gray (*.hra)
-                            int v = sp[0];
-                            *dp = v | v << 8 | v << 16 | 0xff << 24;
-                        } else if (bytepp == 3) {   // 3byte bgr
-                            *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-                        } else if (bytepp == 4) {   // rbyte bgra
-                            *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-                        }
-                    }
-                }
+                listDispAction(x1Include, x2Exclude, sixs, bytepp, sptr, dp + x1Include, floatScale, doubleScale);
+
                 if (x2Exclude < dispBw) {
-                    Util.Memset4((IntPtr)dp, bgColor, dispBw - x2Exclude);
+                    Util.Memset4((IntPtr)(dp + x2Exclude), bgColor, dispBw - x2Exclude);
                 }
             };
             if (useParallel)
                 Parallel.For(0, dispBh, LineAction);
             else
                 for (int y = 0; y < dispBh; y++) { LineAction(y); }
+        }
+
+        public unsafe static void LineDispActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                int v = (int)(*(float*)sp * floatScale);
+                if (v > 255) v = 255;
+                if (v < 0) v = 0;
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+            }
+        }
+
+        public unsafe static void LineDispActionFloat8(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                int v = (int)(*(double*)sp * doubleScale);
+                if (v > 255) v = 255;
+                if (v < 0) v = 0;
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+            }
+        }
+
+        public unsafe static void LineDispActionByte1(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                int v = sp[0];
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+            }
+        }
+
+        public unsafe static void LineDispActionByte2(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                int v = sp[0];
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+            }
+        }
+
+        public unsafe static void LineDispActionByte3(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
+            }
+        }
+
+        public unsafe static void LineDispActionByte4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
+            }
         }
 
         // 이미지 좌표 -> 화면 좌료
@@ -100,4 +135,5 @@ namespace ShimLib {
             return new PointF(imgX, imgY);
         }
     }
+    public unsafe delegate void LineDispAction(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale);
 }
