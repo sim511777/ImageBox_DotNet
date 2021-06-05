@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
-    public unsafe delegate void LineDispAction(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale);
+    public unsafe delegate void LineDrawAction(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale);
     
     public class ImageBoxUtil {
 
@@ -23,7 +23,7 @@ namespace ShimLib {
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        public static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, LineDispAction listDispAction, bool useParallel) {
+        public static unsafe void DrawImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, LineDrawAction lineDrawAction, bool useParallel) {
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];
@@ -53,7 +53,7 @@ namespace ShimLib {
                 }
 
                 byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
-                listDispAction(x1Include, x2Exclude, sixs, bytepp, sptr, dp + x1Include, floatScale, doubleScale);
+                lineDrawAction(x1Include, x2Exclude, sixs, bytepp, sptr, dp + x1Include, floatScale, doubleScale);
 
                 if (x2Exclude < dispBw) {
                     Util.Memset4((IntPtr)(dp + x2Exclude), bgColor, dispBw - x2Exclude);
@@ -65,7 +65,7 @@ namespace ShimLib {
                 for (int y = 0; y < dispBh; y++) { LineAction(y); }
         }
 
-        public unsafe static void LineDispActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+        public unsafe static void LineDrawActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -77,7 +77,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDispActionFloat8(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+        public unsafe static void LineDrawActionFloat8(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -89,7 +89,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDispActionByte1(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+        public unsafe static void LineDrawActionByte1(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -99,7 +99,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDispActionByte2(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+        public unsafe static void LineDrawActionByte2(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -109,7 +109,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDispActionByte3(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+        public unsafe static void LineDrawActionByte3(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -118,7 +118,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDispActionByte4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+        public unsafe static void LineDrawActionByte4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];

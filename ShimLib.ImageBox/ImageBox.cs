@@ -47,7 +47,7 @@ namespace ShimLib {
         private int imgBh = 0;
         private int imgBytepp = 0;
         private bool isImgbufFloat = false;
-        private LineDispAction lineDispAction = null;
+        private LineDrawAction lineDrawAction = null;
 
         // 디스플레이 버퍼
         private Bitmap dispBmp = null;
@@ -103,33 +103,33 @@ namespace ShimLib {
             imgBytepp = _bytepp;
             isImgbufFloat = _isFloat;
 
-            lineDispAction = null;
+            lineDrawAction = null;
             if (isImgbufFloat) {
                 if (imgBytepp == 4) {          // 4byte float gray
-                    lineDispAction = ImageBoxUtil.LineDispActionFloat4;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionFloat4;
                 } else if (imgBytepp == 8) {   // 8byte double gray
-                    lineDispAction = ImageBoxUtil.LineDispActionFloat4;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionFloat8;
                 }
             } else {
                 if (imgBytepp == 1) {          // 1byte gray
-                    lineDispAction = ImageBoxUtil.LineDispActionByte1;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionByte1;
                 } else if (imgBytepp == 2) {   // 2byte gray (*.hra)
-                    lineDispAction = ImageBoxUtil.LineDispActionByte2;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionByte2;
                 } else if (imgBytepp == 3) {   // 3byte bgr
-                    lineDispAction = ImageBoxUtil.LineDispActionByte3;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionByte3;
                 } else if (imgBytepp == 4) {   // rbyte bgra
-                    lineDispAction = ImageBoxUtil.LineDispActionByte4;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionByte4;
                 }
             }
         }
 
-        public unsafe void SetImageBufferCustomDisp(IntPtr _buf, int _bw, int _bh, int _bytepp, LineDispAction _lineDispAction) {
+        public unsafe void SetImageBufferCustomDisp(IntPtr _buf, int _bw, int _bh, int _bytepp, LineDrawAction _lineDrawAction) {
             imgBuf = _buf;
             imgBw = _bw;
             imgBh = _bh;
             imgBytepp = _bytepp;
 
-            lineDispAction = _lineDispAction;
+            lineDrawAction = _lineDrawAction;
         }
 
         // 줌 리셋
@@ -284,14 +284,14 @@ namespace ShimLib {
             // 이미지 확대 축소
             if (imgBuf == IntPtr.Zero) {
                 ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
-            } else if (lineDispAction == null) {
+            } else if (lineDrawAction == null) {
                 ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
-                idWnd.DrawString("DisplayAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Blue, 2, 25, Color.Yellow);
+                idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Blue, 2, 25, Color.Yellow);
             } else {
-                ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDispAction, Option.UseParallelToDraw);
+                ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDrawAction, Option.UseParallelToDraw);
             }
 
-            tList.Add(Tuple.Create("CopyImageBufferZoom", Util.GetTimeMs()));
+            tList.Add(Tuple.Create("DrawImageBufferZoom", Util.GetTimeMs()));
 
             // 픽셀값 표시
             if (Option.UseDrawPixelValue)
