@@ -283,9 +283,9 @@ namespace ShimLib {
 
             // 이미지 확대 축소
             if (imgBuf == IntPtr.Zero) {
-                Util.Memset4(dispBuf, BackColor.ToArgb(), (Int64)dispBw * dispBh);
+                ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
             } else if (lineDispAction == null) {
-                Util.Memset4(dispBuf, BackColor.ToArgb(), (Int64)dispBw * dispBh);
+                ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
                 idWnd.DrawString("DisplayAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Blue, 2, 25, Color.Yellow);
             } else {
                 ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDispAction, Option.UseParallelToDraw);

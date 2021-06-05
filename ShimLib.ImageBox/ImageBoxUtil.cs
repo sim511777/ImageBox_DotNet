@@ -6,7 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
+    public unsafe delegate void LineDispAction(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale);
+    
     public class ImageBoxUtil {
+
+        // 디스플레이 버퍼 클리어
+        public unsafe static void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
+            Action<int> LineAction = (int y) => {
+                int* dp = (int*)dispBuf + (Int64)dispBw * y;
+                Util.Memset4((IntPtr)dp, bgColor, dispBw);
+            };
+            if (useParallel)
+                Parallel.For(0, dispBh, LineAction);
+            else
+                for (int y = 0; y < dispBh; y++) { LineAction(y); }
+        }
+
         // 이미지 버퍼를 디스플레이 버퍼에 복사
         public static unsafe void CopyImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, LineDispAction listDispAction, bool useParallel) {
             // 인덱스 버퍼 생성
@@ -135,5 +150,4 @@ namespace ShimLib {
             return new PointF(imgX, imgY);
         }
     }
-    public unsafe delegate void LineDispAction(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale);
 }
