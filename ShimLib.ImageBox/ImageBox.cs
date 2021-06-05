@@ -268,7 +268,7 @@ namespace ShimLib {
             base.OnMouseWheel(e);
         }
         
-        List<Tuple<string, double>> dtList = Enumerable.Repeat(Tuple.Create(string.Empty, 0.0), 100).ToList();
+        List<Tuple<string, double>> dtList = new List<Tuple<string, double>>();
         public new void Invalidate() {
             List<Tuple<string, double>> tList = new List<Tuple<string, double>>();
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
