@@ -40,7 +40,9 @@ namespace ShimLib {
 
             float floatScale = (float)(255 / floatValueMax);
             double doubleScale = 255 / floatValueMax;
-
+            
+            if (lineDrawAction == null)
+                lineDrawAction = LineDrawActionNone;
             Action<int> LineAction = (int y) => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
@@ -63,6 +65,13 @@ namespace ShimLib {
                 Parallel.For(0, dispBh, LineAction);
             else
                 for (int y = 0; y < dispBh; y++) { LineAction(y); }
+        }
+
+        public unsafe static void LineDrawActionNone(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {
+            int color = Color.Blue.ToArgb();
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                *dp = color;
+            }
         }
 
         public unsafe static void LineDrawActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, float floatScale, double doubleScale) {

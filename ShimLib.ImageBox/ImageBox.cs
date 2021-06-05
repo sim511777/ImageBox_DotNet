@@ -284,11 +284,11 @@ namespace ShimLib {
             // 이미지 확대 축소
             if (imgBuf == IntPtr.Zero) {
                 ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
-            } else if (lineDrawAction == null) {
-                ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
-                idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Blue, 2, 25, Color.Yellow);
             } else {
                 ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDrawAction, Option.UseParallelToDraw);
+                if (lineDrawAction == null) {
+                    idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Yellow, 2, 25);
+                }
             }
 
             tList.Add(Tuple.Create("DrawImageBufferZoom", Util.GetTimeMs()));
