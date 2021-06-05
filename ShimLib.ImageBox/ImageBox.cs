@@ -102,6 +102,8 @@ namespace ShimLib {
             imgBh = _bh;
             imgBytepp = _bytepp;
             isImgbufFloat = _isFloat;
+
+            lineDispAction = null;
             if (isImgbufFloat) {
                 if (imgBytepp == 4) {          // 4byte float gray
                     lineDispAction = ImageBoxUtil.LineDispActionFloat4;
@@ -119,6 +121,15 @@ namespace ShimLib {
                     lineDispAction = ImageBoxUtil.LineDispActionByte4;
                 }
             }
+        }
+
+        public unsafe void SetImageBufferCustomDisp(IntPtr _buf, int _bw, int _bh, int _bytepp, LineDispAction _lineDispAction) {
+            imgBuf = _buf;
+            imgBw = _bw;
+            imgBh = _bh;
+            imgBytepp = _bytepp;
+
+            lineDispAction = _lineDispAction;
         }
 
         // 줌 리셋
@@ -262,23 +273,25 @@ namespace ShimLib {
             List<Tuple<string, double>> tList = new List<Tuple<string, double>>();
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
 
+            double zoom = ZoomFactor;
             var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
             IntPtr dispBuf = bmpData.Scan0;
             int dispBw = bmpData.Width;
             int dispBh = bmpData.Height;
-            
+            var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, PtPan);
+            var idWnd = new ImageDrawing(dispBuf, dispBw, dispBh);
+
             // 이미지 확대 축소
-            double zoom = ZoomFactor;
             if (imgBuf == IntPtr.Zero) {
                 Util.Memset4(dispBuf, BackColor.ToArgb(), (Int64)dispBw * dispBh);
+            } else if (lineDispAction == null) {
+                Util.Memset4(dispBuf, BackColor.ToArgb(), (Int64)dispBw * dispBh);
+                idWnd.DrawString("DisplayAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Blue, 2, 25, Color.Yellow);
             } else {
                 ImageBoxUtil.CopyImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDispAction, Option.UseParallelToDraw);
             }
 
             tList.Add(Tuple.Create("CopyImageBufferZoom", Util.GetTimeMs()));
-
-            var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, PtPan);
-            var idWnd = new ImageDrawing(dispBuf, dispBw, dispBh);
 
             // 픽셀값 표시
             if (Option.UseDrawPixelValue)
