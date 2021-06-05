@@ -41,12 +41,14 @@
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
+            this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chkDrawingRepeatParallel);
             this.panel1.Controls.Add(this.btnFont);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.btnLenna8ToFloat);
@@ -62,7 +64,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(601, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 568);
+            this.panel1.Size = new System.Drawing.Size(286, 607);
             this.panel1.TabIndex = 1;
             // 
             // btnFont
@@ -232,19 +234,31 @@
             imageBoxOption1.UseDrawRoiRectangles = true;
             imageBoxOption1.UseParallelToDraw = true;
             this.imgBox.Option = imageBoxOption1;
-            this.imgBox.Size = new System.Drawing.Size(601, 568);
+            this.imgBox.PtPan = new System.Drawing.Point(2, 2);
+            this.imgBox.Size = new System.Drawing.Size(601, 607);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
+            this.imgBox.ZoomLevel = 0;
             this.imgBox.PaintBackBuffer += new ShimLib.PaintBackbufferEventHandler(this.imgBox_PaintBackBuffer);
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
+            // chkDrawingRepeatParallel
+            // 
+            this.chkDrawingRepeatParallel.AutoSize = true;
+            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 562);
+            this.chkDrawingRepeatParallel.Name = "chkDrawingRepeatParallel";
+            this.chkDrawingRepeatParallel.Size = new System.Drawing.Size(159, 16);
+            this.chkDrawingRepeatParallel.TabIndex = 15;
+            this.chkDrawingRepeatParallel.Text = "Drawing Repeat Parallel";
+            this.chkDrawingRepeatParallel.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 568);
+            this.ClientSize = new System.Drawing.Size(887, 607);
             this.Controls.Add(this.imgBox);
             this.Controls.Add(this.panel1);
             this.Name = "FormMain";
@@ -275,6 +289,7 @@
         private System.Windows.Forms.Button btnFont;
         private System.Windows.Forms.FontDialog dlgFont;
         private ShimLib.ImageBox imgBox;
+        private System.Windows.Forms.CheckBox chkDrawingRepeatParallel;
     }
 }
 

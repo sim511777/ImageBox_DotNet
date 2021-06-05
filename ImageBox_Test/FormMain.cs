@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using ImageBox_Test.Properties;
 using ShimLib;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ImageBox_Test {
     public partial class FormMain : Form {
@@ -48,7 +49,7 @@ namespace ImageBox_Test {
         }
 
         private void ImageDrawingRepeat(ImageDrawing id) {
-            for (int i = 0; i < 100; i++) {
+            Action<int> iAction = (i) => {
                 for (int j = 0; j < 100; j++) {
                     id.DrawCircle(Color.Lime, j, i, 1, false);
                     id.DrawSquare(Color.Lime, j, i, 1, false);
@@ -59,7 +60,11 @@ namespace ImageBox_Test {
                     id.DrawCross(Color.Lime, j, i, 8, true);
                     id.DrawPlus(Color.Lime, j, i, 8, true);
                 }
-            }
+            };
+            if (chkDrawingRepeatParallel.Checked)
+                Parallel.For(0, 100, iAction);
+            else
+                for (int i = 0; i < 100; i++) iAction(i);
         }
 
         private void ImageGraphicsRepeat(ImageGraphics ig) {
