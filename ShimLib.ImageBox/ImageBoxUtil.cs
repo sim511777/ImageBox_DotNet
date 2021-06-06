@@ -10,7 +10,7 @@ namespace ShimLib {
     
     public class ImageBoxUtil {
         // 디스플레이 버퍼 클리어
-        public unsafe static void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
+        public static unsafe void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
             Action<int> LineAction = (int y) => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 Util.Memset4((IntPtr)dp, bgColor, dispBw);
@@ -59,6 +59,7 @@ namespace ShimLib {
                     Util.Memset4((IntPtr)(dp + x2Exclude), bgColor, dispBw - x2Exclude);
                 }
             };
+
             if (useParallel)
                 Parallel.For(0, dispBh, LineAction);
             else
