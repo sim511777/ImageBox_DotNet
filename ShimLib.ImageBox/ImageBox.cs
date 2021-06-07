@@ -139,12 +139,12 @@ namespace ShimLib {
         }
 
         // 이미지 좌표 -> 화면 좌료
-        private Point ImgToDisp(PointF ptImg) {
+        public Point ImgToDisp(PointF ptImg) {
             return ImageBoxUtil.ImgToDisp(ptImg, ZoomFactor, PtPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
-        private Rectangle ImgToDisp(RectangleF rectImg) {
+        public Rectangle ImgToDisp(RectangleF rectImg) {
             return ImageBoxUtil.ImgToDisp(rectImg, ZoomFactor, PtPan);
         }
 
