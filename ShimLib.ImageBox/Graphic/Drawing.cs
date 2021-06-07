@@ -28,6 +28,23 @@ namespace ShimLib {
                 *ptr1++ = iCol;
         }
 
+        public static unsafe void DrawVLine(int* ptr, int bw, int bh, int y1, int y2, int x, int iCol) {
+            if (x < 0 || x >= bw || y1 >= bh || y2 < 0)
+                return;
+
+            if (y1 < 0)
+                y1 = 0;
+            if (y2 >= bh)
+                y2 = bh - 1;
+
+            int* ptr1 = ptr + (bw * y1) + x;
+            int size = y2 - y1 + 1;
+            while (size-- > 0) {
+                *ptr1 = iCol;
+                ptr1 += bw;
+            }
+        }
+
         public static unsafe void DrawHLineDot(IntPtr buf, int bw, int bh, int x1, int x2, int y, int iCol) {
             if (y < 0 || y >= bh || x1 >= bw || x2 < 0)
                 return;
@@ -245,16 +262,16 @@ namespace ShimLib {
             if (x1 >= bw || x2 < 0 || y1 >= bh || y2 < 0)
                 return;
 
+            int* ptr = (int*)buf;
             if (fill) {
-                int* ptr = (int*)buf;
                 for (int y = y1; y <= y2; y++) {
                     DrawHLine(ptr, bw, bh, x1, x2, y, iCol);
                 }
             } else {
-                DrawLine(buf, bw, bh, x1, y1, x2, y1, iCol);
-                DrawLine(buf, bw, bh, x2, y1, x2, y2, iCol);
-                DrawLine(buf, bw, bh, x2, y2, x1, y2, iCol);
-                DrawLine(buf, bw, bh, x1, y2, x1, y1, iCol);
+                DrawHLine(ptr, bw, bh, x1, x2, y1, iCol);
+                DrawHLine(ptr, bw, bh, x1, x2, y2, iCol);
+                DrawVLine(ptr, bw, bh, y1, y2, x1, iCol);
+                DrawVLine(ptr, bw, bh, y1, y2, x2, iCol);
             }
         }
 
