@@ -14,6 +14,8 @@ namespace ShimLib {
         }
 
         private static unsafe void DrawHLine(int* ptr, int bw, int bh, int x1, int x2, int y, int iCol) {
+            if (x1 > x2) Util.Swap(ref x1, ref x2);
+            
             if (y < 0 || y >= bh || x1 >= bw || x2 < 0)
                 return;
 
@@ -29,6 +31,8 @@ namespace ShimLib {
         }
 
         public static unsafe void DrawVLine(int* ptr, int bw, int bh, int y1, int y2, int x, int iCol) {
+            if (y1 > y2) Util.Swap(ref y1, ref y2);
+
             if (x < 0 || x >= bw || y1 >= bh || y2 < 0)
                 return;
 
@@ -100,6 +104,15 @@ namespace ShimLib {
         public static unsafe void DrawLine(IntPtr buf, int bw, int bh, int x1, int y1, int x2, int y2, int iCol) {
             if ((x1 < 0 && x2 < 0) || (x1 >= bw && x2 > bw) || (y1 < 0 && y2 < 0) || (y1 >= bh && y2 >= bh))
                 return;
+
+            if (x1 == x2) {
+                DrawVLine((int*)buf, bw, bh, y1, y2, x1, iCol);
+                return;
+            }
+            if (y1 == y2) {
+                DrawHLine((int*)buf, bw, bh, x1, x2, y1, iCol);
+                return;
+            }
 
             int dx = (x2 > x1) ? (x2 - x1) : (x1 - x2);
             int dy = (y2 > y1) ? (y2 - y1) : (y1 - y2);
