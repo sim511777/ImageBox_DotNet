@@ -44,16 +44,6 @@ namespace ShimLib {
             DrawPixel(col, new PointF(x, y));
         }
 
-        public void DrawLine(Color col, PointF pt1, PointF pt2) {
-            Point ptd1 = ImgToDisp(pt1);
-            Point ptd2 = ImgToDisp(pt2);
-            Drawing.DrawLine(Buf, Bw, Bh, ptd1.X, ptd1.Y, ptd2.X, ptd2.Y, col.ToArgb());
-        }
-
-        public void DrawLine(Color col, float x1, float y1, float x2, float y2) {
-            this.DrawLine(col, new PointF(x1, y1), new PointF(x2, y2));
-        }
-
         public void DrawHLineDot(Color col, float x1, float x2, float y) {
             var ptd1 = ImgToDisp(new PointF(x1, y));
             var ptd2 = ImgToDisp(new PointF(x2, y));
@@ -64,6 +54,16 @@ namespace ShimLib {
             var ptd1 = ImgToDisp(new PointF(x, y1));
             var ptd2 = ImgToDisp(new PointF(x, y2));
             Drawing.DrawVLineDot(Buf, Bw, Bh, ptd1.Y, ptd2.Y, ptd1.X, col.ToArgb());
+        }
+
+        public void DrawLine(Color col, PointF pt1, PointF pt2) {
+            Point ptd1 = ImgToDisp(pt1);
+            Point ptd2 = ImgToDisp(pt2);
+            Drawing.DrawLine(Buf, Bw, Bh, ptd1.X, ptd1.Y, ptd2.X, ptd2.Y, col.ToArgb());
+        }
+
+        public void DrawLine(Color col, float x1, float y1, float x2, float y2) {
+            this.DrawLine(col, new PointF(x1, y1), new PointF(x2, y2));
         }
 
         public void DrawEllipse(Color col, RectangleF rect) {

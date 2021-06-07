@@ -30,7 +30,7 @@ namespace ShimLib {
                 *ptr1++ = iCol;
         }
 
-        public static unsafe void DrawVLine(int* ptr, int bw, int bh, int y1, int y2, int x, int iCol) {
+        private static unsafe void DrawVLine(int* ptr, int bw, int bh, int y1, int y2, int x, int iCol) {
             if (y1 > y2) Util.Swap(ref y1, ref y2);
 
             if (x < 0 || x >= bw || y1 >= bh || y2 < 0)
@@ -84,17 +84,6 @@ namespace ShimLib {
                 ptr += 2 * bw;
                 size -= 2;
             }
-        }
-
-        public static unsafe void DrawRectangleDot(IntPtr buf, int bw, int bh, int x1, int y1, int x2, int y2, int iCol) {
-            if (x1 > x2) Util.Swap(ref x1, ref x2);
-            if (y1 > y2) Util.Swap(ref y1, ref y2);
-            if (x1 >= bw || x2 < 0 || y1 >= bh || y2 < 0)
-                return;
-            DrawHLineDot(buf, bw, bh, x1, x2, y1, iCol);
-            DrawHLineDot(buf, bw, bh, x1, x2, y2, iCol);
-            DrawVLineDot(buf, bw, bh, y1, y2, x1, iCol);
-            DrawVLineDot(buf, bw, bh, y1, y2, x2, iCol);
         }
 
         public static unsafe void DrawPixel(IntPtr buf, int bw, int bh, int x, int y, int iCol) {
@@ -286,6 +275,17 @@ namespace ShimLib {
                 DrawVLine(ptr, bw, bh, y1, y2, x1, iCol);
                 DrawVLine(ptr, bw, bh, y1, y2, x2, iCol);
             }
+        }
+
+        public static unsafe void DrawRectangleDot(IntPtr buf, int bw, int bh, int x1, int y1, int x2, int y2, int iCol) {
+            if (x1 > x2) Util.Swap(ref x1, ref x2);
+            if (y1 > y2) Util.Swap(ref y1, ref y2);
+            if (x1 >= bw || x2 < 0 || y1 >= bh || y2 < 0)
+                return;
+            DrawHLineDot(buf, bw, bh, x1, x2, y1, iCol);
+            DrawHLineDot(buf, bw, bh, x1, x2, y2, iCol);
+            DrawVLineDot(buf, bw, bh, y1, y2, x1, iCol);
+            DrawVLineDot(buf, bw, bh, y1, y2, x2, iCol);
         }
 
         public static unsafe void DrawImage(IntPtr buf, int bw, int bh, IntPtr sbuf, int sw, int sh, int x0, int y0) {
