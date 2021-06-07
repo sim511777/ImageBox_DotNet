@@ -26,11 +26,8 @@ namespace ShimLib {
         public List<Rectangle> RoiList { get; } = new List<Rectangle>();
 
         // float 표시 자리수
-        [Browsable(false)]
-        private string FloatValueFormat {
-            get {
-                return $"{{0:.{new string('0', Math.Max(Option.FloatValueDigit, 0))}}}";
-            }
+        private string GetFloatValueFormat() {
+            return $"{{0:.{new string('0', Math.Max(Option.FloatValueDigit, 0))}}}";
         }
 
         // 생성자
@@ -66,7 +63,7 @@ namespace ShimLib {
                 if (imgBuf == IntPtr.Zero)
                     ptPan = new Point(2, 2);
                 else {
-                    var zoom = ZoomFactor;
+                    var zoom = GetZoomFactor();
                     int x = Util.Clamp(value.X, -(int)(imgBw * zoom) + 2, 2);
                     int y = Util.Clamp(value.Y, -(int)(imgBh * zoom) + 2, 2);
                     ptPan = new Point(x, y);
@@ -86,12 +83,10 @@ namespace ShimLib {
                 exp_num--;
             c = (ZoomLevel % 2 != 0) ? 3 : 1;
         }
-        [Browsable(false)]
-        public double ZoomFactor {
-            get {
-                GetZoomFactorComponents(out int exp_num, out int c);
-                return c * Math.Pow(2, exp_num);
-            }
+
+        public double GetZoomFactor() {
+            GetZoomFactorComponents(out int exp_num, out int c);
+            return c * Math.Pow(2, exp_num);
         }
 
         private string GetZoomText() {
@@ -144,17 +139,17 @@ namespace ShimLib {
 
         // 이미지 좌표 -> 화면 좌료
         public Point ImgToDisp(PointF ptImg) {
-            return ImageBoxUtil.ImgToDisp(ptImg, ZoomFactor, PtPan);
+            return ImageBoxUtil.ImgToDisp(ptImg, GetZoomFactor(), PtPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
         public Rectangle ImgToDisp(RectangleF rectImg) {
-            return ImageBoxUtil.ImgToDisp(rectImg, ZoomFactor, PtPan);
+            return ImageBoxUtil.ImgToDisp(rectImg, GetZoomFactor(), PtPan);
         }
 
         // 화면 좌표 -> 이미지 좌표
         public PointF DispToImg(Point ptDisp) {
-            return ImageBoxUtil.DispToImg(ptDisp, ZoomFactor, PtPan);
+            return ImageBoxUtil.DispToImg(ptDisp, GetZoomFactor(), PtPan);
         }
 
         protected override void OnMouseDoubleClick(MouseEventArgs e) {
@@ -277,7 +272,7 @@ namespace ShimLib {
             List<Tuple<string, double>> tList = new List<Tuple<string, double>>();
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
 
-            double zoom = ZoomFactor;
+            double zoom = GetZoomFactor();
             var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
             IntPtr dispBuf = bmpData.Scan0;
             int dispBw = bmpData.Width;
@@ -380,7 +375,7 @@ namespace ShimLib {
             string roiStart = $"({roi.Left},{roi.Top})";
             string roiEnd = $"({roi.Width},{roi.Height})";
             var sizeStart = id.MeasureString(roiStart, Fonts.Ascii_10x18);
-            var zoom = ZoomFactor;
+            var zoom = GetZoomFactor();
             id.DrawString(roiStart, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
             id.DrawString(roiEnd, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
             id.DrawRectangleDot(Option.RoiRectangleColor, roiF);
@@ -416,7 +411,7 @@ namespace ShimLib {
         private void DrawPixelValue(ImageDrawing id) {
             if (imgBuf == IntPtr.Zero)
                 return;
-            var zoom = ZoomFactor;
+            var zoom = GetZoomFactor();
             if (zoom < 16 || (imgBytepp != 1 && zoom < 32))
                 return;
 
@@ -468,9 +463,9 @@ namespace ShimLib {
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
-                        return string.Format(FloatValueFormat,*(float*)ptr);
+                        return string.Format(GetFloatValueFormat(), *(float*)ptr);
                     else
-                        return string.Format(FloatValueFormat, *(double*)ptr);
+                        return string.Format(GetFloatValueFormat(), *(double*)ptr);
                 } else {
                     if (multiLine)
                         return string.Format("{0}\n{1}\n{2}", ptr[2], ptr[1], ptr[0]);
@@ -534,12 +529,12 @@ namespace ShimLib {
 
         // ImageGraphics 리턴
         public ImageGraphics GetImageGraphics(Graphics g) {
-            return new ImageGraphics(g, ZoomFactor, PtPan);
+            return new ImageGraphics(g, GetZoomFactor(), PtPan);
         }
 
         // ImageDrawing 리턴
         public ImageDrawing GetImageDrawing(IntPtr buf, int bw, int bh) {
-            return new ImageDrawing(buf, bw, bh, ZoomFactor, PtPan);
+            return new ImageDrawing(buf, bw, bh, GetZoomFactor(), PtPan);
         }
 
         public Bitmap GetBitmap() {
