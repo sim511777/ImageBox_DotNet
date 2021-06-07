@@ -30,6 +30,10 @@ namespace ShimLib {
             return $"{{0:.{new string('0', Math.Max(Option.FloatValueDigit, 0))}}}";
         }
 
+        // 정보 폰트
+        [Browsable(false)]
+        public IFont InfoFont => Fonts.dic[Option.InfoFont];
+
         // 생성자
         public ImageBox() {
             InitializeComponent();
@@ -223,7 +227,7 @@ namespace ShimLib {
                 Invalidate();
             } else {
                 if (Option.UseDrawCursorInfo) {
-                    using (Bitmap bmp = new Bitmap(8 * 35, Fonts.dic[Option.InfoFont].FontHeight, PixelFormat.Format32bppPArgb)) {
+                    using (Bitmap bmp = new Bitmap(8 * 35, InfoFont.FontHeight, PixelFormat.Format32bppPArgb)) {
                         var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
                         DrawCursorInfo(new ImageDrawing(bd.Scan0, bd.Width, bd.Height), 0, 0);
                         bmp.UnlockBits(bd);
@@ -286,7 +290,7 @@ namespace ShimLib {
             } else {
                 ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDrawAction, Option.UseParallelToDraw);
                 if (lineDrawAction == null) {
-                    idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", Fonts.dic[Option.InfoFont], Color.Yellow, 2, 25);
+                    idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", InfoFont, Color.Yellow, 2, 25);
                 }
             }
 
@@ -404,7 +408,7 @@ namespace ShimLib {
             sb.AppendLine("== Time ==");
             var dtTextList = dtList.Select(dt => $"{dt.Item1} : {dt.Item2:0.0}ms");
             sb.Append(string.Join("\r\n", dtTextList));
-            id.DrawString(sb.ToString(), Fonts.dic[Option.InfoFont], Color.Black, this.Width - 230, 2, Color.White);
+            id.DrawString(sb.ToString(), InfoFont, Color.Black, this.Width - 230, 2, Color.White);
         }
 
         // 픽셀값 표시
@@ -523,8 +527,8 @@ namespace ShimLib {
             var colText = GetImagePixelValueText(ix, iy);
             string zoomText = GetZoomText();
             string text = ($"zoom={zoomText} ({ix},{iy})={colText}").PadRight(35);
-            var size = Fonts.dic[Option.InfoFont].MeasureString(text);
-            id.DrawString(text, Fonts.dic[Option.InfoFont], Color.White, ofsx, ofsy, Color.Black);
+            var size = InfoFont.MeasureString(text);
+            id.DrawString(text, InfoFont, Color.White, ofsx, ofsy, Color.Black);
         }
 
         // ImageGraphics 리턴

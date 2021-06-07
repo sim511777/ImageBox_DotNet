@@ -30,7 +30,6 @@ namespace ShimLib {
         public static IFont Ascii_16x12 = new BmpFont(Resources.Raster_16x12, 16, 12, 0, 0, 32);
         public static IFont Unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
 
-        // Fonts.dic[EFont.Ascii_16x12];
         public readonly static Dictionary<EFont, IFont> dic;
         static Fonts() {
             var fonts = typeof(Fonts).GetFields()

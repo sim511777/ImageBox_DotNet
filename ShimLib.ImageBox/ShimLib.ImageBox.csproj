@@ -158,7 +158,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\unifont_jp-13.0.06.bdf" />
     <None Include="Resources\VersionInfo.md" />
   </ItemGroup>
   <ItemGroup>
