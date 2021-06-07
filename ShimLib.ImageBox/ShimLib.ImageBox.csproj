@@ -101,7 +101,7 @@
   <ItemGroup>
     <None Include="Resources\Raster_04x06.bmp" />
     <None Include="Resources\uismall.bdf" />
-    <None Include="Resources\unifont-13.0.06.hex" />
+    <None Include="Resources\unifont-13.0.06.bdf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Raster_05x08.bmp" />
@@ -158,6 +158,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\unifont_jp-13.0.06.bdf" />
     <None Include="Resources\VersionInfo.md" />
   </ItemGroup>
   <ItemGroup>

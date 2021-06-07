@@ -19,7 +19,7 @@ namespace ShimLib.Properties {
     // 클래스에서 자동으로 생성되었습니다.
     // 멤버를 추가하거나 제거하려면 .ResX 파일을 편집한 다음 /str 옵션을 사용하여 ResGen을
     // 다시 실행하거나 VS 프로젝트를 다시 빌드하십시오.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,8 +47,8 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
-        ///   이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대해 현재 스레드의 CurrentUICulture 속성을
-        ///   재정의합니다.
+        ///   이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+        ///   속성을 재정의합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -271,23 +271,32 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
-        ///   0000:AAAA00018000000180004A51EA505A51C99E0001800000018000000180005555
-        ///0001:AAAA00018000000180003993C252325F8A527193800000018000000180005555
-        ///0002:AAAA00018000000180003BA5C124311989247125800000018000000180005555
-        ///0003:AAAA00018000000180007BA5C1247919C1247925800000018000000180005555
-        ///0004:AAAA000180000001800079BFC2487A49C2487989800000018000000180005555
-        ///0005:AAAA00018000000180007A4DC2527B53C2D67A4F800000018000000180005555
-        ///0006:AAAA000180000001800031A5CA287A31CA2849A5800000018000000180005555
-        ///0007:AAAA000180[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   STARTFONT 2.1
+        ///FONT -gnu-Unifont-Medium-R-Normal-Sans-16-160-75-75-c-80-iso10646-1
+        ///SIZE 16 75 75
+        ///FONTBOUNDINGBOX 16 16 0 -2
+        ///STARTPROPERTIES 24
+        ///COPYRIGHT &quot;Copyright (C) 1998-2021 Roman Czyborra, Paul Hardy, Qianqian Fang, Andrew Miller, Johnnie Weaver, David Corbett, Nils Moskopp, Rebecca Bettencourt, et al. License: SIL Open Font License version 1.1 and GPLv2+: GNU GPL version 2 or later &lt;http://gnu.org/licenses/gpl.html&gt; with the GNU Font Embedding Exception.&quot;
+        ///FONT_VERSION &quot;13.0.06&quot;
+        ///FONT_TYPE &quot;Bitmap&quot;
+        ///FOUND[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string unifont_13_0_06_hex {
+        internal static string unifont_13_0_06_bdf {
             get {
-                return ResourceManager.GetString("unifont_13_0_06_hex", resourceCulture);
+                return ResourceManager.GetString("unifont_13_0_06_bdf", resourceCulture);
             }
         }
         
         /// <summary>
         ///   ## Version Info
+        ///### V1.0.0.1 - 2021.06.8
+        ///1. mame uismall.bdf 가변폭 폰트 추가
+        ///2. infoFont 속성 추가
+        ///3. Ascii_04x06_2 폰트 추가
+        ///4. void Redraw() -&gt; new void Invalidate() 함수명 변경
+        ///5. ImageDrawing, ImageGraphics 클래스에 대해 ImageBox 의존성 제거
+        ///6. LineDrawAction Custom assign 기능 추가
+        ///7. 속도 개선 위해 HLine, VLIne 클리핑 처리
         ///
         ///### V1.0.0.0 - 2021.05.28
         ///1. todo.txt Solution Item폴더로 이동

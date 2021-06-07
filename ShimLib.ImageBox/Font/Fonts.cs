@@ -28,8 +28,8 @@ namespace ShimLib {
         public static IFont Ascii_12x27 = new BmpFont(Resources.Raster_12x27, 12, 27, 0, 0, 32);
         public static IFont Ascii_16x08 = new BmpFont(Resources.Raster_16x08, 16, 08, 0, 0, 32);
         public static IFont Ascii_16x12 = new BmpFont(Resources.Raster_16x12, 16, 12, 0, 0, 32);
-        public static IFont Unicode_16x16_hex = new HexFont(Resources.unifont_13_0_06_hex);
-        
+        public static IFont Unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
+
         // Fonts.dic[EFont.Ascii_16x12];
         public readonly static Dictionary<EFont, IFont> dic;
         static Fonts() {
@@ -42,7 +42,7 @@ namespace ShimLib {
                 .ToDictionary(item => item.efont, item => item.font);
         }
     }
-    
+
     public enum EFont {
         Mame_UnSmall,
         Ascii_04x06,
@@ -63,6 +63,6 @@ namespace ShimLib {
         Ascii_12x27,
         Ascii_16x08,
         Ascii_16x12,
-        Unicode_16x16_hex,
+        Unifont_13_0_06_bdf,
     }
 }

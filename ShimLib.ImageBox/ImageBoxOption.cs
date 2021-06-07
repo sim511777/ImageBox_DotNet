@@ -21,7 +21,7 @@ namespace ShimLib {
         public Color RoiRectangleColor { get; set; } = Color.Blue;
         public double FloatValueMax { get; set; } = 1.0;
         public int FloatValueDigit { get; set; } = 3;
-        public EFont InfoFont { get; set; } = EFont.Unicode_16x16_hex;
+        public EFont InfoFont { get; set; } = EFont.Unifont_13_0_06_bdf;
 
         public object Clone() {
             return MemberwiseClone();

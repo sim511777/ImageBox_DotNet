@@ -18,10 +18,14 @@ namespace ShimLib {
 
     [ToolboxBitmap(typeof(ImageBox), "ImageBox.bmp")]
     public partial class ImageBox : Control {
+        // 옵션
         public ImageBoxOption Option { get; set; } = new ImageBoxOption();
         
+        // ROI 리스트
         [Browsable(false)]
         public List<Rectangle> RoiList { get; } = new List<Rectangle>();
+
+        // float 표시 자리수
         [Browsable(false)]
         private string FloatValueFormat {
             get {
@@ -287,7 +291,7 @@ namespace ShimLib {
             } else {
                 ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDrawAction, Option.UseParallelToDraw);
                 if (lineDrawAction == null) {
-                    idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", Fonts.Unicode_16x16_hex, Color.Yellow, 2, 25);
+                    idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", Fonts.dic[Option.InfoFont], Color.Yellow, 2, 25);
                 }
             }
 
