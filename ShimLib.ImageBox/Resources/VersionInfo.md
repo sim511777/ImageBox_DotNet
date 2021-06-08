@@ -1,4 +1,7 @@
 ## Version Info
+### V1.0.0.2 - 2021.06.12
+1. BufferedGraphics 사용 안하고 DibSection 직접 생성하여 사용하여 속도 개선
+
 ### V1.0.0.1 - 2021.06.8
 1. mame uismall.bdf 가변폭 폰트 추가
 2. infoFont 속성 추가

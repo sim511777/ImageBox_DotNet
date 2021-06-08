@@ -55,8 +55,7 @@ namespace ShimLib {
         private LineDrawAction lineDrawAction = null;
 
         // 디스플레이 버퍼
-        private Bitmap dispBmp = null;
-        private BufferedGraphics bfg = null;
+        private DibSection dib = null;
 
         // 패닝 옵셋(픽셀)
         private Point ptPan = new Point(2, 2);
@@ -177,20 +176,9 @@ namespace ShimLib {
 
         // 리사이즈
         protected override void OnLayout(LayoutEventArgs levent) {
-            if (dispBmp != null)
-                dispBmp.Dispose();
-            dispBmp = new Bitmap(Math.Max(Width, 64), Math.Max(Height, 64), PixelFormat.Format32bppPArgb);
-
-            if (bfg != null)
-                bfg.Dispose();
-            bfg = BufferedGraphicsManager.Current.Allocate(this.CreateGraphics(), ClientRectangle);
-            bfg.Graphics.CompositingMode = CompositingMode.SourceCopy;
-            bfg.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
-            bfg.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
-            bfg.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
-            bfg.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-            bfg.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixel;
-
+            if (dib != null)
+                dib.Dispose();
+            dib = new DibSection(this.Handle, Math.Max(Width, 64), Math.Max(Height, 64));
             Invalidate();
             base.OnLayout(levent);
         }
@@ -277,10 +265,10 @@ namespace ShimLib {
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
 
             double zoom = GetZoomFactor();
-            var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
-            IntPtr dispBuf = bmpData.Scan0;
-            int dispBw = bmpData.Width;
-            int dispBh = bmpData.Height;
+            IntPtr dispBuf = dib.BufPtr;
+            int dispBw = dib.Width;
+            int dispBh = dib.Height;
+            IntPtr hdc = dib.Hdc;
             var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, PtPan);
             var idWnd = new ImageDrawing(dispBuf, dispBw, dispBh);
 
@@ -320,10 +308,8 @@ namespace ShimLib {
             tList.Add(Tuple.Create("OnPaintBackBuffer", Util.GetTimeMs()));
 
             // Paint이벤트 발생
-            using (var bmpTemp = new Bitmap(dispBw, dispBh, bmpData.Stride, bmpData.PixelFormat, dispBuf)) {
-                var g = Graphics.FromImage(bmpTemp);
+            using (var g = Graphics.FromHdc(hdc)) {
                 base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-                g.Dispose();
             }
             tList.Add(Tuple.Create("OnPaint", Util.GetTimeMs()));
 
@@ -337,14 +323,9 @@ namespace ShimLib {
                 DrawDebugInfo(idWnd);
             tList.Add(Tuple.Create("DrawDebugInfo", Util.GetTimeMs()));
 
-            dispBmp.UnlockBits(bmpData);
-            
-            // 백버퍼에다 복사
-            bfg.Graphics.DrawImage(dispBmp, 0, 0);
-            tList.Add(Tuple.Create("DrawImage", Util.GetTimeMs()));
             
             // 프런트버퍼에다 복사
-            bfg.Render();
+            dib.BitBlt(IntPtr.Zero);
             tList.Add(Tuple.Create("Render", Util.GetTimeMs()));
             
             // delta 계산 및 total 계산
@@ -363,7 +344,7 @@ namespace ShimLib {
             }
             
             // 이미지 그리기
-            bfg.Render();
+            dib.BitBlt(IntPtr.Zero);
         }
 
         private void DrawRoiDown(ImageDrawing id) {

@@ -9,30 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
-    public struct BITMAPFILEHEADER {
-        public ushort bfType;
-        public uint bfSize;
-        public ushort bfReserved1;
-        public ushort bfReserved2;
-        public uint bfOffBits;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct BITMAPINFOHEADER {
-        public uint biSize;
-        public int biWidth;
-        public int biHeight;
-        public ushort biPlanes;
-        public ushort biBitCount;
-        public uint biCompression;
-        public uint biSizeImage;
-        public int biXPelsPerMeter;
-        public int biYPelsPerMeter;
-        public uint biClrUsed;
-        public uint biClrImportant;
-    }
-    
     public class ImageUtil {
         // float(32bit) or double(64bit) -> gray(8bit);
         public unsafe static void FloatBufToByte(IntPtr floatBuf, int bw, int bh, int bytepp, IntPtr byteBuf) {
