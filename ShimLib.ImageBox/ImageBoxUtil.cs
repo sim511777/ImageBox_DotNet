@@ -11,7 +11,7 @@ namespace ShimLib {
     public class ImageBoxUtil {
         // 디스플레이 버퍼 클리어
         public static unsafe void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
-            Action<int> LineAction = (int y) => {
+            Action<int> LineAction = (y) => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 Util.Memset4((IntPtr)dp, bgColor, dispBw);
             };
@@ -41,7 +41,7 @@ namespace ShimLib {
                 lineDrawAction = LineDrawActionNone;
             }
 
-            Action<int> LineAction = (int y) => {
+            Action<int> LineAction = (y) => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
                 if (siy == -1 || x1Include == -1) {
