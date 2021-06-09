@@ -55,8 +55,8 @@ namespace ShimLib {
         private LineDrawAction lineDrawAction = null;
 
         // 디스플레이 버퍼
-        private Bitmap dispBmp = null;
         private BufferedGraphics bfg = null;
+        private BITMAP dispBitmap;
 
         // 패닝 옵셋(픽셀)
         private Point ptPan = new Point(2, 2);
@@ -177,10 +177,6 @@ namespace ShimLib {
 
         // 리사이즈
         protected override void OnLayout(LayoutEventArgs levent) {
-            if (dispBmp != null)
-                dispBmp.Dispose();
-            dispBmp = new Bitmap(Math.Max(Width, 64), Math.Max(Height, 64), PixelFormat.Format32bppPArgb);
-
             if (bfg != null)
                 bfg.Dispose();
             bfg = BufferedGraphicsManager.Current.Allocate(this.CreateGraphics(), ClientRectangle);
@@ -190,6 +186,10 @@ namespace ShimLib {
             bfg.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
             bfg.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
             bfg.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixel;
+
+            IntPtr hdc = bfg.Graphics.GetHdc();
+            dispBitmap = ImageUtil.GetGdiBitmap(hdc);
+            bfg.Graphics.ReleaseHdc();
 
             Invalidate();
             base.OnLayout(levent);
@@ -277,10 +277,9 @@ namespace ShimLib {
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
 
             double zoom = GetZoomFactor();
-            var bmpData = dispBmp.LockBits(new Rectangle(Point.Empty, dispBmp.Size), ImageLockMode.WriteOnly, dispBmp.PixelFormat);
-            IntPtr dispBuf = bmpData.Scan0;
-            int dispBw = bmpData.Width;
-            int dispBh = bmpData.Height;
+            IntPtr dispBuf = dispBitmap.bmBits;
+            int dispBw = dispBitmap.bmWidth;
+            int dispBh = dispBitmap.bmHeight;
             var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, PtPan);
             var idWnd = new ImageDrawing(dispBuf, dispBw, dispBh);
 
@@ -320,11 +319,7 @@ namespace ShimLib {
             tList.Add(Tuple.Create("OnPaintBackBuffer", Util.GetTimeMs()));
 
             // Paint이벤트 발생
-            using (var bmpTemp = new Bitmap(dispBw, dispBh, bmpData.Stride, bmpData.PixelFormat, dispBuf)) {
-                var g = Graphics.FromImage(bmpTemp);
-                base.OnPaint(new PaintEventArgs(g, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
-                g.Dispose();
-            }
+            base.OnPaint(new PaintEventArgs(bfg.Graphics, ClientRectangle));   // 여기서 사용자가 정의한 Paint이벤트 함수가 호출됨
             tList.Add(Tuple.Create("OnPaint", Util.GetTimeMs()));
 
             // 커서 정보 표시
@@ -337,12 +332,6 @@ namespace ShimLib {
                 DrawDebugInfo(idWnd);
             tList.Add(Tuple.Create("DrawDebugInfo", Util.GetTimeMs()));
 
-            dispBmp.UnlockBits(bmpData);
-            
-            // 백버퍼에다 복사
-            bfg.Graphics.DrawImage(dispBmp, 0, 0);
-            tList.Add(Tuple.Create("DrawImage", Util.GetTimeMs()));
-            
             // 프런트버퍼에다 복사
             bfg.Render();
             tList.Add(Tuple.Create("Render", Util.GetTimeMs()));

@@ -32,6 +32,38 @@ namespace ShimLib {
         public uint biClrUsed;
         public uint biClrImportant;
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct BITMAP {
+        public int bmType;
+        public int bmWidth;
+        public int bmHeight;
+        public int bmWidthBytes;
+        public ushort bmPlanes;
+        public ushort bmBitsPixel;
+        public IntPtr bmBits;
+    }
+
+    public enum GdiObjectType {
+        OBJ_PEN = 1,
+        OBJ_BRUSH = 2,
+        OBJ_DC = 3,
+        OBJ_METADC = 4,
+        OBJ_PAL = 5,
+        OBJ_FONT = 6,
+        OBJ_BITMAP = 7,
+        OBJ_REGION = 8,
+        OBJ_METAFILE = 9,
+        OBJ_MEMDC = 10,
+        OBJ_EXTPEN = 11,
+        OBJ_ENHMETADC = 12,
+        OBJ_ENHMETAFILE = 13
+    }
+
+    public class Win32Api {
+        [DllImport("gdi32.dll")] public static extern IntPtr GetCurrentObject(IntPtr hdc, GdiObjectType uObjectType);
+        [DllImport("gdi32.dll")] public static extern int GetObject(IntPtr hgdiobj, int cbBuffer, IntPtr lpvObject);
+    }
     
     public class ImageUtil {
         // float(32bit) or double(64bit) -> gray(8bit);
@@ -570,5 +602,14 @@ namespace ShimLib {
             bytepp = 1;
         }
 
+        public unsafe static BITMAP GetGdiBitmap(IntPtr hdc) {
+            IntPtr hbitmap = Win32Api.GetCurrentObject(hdc, GdiObjectType.OBJ_BITMAP);
+            
+            BITMAP bitmap = new BITMAP();
+            BITMAP* pbitmap = &bitmap;
+            Win32Api.GetObject(hbitmap, Marshal.SizeOf<BITMAP>(), (IntPtr)pbitmap);
+
+            return bitmap;
+        }
     }
 }
