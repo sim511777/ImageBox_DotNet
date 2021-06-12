@@ -23,8 +23,9 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마십시오.
         /// </summary>
         private void InitializeComponent() {
-            ShimLib.ImageBoxOption imageBoxOption1 = new ShimLib.ImageBoxOption();
+            ShimLib.ImageBoxOption imageBoxOption2 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
             this.btnFont = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbxDrawTest = new System.Windows.Forms.ListBox();
@@ -41,7 +42,6 @@
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +66,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 607);
             this.panel1.TabIndex = 1;
+            // 
+            // chkDrawingRepeatParallel
+            // 
+            this.chkDrawingRepeatParallel.AutoSize = true;
+            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 562);
+            this.chkDrawingRepeatParallel.Name = "chkDrawingRepeatParallel";
+            this.chkDrawingRepeatParallel.Size = new System.Drawing.Size(159, 16);
+            this.chkDrawingRepeatParallel.TabIndex = 15;
+            this.chkDrawingRepeatParallel.Text = "Drawing Repeat Parallel";
+            this.chkDrawingRepeatParallel.UseVisualStyleBackColor = true;
             // 
             // btnFont
             // 
@@ -116,14 +126,14 @@
             // 
             // cbxFont
             // 
-            this.cbxFont.DisplayMember = "FontName";
+            this.cbxFont.DisplayMember = "Key";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
             this.cbxFont.Location = new System.Drawing.Point(6, 311);
             this.cbxFont.Name = "cbxFont";
             this.cbxFont.Size = new System.Drawing.Size(268, 20);
             this.cbxFont.TabIndex = 9;
-            this.cbxFont.ValueMember = "Font";
+            this.cbxFont.ValueMember = "Value";
             this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
             // 
             // tbxExample
@@ -222,18 +232,18 @@
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            imageBoxOption1.CenterLineColor = System.Drawing.Color.Yellow;
-            imageBoxOption1.FloatValueDigit = 3;
-            imageBoxOption1.FloatValueMax = 1D;
-            imageBoxOption1.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
-            imageBoxOption1.RoiRectangleColor = System.Drawing.Color.Blue;
-            imageBoxOption1.UseDrawCenterLine = true;
-            imageBoxOption1.UseDrawCursorInfo = true;
-            imageBoxOption1.UseDrawDebugInfo = true;
-            imageBoxOption1.UseDrawPixelValue = true;
-            imageBoxOption1.UseDrawRoiRectangles = true;
-            imageBoxOption1.UseParallelToDraw = true;
-            this.imgBox.Option = imageBoxOption1;
+            imageBoxOption2.CenterLineColor = System.Drawing.Color.Yellow;
+            imageBoxOption2.FloatValueDigit = 3;
+            imageBoxOption2.FloatValueMax = 1D;
+            imageBoxOption2.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
+            imageBoxOption2.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption2.UseDrawCenterLine = true;
+            imageBoxOption2.UseDrawCursorInfo = true;
+            imageBoxOption2.UseDrawDebugInfo = true;
+            imageBoxOption2.UseDrawPixelValue = true;
+            imageBoxOption2.UseDrawRoiRectangles = true;
+            imageBoxOption2.UseParallelToDraw = true;
+            this.imgBox.Option = imageBoxOption2;
             this.imgBox.PtPan = new System.Drawing.Point(2, 2);
             this.imgBox.Size = new System.Drawing.Size(601, 607);
             this.imgBox.TabIndex = 2;
@@ -243,16 +253,6 @@
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
-            // 
-            // chkDrawingRepeatParallel
-            // 
-            this.chkDrawingRepeatParallel.AutoSize = true;
-            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 562);
-            this.chkDrawingRepeatParallel.Name = "chkDrawingRepeatParallel";
-            this.chkDrawingRepeatParallel.Size = new System.Drawing.Size(159, 16);
-            this.chkDrawingRepeatParallel.TabIndex = 15;
-            this.chkDrawingRepeatParallel.Text = "Drawing Repeat Parallel";
-            this.chkDrawingRepeatParallel.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 

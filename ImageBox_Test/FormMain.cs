@@ -18,13 +18,8 @@ namespace ImageBox_Test {
         public FormMain(string[] args) {
             InitializeComponent();
             
-            var fonts = typeof(Fonts).GetFields()
-                .Where(fi => fi.FieldType == typeof(IFont))
-                .Select(fi => new { FontName = fi.Name, Font = fi.GetValue(null) })
-                .ToArray();
-            cbxFont.DataSource = fonts;
+            cbxFont.DataSource = new BindingSource(Fonts.dic, null);
             cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
-            lbxDrawTest.SelectedIndex = 0;
             this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
             
             if (args.Length > 0) {
