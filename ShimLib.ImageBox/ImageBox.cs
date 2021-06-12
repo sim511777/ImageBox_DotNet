@@ -259,7 +259,7 @@ namespace ShimLib {
             base.OnMouseWheel(e);
         }
         
-        List<Tuple<string, double>> dtList = new List<Tuple<string, double>>();
+        List<List<Tuple<string, double>>> dtListList = new List<List<Tuple<string, double>>>();
         public new void Invalidate() {
             List<Tuple<string, double>> tList = new List<Tuple<string, double>>();
             tList.Add(Tuple.Create("Start", Util.GetTimeMs()));
@@ -330,8 +330,11 @@ namespace ShimLib {
             
             // delta 계산 및 total 계산
             var nextList = tList.Skip(1);
-            dtList = nextList.Zip(tList, (next, prev) => Tuple.Create(next.Item1, next.Item2 - prev.Item2)).ToList();
+            List<Tuple<string, double>> dtList = nextList.Zip(tList, (next, prev) => Tuple.Create(next.Item1, next.Item2 - prev.Item2)).ToList();
             dtList.Add(Tuple.Create("Total", tList.Last().Item2 - tList.First().Item2));
+            dtListList.Add(dtList);
+            while (dtListList.Count > Option.TimeCheckCount)
+                dtListList.RemoveAt(0);
          }
 
         // 페인트
@@ -387,8 +390,15 @@ namespace ShimLib {
             sb.AppendLine($"UseDrawRoiRectangles : {(Option.UseDrawRoiRectangles ? "O" : "X")}");
             sb.AppendLine();
             sb.AppendLine("== Time ==");
-            var dtTextList = dtList.Select(dt => $"{dt.Item1} : {dt.Item2:0.0}ms");
-            sb.Append(string.Join("\r\n", dtTextList));
+            if (dtListList.Count > 0) {
+                var sumSeq =  dtListList.Aggregate((dtList1, dtList2) => dtList1.Zip(dtList2, (item1, item2) => Tuple.Create(item1.Item1, item1.Item2 + item2.Item2)).ToList());
+                var avgSeq = sumSeq.Select(item => Tuple.Create(item.Item1, item.Item2 / dtListList.Count));
+                var dtTextList = avgSeq.Select(dt => $"{dt.Item1} : {dt.Item2:0.0}ms");
+                sb.Append(string.Join("\r\n", dtTextList));
+                //var dtList = dtListList.Last();
+                //var dtTextList = dtList.Select(dt => $"{dt.Item1} : {dt.Item2:0.0}ms");
+                //sb.Append(string.Join("\r\n", dtTextList));
+            }
             id.DrawString(sb.ToString(), InfoFont, Color.Black, this.Width - 230, 2, Color.White);
         }
 
