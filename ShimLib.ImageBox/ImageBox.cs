@@ -116,7 +116,7 @@ namespace ShimLib {
                 if (imgBytepp == 1) {          // 1byte gray
                     lineDrawAction = ImageBoxUtil.LineDrawActionByte1;
                 } else if (imgBytepp == 2) {   // 2byte gray (*.hra)
-                    lineDrawAction = ImageBoxUtil.LineDrawActionByte2;
+                    lineDrawAction = ImageBoxUtil.LineDrawActionByte2LE;
                 } else if (imgBytepp == 3) {   // 3byte bgr
                     lineDrawAction = ImageBoxUtil.LineDrawActionByte3;
                 } else if (imgBytepp == 4) {   // rbyte bgra
@@ -418,7 +418,8 @@ namespace ShimLib {
                 else if (zoom <= 33) font = Fonts.Ascii_08x16;
                 else font = Fonts.Ascii_10x18;
             } else {
-                multiLine = true;
+                if (imgBytepp != 2)
+                    multiLine = true;
                 if (zoom <= 33) font = Fonts.Ascii_05x08;
                 else if (zoom <= 49) font = Fonts.Ascii_06x13;
                 else if (zoom <= 65) font = Fonts.Ascii_08x16;
@@ -455,6 +456,8 @@ namespace ShimLib {
             var ptr = (byte*)imgBuf + ((Int64)imgBw * iy + ix) * imgBytepp;
             if (imgBytepp == 1) {
                 return (*ptr).ToString();
+            } if (imgBytepp == 2) {
+                return (*(ushort*)ptr).ToString();
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)

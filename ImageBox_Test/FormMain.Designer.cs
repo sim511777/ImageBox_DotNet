@@ -23,7 +23,7 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마십시오.
         /// </summary>
         private void InitializeComponent() {
-            ShimLib.ImageBoxOption imageBoxOption2 = new ShimLib.ImageBoxOption();
+            ShimLib.ImageBoxOption imageBoxOption1 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
             this.btnFont = new System.Windows.Forms.Button();
@@ -42,12 +42,14 @@
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
+            this.btnLenna8ToGray16 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnLenna8ToGray16);
             this.panel1.Controls.Add(this.chkDrawingRepeatParallel);
             this.panel1.Controls.Add(this.btnFont);
             this.panel1.Controls.Add(this.groupBox1);
@@ -70,7 +72,7 @@
             // chkDrawingRepeatParallel
             // 
             this.chkDrawingRepeatParallel.AutoSize = true;
-            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 562);
+            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 574);
             this.chkDrawingRepeatParallel.Name = "chkDrawingRepeatParallel";
             this.chkDrawingRepeatParallel.Size = new System.Drawing.Size(159, 16);
             this.chkDrawingRepeatParallel.TabIndex = 15;
@@ -79,7 +81,7 @@
             // 
             // btnFont
             // 
-            this.btnFont.Location = new System.Drawing.Point(6, 337);
+            this.btnFont.Location = new System.Drawing.Point(6, 349);
             this.btnFont.Name = "btnFont";
             this.btnFont.Size = new System.Drawing.Size(268, 95);
             this.btnFont.TabIndex = 14;
@@ -91,7 +93,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbxDrawTest);
-            this.groupBox1.Location = new System.Drawing.Point(6, 438);
+            this.groupBox1.Location = new System.Drawing.Point(6, 450);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 118);
             this.groupBox1.TabIndex = 13;
@@ -116,7 +118,7 @@
             // 
             // btnLenna8ToFloat
             // 
-            this.btnLenna8ToFloat.Location = new System.Drawing.Point(143, 128);
+            this.btnLenna8ToFloat.Location = new System.Drawing.Point(143, 119);
             this.btnLenna8ToFloat.Name = "btnLenna8ToFloat";
             this.btnLenna8ToFloat.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8ToFloat.TabIndex = 10;
@@ -129,7 +131,7 @@
             this.cbxFont.DisplayMember = "Key";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 311);
+            this.cbxFont.Location = new System.Drawing.Point(6, 323);
             this.cbxFont.Name = "cbxFont";
             this.cbxFont.Size = new System.Drawing.Size(268, 20);
             this.cbxFont.TabIndex = 9;
@@ -138,7 +140,7 @@
             // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 182);
+            this.tbxExample.Location = new System.Drawing.Point(6, 194);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(268, 123);
@@ -149,7 +151,7 @@
             // 
             // btnPaste
             // 
-            this.btnPaste.Location = new System.Drawing.Point(6, 79);
+            this.btnPaste.Location = new System.Drawing.Point(6, 61);
             this.btnPaste.Name = "btnPaste";
             this.btnPaste.Size = new System.Drawing.Size(131, 23);
             this.btnPaste.TabIndex = 6;
@@ -159,7 +161,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(6, 50);
+            this.btnOpen.Location = new System.Drawing.Point(6, 32);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(131, 23);
             this.btnOpen.TabIndex = 6;
@@ -169,7 +171,7 @@
             // 
             // btnChess
             // 
-            this.btnChess.Location = new System.Drawing.Point(143, 99);
+            this.btnChess.Location = new System.Drawing.Point(143, 90);
             this.btnChess.Name = "btnChess";
             this.btnChess.Size = new System.Drawing.Size(131, 23);
             this.btnChess.TabIndex = 5;
@@ -179,7 +181,7 @@
             // 
             // btnLenna32
             // 
-            this.btnLenna32.Location = new System.Drawing.Point(143, 70);
+            this.btnLenna32.Location = new System.Drawing.Point(143, 61);
             this.btnLenna32.Name = "btnLenna32";
             this.btnLenna32.Size = new System.Drawing.Size(131, 23);
             this.btnLenna32.TabIndex = 4;
@@ -189,7 +191,7 @@
             // 
             // btnLenna24
             // 
-            this.btnLenna24.Location = new System.Drawing.Point(143, 41);
+            this.btnLenna24.Location = new System.Drawing.Point(143, 32);
             this.btnLenna24.Name = "btnLenna24";
             this.btnLenna24.Size = new System.Drawing.Size(131, 23);
             this.btnLenna24.TabIndex = 3;
@@ -199,7 +201,7 @@
             // 
             // btnLenna8
             // 
-            this.btnLenna8.Location = new System.Drawing.Point(143, 12);
+            this.btnLenna8.Location = new System.Drawing.Point(143, 3);
             this.btnLenna8.Name = "btnLenna8";
             this.btnLenna8.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8.TabIndex = 2;
@@ -209,7 +211,7 @@
             // 
             // btnResetZoom
             // 
-            this.btnResetZoom.Location = new System.Drawing.Point(6, 12);
+            this.btnResetZoom.Location = new System.Drawing.Point(6, 3);
             this.btnResetZoom.Name = "btnResetZoom";
             this.btnResetZoom.Size = new System.Drawing.Size(131, 23);
             this.btnResetZoom.TabIndex = 1;
@@ -232,18 +234,19 @@
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            imageBoxOption2.CenterLineColor = System.Drawing.Color.Yellow;
-            imageBoxOption2.FloatValueDigit = 3;
-            imageBoxOption2.FloatValueMax = 1D;
-            imageBoxOption2.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
-            imageBoxOption2.RoiRectangleColor = System.Drawing.Color.Blue;
-            imageBoxOption2.UseDrawCenterLine = true;
-            imageBoxOption2.UseDrawCursorInfo = true;
-            imageBoxOption2.UseDrawDebugInfo = true;
-            imageBoxOption2.UseDrawPixelValue = true;
-            imageBoxOption2.UseDrawRoiRectangles = true;
-            imageBoxOption2.UseParallelToDraw = true;
-            this.imgBox.Option = imageBoxOption2;
+            imageBoxOption1.CenterLineColor = System.Drawing.Color.Yellow;
+            imageBoxOption1.FloatValueDigit = 3;
+            imageBoxOption1.FloatValueMax = 1D;
+            imageBoxOption1.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
+            imageBoxOption1.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption1.TimeCheckCount = 100;
+            imageBoxOption1.UseDrawCenterLine = true;
+            imageBoxOption1.UseDrawCursorInfo = true;
+            imageBoxOption1.UseDrawDebugInfo = true;
+            imageBoxOption1.UseDrawPixelValue = true;
+            imageBoxOption1.UseDrawRoiRectangles = true;
+            imageBoxOption1.UseParallelToDraw = true;
+            this.imgBox.Option = imageBoxOption1;
             this.imgBox.PtPan = new System.Drawing.Point(2, 2);
             this.imgBox.Size = new System.Drawing.Size(601, 607);
             this.imgBox.TabIndex = 2;
@@ -253,6 +256,16 @@
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
+            // 
+            // btnLenna8ToGray16
+            // 
+            this.btnLenna8ToGray16.Location = new System.Drawing.Point(143, 148);
+            this.btnLenna8ToGray16.Name = "btnLenna8ToGray16";
+            this.btnLenna8ToGray16.Size = new System.Drawing.Size(131, 23);
+            this.btnLenna8ToGray16.TabIndex = 16;
+            this.btnLenna8ToGray16.Text = "Lenna_8 to gray16";
+            this.btnLenna8ToGray16.UseVisualStyleBackColor = true;
+            this.btnLenna8ToGray16.Click += new System.EventHandler(this.btnLenna8ToGray16_Click);
             // 
             // FormMain
             // 
@@ -290,6 +303,7 @@
         private System.Windows.Forms.FontDialog dlgFont;
         private ShimLib.ImageBox imgBox;
         private System.Windows.Forms.CheckBox chkDrawingRepeatParallel;
+        private System.Windows.Forms.Button btnLenna8ToGray16;
     }
 }
 

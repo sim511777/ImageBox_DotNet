@@ -134,9 +134,10 @@ namespace ImageBox_Test {
             ImageUtil.BitmapToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
 
             // byte -> float
+            bytepp = 4;
             unsafe {
                 var bufOld = imgBuf;
-                imgBuf = Marshal.AllocHGlobal(bw * bh * 4);
+                imgBuf = Marshal.AllocHGlobal(bw * bh * bytepp);
                 for (int y = 0; y < bh; y++) {
                     var pbyte = (byte*)bufOld + y * bw;
                     var pfloat = (float*)imgBuf + y * bw;
@@ -147,8 +148,30 @@ namespace ImageBox_Test {
                 Marshal.FreeHGlobal(bufOld);
             }
 
-            bytepp = 4;
             imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, true);
+            imgBox.Invalidate();
+        }
+
+        private void SetImage_toGray16(Bitmap bmp) {
+            Util.FreeBuffer(ref imgBuf);
+            ImageUtil.BitmapToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
+
+            // byte -> ushort
+            bytepp = 2;
+            unsafe {
+                var bufOld = imgBuf;
+                imgBuf = Marshal.AllocHGlobal(bw * bh * bytepp);
+                for (int y = 0; y < bh; y++) {
+                    var pbyte = (byte*)bufOld + y * bw;
+                    var pushort = (ushort*)imgBuf + y * bw;
+                    for (int x = 0; x < bw; x++, pbyte++, pushort++) {
+                        *pushort = (ushort)(*pbyte << 8);
+                    }
+                }
+                Marshal.FreeHGlobal(bufOld);
+            }
+
+            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
             imgBox.Invalidate();
         }
 
@@ -250,6 +273,10 @@ namespace ImageBox_Test {
                 return;
             this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
             this.imgBox.Invalidate();
+        }
+
+        private void btnLenna8ToGray16_Click(object sender, EventArgs e) {
+            SetImage_toGray16(Resources.Lenna_8);
         }
     }
 }

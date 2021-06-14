@@ -111,12 +111,22 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionByte2(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public unsafe static void LineDrawActionByte2BE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
 
                 int v = sp[0];
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+            }
+        }
+
+        public unsafe static void LineDrawActionByte2LE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+            for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                int six = sixs[x];
+                byte* sp = &sptr[six * bytepp];
+
+                int v = sp[1];
                 *dp = v | v << 8 | v << 16 | 0xff << 24;
             }
         }
