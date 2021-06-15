@@ -479,7 +479,9 @@ namespace ShimLib {
                 return 0;
             var ptr = (byte*)imgBuf + ((Int64)imgBw * iy + ix) * imgBytepp;
             if (imgBytepp == 1) {
-                return (*ptr) / 32;
+                return ptr[0] / 32;
+            } else if (imgBytepp == 2) {
+                return ptr[1] / 32;
             } else {
                 if (isImgbufFloat) {
                     if (imgBytepp == 4)
