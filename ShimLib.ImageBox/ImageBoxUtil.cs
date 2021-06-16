@@ -66,14 +66,14 @@ namespace ShimLib {
                 for (int y = 0; y < dispBh; y++) { LineAction(y); }
         }
 
-        public unsafe static void LineDrawActionNone(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionNone(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             int color = Color.Blue.ToArgb();
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 *dp = color;
             }
         }
 
-        public unsafe static void LineDrawActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             float floatScale = (float)(255 / floatValueMax);
 
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
@@ -87,7 +87,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionFloat8(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionFloat8(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             double doubleScale = 255 / floatValueMax;
             
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
@@ -101,7 +101,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionByte1(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionByte1(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -111,7 +111,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionByte2BE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionByte2BE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -121,7 +121,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionByte2LE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionByte2LE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -131,7 +131,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionByte3(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionByte3(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
@@ -140,7 +140,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void LineDrawActionByte4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
+        public static unsafe void LineDrawActionByte4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
             for (int x = x1Include; x < x2Exclude; x++, dp++) {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];

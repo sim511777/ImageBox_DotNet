@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ShimLib {
     public class ImageUtil {
         // float(32bit) or double(64bit) -> gray(8bit);
-        public unsafe static void FloatBufToByte(IntPtr floatBuf, int bw, int bh, int bytepp, IntPtr byteBuf) {
+        public static unsafe void FloatBufToByte(IntPtr floatBuf, int bw, int bh, int bytepp, IntPtr byteBuf) {
             for (int y = 0; y < bh; y++) {
                 byte* psrc = (byte*)floatBuf + (bw * y) * bytepp;
                 byte* pdst = (byte*)byteBuf + bw * y;
@@ -25,7 +25,7 @@ namespace ShimLib {
         }
 
         // 8bit bmp 파일 버퍼에 로드
-        public unsafe static T StreamReadStructure<T>(Stream sr) {
+        public static unsafe T StreamReadStructure<T>(Stream sr) {
             int size = Marshal.SizeOf(typeof(T));
             byte[] buf = new byte[size];
             sr.Read(buf, 0, size);
@@ -81,7 +81,7 @@ namespace ShimLib {
 
         // 8bit 버퍼 bmp 파일에 저장
         static readonly byte[] grayPalette = Enumerable.Range(0, 1024).Select(i => i % 4 == 3 ? (byte)0xff : (byte)(i / 4)).ToArray();
-        public unsafe static void StreamWriteStructure<T>(Stream sr, T obj) {
+        public static unsafe void StreamWriteStructure<T>(Stream sr, T obj) {
             int size = Marshal.SizeOf(typeof(T));
             byte[] buf = new byte[size];
             fixed (byte* ptr = buf) {
@@ -146,7 +146,7 @@ namespace ShimLib {
         }
 
         // Load Bitmap to buffer
-        public unsafe static void BitmapToImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
+        public static unsafe void BitmapToImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
             if (bmp.PixelFormat == PixelFormat.Format1bppIndexed) {
                 BitmapToImageBuffer1Bit(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
                 return;
@@ -176,7 +176,7 @@ namespace ShimLib {
             bmp.UnlockBits(bmpData);
         }
 
-        private unsafe static void BitmapToImageBuffer1Bit(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
+        private static unsafe void BitmapToImageBuffer1Bit(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
             bw = bmp.Width;
             bh = bmp.Height;
             bytepp = 1;
@@ -203,7 +203,7 @@ namespace ShimLib {
         }
 
         // Save Bitmap from Buffer
-        public unsafe static Bitmap ImageBufferToBitmap(IntPtr imgBuf, int bw, int bh, int bytepp, bool isImgbufFloat, double floatValueMax) {
+        public static unsafe Bitmap ImageBufferToBitmap(IntPtr imgBuf, int bw, int bh, int bytepp, bool isImgbufFloat, double floatValueMax) {
             if (isImgbufFloat) {
                 return FloatBufferToBitmap8(imgBuf, bw, bh, bytepp, floatValueMax);
             }
@@ -243,7 +243,7 @@ namespace ShimLib {
             return bmp;
         }
 
-        private unsafe static Bitmap FloatBufferToBitmap8(IntPtr imgBuf, int bw, int bh, int bytepp, double floatValueMax) {
+        private static unsafe Bitmap FloatBufferToBitmap8(IntPtr imgBuf, int bw, int bh, int bytepp, double floatValueMax) {
             Bitmap bmp = new Bitmap(bw, bh, PixelFormat.Format8bppIndexed);
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.WriteOnly, bmp.PixelFormat);
             float floatScale = 255 / (float)floatValueMax;
@@ -276,7 +276,7 @@ namespace ShimLib {
         }
 
         // hra to bmp24
-        private unsafe static Bitmap HraBufferToBitmap24(IntPtr imgBuf, int bw, int bh, int bytepp) {
+        private static unsafe Bitmap HraBufferToBitmap24(IntPtr imgBuf, int bw, int bh, int bytepp) {
             Bitmap bmp = new Bitmap(bw, bh, PixelFormat.Format24bppRgb);
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bw, bh), ImageLockMode.WriteOnly, bmp.PixelFormat);
             int paddingSize = bmpData.Stride - bw * 3;
@@ -298,7 +298,7 @@ namespace ShimLib {
             return bmp;
         }
 
-        public unsafe static void LoadBmpFile(string filePath, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
+        public static unsafe void LoadBmpFile(string filePath, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
             // 파일 오픈
             FileStream hFile;
             try {
@@ -344,7 +344,7 @@ namespace ShimLib {
             return;
         }
 
-        public unsafe static void SaveBmpFile(string filePath, IntPtr imgBuf, int bw, int bh, int bytepp) {
+        public static unsafe void SaveBmpFile(string filePath, IntPtr imgBuf, int bw, int bh, int bytepp) {
             // 파일 오픈
             FileStream hFile;
             try {
@@ -403,7 +403,7 @@ namespace ShimLib {
         }
 
         // hra Lolad
-        public unsafe static void LoadHraFile(string fileName, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
+        public static unsafe void LoadHraFile(string fileName, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
             Stream sr = null;
             try {
                 sr = File.OpenRead(fileName);
@@ -437,7 +437,7 @@ namespace ShimLib {
         }
 
         // hra save
-        public unsafe static void SaveHraFile(string fileName, IntPtr imgBuf, int bw, int bh, int bytepp) {
+        public static unsafe void SaveHraFile(string fileName, IntPtr imgBuf, int bw, int bh, int bytepp) {
             Stream sr = null;
             try {
                 sr = File.OpenWrite(fileName);
@@ -471,7 +471,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe static void Bitmap1BitToGrayImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
+        public static unsafe void Bitmap1BitToGrayImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
             bw = bmp.Width;
             bh = bmp.Height;
             Int64 bufSize = (Int64)bw * bh;
@@ -502,7 +502,7 @@ namespace ShimLib {
             bytepp = 1;
         }
 
-        public unsafe static void BitmapToGrayImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
+        public static unsafe void BitmapToGrayImageBuffer(Bitmap bmp, ref IntPtr imgBuf, ref int bw, ref int bh, ref int bytepp) {
             if (bmp.PixelFormat == PixelFormat.Format1bppIndexed) {
                 Bitmap1BitToGrayImageBuffer(bmp, ref imgBuf, ref bw, ref bh, ref bytepp);
                 return;
