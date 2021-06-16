@@ -87,12 +87,19 @@ namespace ShimLib {
                 Win32Api.ReleaseDC(m_hWnd, m_hScreenDC);
         }
 
-        public void BitBlt(IntPtr hDC) {
-            if (hDC == IntPtr.Zero)
-                hDC = m_hScreenDC;
+        // 생성할때 참조한 화면 DC에 그림
+        public void BitBlt() {
+            BitBlt(m_hScreenDC);
+        }
 
-            if (hDC != IntPtr.Zero && m_hMemoryDC != IntPtr.Zero)
-                Win32Api.BitBlt(hDC, 0, 0, m_iWidth, m_iHeight, m_hMemoryDC, 0, 0, TernaryRasterOperation.SRCCOPY);
+        // 지정된 DC에 그림
+        public void BitBlt(IntPtr hdcDest) {
+            BitBlt(hdcDest, 0, 0, m_iWidth, m_iHeight, m_hMemoryDC, 0, 0, TernaryRasterOperation.SRCCOPY);
+        }
+
+        // 지정된 DC, 시작좌표, 사이즈, 버퍼 시작좌표, 레스터 연산으로 그림
+        public void BitBlt(IntPtr hdcDest, int xDest, int yDest, int wDest, int hDest, IntPtr hdcSource, int xSrc, int ySrc, TernaryRasterOperation RasterOp) {
+            Win32Api.BitBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSource, xSrc, ySrc, RasterOp);
         }
     }
 }

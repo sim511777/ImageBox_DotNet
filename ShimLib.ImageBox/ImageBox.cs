@@ -325,7 +325,7 @@ namespace ShimLib {
 
             
             // 프런트버퍼에다 복사
-            dib.BitBlt(IntPtr.Zero);
+            dib.BitBlt();
             tList.Add(Tuple.Create("Render", Util.GetTimeMs()));
             
             // delta 계산 및 total 계산
@@ -347,7 +347,7 @@ namespace ShimLib {
             }
             
             // 이미지 그리기
-            dib.BitBlt(IntPtr.Zero);
+            dib.BitBlt();
         }
 
         private void DrawRoiDown(ImageDrawing id) {
