@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             ShimLib.ImageBoxOption imageBoxOption1 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnLenna8ToGray16 = new System.Windows.Forms.Button();
             this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
             this.btnFont = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -42,7 +43,6 @@
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.btnLenna8ToGray16 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +68,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 607);
             this.panel1.TabIndex = 1;
+            // 
+            // btnLenna8ToGray16
+            // 
+            this.btnLenna8ToGray16.Location = new System.Drawing.Point(143, 148);
+            this.btnLenna8ToGray16.Name = "btnLenna8ToGray16";
+            this.btnLenna8ToGray16.Size = new System.Drawing.Size(131, 23);
+            this.btnLenna8ToGray16.TabIndex = 16;
+            this.btnLenna8ToGray16.Text = "Lenna_8 to gray16";
+            this.btnLenna8ToGray16.UseVisualStyleBackColor = true;
+            this.btnLenna8ToGray16.Click += new System.EventHandler(this.btnLenna8ToGray16_Click);
             // 
             // chkDrawingRepeatParallel
             // 
@@ -230,6 +240,7 @@
             // 
             // imgBox
             // 
+            this.imgBox.AllowDrop = true;
             this.imgBox.BackColor = System.Drawing.Color.Gray;
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
@@ -256,16 +267,6 @@
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
-            // 
-            // btnLenna8ToGray16
-            // 
-            this.btnLenna8ToGray16.Location = new System.Drawing.Point(143, 148);
-            this.btnLenna8ToGray16.Name = "btnLenna8ToGray16";
-            this.btnLenna8ToGray16.Size = new System.Drawing.Size(131, 23);
-            this.btnLenna8ToGray16.TabIndex = 16;
-            this.btnLenna8ToGray16.Text = "Lenna_8 to gray16";
-            this.btnLenna8ToGray16.UseVisualStyleBackColor = true;
-            this.btnLenna8ToGray16.Click += new System.EventHandler(this.btnLenna8ToGray16_Click);
             // 
             // FormMain
             // 
