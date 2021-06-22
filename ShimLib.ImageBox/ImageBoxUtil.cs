@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
-    public unsafe delegate void LineDrawAction(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax);
-    
+    public interface IPixelDrawable {
+        void SetFloatValueMax(double floatValueMax);
+        unsafe void SetPixel(byte* sp, int* dp);
+    }
+
     public class ImageBoxUtil {
         // 디스플레이 버퍼 클리어
         public static unsafe void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
@@ -22,7 +25,7 @@ namespace ShimLib {
         }
 
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        public static unsafe void DrawImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, LineDrawAction lineDrawAction, bool useParallel) {
+        public static unsafe void DrawImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, IPixelDrawable pixelDrawer, bool useParallel) {
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];
@@ -37,8 +40,8 @@ namespace ShimLib {
             int x1Include = sixs.ToList().FindIndex(six => six != -1);
             int x2Exclude = sixs.ToList().FindLastIndex(six => six != -1) + 1;
 
-            if (lineDrawAction == null) {
-                lineDrawAction = LineDrawActionNone;
+            if (pixelDrawer == null) {
+                pixelDrawer = new PixelDrawerNone();
             }
 
             Action<int> LineAction = (y) => {
@@ -53,10 +56,15 @@ namespace ShimLib {
                 }
 
                 byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
-                lineDrawAction(x1Include, x2Exclude, sixs, bytepp, sptr, dp + x1Include, floatValueMax);
+                for (int x = x1Include; x < x2Exclude; x++, dp++) {
+                    int six = sixs[x];
+                    byte* sp = &sptr[six * bytepp];
+
+                    pixelDrawer.SetPixel(sp, dp);
+                }
 
                 if (x2Exclude < dispBw) {
-                    Util.Memset4((IntPtr)(dp + x2Exclude), bgColor, dispBw - x2Exclude);
+                    Util.Memset4((IntPtr)dp, bgColor, dispBw - x2Exclude);
                 }
             };
 
@@ -64,89 +72,6 @@ namespace ShimLib {
                 Parallel.For(0, dispBh, LineAction);
             else
                 for (int y = 0; y < dispBh; y++) { LineAction(y); }
-        }
-
-        public static unsafe void LineDrawActionNone(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            int color = Color.Blue.ToArgb();
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                *dp = color;
-            }
-        }
-
-        public static unsafe void LineDrawActionFloat4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            float floatScale = (float)(255 / floatValueMax);
-
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                int v = (int)(*(float*)sp * floatScale);
-                if (v > 255) v = 255;
-                if (v < 0) v = 0;
-                *dp = v | v << 8 | v << 16 | 0xff << 24;
-            }
-        }
-
-        public static unsafe void LineDrawActionFloat8(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            double doubleScale = 255 / floatValueMax;
-            
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                int v = (int)(*(double*)sp * doubleScale);
-                if (v > 255) v = 255;
-                if (v < 0) v = 0;
-                *dp = v | v << 8 | v << 16 | 0xff << 24;
-            }
-        }
-
-        public static unsafe void LineDrawActionByte1(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                int v = sp[0];
-                *dp = v | v << 8 | v << 16 | 0xff << 24;
-            }
-        }
-
-        public static unsafe void LineDrawActionByte2BE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                int v = sp[0];
-                *dp = v | v << 8 | v << 16 | 0xff << 24;
-            }
-        }
-
-        public static unsafe void LineDrawActionByte2LE(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                int v = sp[1];
-                *dp = v | v << 8 | v << 16 | 0xff << 24;
-            }
-        }
-
-        public static unsafe void LineDrawActionByte3(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-            }
-        }
-
-        public static unsafe void LineDrawActionByte4(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
-            for (int x = x1Include; x < x2Exclude; x++, dp++) {
-                int six = sixs[x];
-                byte* sp = &sptr[six * bytepp];
-
-                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
-            }
         }
 
         // 이미지 좌표 -> 화면 좌료
@@ -170,6 +95,76 @@ namespace ShimLib {
             float imgX = (float)((ptDisp.X - ptPan.X) / zoomFactor - 0.5);
             float imgY = (float)((ptDisp.Y - ptPan.Y) / zoomFactor - 0.5);
             return new PointF(imgX, imgY);
+        }
+    }
+
+    public class PixelDrawerNone : IPixelDrawable {
+        public void SetFloatValueMax(double floatValueMax) {}
+        private int color = Color.Blue.ToArgb();
+        public unsafe void SetPixel(byte* sp, int* dp) {
+            *dp = color;
+        }
+    }
+
+    public class PixelDrawerFloat4 : IPixelDrawable {
+        private float floatScale = 1.0f;
+        public void SetFloatValueMax(double floatValueMax) => floatScale = (float)(255 / floatValueMax);
+        public unsafe void SetPixel(byte* sp, int* dp) {
+                int v = (int)(*(float*)sp * floatScale);
+                if (v > 255) v = 255;
+                if (v < 0) v = 0;
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+        }
+    }
+
+    public class PixelDrawerFloat8 : IPixelDrawable {
+        private double doubleScale = 1.0;
+        public void SetFloatValueMax(double floatValueMax) => doubleScale = 255 / floatValueMax;
+        public unsafe void SetPixel(byte* sp, int* dp) {
+                int v = (int)(*(double*)sp * doubleScale);
+                if (v > 255) v = 255;
+                if (v < 0) v = 0;
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+        }
+    }
+
+    public class PixelDrawerByte1 : IPixelDrawable {
+        public void SetFloatValueMax(double floatValueMax) {}
+        public unsafe void SetPixel(byte* sp, int* dp) {
+            int v = sp[0];
+            *dp = v | v << 8 | v << 16 | 0xff << 24;
+        }
+    }
+
+    public class PixelDrawerByte2BE : IPixelDrawable {
+        public void SetFloatValueMax(double floatValueMax) {}
+        public unsafe void SetPixel(byte* sp, int* dp) {
+                int v = sp[0];
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+        }
+    }
+
+    public class PixelDrawerByte2LE : IPixelDrawable {
+        public void SetFloatValueMax(double floatValueMax) {}
+        public unsafe void SetPixel(byte* sp, int* dp) {
+                int v = sp[1];
+                *dp = v | v << 8 | v << 16 | 0xff << 24;
+        }
+    }
+
+    public class PixelDrawerByte3 : IPixelDrawable {
+        public void SetFloatValueMax(double floatValueMax) {}
+        public unsafe void SetPixel(byte* sp, int* dp) {
+            int v = sp[0];
+                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
+        }
+    }
+
+    public class PixelDrawerByte4 : IPixelDrawable {
+        public void SetFloatValueMax(double floatValueMax) {}
+        public unsafe void SetPixel(byte* sp, int* dp) {
+            int v = sp[0];
+                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
         }
     }
 }
