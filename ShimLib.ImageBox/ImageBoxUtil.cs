@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
     public interface IPixelDrawable {
         void SetFloatValueMax(double floatValueMax);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         unsafe void SetPixel(byte* sp, int* dp);
     }
 
@@ -101,6 +103,7 @@ namespace ShimLib {
     public class PixelDrawerNone : IPixelDrawable {
         public void SetFloatValueMax(double floatValueMax) { }
         private int color = Color.Blue.ToArgb();
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             *dp = color;
         }
@@ -109,6 +112,7 @@ namespace ShimLib {
     public class PixelDrawerFloat4 : IPixelDrawable {
         private float floatScale = 1.0f;
         public void SetFloatValueMax(double floatValueMax) => floatScale = (float)(255 / floatValueMax);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = (int)(*(float*)sp * floatScale);
             if (v > 255) v = 255;
@@ -120,6 +124,7 @@ namespace ShimLib {
     public class PixelDrawerFloat8 : IPixelDrawable {
         private double doubleScale = 1.0;
         public void SetFloatValueMax(double floatValueMax) => doubleScale = 255 / floatValueMax;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = (int)(*(double*)sp * doubleScale);
             if (v > 255) v = 255;
@@ -130,6 +135,7 @@ namespace ShimLib {
 
     public class PixelDrawerByte1 : IPixelDrawable {
         public void SetFloatValueMax(double floatValueMax) { }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = v | v << 8 | v << 16 | 0xff << 24;
@@ -138,6 +144,7 @@ namespace ShimLib {
 
     public class PixelDrawerByte2BE : IPixelDrawable {
         public void SetFloatValueMax(double floatValueMax) { }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = v | v << 8 | v << 16 | 0xff << 24;
@@ -146,6 +153,7 @@ namespace ShimLib {
 
     public class PixelDrawerByte2LE : IPixelDrawable {
         public void SetFloatValueMax(double floatValueMax) { }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[1];
             *dp = v | v << 8 | v << 16 | 0xff << 24;
@@ -154,6 +162,7 @@ namespace ShimLib {
 
     public class PixelDrawerByte3 : IPixelDrawable {
         public void SetFloatValueMax(double floatValueMax) { }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
@@ -162,6 +171,7 @@ namespace ShimLib {
 
     public class PixelDrawerByte4 : IPixelDrawable {
         public void SetFloatValueMax(double floatValueMax) { }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
