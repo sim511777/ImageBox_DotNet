@@ -52,7 +52,7 @@ namespace ShimLib {
         private int imgBh = 0;
         private int imgBytepp = 0;
         private bool isImgbufFloat = false;
-        private IPixelDrawable pixelDrawer = null;
+        private ImageBufferZoomDrawer pixelDrawer = null;
 
         // 디스플레이 버퍼
         private DibSection dib = null;
@@ -125,7 +125,7 @@ namespace ShimLib {
             }
         }
 
-        public unsafe void SetImageBufferCustomDisp(IntPtr _buf, int _bw, int _bh, int _bytepp, IPixelDrawable _pixelDrawer) {
+        public unsafe void SetImageBufferCustomDisp(IntPtr _buf, int _bw, int _bh, int _bytepp, ImageBufferZoomDrawer _pixelDrawer) {
             imgBuf = _buf;
             imgBw = _bw;
             imgBh = _bh;
@@ -278,7 +278,7 @@ namespace ShimLib {
             } else {
                 if (pixelDrawer != null)
                     pixelDrawer.SetFloatValueMax(Option.FloatValueMax);
-                ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, pixelDrawer, Option.UseParallelToDraw);
+                pixelDrawer.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, Option.UseParallelToDraw);
                 if (pixelDrawer == null) {
                     idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", InfoFont, Color.Yellow, 2, 25);
                 }

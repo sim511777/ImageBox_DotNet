@@ -7,27 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ShimLib {
-    public interface IPixelDrawable {
-        void SetFloatValueMax(double floatValueMax);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        unsafe void SetPixel(byte* sp, int* dp);
-    }
-
-    public class ImageBoxUtil {
-        // 디스플레이 버퍼 클리어
-        public static unsafe void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
-            Action<int> LineAction = (y) => {
-                int* dp = (int*)dispBuf + (Int64)dispBw * y;
-                Util.Memset4((IntPtr)dp, bgColor, dispBw);
-            };
-            if (useParallel)
-                Parallel.For(0, dispBh, LineAction);
-            else
-                for (int y = 0; y < dispBh; y++) { LineAction(y); }
+    public abstract class ImageBufferZoomDrawer {
+        protected float floatScale = 1.0f;
+        protected double doubleScale = 1.0;
+        
+        public void SetFloatValueMax(double floatValueMax) {
+            floatScale = (float)(255 / floatValueMax);
+            doubleScale = 255 / floatValueMax;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public abstract unsafe void SetPixel(byte* sp, int* dp);
+
         // 이미지 버퍼를 디스플레이 버퍼에 복사
-        public static unsafe void DrawImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, IPixelDrawable pixelDrawer, bool useParallel) {
+        public unsafe void DrawImageBufferZoom(IntPtr imgBuf, int imgBw, int imgBh, int bytepp, bool bufIsFloat, IntPtr dispBuf, int dispBw, int dispBh, int panx, int pany, double zoom, int bgColor, double floatValueMax, bool useParallel) {
             // 인덱스 버퍼 생성
             int[] siys = new int[dispBh];
             int[] sixs = new int[dispBw];
@@ -41,10 +34,6 @@ namespace ShimLib {
             }
             int x1Include = sixs.ToList().FindIndex(six => six != -1);
             int x2Exclude = sixs.ToList().FindLastIndex(six => six != -1) + 1;
-
-            if (pixelDrawer == null) {
-                pixelDrawer = new PixelDrawerNone();
-            }
 
             Action<int> LineAction = (y) => {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
@@ -62,7 +51,7 @@ namespace ShimLib {
                     int six = sixs[x];
                     byte* sp = &sptr[six * bytepp];
 
-                    pixelDrawer.SetPixel(sp, dp);
+                    SetPixel(sp, dp);
                 }
 
                 if (x2Exclude < dispBw) {
@@ -70,6 +59,20 @@ namespace ShimLib {
                 }
             };
 
+            if (useParallel)
+                Parallel.For(0, dispBh, LineAction);
+            else
+                for (int y = 0; y < dispBh; y++) { LineAction(y); }
+        }
+    }
+
+    public class ImageBoxUtil {
+        // 디스플레이 버퍼 클리어
+        public static unsafe void Clear(IntPtr dispBuf, int dispBw, int dispBh, int bgColor, bool useParallel) {
+            Action<int> LineAction = (y) => {
+                int* dp = (int*)dispBuf + (Int64)dispBw * y;
+                Util.Memset4((IntPtr)dp, bgColor, dispBw);
+            };
             if (useParallel)
                 Parallel.For(0, dispBh, LineAction);
             else
@@ -100,20 +103,17 @@ namespace ShimLib {
         }
     }
 
-    public class PixelDrawerNone : IPixelDrawable {
-        public void SetFloatValueMax(double floatValueMax) { }
+    public class PixelDrawerNone : ImageBufferZoomDrawer {
         private int color = Color.Blue.ToArgb();
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             *dp = color;
         }
     }
 
-    public class PixelDrawerFloat4 : IPixelDrawable {
-        private float floatScale = 1.0f;
-        public void SetFloatValueMax(double floatValueMax) => floatScale = (float)(255 / floatValueMax);
+    public class PixelDrawerFloat4 : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = (int)(*(float*)sp * floatScale);
             if (v > 255) v = 255;
             if (v < 0) v = 0;
@@ -121,11 +121,9 @@ namespace ShimLib {
         }
     }
 
-    public class PixelDrawerFloat8 : IPixelDrawable {
-        private double doubleScale = 1.0;
-        public void SetFloatValueMax(double floatValueMax) => doubleScale = 255 / floatValueMax;
+    public class PixelDrawerFloat8 : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = (int)(*(double*)sp * doubleScale);
             if (v > 255) v = 255;
             if (v < 0) v = 0;
@@ -133,46 +131,41 @@ namespace ShimLib {
         }
     }
 
-    public class PixelDrawerByte1 : IPixelDrawable {
-        public void SetFloatValueMax(double floatValueMax) { }
+    public class PixelDrawerByte1 : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = v | v << 8 | v << 16 | 0xff << 24;
         }
     }
 
-    public class PixelDrawerByte2BE : IPixelDrawable {
-        public void SetFloatValueMax(double floatValueMax) { }
+    public class PixelDrawerByte2BE : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = v | v << 8 | v << 16 | 0xff << 24;
         }
     }
 
-    public class PixelDrawerByte2LE : IPixelDrawable {
-        public void SetFloatValueMax(double floatValueMax) { }
+    public class PixelDrawerByte2LE : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[1];
             *dp = v | v << 8 | v << 16 | 0xff << 24;
         }
     }
 
-    public class PixelDrawerByte3 : IPixelDrawable {
-        public void SetFloatValueMax(double floatValueMax) { }
+    public class PixelDrawerByte3 : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
         }
     }
 
-    public class PixelDrawerByte4 : IPixelDrawable {
-        public void SetFloatValueMax(double floatValueMax) { }
+    public class PixelDrawerByte4 : ImageBufferZoomDrawer {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void SetPixel(byte* sp, int* dp) {
+        public override unsafe void SetPixel(byte* sp, int* dp) {
             int v = sp[0];
             *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
         }
