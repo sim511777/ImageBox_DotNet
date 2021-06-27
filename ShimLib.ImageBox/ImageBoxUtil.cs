@@ -41,12 +41,12 @@ namespace ShimLib {
                 lineDrawAction = LineDrawActionNone;
             }
 
-            Action<int> LineAction = (y) => {
+            for (int y = 0; y < dispBh; y++) {
                 int* dp = (int*)dispBuf + (Int64)dispBw * y;
                 int siy = siys[y];
                 if (siy == -1 || x1Include == -1) {
                     Util.Memset4((IntPtr)dp, bgColor, dispBw);
-                    return;
+                    continue;
                 }
                 if (x1Include > 0) {
                     Util.Memset4((IntPtr)dp, bgColor, x1Include);
@@ -58,12 +58,7 @@ namespace ShimLib {
                 if (x2Exclude < dispBw) {
                     Util.Memset4((IntPtr)(dp + x2Exclude), bgColor, dispBw - x2Exclude);
                 }
-            };
-
-            if (useParallel)
-                Parallel.For(0, dispBh, LineAction);
-            else
-                for (int y = 0; y < dispBh; y++) { LineAction(y); }
+            }
         }
 
         public static unsafe void LineDrawActionNone(int x1Include, int x2Exclude, int[] sixs, int bytepp, byte* sptr, int* dp, double floatValueMax) {
