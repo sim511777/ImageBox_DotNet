@@ -53,7 +53,15 @@ namespace ShimLib {
                 }
 
                 byte* sptr = (byte*)imgBuf + (Int64)imgBw * siy * bytepp;
-                lineDrawAction(x1Include, x2Exclude, sixs, bytepp, sptr, dp + x1Include, floatValueMax);
+                
+                int* dp1 = dp + x1Include;
+                for (int x = x1Include; x < x2Exclude; x++, dp1++) {
+                    int six = sixs[x];
+                    byte* sp = &sptr[six * bytepp];
+
+                    int v = sp[0];
+                    *dp1 = v | v << 8 | v << 16 | 0xff << 24;
+                }
 
                 if (x2Exclude < dispBw) {
                     Util.Memset4((IntPtr)(dp + x2Exclude), bgColor, dispBw - x2Exclude);
