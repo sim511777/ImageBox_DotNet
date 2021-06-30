@@ -17,14 +17,42 @@ namespace ImageBox_Test {
     public partial class FormMain : Form {
         public FormMain(string[] args) {
             InitializeComponent();
-            
-            cbxFont.DataSource = new BindingSource(Fonts.dic, null);
-            cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
-            this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
-            
+            dlgFolder.SelectedPath = Application.StartupPath;
+            LoadBitmapFonts(string.Empty);
             if (args.Length > 0) {
                 LoadImageFile(args[0]);
             }
+        }
+        
+        private void LoadBitmapFonts(string bdfDir) {
+            //cbxFont.DisplayMember = "Key";
+            //cbxFont.ValueMember = "Value";
+            //cbxFont.DataSource = new BindingSource(Fonts.dic, null);
+            
+            List<Tuple<string, IFont>> fontList = new List<Tuple<string, IFont>>();
+            foreach (var kv in Fonts.dic) {
+                var tuple = Tuple.Create(kv.Key.ToString(), kv.Value);
+                fontList.Add(tuple);
+            }
+
+            if (Directory.Exists(bdfDir)) {
+                var bdfFiles = Directory.GetFiles(bdfDir);
+                foreach (var bdfFile in bdfFiles) {
+                    if (Path.GetExtension(bdfFile).ToLower() != ".bdf")
+                        continue;
+                    var name = Path.GetFileNameWithoutExtension(bdfFile);
+                    var bdfText = File.ReadAllText(bdfFile);
+                    var font = new BdfFont(bdfText);
+                    var tuple = Tuple.Create(name, (IFont)font);
+                    fontList.Add(tuple);
+                }
+            }
+
+            cbxFont.DisplayMember = "Item1";
+            cbxFont.ValueMember = "Item2";
+            cbxFont.DataSource = fontList;
+            cbxFont.SelectedIndex = cbxFont.Items.Count - 1;
+            this.lblSystemFont.Text = dlgFont.Font.ToString();
         }
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
@@ -271,12 +299,19 @@ namespace ImageBox_Test {
             var dr = dlgFont.ShowDialog(this);
             if (dr != DialogResult.OK)
                 return;
-            this.btnFont.Text = dlgFont.Font.ToString().Replace(", ", "\r\n");
+            this.lblSystemFont.Text = dlgFont.Font.ToString();
             this.imgBox.Invalidate();
         }
 
         private void btnLenna8ToGray16_Click(object sender, EventArgs e) {
             SetImage_toGray16(Resources.Lenna_8);
+        }
+
+        private void btnBitmapFont_Click(object sender, EventArgs e) {
+            if (dlgFolder.ShowDialog(this) != DialogResult.OK)
+                return;
+            LoadBitmapFonts(dlgFolder.SelectedPath);
+            imgBox.Invalidate();
         }
     }
 }

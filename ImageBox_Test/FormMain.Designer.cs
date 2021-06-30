@@ -23,7 +23,7 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마십시오.
         /// </summary>
         private void InitializeComponent() {
-            ShimLib.ImageBoxOption imageBoxOption1 = new ShimLib.ImageBoxOption();
+            ShimLib.ImageBoxOption imageBoxOption2 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnLenna8ToGray16 = new System.Windows.Forms.Button();
             this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
@@ -43,12 +43,17 @@
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
+            this.btnBitmapFont = new System.Windows.Forms.Button();
+            this.lblSystemFont = new System.Windows.Forms.Label();
+            this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblSystemFont);
+            this.panel1.Controls.Add(this.btnBitmapFont);
             this.panel1.Controls.Add(this.btnLenna8ToGray16);
             this.panel1.Controls.Add(this.chkDrawingRepeatParallel);
             this.panel1.Controls.Add(this.btnFont);
@@ -64,14 +69,14 @@
             this.panel1.Controls.Add(this.btnLenna8);
             this.panel1.Controls.Add(this.btnResetZoom);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(601, 0);
+            this.panel1.Location = new System.Drawing.Point(793, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 607);
+            this.panel1.Size = new System.Drawing.Size(286, 683);
             this.panel1.TabIndex = 1;
             // 
             // btnLenna8ToGray16
             // 
-            this.btnLenna8ToGray16.Location = new System.Drawing.Point(143, 148);
+            this.btnLenna8ToGray16.Location = new System.Drawing.Point(143, 119);
             this.btnLenna8ToGray16.Name = "btnLenna8ToGray16";
             this.btnLenna8ToGray16.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8ToGray16.TabIndex = 16;
@@ -82,7 +87,7 @@
             // chkDrawingRepeatParallel
             // 
             this.chkDrawingRepeatParallel.AutoSize = true;
-            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 574);
+            this.chkDrawingRepeatParallel.Location = new System.Drawing.Point(12, 272);
             this.chkDrawingRepeatParallel.Name = "chkDrawingRepeatParallel";
             this.chkDrawingRepeatParallel.Size = new System.Drawing.Size(159, 16);
             this.chkDrawingRepeatParallel.TabIndex = 15;
@@ -91,11 +96,11 @@
             // 
             // btnFont
             // 
-            this.btnFont.Location = new System.Drawing.Point(6, 349);
+            this.btnFont.Location = new System.Drawing.Point(6, 459);
             this.btnFont.Name = "btnFont";
-            this.btnFont.Size = new System.Drawing.Size(268, 95);
+            this.btnFont.Size = new System.Drawing.Size(84, 23);
             this.btnFont.TabIndex = 14;
-            this.btnFont.Text = "button1";
+            this.btnFont.Text = "System Font";
             this.btnFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFont.UseVisualStyleBackColor = true;
             this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
@@ -103,7 +108,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lbxDrawTest);
-            this.groupBox1.Location = new System.Drawing.Point(6, 450);
+            this.groupBox1.Location = new System.Drawing.Point(6, 148);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 118);
             this.groupBox1.TabIndex = 13;
@@ -128,7 +133,7 @@
             // 
             // btnLenna8ToFloat
             // 
-            this.btnLenna8ToFloat.Location = new System.Drawing.Point(143, 119);
+            this.btnLenna8ToFloat.Location = new System.Drawing.Point(143, 90);
             this.btnLenna8ToFloat.Name = "btnLenna8ToFloat";
             this.btnLenna8ToFloat.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8ToFloat.TabIndex = 10;
@@ -138,19 +143,17 @@
             // 
             // cbxFont
             // 
-            this.cbxFont.DisplayMember = "Key";
             this.cbxFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxFont.FormattingEnabled = true;
-            this.cbxFont.Location = new System.Drawing.Point(6, 323);
+            this.cbxFont.Location = new System.Drawing.Point(96, 436);
             this.cbxFont.Name = "cbxFont";
-            this.cbxFont.Size = new System.Drawing.Size(268, 20);
+            this.cbxFont.Size = new System.Drawing.Size(178, 20);
             this.cbxFont.TabIndex = 9;
-            this.cbxFont.ValueMember = "Value";
             this.cbxFont.SelectedIndexChanged += new System.EventHandler(this.cbxFont_SelectedIndexChanged);
             // 
             // tbxExample
             // 
-            this.tbxExample.Location = new System.Drawing.Point(6, 194);
+            this.tbxExample.Location = new System.Drawing.Point(6, 304);
             this.tbxExample.Multiline = true;
             this.tbxExample.Name = "tbxExample";
             this.tbxExample.Size = new System.Drawing.Size(268, 123);
@@ -161,7 +164,7 @@
             // 
             // btnPaste
             // 
-            this.btnPaste.Location = new System.Drawing.Point(6, 61);
+            this.btnPaste.Location = new System.Drawing.Point(143, 32);
             this.btnPaste.Name = "btnPaste";
             this.btnPaste.Size = new System.Drawing.Size(131, 23);
             this.btnPaste.TabIndex = 6;
@@ -181,7 +184,7 @@
             // 
             // btnChess
             // 
-            this.btnChess.Location = new System.Drawing.Point(143, 90);
+            this.btnChess.Location = new System.Drawing.Point(143, 61);
             this.btnChess.Name = "btnChess";
             this.btnChess.Size = new System.Drawing.Size(131, 23);
             this.btnChess.TabIndex = 5;
@@ -191,7 +194,7 @@
             // 
             // btnLenna32
             // 
-            this.btnLenna32.Location = new System.Drawing.Point(143, 61);
+            this.btnLenna32.Location = new System.Drawing.Point(6, 119);
             this.btnLenna32.Name = "btnLenna32";
             this.btnLenna32.Size = new System.Drawing.Size(131, 23);
             this.btnLenna32.TabIndex = 4;
@@ -201,7 +204,7 @@
             // 
             // btnLenna24
             // 
-            this.btnLenna24.Location = new System.Drawing.Point(143, 32);
+            this.btnLenna24.Location = new System.Drawing.Point(6, 90);
             this.btnLenna24.Name = "btnLenna24";
             this.btnLenna24.Size = new System.Drawing.Size(131, 23);
             this.btnLenna24.TabIndex = 3;
@@ -211,7 +214,7 @@
             // 
             // btnLenna8
             // 
-            this.btnLenna8.Location = new System.Drawing.Point(143, 3);
+            this.btnLenna8.Location = new System.Drawing.Point(6, 61);
             this.btnLenna8.Name = "btnLenna8";
             this.btnLenna8.Size = new System.Drawing.Size(131, 23);
             this.btnLenna8.TabIndex = 2;
@@ -245,21 +248,21 @@
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            imageBoxOption1.CenterLineColor = System.Drawing.Color.Yellow;
-            imageBoxOption1.FloatValueDigit = 3;
-            imageBoxOption1.FloatValueMax = 1D;
-            imageBoxOption1.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
-            imageBoxOption1.RoiRectangleColor = System.Drawing.Color.Blue;
-            imageBoxOption1.TimeCheckCount = 100;
-            imageBoxOption1.UseDrawCenterLine = true;
-            imageBoxOption1.UseDrawCursorInfo = true;
-            imageBoxOption1.UseDrawDebugInfo = true;
-            imageBoxOption1.UseDrawPixelValue = true;
-            imageBoxOption1.UseDrawRoiRectangles = true;
-            imageBoxOption1.UseParallelToDraw = true;
-            this.imgBox.Option = imageBoxOption1;
+            imageBoxOption2.CenterLineColor = System.Drawing.Color.Yellow;
+            imageBoxOption2.FloatValueDigit = 3;
+            imageBoxOption2.FloatValueMax = 1D;
+            imageBoxOption2.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
+            imageBoxOption2.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption2.TimeCheckCount = 100;
+            imageBoxOption2.UseDrawCenterLine = true;
+            imageBoxOption2.UseDrawCursorInfo = true;
+            imageBoxOption2.UseDrawDebugInfo = true;
+            imageBoxOption2.UseDrawPixelValue = true;
+            imageBoxOption2.UseDrawRoiRectangles = true;
+            imageBoxOption2.UseParallelToDraw = true;
+            this.imgBox.Option = imageBoxOption2;
             this.imgBox.PtPan = new System.Drawing.Point(2, 2);
-            this.imgBox.Size = new System.Drawing.Size(601, 607);
+            this.imgBox.Size = new System.Drawing.Size(793, 683);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";
             this.imgBox.ZoomLevel = 0;
@@ -268,11 +271,36 @@
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             // 
+            // btnBitmapFont
+            // 
+            this.btnBitmapFont.Location = new System.Drawing.Point(6, 433);
+            this.btnBitmapFont.Name = "btnBitmapFont";
+            this.btnBitmapFont.Size = new System.Drawing.Size(84, 23);
+            this.btnBitmapFont.TabIndex = 17;
+            this.btnBitmapFont.Text = "Bitmap Font";
+            this.btnBitmapFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBitmapFont.UseVisualStyleBackColor = true;
+            this.btnBitmapFont.Click += new System.EventHandler(this.btnBitmapFont_Click);
+            // 
+            // lblSystemFont
+            // 
+            this.lblSystemFont.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSystemFont.Location = new System.Drawing.Point(96, 459);
+            this.lblSystemFont.Name = "lblSystemFont";
+            this.lblSystemFont.Size = new System.Drawing.Size(178, 23);
+            this.lblSystemFont.TabIndex = 18;
+            this.lblSystemFont.Text = "label1";
+            this.lblSystemFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dlgFolder
+            // 
+            this.dlgFolder.ShowNewFolderButton = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(887, 607);
+            this.ClientSize = new System.Drawing.Size(1079, 683);
             this.Controls.Add(this.imgBox);
             this.Controls.Add(this.panel1);
             this.Name = "FormMain";
@@ -305,6 +333,9 @@
         private ShimLib.ImageBox imgBox;
         private System.Windows.Forms.CheckBox chkDrawingRepeatParallel;
         private System.Windows.Forms.Button btnLenna8ToGray16;
+        private System.Windows.Forms.Label lblSystemFont;
+        private System.Windows.Forms.Button btnBitmapFont;
+        private System.Windows.Forms.FolderBrowserDialog dlgFolder;
     }
 }
 
