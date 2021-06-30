@@ -26,8 +26,10 @@ namespace ShimLib {
         public Dictionary<int, BdfChar> fontChars = new Dictionary<int, BdfChar>();         // 문자 배열
 
         BdfChar currChar = null;
+        char[] lineSeparator = { '\r', '\n', };
+        char[] spaceSeparator = { ' ', };
         public BdfFont(string bdf) {
-            string[] lines = bdf.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = bdf.Split(lineSeparator, StringSplitOptions.RemoveEmptyEntries);
 
             int bitmapIdx = -1;
             foreach (var line in lines) {
@@ -49,7 +51,7 @@ namespace ShimLib {
                     bitmapIdx += currChar.bbW;
                 } else {
                     if (name == "FONTBOUNDINGBOX") {
-                        var words = data.Split(' ');
+                        var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
                         this.fbW = int.Parse(words[0]);
                         this.fbH = int.Parse(words[1]);
                         this.fbLeft = int.Parse(words[2]);
@@ -62,10 +64,10 @@ namespace ShimLib {
                         fontChars[charIdx] = currChar;
                         currChar.encoding = charIdx;
                     } else if (name == "DWIDTH") {
-                        var words = data.Split(' ');
+                        var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
                         currChar.width = int.Parse(words[0]);
                     } else if (name == "BBX") {
-                        var words = data.Split(' ');
+                        var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
                         currChar.bbW = int.Parse(words[0]);
                         currChar.bbH = int.Parse(words[1]);
                         currChar.bbLeft = int.Parse(words[2]);
