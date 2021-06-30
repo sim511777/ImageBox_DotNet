@@ -23,8 +23,10 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마십시오.
         /// </summary>
         private void InitializeComponent() {
-            ShimLib.ImageBoxOption imageBoxOption2 = new ShimLib.ImageBoxOption();
+            ShimLib.ImageBoxOption imageBoxOption3 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSystemFont = new System.Windows.Forms.Label();
+            this.btnBitmapFont = new System.Windows.Forms.Button();
             this.btnLenna8ToGray16 = new System.Windows.Forms.Button();
             this.chkDrawingRepeatParallel = new System.Windows.Forms.CheckBox();
             this.btnFont = new System.Windows.Forms.Button();
@@ -43,8 +45,6 @@
             this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
-            this.btnBitmapFont = new System.Windows.Forms.Button();
-            this.lblSystemFont = new System.Windows.Forms.Label();
             this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -73,6 +73,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 683);
             this.panel1.TabIndex = 1;
+            // 
+            // lblSystemFont
+            // 
+            this.lblSystemFont.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblSystemFont.Location = new System.Drawing.Point(96, 459);
+            this.lblSystemFont.Name = "lblSystemFont";
+            this.lblSystemFont.Size = new System.Drawing.Size(178, 23);
+            this.lblSystemFont.TabIndex = 18;
+            this.lblSystemFont.Text = "label1";
+            this.lblSystemFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnBitmapFont
+            // 
+            this.btnBitmapFont.Location = new System.Drawing.Point(6, 433);
+            this.btnBitmapFont.Name = "btnBitmapFont";
+            this.btnBitmapFont.Size = new System.Drawing.Size(84, 23);
+            this.btnBitmapFont.TabIndex = 17;
+            this.btnBitmapFont.Text = "Bitmap Font";
+            this.btnBitmapFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBitmapFont.UseVisualStyleBackColor = true;
+            this.btnBitmapFont.Click += new System.EventHandler(this.btnBitmapFont_Click);
             // 
             // btnLenna8ToGray16
             // 
@@ -159,7 +180,8 @@
             this.tbxExample.Size = new System.Drawing.Size(268, 123);
             this.tbxExample.TabIndex = 7;
             this.tbxExample.Text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ\r\nabcdefghijklmnopqrstuvwxyz\r\n1234567890`-=[]\\;\',./\r\n~!" +
-    "@#$%^&*()_+{}|:\"<>?\r\nHello(안녕), World(세상)";
+    "@#$%^&*()_+{}|:\"<>?\r\neng : hello, world!\r\nkor : 안녕, 세계!\r\nchn : 你好, 世界!\r\njpn : こん" +
+    "にちは, せかい!";
             this.tbxExample.TextChanged += new System.EventHandler(this.tbxExample_TextChanged);
             // 
             // btnPaste
@@ -248,19 +270,19 @@
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            imageBoxOption2.CenterLineColor = System.Drawing.Color.Yellow;
-            imageBoxOption2.FloatValueDigit = 3;
-            imageBoxOption2.FloatValueMax = 1D;
-            imageBoxOption2.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
-            imageBoxOption2.RoiRectangleColor = System.Drawing.Color.Blue;
-            imageBoxOption2.TimeCheckCount = 100;
-            imageBoxOption2.UseDrawCenterLine = true;
-            imageBoxOption2.UseDrawCursorInfo = true;
-            imageBoxOption2.UseDrawDebugInfo = true;
-            imageBoxOption2.UseDrawPixelValue = true;
-            imageBoxOption2.UseDrawRoiRectangles = true;
-            imageBoxOption2.UseParallelToDraw = true;
-            this.imgBox.Option = imageBoxOption2;
+            imageBoxOption3.CenterLineColor = System.Drawing.Color.Yellow;
+            imageBoxOption3.FloatValueDigit = 3;
+            imageBoxOption3.FloatValueMax = 1D;
+            imageBoxOption3.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
+            imageBoxOption3.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption3.TimeCheckCount = 100;
+            imageBoxOption3.UseDrawCenterLine = true;
+            imageBoxOption3.UseDrawCursorInfo = true;
+            imageBoxOption3.UseDrawDebugInfo = true;
+            imageBoxOption3.UseDrawPixelValue = true;
+            imageBoxOption3.UseDrawRoiRectangles = true;
+            imageBoxOption3.UseParallelToDraw = true;
+            this.imgBox.Option = imageBoxOption3;
             this.imgBox.PtPan = new System.Drawing.Point(2, 2);
             this.imgBox.Size = new System.Drawing.Size(793, 683);
             this.imgBox.TabIndex = 2;
@@ -270,27 +292,6 @@
             this.imgBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.imgBox_DragDrop);
             this.imgBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.imgBox_DragEnter);
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
-            // 
-            // btnBitmapFont
-            // 
-            this.btnBitmapFont.Location = new System.Drawing.Point(6, 433);
-            this.btnBitmapFont.Name = "btnBitmapFont";
-            this.btnBitmapFont.Size = new System.Drawing.Size(84, 23);
-            this.btnBitmapFont.TabIndex = 17;
-            this.btnBitmapFont.Text = "Bitmap Font";
-            this.btnBitmapFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBitmapFont.UseVisualStyleBackColor = true;
-            this.btnBitmapFont.Click += new System.EventHandler(this.btnBitmapFont_Click);
-            // 
-            // lblSystemFont
-            // 
-            this.lblSystemFont.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblSystemFont.Location = new System.Drawing.Point(96, 459);
-            this.lblSystemFont.Name = "lblSystemFont";
-            this.lblSystemFont.Size = new System.Drawing.Size(178, 23);
-            this.lblSystemFont.TabIndex = 18;
-            this.lblSystemFont.Text = "label1";
-            this.lblSystemFont.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dlgFolder
             // 

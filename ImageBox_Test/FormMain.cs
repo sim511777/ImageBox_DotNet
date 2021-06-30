@@ -110,10 +110,11 @@ namespace ImageBox_Test {
             id.DrawRectangle(Color.Red, 8, 8, 4, 4);
             id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
 
-            var text = tbxExample.Text;
             var font = (IFont)cbxFont.SelectedValue;
-            id.DrawString(text, font, Color.Blue, 50, 50);
+            var fontName = cbxFont.Text;
+            var text = fontName + Environment.NewLine + tbxExample.Text;
             id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
+            id.DrawString(text, font, Color.Blue, 200, 350);
             
             for (int i = 0; i < 100; i+= 5)
                 id.DrawPixel(Color.Yellow, 150 + i, 150);
