@@ -78,9 +78,9 @@ namespace ShimLib {
             }
         }
 
-        public static IntPtr AllocBuffer(Int64 size) {
+        public static IntPtr AllocBuffer(Int64 size, int valueInit = 0) {
             IntPtr buf = Marshal.AllocHGlobal((IntPtr)size);
-            Util.Memset(buf, 0, size);
+            Util.Memset(buf, valueInit, size);
             return buf;
         }
     }

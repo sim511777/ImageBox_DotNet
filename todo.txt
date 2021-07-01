@@ -48,7 +48,7 @@
   ok - 가변폰트 표시 기능(Unifont .hex 폰트)
   ok - 폰트 종류벌 상속 처리
   ok - *.bdf 폰트 기능 추가
-  - 일부 bdf폰트 표시 안되는 문제
+  ok - 일부 bdf폰트 표시 안되는 문제
   - bdf폰트 더 많은 정로 파싱 할것 (name, default width)
   - *.bdf 폰트 ms폰트 삭제 하고 오픈소스 폰트로 변경 할것
 

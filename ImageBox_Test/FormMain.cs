@@ -57,78 +57,64 @@ namespace ImageBox_Test {
 
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
-            if (lbxDrawTest.SelectedIndex == 1)
-                ImageDrawingShape(id);
-            else if (lbxDrawTest.SelectedIndex == 3)
-                ImageDrawingRepeat(id);
-        }
-
-        private void imageBox_Paint(object sender, PaintEventArgs e) {
-            ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
-            if (lbxDrawTest.SelectedIndex == 2)
-                ImageGraphicsShape(ig);
-            else if (lbxDrawTest.SelectedIndex == 4)
-                ImageGraphicsRepeat(ig);
-        }
-
-        private void ImageDrawingRepeat(ImageDrawing id) {
-            Action<int> iAction = (i) => {
-                for (int j = 0; j < 100; j++) {
-                    id.DrawCircle(Color.Lime, j, i, 1, false);
-                    id.DrawSquare(Color.Lime, j, i, 1, false);
-                    id.DrawCross(Color.Lime, j, i, 1, false);
-                    id.DrawPlus(Color.Lime, j, i, 1, false);
-                    id.DrawCircle(Color.Lime, j, i, 8, true);
-                    id.DrawSquare(Color.Lime, j, i, 8, true);
-                    id.DrawCross(Color.Lime, j, i, 8, true);
-                    id.DrawPlus(Color.Lime, j, i, 8, true);
-                }
-            };
-            if (chkDrawingRepeatParallel.Checked)
-                Parallel.For(0, 100, iAction);
-            else
-                for (int i = 0; i < 100; i++) iAction(i);
-        }
-
-        private void ImageGraphicsRepeat(ImageGraphics ig) {
-            for (int i = 0; i < 100; i++) {
-                for (int j = 0; j < 100; j++) {
-                    ig.DrawCircle(Pens.Lime, j, i, 1, false);
-                    ig.DrawSquare(Pens.Lime, j, i, 1, false);
-                    ig.DrawCross(Pens.Lime, j, i, 1, false);
-                    ig.DrawPlus(Pens.Lime, j, i, 1, false);
-                    ig.DrawCircle(Pens.Lime, j, i, 8, true);
-                    ig.DrawSquare(Pens.Lime, j, i, 8, true);
-                    ig.DrawCross(Pens.Lime, j, i, 8, true);
-                    ig.DrawPlus(Pens.Lime, j, i, 8, true);
+            int testIdx = lbxDrawTest.SelectedIndex;
+            if (testIdx == 1) {         // Drawing Shapes
+                id.DrawLine(Color.Red, 0, 0, 8, 8);
+                id.DrawRectangle(Color.Red, 8, 8, 4, 4);
+                id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
+            } else if (testIdx == 2) {  // Drawing Text
+                var font = (IFont)cbxFont.SelectedValue;
+                var fontName = cbxFont.Text;
+                var text = fontName + Environment.NewLine + tbxExample.Text;
+                id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
+            } else if (testIdx == 3) {  // Drawing Repeat
+                Action<int> iAction = (i) => {
+                    for (int j = 0; j < 100; j++) {
+                        id.DrawCircle(Color.Lime, j, i, 1, false);
+                        id.DrawSquare(Color.Lime, j, i, 1, false);
+                        id.DrawCross(Color.Lime, j, i, 1, false);
+                        id.DrawPlus(Color.Lime, j, i, 1, false);
+                    }
+                };
+                if (chkDrawingRepeatParallel.Checked)
+                    Parallel.For(0, 100, iAction);
+                else
+                    for (int i = 0; i < 100; i++) iAction(i);
+            } else if (testIdx == 4) {  // Drawing All Charactors
+                var font = (IFont)cbxFont.SelectedValue;
+                for (int y = 0; y < 256; y++) {
+                    for (int x = 0; x < 256; x++) {
+                        char ch = (char)(y * 256 + x);
+                        string str = new string(ch, 1);
+                        id.DrawString(str, font, Color.Black, x - 0.5f, y - 0.5f);
+                    }
                 }
             }
         }
 
-        private void ImageDrawingShape(ImageDrawing id) {
-            id.DrawLine(Color.Red, 0, 0, 8, 8);
-            id.DrawRectangle(Color.Red, 8, 8, 4, 4);
-            id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
-
-            var font = (IFont)cbxFont.SelectedValue;
-            var fontName = cbxFont.Text;
-            var text = fontName + Environment.NewLine + tbxExample.Text;
-            id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
-            id.DrawString(text, font, Color.Blue, 200, 350);
-            
-            for (int i = 0; i < 100; i+= 5)
-                id.DrawPixel(Color.Yellow, 150 + i, 150);
-        }
-
-        private void ImageGraphicsShape(ImageGraphics ig) {
-            var font = dlgFont.Font;
-            ig.DrawLine(Pens.Red, 0, 0, 8, 8);
-            ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
-            ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
-
-            var text = tbxExample.Text;
-            ig.DrawString(text, font, Brushes.Blue, 50, 50);
-            ig.DrawString(text, font, Brushes.Blue, 200, 200, Brushes.Yellow);
+        private void imageBox_Paint(object sender, PaintEventArgs e) {
+            ImageGraphics ig = imgBox.GetImageGraphics(e.Graphics);
+            int testIdx = lbxDrawTest.SelectedIndex;
+            if (testIdx == 5) {         // Graphics Shapes
+                ig.DrawLine(Pens.Red, 0, 0, 8, 8);
+                ig.DrawRectangle(Pens.Red, 8, 8, 4, 4);
+                ig.DrawRectangle(Pens.Red, 16.5f, 16.5f, 4f, 4f);
+            } else if (testIdx == 6) {  // Graphics Text
+                var font = dlgFont.Font;
+                var fontName = font.Name;
+                var text = fontName + Environment.NewLine + tbxExample.Text;
+                ig.DrawString(text, font, Brushes.Blue, 200, 200, Brushes.Yellow);
+            } else if (testIdx == 7) {  // Graphics Repeat
+                for (int i = 0; i < 100; i++) {
+                    for (int j = 0; j < 100; j++) {
+                        ig.DrawCircle(Pens.Lime, j, i, 1, false);
+                        ig.DrawSquare(Pens.Lime, j, i, 1, false);
+                        ig.DrawCross(Pens.Lime, j, i, 1, false);
+                        ig.DrawPlus(Pens.Lime, j, i, 1, false);
+                    }
+                }
+            } else if (testIdx == 8) {  // Graphics All Charactors
+            }
         }
 
         private void btnResetZoom_Click(object sender, EventArgs e) {
@@ -222,6 +208,16 @@ namespace ImageBox_Test {
 
         private void btnLenna8ToFloat_Click(object sender, EventArgs e) {
             SetImage_toFloat(Resources.Lenna_8);
+        }
+
+        private void btnWhiteBig_Click(object sender, EventArgs e) {
+            Util.FreeBuffer(ref imgBuf);
+            bw = 256 * 16;
+            bh = 256 * 16;
+            bytepp = 1;
+            imgBuf = Util.AllocBuffer(bw * bh, 255);
+            imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
+            imgBox.Invalidate();
         }
 
         private void btnOpen_Click(object sender, EventArgs e) {
