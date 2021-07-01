@@ -19,20 +19,24 @@ namespace ShimLib {
     }
 
     public class BdfFont : IFont{
+        public string version = string.Empty;
+        public string description = string.Empty;
         public int fbW;                 // 폰트영역 w : 문자가 없을때 다음 글자 위치
         public int fbH;                 // 폰트영역 h : 다음 라인 위치
         public int fbLeft;              // 폰트영역 왼쪽 시작 좌표
         public int fbBottom;            // 폰트영역 아래 시작 좌표
         public Dictionary<int, BdfChar> fontChars = new Dictionary<int, BdfChar>();         // 문자 배열
 
-        BdfChar currChar = null;
-        char[] lineSeparator = { '\r', '\n', };
-        char[] spaceSeparator = { ' ', };
         public BdfFont(string bdf) {
+            char[] lineSeparator = { '\r', '\n', };
+            char[] spaceSeparator = { ' ', };
+
             string[] lines = bdf.Split(lineSeparator, StringSplitOptions.RemoveEmptyEntries);
 
+            BdfChar currChar = null;
             int bitmapIdx = -1;
             foreach (var line in lines) {
+                // name, data 구분
                 string name = string.Empty;
                 string data = string.Empty;
                 var spaceIdx = line.IndexOf(' ');
@@ -42,40 +46,80 @@ namespace ShimLib {
                 } else {
                     name = line;
                 }
-                    
+
+                // 문자 하나를 끝냄
                 if (name == "ENDCHAR") {
                     currChar = null;
                     bitmapIdx = -1;
-                } if (bitmapIdx != -1) {
+                    continue;
+                }
+
+                // 비트맵 데이터 파싱
+                if (bitmapIdx != -1) {
                     ParseBitmap(currChar.bitmap, bitmapIdx, line, currChar.bbW);
                     bitmapIdx += currChar.bbW;
-                } else {
-                    if (name == "FONTBOUNDINGBOX") {
-                        var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
-                        this.fbW = int.Parse(words[0]);
-                        this.fbH = int.Parse(words[1]);
-                        this.fbLeft = int.Parse(words[2]);
-                        this.fbBottom = int.Parse(words[3]);
-                    } else if (name == "STARTCHAR") {
-                        currChar = new BdfChar();
-                        currChar.name = data;
-                    } else if (name == "ENCODING") {
-                        int charIdx = int.Parse(data);
-                        fontChars[charIdx] = currChar;
-                        currChar.encoding = charIdx;
-                    } else if (name == "DWIDTH") {
-                        var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
-                        currChar.width = int.Parse(words[0]);
-                    } else if (name == "BBX") {
-                        var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
-                        currChar.bbW = int.Parse(words[0]);
-                        currChar.bbH = int.Parse(words[1]);
-                        currChar.bbLeft = int.Parse(words[2]);
-                        currChar.bbBottom = int.Parse(words[3]);
-                        currChar.bitmap = new byte[currChar.bbW * currChar.bbH];
-                    } else if (name == "BITMAP") {
-                        bitmapIdx = 0;
-                    }
+                    continue;
+                }
+
+                // 폰트 설명
+                if (name == "STARTFONT") {
+                    this.version = data;
+                    continue;
+                }
+
+                // 폰트 설명
+                if (name == "FONT") {
+                    this.description = data;
+                    continue;
+                }
+
+                // 폰트 사이즈 및 옵셋
+                if (name == "FONTBOUNDINGBOX") {
+                    var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
+                    this.fbW = int.Parse(words[0]);
+                    this.fbH = int.Parse(words[1]);
+                    this.fbLeft = int.Parse(words[2]);
+                    this.fbBottom = int.Parse(words[3]);
+                    continue;
+                }
+
+                // 문자 시작
+                if (name == "STARTCHAR") {
+                    currChar = new BdfChar();
+                    currChar.name = data;
+                    continue;
+                }
+
+                // 문자 코드
+                if (name == "ENCODING") {
+                    int charIdx = int.Parse(data);
+                    fontChars[charIdx] = currChar;
+                    currChar.encoding = charIdx;
+                    continue;
+                }
+
+                // 문자 너비
+                if (name == "DWIDTH") {
+                    var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
+                    currChar.width = int.Parse(words[0]);
+                    continue;
+                }
+
+                // 문자 사이즈 및 옵셋
+                if (name == "BBX") {
+                    var words = data.Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries);
+                    currChar.bbW = int.Parse(words[0]);
+                    currChar.bbH = int.Parse(words[1]);
+                    currChar.bbLeft = int.Parse(words[2]);
+                    currChar.bbBottom = int.Parse(words[3]);
+                    currChar.bitmap = new byte[currChar.bbW * currChar.bbH];
+                    continue;
+                }
+
+                // 문자 비트맵 시작
+                if (name == "BITMAP") {
+                    bitmapIdx = 0;
+                    continue;
                 }
             }
         }

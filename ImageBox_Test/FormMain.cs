@@ -64,8 +64,14 @@ namespace ImageBox_Test {
                 id.DrawRectangle(Color.Red, 16.5f, 16.5f, 4f, 4f);
             } else if (testIdx == 2) {  // Drawing Text
                 var font = (IFont)cbxFont.SelectedValue;
-                var fontName = cbxFont.Text;
-                var text = fontName + Environment.NewLine + tbxExample.Text;
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(font.GetType().Name);
+                if (font is BdfFont bdf)
+                    sb.AppendLine(bdf.description);
+                else 
+                    sb.AppendLine(cbxFont.Text);
+                sb.Append(tbxExample.Text);
+                var text = sb.ToString();
                 id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
             } else if (testIdx == 3) {  // Drawing Repeat
                 Action<int> iAction = (i) => {
