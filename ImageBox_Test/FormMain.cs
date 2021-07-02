@@ -55,6 +55,21 @@ namespace ImageBox_Test {
             this.lblSystemFont.Text = dlgFont.Font.ToString();
         }
 
+        private void SaveFontSampleImages(IEnumerable<Tuple<string, IFont>> fontTupleList) {
+            string text = tbxExample.Text;
+            foreach (var fontTuple in fontTupleList) {
+                var name = fontTuple.Item1;
+                var font = fontTuple.Item2;
+                var size = font.MeasureString(text);
+                using (var bmp = new Bitmap(size.Width, size.Height, PixelFormat.Format32bppPArgb)) {
+                    var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
+                    font.DrawString(text, bd.Scan0, size.Width, size.Height, 0, 0, Color.White);
+                    bmp.UnlockBits(bd);
+                    bmp.Save(name + ".bmp", ImageFormat.Bmp);
+                }
+            }
+        }
+
         private void imgBox_PaintBackBuffer(object sender, IntPtr buf, int bw, int bh) {
             ImageDrawing id = imgBox.GetImageDrawing(buf, bw, bh);
             int testIdx = lbxDrawTest.SelectedIndex;
@@ -315,6 +330,11 @@ namespace ImageBox_Test {
                 return;
             LoadBitmapFonts(dlgFolder.SelectedPath);
             imgBox.Invalidate();
+        }
+
+        private void btnSaveSampleImages_Click(object sender, EventArgs e) {
+            var fontTupleList = cbxFont.Items.Cast<Tuple<string, IFont>>();
+            SaveFontSampleImages(fontTupleList);
         }
     }
 }

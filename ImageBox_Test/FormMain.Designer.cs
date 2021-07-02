@@ -23,7 +23,7 @@
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마십시오.
         /// </summary>
         private void InitializeComponent() {
-            ShimLib.ImageBoxOption imageBoxOption7 = new ShimLib.ImageBoxOption();
+            ShimLib.ImageBoxOption imageBoxOption1 = new ShimLib.ImageBoxOption();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblSystemFont = new System.Windows.Forms.Label();
             this.btnBitmapFont = new System.Windows.Forms.Button();
@@ -38,6 +38,7 @@
             this.btnPaste = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
             this.btnChess = new System.Windows.Forms.Button();
+            this.btnWhiteBig = new System.Windows.Forms.Button();
             this.btnLenna32 = new System.Windows.Forms.Button();
             this.btnLenna24 = new System.Windows.Forms.Button();
             this.btnLenna8 = new System.Windows.Forms.Button();
@@ -46,13 +47,14 @@
             this.dlgFont = new System.Windows.Forms.FontDialog();
             this.imgBox = new ShimLib.ImageBox();
             this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnWhiteBig = new System.Windows.Forms.Button();
+            this.btnSaveSampleImages = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSaveSampleImages);
             this.panel1.Controls.Add(this.lblSystemFont);
             this.panel1.Controls.Add(this.btnBitmapFont);
             this.panel1.Controls.Add(this.btnLenna8ToGray16);
@@ -220,6 +222,16 @@
             this.btnChess.UseVisualStyleBackColor = true;
             this.btnChess.Click += new System.EventHandler(this.btnChess_Click);
             // 
+            // btnWhiteBig
+            // 
+            this.btnWhiteBig.Location = new System.Drawing.Point(6, 128);
+            this.btnWhiteBig.Name = "btnWhiteBig";
+            this.btnWhiteBig.Size = new System.Drawing.Size(131, 23);
+            this.btnWhiteBig.TabIndex = 4;
+            this.btnWhiteBig.Text = "White Big";
+            this.btnWhiteBig.UseVisualStyleBackColor = true;
+            this.btnWhiteBig.Click += new System.EventHandler(this.btnWhiteBig_Click);
+            // 
             // btnLenna32
             // 
             this.btnLenna32.Location = new System.Drawing.Point(6, 99);
@@ -276,19 +288,19 @@
             this.imgBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgBox.Location = new System.Drawing.Point(0, 0);
             this.imgBox.Name = "imgBox";
-            imageBoxOption7.CenterLineColor = System.Drawing.Color.Yellow;
-            imageBoxOption7.FloatValueDigit = 3;
-            imageBoxOption7.FloatValueMax = 1D;
-            imageBoxOption7.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
-            imageBoxOption7.RoiRectangleColor = System.Drawing.Color.Blue;
-            imageBoxOption7.TimeCheckCount = 100;
-            imageBoxOption7.UseDrawCenterLine = true;
-            imageBoxOption7.UseDrawCursorInfo = true;
-            imageBoxOption7.UseDrawDebugInfo = true;
-            imageBoxOption7.UseDrawPixelValue = true;
-            imageBoxOption7.UseDrawRoiRectangles = true;
-            imageBoxOption7.UseParallelToDraw = true;
-            this.imgBox.Option = imageBoxOption7;
+            imageBoxOption1.CenterLineColor = System.Drawing.Color.Yellow;
+            imageBoxOption1.FloatValueDigit = 3;
+            imageBoxOption1.FloatValueMax = 1D;
+            imageBoxOption1.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
+            imageBoxOption1.RoiRectangleColor = System.Drawing.Color.Blue;
+            imageBoxOption1.TimeCheckCount = 100;
+            imageBoxOption1.UseDrawCenterLine = true;
+            imageBoxOption1.UseDrawCursorInfo = true;
+            imageBoxOption1.UseDrawDebugInfo = true;
+            imageBoxOption1.UseDrawPixelValue = true;
+            imageBoxOption1.UseDrawRoiRectangles = true;
+            imageBoxOption1.UseParallelToDraw = true;
+            this.imgBox.Option = imageBoxOption1;
             this.imgBox.PtPan = new System.Drawing.Point(2, 2);
             this.imgBox.Size = new System.Drawing.Size(793, 683);
             this.imgBox.TabIndex = 2;
@@ -303,15 +315,16 @@
             // 
             this.dlgFolder.ShowNewFolderButton = false;
             // 
-            // btnWhiteBig
+            // btnSaveSampleImages
             // 
-            this.btnWhiteBig.Location = new System.Drawing.Point(6, 128);
-            this.btnWhiteBig.Name = "btnWhiteBig";
-            this.btnWhiteBig.Size = new System.Drawing.Size(131, 23);
-            this.btnWhiteBig.TabIndex = 4;
-            this.btnWhiteBig.Text = "White Big";
-            this.btnWhiteBig.UseVisualStyleBackColor = true;
-            this.btnWhiteBig.Click += new System.EventHandler(this.btnWhiteBig_Click);
+            this.btnSaveSampleImages.Location = new System.Drawing.Point(96, 522);
+            this.btnSaveSampleImages.Name = "btnSaveSampleImages";
+            this.btnSaveSampleImages.Size = new System.Drawing.Size(162, 23);
+            this.btnSaveSampleImages.TabIndex = 19;
+            this.btnSaveSampleImages.Text = "Save Font Sample Images";
+            this.btnSaveSampleImages.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveSampleImages.UseVisualStyleBackColor = true;
+            this.btnSaveSampleImages.Click += new System.EventHandler(this.btnSaveSampleImages_Click);
             // 
             // FormMain
             // 
@@ -354,6 +367,7 @@
         private System.Windows.Forms.Button btnBitmapFont;
         private System.Windows.Forms.FolderBrowserDialog dlgFolder;
         private System.Windows.Forms.Button btnWhiteBig;
+        private System.Windows.Forms.Button btnSaveSampleImages;
     }
 }
 
