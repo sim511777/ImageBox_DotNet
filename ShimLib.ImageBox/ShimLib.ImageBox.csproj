@@ -61,6 +61,7 @@
     <Compile Include="Font\Fonts.cs" />
     <Compile Include="Font\BmpFont.cs" />
     <Compile Include="Font\PcfFont.cs" />
+    <Compile Include="Font\XLogicalFontDesc.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>

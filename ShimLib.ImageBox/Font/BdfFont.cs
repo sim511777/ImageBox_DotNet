@@ -20,7 +20,7 @@ namespace ShimLib {
 
     public class BdfFont : IFont{
         public string version = string.Empty;
-        public string description = string.Empty;
+        public XLogicalFontDesc fontDesc;
         public int fbW;                 // 폰트영역 w : 문자가 없을때 다음 글자 위치
         public int fbH;                 // 폰트영역 h : 다음 라인 위치
         public int fbLeft;              // 폰트영역 왼쪽 시작 좌표
@@ -69,7 +69,11 @@ namespace ShimLib {
 
                 // 폰트 설명
                 if (name == "FONT") {
-                    this.description = data;
+                    if (fontDesc == null) {
+                        try {
+                            this.fontDesc = new XLogicalFontDesc(data);
+                        } catch { }
+                    }
                     continue;
                 }
 
@@ -121,7 +125,18 @@ namespace ShimLib {
                     bitmapIdx = 0;
                     continue;
                 }
+
+                // 문자 비트맵 시작
+                if (name == "ENDFONT") {
+                    break;
+                }
             }
+            
+            if (fontDesc == null)
+                fontDesc = new XLogicalFontDesc(null);
+
+            if (fontDesc.PixelSize == 0)
+                fontDesc.PixelSize = fbH;
         }
 
         private void ParseBitmap(byte[] bitmap, int bitmapIdx, string line, int bitmapWidth) {
@@ -144,13 +159,14 @@ namespace ShimLib {
             int icolor = color.ToArgb();
             int x = dx;
             int y = dy;
+            int fh = FontHeight;
             foreach (char ch in text) {
                 if (ch == '\r') {
                     continue;
                 }
                 if (ch == '\n') {
                     x = dx;
-                    y += fbH;
+                    y += fh;
                     continue;
                 }
                 
@@ -167,18 +183,19 @@ namespace ShimLib {
             int maxY = 0;
             int x = 0;
             int y = 0;
+            int fh = FontHeight;
             foreach (char ch in text) {
                 if (ch == '\r') {
                     continue;
                 }
                 if (ch == '\n') {
                     x = 0;
-                    y += fbH;
+                    y += fh;
                     continue;
                 }
                 int fw = fontChars.ContainsKey(ch) ? fontChars[ch].width : fbW;
                 maxX = Math.Max(maxX, x + fw);
-                maxY = Math.Max(maxY, y + fbH);
+                maxY = Math.Max(maxY, y + fh);
                 x += fw;
             }
 
@@ -186,12 +203,12 @@ namespace ShimLib {
         }
 
         private unsafe void DrawChar(BdfChar fontChar, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, int icolor) {
-            dx = dx - this.fbLeft + fontChar.bbLeft;
-            dy = dy + this.fbH - fontChar.bbH + this.fbBottom - fontChar.bbBottom;
+            dx = dx + fontChar.bbLeft;
+            dy = dy + this.FontHeight - fontChar.bbH - fontChar.bbBottom;
             int x1 = dx;
             int y1 = dy;
-            int x2 = dx + fbW - 1;
-            int y2 = dy + fbH - 1;
+            int x2 = x1 + fontChar.bbW - 1;
+            int y2 = y1 + fontChar.bbH - 1;
             if (x1 >= dispBW || x2 < 0 || y1 >= dispBH || y2 < 0)
                 return;
 
@@ -213,6 +230,6 @@ namespace ShimLib {
             }
         }
 
-        public int FontHeight => fbH;
+        public int FontHeight => fontDesc.PixelSize;
     }
 }

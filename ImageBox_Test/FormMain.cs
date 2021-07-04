@@ -333,7 +333,7 @@ namespace ImageBox_Test {
         }
 
         private void btnSaveSampleImages_Click(object sender, EventArgs e) {
-            var fontTupleList = cbxFont.Items.Cast<Tuple<string, IFont>>();
+            var fontTupleList = cbxFont.DataSource as List<Tuple<string, IFont>>;
             SaveFontSampleImages(fontTupleList);
         }
     }
