@@ -134,9 +134,10 @@ namespace ShimLib {
             
             if (fontDesc == null)
                 fontDesc = new XLogicalFontDesc(null);
-
             if (fontDesc.PixelSize == 0)
                 fontDesc.PixelSize = fbH;
+            if (fontDesc.AverageWidth == 0)
+                fontDesc.AverageWidth = fbW * 10;
         }
 
         private void ParseBitmap(byte[] bitmap, int bitmapIdx, string line, int bitmapWidth) {
@@ -169,12 +170,14 @@ namespace ShimLib {
                     y += fh;
                     continue;
                 }
-                
-                int fw = fontChars.ContainsKey(ch) ? fontChars[ch].width : fbW;
+
                 if (fontChars.ContainsKey(ch)) {
-                    DrawChar(fontChars[ch], dispBuf, dispBW, dispBH, x, y, icolor);
+                    var fontChar = fontChars[ch];
+                    DrawChar(fontChar, dispBuf, dispBW, dispBH, x, y, icolor);
+                    x += fontChar.width;
+                } else {
+                    x += fontDesc.AverageWidth / 10;
                 }
-                x += fw;
             }
         }
 
@@ -193,11 +196,20 @@ namespace ShimLib {
                     y += fh;
                     continue;
                 }
-                int fw = fontChars.ContainsKey(ch) ? fontChars[ch].width : fbW;
-                maxX = Math.Max(maxX, x + fw);
-                int fbh = fontChars.ContainsKey(ch) ? (this.FontHeight - fontChars[ch].bbBottom) : fbH;
+
+                int fbw = 0;
+                int fbh = 0;
+                if (fontChars.ContainsKey(ch)) {
+                    var fontChar = fontChars[ch];
+                    fbw = fontChar.width;
+                    fbh = this.FontHeight - fontChar.bbBottom;
+                } else {
+                    fbw = fontDesc.AverageWidth / 10;
+                    fbh = FontHeight;
+                }
+                maxX = Math.Max(maxX, x + fbw);
                 maxY = Math.Max(maxY, y + fbh);
-                x += fw;
+                x += fbw;
             }
 
             return new Size(maxX, maxY);
