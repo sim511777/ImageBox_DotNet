@@ -384,11 +384,14 @@ namespace ShimLib {
             sb.AppendLine(imageInfo);
             sb.AppendLine();
             sb.AppendLine("== Draw ==");
-            sb.AppendLine($"UseDrawPixelValue : {(Option.UseDrawPixelValue ? "O" : "X")}");
-            sb.AppendLine($"UseDrawCenterLine : {(Option.UseDrawCenterLine ? "O" : "X")}");
             sb.AppendLine($"UseDrawCursorInfo : {(Option.UseDrawCursorInfo ? "O" : "X")}");
+            sb.AppendLine($"UseDrawPixelValue : {(Option.UseDrawPixelValue ? "O" : "X")}");
             sb.AppendLine($"UseDrawDebugInfo : {(Option.UseDrawDebugInfo ? "O" : "X")}");
+            sb.AppendLine($"UseDrawCenterLine : {(Option.UseDrawCenterLine ? "O" : "X")}");
             sb.AppendLine($"UseDrawRoiRectangles : {(Option.UseDrawRoiRectangles ? "O" : "X")}");
+            sb.AppendLine($"UseParallelToDraw : {(Option.UseParallelToDraw ? "O" : "X")}");
+            sb.AppendLine($"FloatValueMax : {Option.FloatValueMax}");
+            sb.AppendLine($"TimeCheckCount : {Option.TimeCheckCount}");
             sb.AppendLine();
             sb.AppendLine("== Time ==");
             if (dtListList.Count > 0) {

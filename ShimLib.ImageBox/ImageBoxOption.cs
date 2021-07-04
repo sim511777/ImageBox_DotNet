@@ -13,10 +13,10 @@ namespace ShimLib {
         private int _timeCheckCount = 100;
 
         // 화면 표시 옵션
-        public bool UseDrawPixelValue { get; set; } = true;
-        public bool UseDrawCenterLine { get; set; } = true;
         public bool UseDrawCursorInfo { get; set; } = true;
+        public bool UseDrawPixelValue { get; set; } = true;
         public bool UseDrawDebugInfo { get; set; } = false;
+        public bool UseDrawCenterLine { get; set; } = true;
         public bool UseDrawRoiRectangles { get; set; } = true;
         public bool UseParallelToDraw { get; set; } = true;
         public Color CenterLineColor { get; set; } = Color.Yellow;
