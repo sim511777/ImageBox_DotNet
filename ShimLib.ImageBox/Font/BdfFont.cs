@@ -195,7 +195,8 @@ namespace ShimLib {
                 }
                 int fw = fontChars.ContainsKey(ch) ? fontChars[ch].width : fbW;
                 maxX = Math.Max(maxX, x + fw);
-                maxY = Math.Max(maxY, y + fh);
+                int fbh = fontChars.ContainsKey(ch) ? (this.FontHeight - fontChars[ch].bbBottom) : fbH;
+                maxY = Math.Max(maxY, y + fbh);
                 x += fw;
             }
 

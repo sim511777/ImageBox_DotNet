@@ -215,7 +215,7 @@ namespace ShimLib {
                 Invalidate();
             } else {
                 if (Option.UseDrawCursorInfo) {
-                    using (Bitmap bmp = new Bitmap(8 * 35, InfoFont.FontHeight, PixelFormat.Format32bppPArgb)) {
+                    using (Bitmap bmp = new Bitmap(8 * 35, InfoFont.FontHeight + 5, PixelFormat.Format32bppPArgb)) {
                         var bd = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
                         DrawCursorInfo(new ImageDrawing(bd.Scan0, bd.Width, bd.Height), 0, 0);
                         bmp.UnlockBits(bd);
