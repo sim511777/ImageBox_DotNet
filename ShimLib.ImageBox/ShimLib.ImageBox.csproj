@@ -87,6 +87,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="VersionInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +102,27 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\bitocra7.bdf" />
+    <None Include="Resources\lemon.bdf" />
     <None Include="Resources\Raster_04x06.bmp" />
+    <None Include="Resources\ter-u12b.bdf" />
+    <None Include="Resources\ter-u12n.bdf" />
+    <None Include="Resources\ter-u14b.bdf" />
+    <None Include="Resources\ter-u14n.bdf" />
+    <None Include="Resources\ter-u16b.bdf" />
+    <None Include="Resources\ter-u16n.bdf" />
+    <None Include="Resources\ter-u18b.bdf" />
+    <None Include="Resources\ter-u18n.bdf" />
+    <None Include="Resources\ter-u20b.bdf" />
+    <None Include="Resources\ter-u20n.bdf" />
+    <None Include="Resources\ter-u22b.bdf" />
+    <None Include="Resources\ter-u22n.bdf" />
+    <None Include="Resources\ter-u24b.bdf" />
+    <None Include="Resources\ter-u24n.bdf" />
+    <None Include="Resources\ter-u28b.bdf" />
+    <None Include="Resources\ter-u28n.bdf" />
+    <None Include="Resources\ter-u32b.bdf" />
+    <None Include="Resources\ter-u32n.bdf" />
     <None Include="Resources\uismall.bdf" />
     <None Include="Resources\unifont-13.0.06.bdf" />
   </ItemGroup>

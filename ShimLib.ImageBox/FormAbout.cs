@@ -27,7 +27,7 @@ namespace ShimLib {
 
             UpdateRoiList();
 
-            tbxVersion.Text = Resources.VersionInfo;
+            tbxVersion.Text = VersionInfo.History;
         }
 
         public void UpdateRoiList() {

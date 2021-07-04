@@ -362,10 +362,11 @@ namespace ShimLib {
             var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
             string roiStart = $"({roi.Left},{roi.Top})";
             string roiEnd = $"({roi.Width},{roi.Height})";
-            var sizeStart = id.MeasureString(roiStart, Fonts.Ascii_10x18);
+            var roiFont = Fonts.ter_u22b;
+            var sizeStart = id.MeasureString(roiStart, roiFont);
             var zoom = GetZoomFactor();
-            id.DrawString(roiStart, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
-            id.DrawString(roiEnd, Fonts.Ascii_10x18, Option.RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
+            id.DrawString(roiStart, roiFont, Option.RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
+            id.DrawString(roiEnd, roiFont, Option.RoiRectangleColor, roiF.X + roiF.Width, roiF.Y + roiF.Height, Color.Yellow);
             id.DrawRectangleDot(Option.RoiRectangleColor, roiF);
         }
 
@@ -413,17 +414,17 @@ namespace ShimLib {
             IFont font;
             bool multiLine = false;
             if (imgBytepp == 1) {
-                if (zoom <= 17) font = Fonts.Ascii_05x08;
-                else if (zoom <= 25) font = Fonts.Ascii_06x13;
-                else if (zoom <= 33) font = Fonts.Ascii_08x16;
-                else font = Fonts.Ascii_10x18;
+                if (zoom <= 17) font = Fonts.lemon;
+                else if (zoom <= 25) font = Fonts.ter_u12n;
+                else if (zoom <= 33) font = Fonts.ter_u16b;
+                else font = Fonts.ter_u18b;
             } else {
                 if (imgBytepp != 2)
                     multiLine = true;
-                if (zoom <= 33) font = Fonts.Ascii_05x08;
-                else if (zoom <= 49) font = Fonts.Ascii_06x13;
-                else if (zoom <= 65) font = Fonts.Ascii_08x16;
-                else font = Fonts.Ascii_10x18;
+                if (zoom <= 33) font = Fonts.lemon;
+                else if (zoom <= 49) font = Fonts.ter_u12n;
+                else if (zoom <= 65) font = Fonts.ter_u16b;
+                else font = Fonts.ter_u18b;
             }
 
             var ptImgLT = DispToImg(Point.Empty);

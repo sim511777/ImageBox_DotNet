@@ -9,27 +9,29 @@ using ShimLib.Properties;
 
 namespace ShimLib {
     public class Fonts {
-        public static IFont Mame_UnSmall = new BdfFont(Resources.uismall);
-        public static IFont Ascii_04x06 = new BmpFont(Resources.Raster_04x06, 04, 06, 0, 0, 32);
-        public static IFont Ascii_04x06_2 = new BmpFont(Resources.Raster_04x06_2, 04, 06, 0, 0, 32);
-        public static IFont Ascii_05x08 = new BmpFont(Resources.Raster_05x08, 05, 08, 0, 0, 32);
-        public static IFont Ascii_05x12 = new BmpFont(Resources.Raster_05x12, 05, 12, 0, 0, 32);
-        public static IFont Ascii_06x08 = new BmpFont(Resources.Raster_06x08, 06, 08, 0, 0, 32);
-        public static IFont Ascii_06x13 = new BmpFont(Resources.Raster_06x13, 06, 13, 0, 0, 32);
-        public static IFont Ascii_07x12 = new BmpFont(Resources.Raster_07x12, 07, 12, 0, 0, 32);
-        public static IFont Ascii_08x08 = new BmpFont(Resources.Raster_08x08, 08, 08, 0, 0, 32);
-        public static IFont Ascii_08x12 = new BmpFont(Resources.Raster_08x12, 08, 12, 0, 0, 32);
-        public static IFont Ascii_08x16 = new BmpFont(Resources.Raster_08x16, 08, 16, 0, 0, 32);
-        public static IFont Ascii_08x18 = new BmpFont(Resources.Raster_08x18, 08, 18, 0, 0, 32);
-        public static IFont Ascii_10x18 = new BmpFont(Resources.Raster_10x18, 10, 18, 0, 0, 32);
-        public static IFont Ascii_10x20 = new BmpFont(Resources.Raster_10x20, 10, 20, 0, 0, 32);
-        public static IFont Ascii_10x22 = new BmpFont(Resources.Raster_10x22, 10, 22, 0, 0, 32);
-        public static IFont Ascii_12x16 = new BmpFont(Resources.Raster_12x16, 12, 16, 0, 0, 32);
-        public static IFont Ascii_12x27 = new BmpFont(Resources.Raster_12x27, 12, 27, 0, 0, 32);
-        public static IFont Ascii_16x08 = new BmpFont(Resources.Raster_16x08, 16, 08, 0, 0, 32);
-        public static IFont Ascii_16x12 = new BmpFont(Resources.Raster_16x12, 16, 12, 0, 0, 32);
-        public static IFont Unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
-        public static IFont Unifont_13_0_06_pcf = new PcfFont(Resources.unifont_13_0_06_pcf);
+        public static IFont bitocra7 = new BdfFont(Resources.bitocra7);
+        public static IFont lemon = new BdfFont(Resources.lemon);
+        public static IFont ter_u12n = new BdfFont(Resources.ter_u12n);
+        public static IFont ter_u12b = new BdfFont(Resources.ter_u12b);
+        public static IFont ter_u14n = new BdfFont(Resources.ter_u14n);
+        public static IFont ter_u14b = new BdfFont(Resources.ter_u14b);
+        public static IFont ter_u16n = new BdfFont(Resources.ter_u16n);
+        public static IFont ter_u16b = new BdfFont(Resources.ter_u16b);
+        public static IFont ter_u18n = new BdfFont(Resources.ter_u18n);
+        public static IFont ter_u18b = new BdfFont(Resources.ter_u18b);
+        public static IFont ter_u20n = new BdfFont(Resources.ter_u20n);
+        public static IFont ter_u20b = new BdfFont(Resources.ter_u20b);
+        public static IFont ter_u22n = new BdfFont(Resources.ter_u22n);
+        public static IFont ter_u22b = new BdfFont(Resources.ter_u22b);
+        public static IFont ter_u24n = new BdfFont(Resources.ter_u24n);
+        public static IFont ter_u24b = new BdfFont(Resources.ter_u24b);
+        public static IFont ter_u28n = new BdfFont(Resources.ter_u28n);
+        public static IFont ter_u28b = new BdfFont(Resources.ter_u28b);
+        public static IFont ter_u32n = new BdfFont(Resources.ter_u32n);
+        public static IFont ter_u32b = new BdfFont(Resources.ter_u32b);
+        public static IFont uismall = new BdfFont(Resources.uismall);
+        public static IFont unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
+        public static IFont unifont_13_0_06 = new PcfFont(Resources.unifont_13_0_06);
 
         public readonly static Dictionary<EFont, IFont> dic;
         static Fonts() {
@@ -44,26 +46,28 @@ namespace ShimLib {
     }
 
     public enum EFont {
-        Mame_UnSmall,
-        Ascii_04x06,
-        Ascii_04x06_2,
-        Ascii_05x08,
-        Ascii_05x12,
-        Ascii_06x08,
-        Ascii_06x13,
-        Ascii_07x12,
-        Ascii_08x08,
-        Ascii_08x12,
-        Ascii_08x16,
-        Ascii_08x18,
-        Ascii_10x18,
-        Ascii_10x20,
-        Ascii_10x22,
-        Ascii_12x16,
-        Ascii_12x27,
-        Ascii_16x08,
-        Ascii_16x12,
-        Unifont_13_0_06_bdf,
-        Unifont_13_0_06_pcf,
+        bitocra7,
+        lemon,
+        ter_u12n,
+        ter_u12b,
+        ter_u14n,
+        ter_u14b,
+        ter_u16n,
+        ter_u16b,
+        ter_u18n,
+        ter_u18b,
+        ter_u20n,
+        ter_u20b,
+        ter_u22n,
+        ter_u22b,
+        ter_u24n,
+        ter_u24b,
+        ter_u28n,
+        ter_u28b,
+        ter_u32n,
+        ter_u32b,
+        uismall,
+        unifont_13_0_06_bdf,
+        unifont_13_0_06,
     }
 }

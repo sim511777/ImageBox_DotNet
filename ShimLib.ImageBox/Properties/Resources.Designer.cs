@@ -61,182 +61,590 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///FONT -aaron-bitocra7-Medium-R-Normal--7-60-75-75-C-40-ISO8859-1
+        ///SIZE 7 75 75
+        ///FONTBOUNDINGBOX 4 7 0 -1
+        ///STARTPROPERTIES 24
+        ///FONTNAME_REGISTRY &quot;&quot;
+        ///FOUNDRY &quot;aaron&quot;
+        ///FAMILY_NAME &quot;bitocra7&quot;
+        ///FACE_NAME &quot;bitocra7&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///PIXEL_SIZE 7
+        ///POINT_SIZE 60
+        ///RESOLUTION_X 75
+        ///RESOLUTION_Y 75
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 40
+        ///CHARSET_REGISTRY &quot;ISO8859&quot;
+        ///CHARSET_ENCODING &quot;1&quot;
+        ///COPYRIGHT &quot;Aaron Christianson 2011&quot;
+        ///WEIGHT 10
+        ///X_HEIGHT 5
+        ///QUAD_WI[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_04x06 {
+        internal static string bitocra7 {
             get {
-                object obj = ResourceManager.GetObject("Raster_04x06", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("bitocra7", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///FONT -benis-lemon-medium-r-normal--10-110-75-75-m-50-ISO8859-1
+        ///SIZE 10 75 75
+        ///FONTBOUNDINGBOX 10 12 -2 -3
+        ///STARTPROPERTIES 26
+        ///FONTNAME_REGISTRY &quot;&quot;
+        ///FOUNDRY &quot;artwiz&quot;
+        ///FAMILY_NAME &quot;lemon&quot;
+        ///WEIGHT_NAME &quot;medium&quot;
+        ///SLANT &quot;r&quot;
+        ///SETWIDTH_NAME &quot;normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///PIXEL_SIZE 10
+        ///POINT_SIZE 110
+        ///RESOLUTION_X 75
+        ///RESOLUTION_Y 75
+        ///SPACING &quot;m&quot;
+        ///AVERAGE_WIDTH 50
+        ///CHARSET_REGISTRY &quot;ISO8859&quot;
+        ///CHARSET_ENCODING &quot;1&quot;
+        ///OPYRIGHT &quot;artwiz, fixed by aleczapka&quot;
+        ///FACE_NAME &quot;lemon&quot;
+        ///WEIGHT 10
+        ///X_HEIGHT 6
+        ///QUAD_[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_04x06_2 {
+        internal static string lemon {
             get {
-                object obj = ResourceManager.GetObject("Raster_04x06_2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("lemon", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u12b
+        ///FONT -xos4-Terminus-Bold-R-Normal--12-120-72-72-C-60-ISO10646-1
+        ///SIZE 12 72 72
+        ///FONTBOUNDINGBOX 6 12 0 -2
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 12
+        ///POINT_SIZE 120
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 60
+        ///CHARSET_REGISTRY &quot;ISO10[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_05x08 {
+        internal static string ter_u12b {
             get {
-                object obj = ResourceManager.GetObject("Raster_05x08", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u12b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u12n
+        ///FONT -xos4-Terminus-Medium-R-Normal--12-120-72-72-C-60-ISO10646-1
+        ///SIZE 12 72 72
+        ///FONTBOUNDINGBOX 6 12 0 -2
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 12
+        ///POINT_SIZE 120
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 60
+        ///CHARSET_REGISTRY &quot;I[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_05x12 {
+        internal static string ter_u12n {
             get {
-                object obj = ResourceManager.GetObject("Raster_05x12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u12n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u14b
+        ///FONT -xos4-Terminus-Bold-R-Normal--14-140-72-72-C-80-ISO10646-1
+        ///SIZE 14 72 72
+        ///FONTBOUNDINGBOX 8 14 0 -2
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 14
+        ///POINT_SIZE 140
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 80
+        ///CHARSET_REGISTRY &quot;ISO10[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_06x08 {
+        internal static string ter_u14b {
             get {
-                object obj = ResourceManager.GetObject("Raster_06x08", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u14b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u14n
+        ///FONT -xos4-Terminus-Medium-R-Normal--14-140-72-72-C-80-ISO10646-1
+        ///SIZE 14 72 72
+        ///FONTBOUNDINGBOX 8 14 0 -2
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 14
+        ///POINT_SIZE 140
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 80
+        ///CHARSET_REGISTRY &quot;I[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_06x13 {
+        internal static string ter_u14n {
             get {
-                object obj = ResourceManager.GetObject("Raster_06x13", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u14n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u16b
+        ///FONT -xos4-Terminus-Bold-R-Normal--16-160-72-72-C-80-ISO10646-1
+        ///SIZE 16 72 72
+        ///FONTBOUNDINGBOX 8 16 0 -4
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 16
+        ///POINT_SIZE 160
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 80
+        ///CHARSET_REGISTRY &quot;ISO10[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_07x12 {
+        internal static string ter_u16b {
             get {
-                object obj = ResourceManager.GetObject("Raster_07x12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u16b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u16n
+        ///FONT -xos4-Terminus-Medium-R-Normal--16-160-72-72-C-80-ISO10646-1
+        ///SIZE 16 72 72
+        ///FONTBOUNDINGBOX 8 16 0 -4
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 16
+        ///POINT_SIZE 160
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 80
+        ///CHARSET_REGISTRY &quot;I[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_08x08 {
+        internal static string ter_u16n {
             get {
-                object obj = ResourceManager.GetObject("Raster_08x08", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u16n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u18b
+        ///FONT -xos4-Terminus-Bold-R-Normal--18-180-72-72-C-100-ISO10646-1
+        ///SIZE 18 72 72
+        ///FONTBOUNDINGBOX 10 18 0 -3
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 18
+        ///POINT_SIZE 180
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 100
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_08x12 {
+        internal static string ter_u18b {
             get {
-                object obj = ResourceManager.GetObject("Raster_08x12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u18b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u18n
+        ///FONT -xos4-Terminus-Medium-R-Normal--18-180-72-72-C-100-ISO10646-1
+        ///SIZE 18 72 72
+        ///FONTBOUNDINGBOX 10 18 0 -3
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 18
+        ///POINT_SIZE 180
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 100
+        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_08x16 {
+        internal static string ter_u18n {
             get {
-                object obj = ResourceManager.GetObject("Raster_08x16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u18n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u20b
+        ///FONT -xos4-Terminus-Bold-R-Normal--20-200-72-72-C-100-ISO10646-1
+        ///SIZE 20 72 72
+        ///FONTBOUNDINGBOX 10 20 0 -4
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 20
+        ///POINT_SIZE 200
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 100
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_08x18 {
+        internal static string ter_u20b {
             get {
-                object obj = ResourceManager.GetObject("Raster_08x18", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u20b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u20n
+        ///FONT -xos4-Terminus-Medium-R-Normal--20-200-72-72-C-100-ISO10646-1
+        ///SIZE 20 72 72
+        ///FONTBOUNDINGBOX 10 20 0 -4
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 20
+        ///POINT_SIZE 200
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 100
+        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_10x18 {
+        internal static string ter_u20n {
             get {
-                object obj = ResourceManager.GetObject("Raster_10x18", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u20n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u22b
+        ///FONT -xos4-Terminus-Bold-R-Normal--22-220-72-72-C-110-ISO10646-1
+        ///SIZE 22 72 72
+        ///FONTBOUNDINGBOX 11 22 0 -5
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 22
+        ///POINT_SIZE 220
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 110
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_10x20 {
+        internal static string ter_u22b {
             get {
-                object obj = ResourceManager.GetObject("Raster_10x20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u22b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u22n
+        ///FONT -xos4-Terminus-Medium-R-Normal--22-220-72-72-C-110-ISO10646-1
+        ///SIZE 22 72 72
+        ///FONTBOUNDINGBOX 11 22 0 -5
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 22
+        ///POINT_SIZE 220
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 110
+        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_10x22 {
+        internal static string ter_u22n {
             get {
-                object obj = ResourceManager.GetObject("Raster_10x22", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u22n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u24b
+        ///FONT -xos4-Terminus-Bold-R-Normal--24-240-72-72-C-120-ISO10646-1
+        ///SIZE 24 72 72
+        ///FONTBOUNDINGBOX 12 24 0 -5
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 24
+        ///POINT_SIZE 240
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 120
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_12x16 {
+        internal static string ter_u24b {
             get {
-                object obj = ResourceManager.GetObject("Raster_12x16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u24b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u24n
+        ///FONT -xos4-Terminus-Medium-R-Normal--24-240-72-72-C-120-ISO10646-1
+        ///SIZE 24 72 72
+        ///FONTBOUNDINGBOX 12 24 0 -5
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 24
+        ///POINT_SIZE 240
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 120
+        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_12x27 {
+        internal static string ter_u24n {
             get {
-                object obj = ResourceManager.GetObject("Raster_12x27", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u24n", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u28b
+        ///FONT -xos4-Terminus-Bold-R-Normal--28-280-72-72-C-140-ISO10646-1
+        ///SIZE 28 72 72
+        ///FONTBOUNDINGBOX 14 28 0 -6
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 28
+        ///POINT_SIZE 280
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 140
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_16x08 {
+        internal static string ter_u28b {
             get {
-                object obj = ResourceManager.GetObject("Raster_16x08", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u28b", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u28n
+        ///FONT -xos4-Terminus-Medium-R-Normal--28-280-72-72-C-140-ISO10646-1
+        ///SIZE 28 72 72
+        ///FONTBOUNDINGBOX 14 28 0 -6
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 28
+        ///POINT_SIZE 280
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 140
+        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Raster_16x12 {
+        internal static string ter_u28n {
             get {
-                object obj = ResourceManager.GetObject("Raster_16x12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ter_u28n", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u32b
+        ///FONT -xos4-Terminus-Bold-R-Normal--32-320-72-72-C-160-ISO10646-1
+        ///SIZE 32 72 72
+        ///FONTBOUNDINGBOX 16 32 0 -6
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Bold&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 32
+        ///POINT_SIZE 320
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 160
+        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string ter_u32b {
+            get {
+                return ResourceManager.GetString("ter_u32b", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   STARTFONT 2.1
+        ///COMMENT ter-u32n
+        ///FONT -xos4-Terminus-Medium-R-Normal--32-320-72-72-C-160-ISO10646-1
+        ///SIZE 32 72 72
+        ///FONTBOUNDINGBOX 16 32 0 -6
+        ///STARTPROPERTIES 20
+        ///FAMILY_NAME &quot;Terminus&quot;
+        ///FOUNDRY &quot;xos4&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
+        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SLANT &quot;R&quot;
+        ///PIXEL_SIZE 32
+        ///POINT_SIZE 320
+        ///RESOLUTION_X 72
+        ///RESOLUTION_Y 72
+        ///SPACING &quot;C&quot;
+        ///AVERAGE_WIDTH 160
+        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string ter_u32n {
+            get {
+                return ResourceManager.GetString("ter_u32n", resourceCulture);
             }
         }
         
@@ -271,6 +679,16 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] unifont_13_0_06 {
+            get {
+                object obj = ResourceManager.GetObject("unifont_13_0_06", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   STARTFONT 2.1
         ///FONT -gnu-Unifont-Medium-R-Normal-Sans-16-160-75-75-c-80-iso10646-1
         ///SIZE 16 75 75
@@ -283,40 +701,6 @@ namespace ShimLib.Properties {
         internal static string unifont_13_0_06_bdf {
             get {
                 return ResourceManager.GetString("unifont_13_0_06_bdf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] unifont_13_0_06_pcf {
-            get {
-                object obj = ResourceManager.GetObject("unifont_13_0_06_pcf", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   ## Version Info
-        ///### V1.0.0.2 - 2021.06.12
-        ///1. BufferedGraphics 사용 안하고 DibSection 직접 생성하여 사용하여 속도 개선
-        ///
-        ///### V1.0.0.1 - 2021.06.8
-        ///1. mame uismall.bdf 가변폭 폰트 추가
-        ///2. infoFont 속성 추가
-        ///3. Ascii_04x06_2 폰트 추가
-        ///4. void Redraw() -&gt; new void Invalidate() 함수명 변경
-        ///5. ImageDrawing, ImageGraphics 클래스에 대해 ImageBox 의존성 제거
-        ///6. LineDrawAction Custom assign 기능 추가
-        ///7. 속도 개선 위해 HLine, VLIne 클리핑 처리
-        ///
-        ///### V1.0.0.0 - 2021.05.28
-        ///1. todo.txt Solution Item폴더로 이동
-        ///2. VersionInfo.md 리소스 추가 및 설정창에 표시과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string VersionInfo {
-            get {
-                return ResourceManager.GetString("VersionInfo", resourceCulture);
             }
         }
     }

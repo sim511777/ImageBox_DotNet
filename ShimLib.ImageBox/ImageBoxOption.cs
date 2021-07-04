@@ -23,7 +23,7 @@ namespace ShimLib {
         public Color RoiRectangleColor { get; set; } = Color.Blue;
         public double FloatValueMax { get; set; } = 1.0;
         public int FloatValueDigit { get; set; } = 3;
-        public EFont InfoFont { get; set; } = EFont.Unifont_13_0_06_bdf;
+        public EFont InfoFont { get; set; } = EFont.unifont_13_0_06_bdf;
         public int TimeCheckCount {
             get { return _timeCheckCount; }
             set {

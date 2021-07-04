@@ -291,7 +291,7 @@
             imageBoxOption1.CenterLineColor = System.Drawing.Color.Yellow;
             imageBoxOption1.FloatValueDigit = 3;
             imageBoxOption1.FloatValueMax = 1D;
-            imageBoxOption1.InfoFont = ShimLib.EFont.Unifont_13_0_06_bdf;
+            imageBoxOption1.InfoFont = ShimLib.EFont.unifont_13_0_06_bdf;
             imageBoxOption1.RoiRectangleColor = System.Drawing.Color.Blue;
             imageBoxOption1.TimeCheckCount = 100;
             imageBoxOption1.UseDrawCenterLine = true;
