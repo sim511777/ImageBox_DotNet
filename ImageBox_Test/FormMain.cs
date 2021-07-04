@@ -17,7 +17,6 @@ namespace ImageBox_Test {
     public partial class FormMain : Form {
         public FormMain(string[] args) {
             InitializeComponent();
-            dlgFolder.SelectedPath = Application.StartupPath;
             LoadBitmapFonts(string.Empty);
             if (args.Length > 0) {
                 LoadImageFile(args[0]);
