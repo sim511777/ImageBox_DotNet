@@ -80,13 +80,10 @@ namespace ImageBox_Test {
                 var font = (IFont)cbxFont.SelectedValue;
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine(font.GetType().Name);
-                if (font is BdfFont bdf)
-                    sb.AppendLine(bdf.description);
-                else 
-                    sb.AppendLine(cbxFont.Text);
+                sb.AppendLine(cbxFont.Text);
                 sb.Append(tbxExample.Text);
                 var text = sb.ToString();
-                id.DrawString(text, font, Color.Blue, 200, 200, Color.Yellow);
+                id.DrawString(text, font, Color.Blue, 127.5f, 127.5f, Color.Yellow);
             } else if (testIdx == 3) {  // Drawing Repeat
                 Action<int> iAction = (i) => {
                     for (int j = 0; j < 100; j++) {
@@ -102,13 +99,17 @@ namespace ImageBox_Test {
                     for (int i = 0; i < 100; i++) iAction(i);
             } else if (testIdx == 4) {  // Drawing All Charactors
                 var font = (IFont)cbxFont.SelectedValue;
-                for (int y = 0; y < 256; y++) {
+                Action<int> yAction = (y) => {
                     for (int x = 0; x < 256; x++) {
                         char ch = (char)(y * 256 + x);
                         string str = new string(ch, 1);
                         id.DrawString(str, font, Color.Black, x - 0.5f, y - 0.5f);
                     }
-                }
+                };
+                if (chkDrawingRepeatParallel.Checked)
+                    Parallel.For(0, 256, yAction);
+                else
+                    for (int y = 0; y < 256; y++) yAction(y);
             }
         }
 
@@ -123,7 +124,7 @@ namespace ImageBox_Test {
                 var font = dlgFont.Font;
                 var fontName = font.Name;
                 var text = fontName + Environment.NewLine + tbxExample.Text;
-                ig.DrawString(text, font, Brushes.Blue, 200, 200, Brushes.Yellow);
+                ig.DrawString(text, font, Brushes.Blue, 127.5f, 127.5f, Brushes.Yellow);
             } else if (testIdx == 7) {  // Graphics Repeat
                 for (int i = 0; i < 100; i++) {
                     for (int j = 0; j < 100; j++) {
@@ -232,8 +233,8 @@ namespace ImageBox_Test {
 
         private void btnWhiteBig_Click(object sender, EventArgs e) {
             Util.FreeBuffer(ref imgBuf);
-            bw = 256 * 16;
-            bh = 256 * 16;
+            bw = 256;
+            bh = 256;
             bytepp = 1;
             imgBuf = Util.AllocBuffer(bw * bh, 255);
             imgBox.SetImageBuffer(imgBuf, bw, bh, bytepp, false);
