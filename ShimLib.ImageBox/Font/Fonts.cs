@@ -29,6 +29,7 @@ namespace ShimLib {
         public static IFont Ascii_16x08 = new BmpFont(Resources.Raster_16x08, 16, 08, 0, 0, 32);
         public static IFont Ascii_16x12 = new BmpFont(Resources.Raster_16x12, 16, 12, 0, 0, 32);
         public static IFont Unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
+        public static IFont Unifont_13_0_06_pcf = new PcfFont(Resources.unifont_13_0_06_pcf);
 
         public readonly static Dictionary<EFont, IFont> dic;
         static Fonts() {
@@ -63,5 +64,6 @@ namespace ShimLib {
         Ascii_16x08,
         Ascii_16x12,
         Unifont_13_0_06_bdf,
+        Unifont_13_0_06_pcf,
     }
 }

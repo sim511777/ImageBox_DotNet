@@ -60,6 +60,7 @@
     <Compile Include="Font\BdfFont.cs" />
     <Compile Include="Font\Fonts.cs" />
     <Compile Include="Font\BmpFont.cs" />
+    <Compile Include="Font\PcfFont.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +159,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\unifont-13.0.06.pcf" />
     <None Include="Resources\VersionInfo.md" />
   </ItemGroup>
   <ItemGroup>

@@ -278,8 +278,7 @@ namespace ShimLib.Properties {
         ///STARTPROPERTIES 24
         ///COPYRIGHT &quot;Copyright (C) 1998-2021 Roman Czyborra, Paul Hardy, Qianqian Fang, Andrew Miller, Johnnie Weaver, David Corbett, Nils Moskopp, Rebecca Bettencourt, et al. License: SIL Open Font License version 1.1 and GPLv2+: GNU GPL version 2 or later &lt;http://gnu.org/licenses/gpl.html&gt; with the GNU Font Embedding Exception.&quot;
         ///FONT_VERSION &quot;13.0.06&quot;
-        ///FONT_TYPE &quot;Bitmap&quot;
-        ///FOUND[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FONT_TYPE &quot;Bitmap[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string unifont_13_0_06_bdf {
             get {
@@ -288,7 +287,20 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] unifont_13_0_06_pcf {
+            get {
+                object obj = ResourceManager.GetObject("unifont_13_0_06_pcf", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   ## Version Info
+        ///### V1.0.0.2 - 2021.06.12
+        ///1. BufferedGraphics 사용 안하고 DibSection 직접 생성하여 사용하여 속도 개선
+        ///
         ///### V1.0.0.1 - 2021.06.8
         ///1. mame uismall.bdf 가변폭 폰트 추가
         ///2. infoFont 속성 추가
