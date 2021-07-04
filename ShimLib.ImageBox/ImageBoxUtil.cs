@@ -145,7 +145,7 @@ namespace ShimLib {
                 int six = sixs[x];
                 byte* sp = &sptr[six * bytepp];
 
-                *dp = sp[0] | sp[1] << 8 | sp[2] << 16 | 0xff << 24;
+                *dp = *(int*)sp;
             }
         }
 
