@@ -104,7 +104,6 @@
   <ItemGroup>
     <None Include="Resources\bitocra7.bdf" />
     <None Include="Resources\lemon.bdf" />
-    <None Include="Resources\Raster_04x06.bmp" />
     <None Include="Resources\ter-u12b.bdf" />
     <None Include="Resources\ter-u12n.bdf" />
     <None Include="Resources\ter-u14b.bdf" />
@@ -127,54 +126,6 @@
     <None Include="Resources\unifont-13.0.06.bdf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Raster_05x08.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_05x12.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_06x08.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_06x13.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_07x12.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_08x08.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_08x12.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_08x16.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_08x18.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_10x18.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_10x20.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_10x22.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_12x16.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_12x27.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_16x08.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_16x12.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ShimLib.Util\ShimLib.Util.csproj">
       <Project>{754433cb-9efe-48f1-8769-74973ccbb6a3}</Project>
       <Name>ShimLib.Util</Name>
@@ -182,10 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\unifont-13.0.06.pcf" />
-    <None Include="Resources\VersionInfo.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Raster_04x06_2.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
