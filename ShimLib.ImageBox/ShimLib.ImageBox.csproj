@@ -102,13 +102,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bitocra7.bdf" />
     <None Include="Resources\spleen-05x08.bdf" />
     <None Include="Resources\spleen-06x12.bdf" />
     <None Include="Resources\spleen-08x16.bdf" />
     <None Include="Resources\spleen-12x24.bdf" />
     <None Include="Resources\spleen-16x32.bdf" />
     <None Include="Resources\spleen-32x64.bdf" />
+    <None Include="Resources\tom-thumb.bdf" />
     <None Include="Resources\uismall.bdf" />
     <None Include="Resources\unifont-13.0.06.bdf" />
   </ItemGroup>

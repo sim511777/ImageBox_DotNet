@@ -9,7 +9,7 @@ using ShimLib.Properties;
 
 namespace ShimLib {
     public class Fonts {
-        public static IFont bitocra7 = new BdfFont(Resources.bitocra7);
+        public static IFont tom_thumb = new BdfFont(Resources.tom_thumb);
         public static IFont spleen_05x08 = new BdfFont(Resources.spleen_05x08);
         public static IFont spleen_06x12 = new BdfFont(Resources.spleen_06x12);
         public static IFont spleen_08x16 = new BdfFont(Resources.spleen_08x16);
@@ -33,7 +33,7 @@ namespace ShimLib {
     }
 
     public enum EFont {
-        bitocra7,
+        tom_thumb,
         spleen_05x08,
         spleen_06x12,
         spleen_08x16,

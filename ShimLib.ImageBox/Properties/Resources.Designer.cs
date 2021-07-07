@@ -62,39 +62,6 @@ namespace ShimLib.Properties {
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///FONT -aaron-bitocra7-Medium-R-Normal--7-60-75-75-C-40-ISO8859-1
-        ///SIZE 7 75 75
-        ///FONTBOUNDINGBOX 4 7 0 -1
-        ///STARTPROPERTIES 24
-        ///FONTNAME_REGISTRY &quot;&quot;
-        ///FOUNDRY &quot;aaron&quot;
-        ///FAMILY_NAME &quot;bitocra7&quot;
-        ///FACE_NAME &quot;bitocra7&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///PIXEL_SIZE 7
-        ///POINT_SIZE 60
-        ///RESOLUTION_X 75
-        ///RESOLUTION_Y 75
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 40
-        ///CHARSET_REGISTRY &quot;ISO8859&quot;
-        ///CHARSET_ENCODING &quot;1&quot;
-        ///COPYRIGHT &quot;Aaron Christianson 2011&quot;
-        ///WEIGHT 10
-        ///X_HEIGHT 5
-        ///QUAD_WI[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string bitocra7 {
-            get {
-                return ResourceManager.GetString("bitocra7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
         ///COMMENT /*
         ///COMMENT  * Spleen 5x8 1.9.1
         ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
@@ -247,6 +214,42 @@ namespace ShimLib.Properties {
         internal static string spleen_32x64 {
             get {
                 return ResourceManager.GetString("spleen_32x64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   STARTFONT 2.1
+        ///FONT -Raccoon-Fixed4x6-Medium-R-Normal--6-60-75-75-P-40-ISO10646-1
+        ///SIZE 6 75 75
+        ///FONTBOUNDINGBOX 3 6 0 -1
+        ///STARTPROPERTIES 25
+        ///FONT_NAME &quot;Fixed4x6&quot;
+        ///FONT_ASCENT 5
+        ///FONT_DESCENT 1
+        ///QUAD_WIDTH 6
+        ///X_HEIGHT 3
+        ///CAP_HEIGHT 4
+        ///FONTNAME_REGISTRY &quot;&quot;
+        ///FAMILY_NAME &quot;Fixed4x6&quot;
+        ///FOUNDRY &quot;Raccoon&quot;
+        ///WEIGHT_NAME &quot;Medium&quot;
+        ///SETWIDTH_NAME &quot;Normal&quot;
+        ///SLANT &quot;R&quot;
+        ///ADD_STYLE_NAME &quot;&quot;
+        ///PIXEL_SIZE 6
+        ///POINT_SIZE 60
+        ///RESOLUTION_X 75
+        ///RESOLUTION_Y 75
+        ///RESOLUTION 75
+        ///SPACING &quot;P&quot;
+        ///AVERAGE_WIDTH 40
+        ///CHARSET_REGISTRY &quot;ISO10646&quot;
+        ///CHARSET_ENCODING &quot;1&quot;
+        ///CH[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string tom_thumb {
+            get {
+                return ResourceManager.GetString("tom_thumb", resourceCulture);
             }
         }
         
