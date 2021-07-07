@@ -10,25 +10,12 @@ using ShimLib.Properties;
 namespace ShimLib {
     public class Fonts {
         public static IFont bitocra7 = new BdfFont(Resources.bitocra7);
-        public static IFont lemon = new BdfFont(Resources.lemon);
-        public static IFont ter_u12n = new BdfFont(Resources.ter_u12n);
-        public static IFont ter_u12b = new BdfFont(Resources.ter_u12b);
-        public static IFont ter_u14n = new BdfFont(Resources.ter_u14n);
-        public static IFont ter_u14b = new BdfFont(Resources.ter_u14b);
-        public static IFont ter_u16n = new BdfFont(Resources.ter_u16n);
-        public static IFont ter_u16b = new BdfFont(Resources.ter_u16b);
-        public static IFont ter_u18n = new BdfFont(Resources.ter_u18n);
-        public static IFont ter_u18b = new BdfFont(Resources.ter_u18b);
-        public static IFont ter_u20n = new BdfFont(Resources.ter_u20n);
-        public static IFont ter_u20b = new BdfFont(Resources.ter_u20b);
-        public static IFont ter_u22n = new BdfFont(Resources.ter_u22n);
-        public static IFont ter_u22b = new BdfFont(Resources.ter_u22b);
-        public static IFont ter_u24n = new BdfFont(Resources.ter_u24n);
-        public static IFont ter_u24b = new BdfFont(Resources.ter_u24b);
-        public static IFont ter_u28n = new BdfFont(Resources.ter_u28n);
-        public static IFont ter_u28b = new BdfFont(Resources.ter_u28b);
-        public static IFont ter_u32n = new BdfFont(Resources.ter_u32n);
-        public static IFont ter_u32b = new BdfFont(Resources.ter_u32b);
+        public static IFont spleen_05x08 = new BdfFont(Resources.spleen_05x08);
+        public static IFont spleen_06x12 = new BdfFont(Resources.spleen_06x12);
+        public static IFont spleen_08x16 = new BdfFont(Resources.spleen_08x16);
+        public static IFont spleen_12x24 = new BdfFont(Resources.spleen_12x24);
+        public static IFont spleen_16x32 = new BdfFont(Resources.spleen_16x32);
+        public static IFont spleen_32x64 = new BdfFont(Resources.spleen_32x64);
         public static IFont uismall = new BdfFont(Resources.uismall);
         public static IFont unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
         public static IFont unifont_13_0_06 = new PcfFont(Resources.unifont_13_0_06);
@@ -47,25 +34,12 @@ namespace ShimLib {
 
     public enum EFont {
         bitocra7,
-        lemon,
-        ter_u12n,
-        ter_u12b,
-        ter_u14n,
-        ter_u14b,
-        ter_u16n,
-        ter_u16b,
-        ter_u18n,
-        ter_u18b,
-        ter_u20n,
-        ter_u20b,
-        ter_u22n,
-        ter_u22b,
-        ter_u24n,
-        ter_u24b,
-        ter_u28n,
-        ter_u28b,
-        ter_u32n,
-        ter_u32b,
+        spleen_05x08,
+        spleen_06x12,
+        spleen_08x16,
+        spleen_12x24,
+        spleen_16x32,
+        spleen_32x64,
         uismall,
         unifont_13_0_06_bdf,
         unifont_13_0_06,

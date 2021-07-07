@@ -202,7 +202,7 @@ namespace ShimLib {
                 if (fontChars.ContainsKey(ch)) {
                     var fontChar = fontChars[ch];
                     fbw = fontChar.width;
-                    fbh = this.FontHeight - fontChar.bbBottom;
+                    fbh = this.FontHeight - fontChar.bbBottom + fbBottom;
                 } else {
                     fbw = fontDesc.AverageWidth / 10;
                     fbh = FontHeight;
@@ -217,7 +217,7 @@ namespace ShimLib {
 
         private unsafe void DrawChar(BdfChar fontChar, IntPtr dispBuf, int dispBW, int dispBH, int dx, int dy, int icolor) {
             dx = dx + fontChar.bbLeft;
-            dy = dy + this.FontHeight - fontChar.bbH - fontChar.bbBottom;
+            dy = dy + this.FontHeight - fontChar.bbH - fontChar.bbBottom + fbBottom;
             int x1 = dx;
             int y1 = dy;
             int x2 = x1 + fontChar.bbW - 1;

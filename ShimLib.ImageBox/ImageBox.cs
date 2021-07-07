@@ -362,7 +362,7 @@ namespace ShimLib {
             var roiF = new RectangleF(roi.X - 0.5f, roi.Y - 0.5f, roi.Width, roi.Height);
             string roiStart = $"({roi.Left},{roi.Top})";
             string roiEnd = $"({roi.Width},{roi.Height})";
-            var roiFont = Fonts.ter_u22b;
+            var roiFont = Fonts.spleen_12x24;
             var sizeStart = id.MeasureString(roiStart, roiFont);
             var zoom = GetZoomFactor();
             id.DrawString(roiStart, roiFont, Option.RoiRectangleColor, roiF.X - sizeStart.Width / (float)zoom, roiF.Y - sizeStart.Height / (float)zoom, Color.Yellow);
@@ -417,17 +417,21 @@ namespace ShimLib {
             IFont font;
             bool multiLine = false;
             if (imgBytepp == 1) {
-                if (zoom <= 17) font = Fonts.lemon;
-                else if (zoom <= 25) font = Fonts.ter_u12n;
-                else if (zoom <= 33) font = Fonts.ter_u16b;
-                else font = Fonts.ter_u18b;
+                if (ZoomLevel <= 8) font = Fonts.spleen_05x08;
+                else if (ZoomLevel <= 9) font = Fonts.spleen_06x12;
+                else if (ZoomLevel <= 10) font = Fonts.spleen_08x16;
+                else if (ZoomLevel <= 11) font = Fonts.spleen_12x24;
+                else if (ZoomLevel <= 13) font = Fonts.spleen_16x32;
+                else font = Fonts.spleen_32x64;
             } else {
                 if (imgBytepp != 2)
                     multiLine = true;
-                if (zoom <= 33) font = Fonts.lemon;
-                else if (zoom <= 49) font = Fonts.ter_u12n;
-                else if (zoom <= 65) font = Fonts.ter_u16b;
-                else font = Fonts.ter_u18b;
+                if (ZoomLevel <= 10) font = Fonts.spleen_05x08;
+                else if (ZoomLevel <= 11) font = Fonts.spleen_06x12;
+                else if (ZoomLevel <= 12) font = Fonts.spleen_08x16;
+                else if (ZoomLevel <= 13) font = Fonts.spleen_12x24;
+                else if (ZoomLevel <= 15) font = Fonts.spleen_16x32;
+                else font = Fonts.spleen_32x64;
             }
 
             var ptImgLT = DispToImg(Point.Empty);

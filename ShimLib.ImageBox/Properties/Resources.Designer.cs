@@ -19,7 +19,7 @@ namespace ShimLib.Properties {
     // 클래스에서 자동으로 생성되었습니다.
     // 멤버를 추가하거나 제거하려면 .ResX 파일을 편집한 다음 /str 옵션을 사용하여 ResGen을
     // 다시 실행하거나 VS 프로젝트를 다시 빌드하십시오.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,8 +47,8 @@ namespace ShimLib.Properties {
         }
         
         /// <summary>
-        ///   이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
-        ///   속성을 재정의합니다.
+        ///   이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대해 현재 스레드의 CurrentUICulture 속성을
+        ///   재정의합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -95,556 +95,158 @@ namespace ShimLib.Properties {
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///FONT -benis-lemon-medium-r-normal--10-110-75-75-m-50-ISO8859-1
-        ///SIZE 10 75 75
-        ///FONTBOUNDINGBOX 10 12 -2 -3
-        ///STARTPROPERTIES 26
-        ///FONTNAME_REGISTRY &quot;&quot;
-        ///FOUNDRY &quot;artwiz&quot;
-        ///FAMILY_NAME &quot;lemon&quot;
-        ///WEIGHT_NAME &quot;medium&quot;
-        ///SLANT &quot;r&quot;
-        ///SETWIDTH_NAME &quot;normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///PIXEL_SIZE 10
-        ///POINT_SIZE 110
-        ///RESOLUTION_X 75
-        ///RESOLUTION_Y 75
-        ///SPACING &quot;m&quot;
-        ///AVERAGE_WIDTH 50
-        ///CHARSET_REGISTRY &quot;ISO8859&quot;
-        ///CHARSET_ENCODING &quot;1&quot;
-        ///OPYRIGHT &quot;artwiz, fixed by aleczapka&quot;
-        ///FACE_NAME &quot;lemon&quot;
-        ///WEIGHT 10
-        ///X_HEIGHT 6
-        ///QUAD_[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string lemon {
-            get {
-                return ResourceManager.GetString("lemon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u12b
-        ///FONT -xos4-Terminus-Bold-R-Normal--12-120-72-72-C-60-ISO10646-1
-        ///SIZE 12 72 72
-        ///FONTBOUNDINGBOX 6 12 0 -2
+        ///COMMENT /*
+        ///COMMENT  * Spleen 5x8 1.9.1
+        ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
+        ///COMMENT  * https://www.cambus.net/
+        ///COMMENT  *
+        ///COMMENT  * Created:      2018-08-08
+        ///COMMENT  * Last Updated: 2021-03-10
+        ///COMMENT  *
+        ///COMMENT  * Spleen is released under the BSD 2-Clause license.
+        ///COMMENT  * See LICENSE file for details.
+        ///COMMENT  */
+        ///FONT -misc-spleen-medium-r-normal--8-80-72-72-C-50-ISO10646-1
+        ///SIZE 8 72 72
+        ///FONTBOUNDINGBOX 5 8 0 -1
         ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 12
-        ///POINT_SIZE 120
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 60
-        ///CHARSET_REGISTRY &quot;ISO10[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u12b {
-            get {
-                return ResourceManager.GetString("ter_u12b", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u12n
-        ///FONT -xos4-Terminus-Medium-R-Normal--12-120-72-72-C-60-ISO10646-1
-        ///SIZE 12 72 72
-        ///FONTBOUNDINGBOX 6 12 0 -2
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
+        ///FAMILY_NAME &quot;Spleen&quot;
         ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 12
-        ///POINT_SIZE 120
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 60
-        ///CHARSET_REGISTRY &quot;I[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FO[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string ter_u12n {
+        internal static string spleen_05x08 {
             get {
-                return ResourceManager.GetString("ter_u12n", resourceCulture);
+                return ResourceManager.GetString("spleen_05x08", resourceCulture);
             }
         }
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///COMMENT ter-u14b
-        ///FONT -xos4-Terminus-Bold-R-Normal--14-140-72-72-C-80-ISO10646-1
-        ///SIZE 14 72 72
-        ///FONTBOUNDINGBOX 8 14 0 -2
+        ///COMMENT /*
+        ///COMMENT  * Spleen 6x12 1.9.1
+        ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
+        ///COMMENT  * https://www.cambus.net/
+        ///COMMENT  *
+        ///COMMENT  * Created:      2020-04-08
+        ///COMMENT  * Last Updated: 2021-03-12
+        ///COMMENT  *
+        ///COMMENT  * Spleen is released under the BSD 2-Clause license.
+        ///COMMENT  * See LICENSE file for details.
+        ///COMMENT  */
+        ///FONT -misc-spleen-medium-r-normal--12-120-72-72-C-60-ISO10646-1
+        ///SIZE 12 72 72
+        ///FONTBOUNDINGBOX 6 12 0 -3
         ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 14
-        ///POINT_SIZE 140
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 80
-        ///CHARSET_REGISTRY &quot;ISO10[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FAMILY_NAME &quot;Spleen&quot;
+        ///WEIGHT_NAME &quot;Mediu[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string ter_u14b {
+        internal static string spleen_06x12 {
             get {
-                return ResourceManager.GetString("ter_u14b", resourceCulture);
+                return ResourceManager.GetString("spleen_06x12", resourceCulture);
             }
         }
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///COMMENT ter-u14n
-        ///FONT -xos4-Terminus-Medium-R-Normal--14-140-72-72-C-80-ISO10646-1
-        ///SIZE 14 72 72
-        ///FONTBOUNDINGBOX 8 14 0 -2
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 14
-        ///POINT_SIZE 140
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 80
-        ///CHARSET_REGISTRY &quot;I[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u14n {
-            get {
-                return ResourceManager.GetString("ter_u14n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u16b
-        ///FONT -xos4-Terminus-Bold-R-Normal--16-160-72-72-C-80-ISO10646-1
+        ///COMMENT /*
+        ///COMMENT  * Spleen 8x16 1.9.1
+        ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
+        ///COMMENT  * https://www.cambus.net/
+        ///COMMENT  *
+        ///COMMENT  * Created:      2018-08-11
+        ///COMMENT  * Last Updated: 2020-10-10
+        ///COMMENT  *
+        ///COMMENT  * Spleen is released under the BSD 2-Clause license.
+        ///COMMENT  * See LICENSE file for details.
+        ///COMMENT  */
+        ///FONT -misc-spleen-medium-r-normal--16-160-72-72-C-80-ISO10646-1
         ///SIZE 16 72 72
         ///FONTBOUNDINGBOX 8 16 0 -4
         ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 16
-        ///POINT_SIZE 160
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 80
-        ///CHARSET_REGISTRY &quot;ISO10[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FAMILY_NAME &quot;Spleen&quot;
+        ///WEIGHT_NAME &quot;Mediu[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string ter_u16b {
+        internal static string spleen_08x16 {
             get {
-                return ResourceManager.GetString("ter_u16b", resourceCulture);
+                return ResourceManager.GetString("spleen_08x16", resourceCulture);
             }
         }
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///COMMENT ter-u16n
-        ///FONT -xos4-Terminus-Medium-R-Normal--16-160-72-72-C-80-ISO10646-1
-        ///SIZE 16 72 72
-        ///FONTBOUNDINGBOX 8 16 0 -4
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 16
-        ///POINT_SIZE 160
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 80
-        ///CHARSET_REGISTRY &quot;I[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u16n {
-            get {
-                return ResourceManager.GetString("ter_u16n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u18b
-        ///FONT -xos4-Terminus-Bold-R-Normal--18-180-72-72-C-100-ISO10646-1
-        ///SIZE 18 72 72
-        ///FONTBOUNDINGBOX 10 18 0 -3
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 18
-        ///POINT_SIZE 180
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 100
-        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u18b {
-            get {
-                return ResourceManager.GetString("ter_u18b", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u18n
-        ///FONT -xos4-Terminus-Medium-R-Normal--18-180-72-72-C-100-ISO10646-1
-        ///SIZE 18 72 72
-        ///FONTBOUNDINGBOX 10 18 0 -3
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 18
-        ///POINT_SIZE 180
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 100
-        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u18n {
-            get {
-                return ResourceManager.GetString("ter_u18n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u20b
-        ///FONT -xos4-Terminus-Bold-R-Normal--20-200-72-72-C-100-ISO10646-1
-        ///SIZE 20 72 72
-        ///FONTBOUNDINGBOX 10 20 0 -4
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 20
-        ///POINT_SIZE 200
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 100
-        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u20b {
-            get {
-                return ResourceManager.GetString("ter_u20b", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u20n
-        ///FONT -xos4-Terminus-Medium-R-Normal--20-200-72-72-C-100-ISO10646-1
-        ///SIZE 20 72 72
-        ///FONTBOUNDINGBOX 10 20 0 -4
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 20
-        ///POINT_SIZE 200
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 100
-        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u20n {
-            get {
-                return ResourceManager.GetString("ter_u20n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u22b
-        ///FONT -xos4-Terminus-Bold-R-Normal--22-220-72-72-C-110-ISO10646-1
-        ///SIZE 22 72 72
-        ///FONTBOUNDINGBOX 11 22 0 -5
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 22
-        ///POINT_SIZE 220
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 110
-        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u22b {
-            get {
-                return ResourceManager.GetString("ter_u22b", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u22n
-        ///FONT -xos4-Terminus-Medium-R-Normal--22-220-72-72-C-110-ISO10646-1
-        ///SIZE 22 72 72
-        ///FONTBOUNDINGBOX 11 22 0 -5
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 22
-        ///POINT_SIZE 220
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 110
-        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u22n {
-            get {
-                return ResourceManager.GetString("ter_u22n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u24b
-        ///FONT -xos4-Terminus-Bold-R-Normal--24-240-72-72-C-120-ISO10646-1
+        ///COMMENT /*
+        ///COMMENT  * Spleen 12x24 1.9.1
+        ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
+        ///COMMENT  * https://www.cambus.net/
+        ///COMMENT  *
+        ///COMMENT  * Created:      2018-08-15
+        ///COMMENT  * Last Updated: 2020-10-10
+        ///COMMENT  *
+        ///COMMENT  * Spleen is released under the BSD 2-Clause license.
+        ///COMMENT  * See LICENSE file for details.
+        ///COMMENT  */
+        ///FONT -misc-spleen-medium-r-normal--24-240-72-72-C-120-ISO10646-1
         ///SIZE 24 72 72
         ///FONTBOUNDINGBOX 12 24 0 -5
         ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 24
-        ///POINT_SIZE 240
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 120
-        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FAMILY_NAME &quot;Spleen&quot;
+        ///WEIGHT_NAME &quot;Me[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string ter_u24b {
+        internal static string spleen_12x24 {
             get {
-                return ResourceManager.GetString("ter_u24b", resourceCulture);
+                return ResourceManager.GetString("spleen_12x24", resourceCulture);
             }
         }
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///COMMENT ter-u24n
-        ///FONT -xos4-Terminus-Medium-R-Normal--24-240-72-72-C-120-ISO10646-1
-        ///SIZE 24 72 72
-        ///FONTBOUNDINGBOX 12 24 0 -5
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 24
-        ///POINT_SIZE 240
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 120
-        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u24n {
-            get {
-                return ResourceManager.GetString("ter_u24n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u28b
-        ///FONT -xos4-Terminus-Bold-R-Normal--28-280-72-72-C-140-ISO10646-1
-        ///SIZE 28 72 72
-        ///FONTBOUNDINGBOX 14 28 0 -6
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 28
-        ///POINT_SIZE 280
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 140
-        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u28b {
-            get {
-                return ResourceManager.GetString("ter_u28b", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u28n
-        ///FONT -xos4-Terminus-Medium-R-Normal--28-280-72-72-C-140-ISO10646-1
-        ///SIZE 28 72 72
-        ///FONTBOUNDINGBOX 14 28 0 -6
-        ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 28
-        ///POINT_SIZE 280
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 140
-        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        internal static string ter_u28n {
-            get {
-                return ResourceManager.GetString("ter_u28n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   STARTFONT 2.1
-        ///COMMENT ter-u32b
-        ///FONT -xos4-Terminus-Bold-R-Normal--32-320-72-72-C-160-ISO10646-1
+        ///COMMENT /*
+        ///COMMENT  * Spleen 16x32 1.9.1
+        ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
+        ///COMMENT  * https://www.cambus.net/
+        ///COMMENT  *
+        ///COMMENT  * Created:      2018-08-12
+        ///COMMENT  * Last Updated: 2020-10-10
+        ///COMMENT  *
+        ///COMMENT  * Spleen is released under the BSD 2-Clause license.
+        ///COMMENT  * See LICENSE file for details.
+        ///COMMENT  */
+        ///FONT -misc-spleen-medium-r-normal--32-320-72-72-C-160-ISO10646-1
         ///SIZE 32 72 72
         ///FONTBOUNDINGBOX 16 32 0 -6
         ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Bold&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 32
-        ///POINT_SIZE 320
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 160
-        ///CHARSET_REGISTRY &quot;IS[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FAMILY_NAME &quot;Spleen&quot;
+        ///WEIGHT_NAME &quot;Me[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string ter_u32b {
+        internal static string spleen_16x32 {
             get {
-                return ResourceManager.GetString("ter_u32b", resourceCulture);
+                return ResourceManager.GetString("spleen_16x32", resourceCulture);
             }
         }
         
         /// <summary>
         ///   STARTFONT 2.1
-        ///COMMENT ter-u32n
-        ///FONT -xos4-Terminus-Medium-R-Normal--32-320-72-72-C-160-ISO10646-1
-        ///SIZE 32 72 72
-        ///FONTBOUNDINGBOX 16 32 0 -6
+        ///COMMENT /*
+        ///COMMENT  * Spleen 32x64 1.9.1
+        ///COMMENT  * Copyright (c) 2018-2021, Frederic Cambus
+        ///COMMENT  * https://www.cambus.net/
+        ///COMMENT  *
+        ///COMMENT  * Created:      2018-09-11
+        ///COMMENT  * Last Updated: 2020-10-10
+        ///COMMENT  *
+        ///COMMENT  * Spleen is released under the BSD 2-Clause license.
+        ///COMMENT  * See LICENSE file for details.
+        ///COMMENT  */
+        ///FONT -misc-spleen-medium-r-normal--64-640-72-72-C-320-ISO10646-1
+        ///SIZE 64 72 72
+        ///FONTBOUNDINGBOX 32 64 0 -12
         ///STARTPROPERTIES 20
-        ///FAMILY_NAME &quot;Terminus&quot;
-        ///FOUNDRY &quot;xos4&quot;
-        ///SETWIDTH_NAME &quot;Normal&quot;
-        ///ADD_STYLE_NAME &quot;&quot;
-        ///COPYRIGHT &quot;Copyright (C) 2014 Dimitar Toshkov Zhekov&quot;
-        ///NOTICE &quot;Licensed under the SIL Open Font License, Version 1.1&quot;
-        ///WEIGHT_NAME &quot;Medium&quot;
-        ///SLANT &quot;R&quot;
-        ///PIXEL_SIZE 32
-        ///POINT_SIZE 320
-        ///RESOLUTION_X 72
-        ///RESOLUTION_Y 72
-        ///SPACING &quot;C&quot;
-        ///AVERAGE_WIDTH 160
-        ///CHARSET_REGISTRY[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///FAMILY_NAME &quot;Spleen&quot;
+        ///WEIGHT_NAME &quot;M[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string ter_u32n {
+        internal static string spleen_32x64 {
             get {
-                return ResourceManager.GetString("ter_u32n", resourceCulture);
+                return ResourceManager.GetString("spleen_32x64", resourceCulture);
             }
         }
         

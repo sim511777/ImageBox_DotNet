@@ -121,62 +121,23 @@
   <data name="bitocra7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bitocra7.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
-  <data name="lemon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lemon.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  <data name="spleen_05x08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spleen-05x08.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
-  <data name="ter_u12b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u12b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  <data name="spleen_06x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spleen-06x12.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
-  <data name="ter_u12n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u12n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  <data name="spleen_08x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spleen-08x16.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
-  <data name="ter_u14b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u14b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  <data name="spleen_12x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spleen-12x24.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
-  <data name="ter_u14n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u14n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  <data name="spleen_16x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spleen-16x32.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
-  <data name="ter_u16b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u16b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u16n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u16n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u18b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u18b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u18n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u18n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u20b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u20b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u20n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u20n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u22b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u22b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u22n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u22n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u24b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u24b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u24n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u24n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u28b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u28b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u28n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u28n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u32b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u32b.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
-  </data>
-  <data name="ter_u32n" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ter-u32n.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
+  <data name="spleen_32x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spleen-32x64.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
   </data>
   <data name="uismall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\uismall.bdf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;ks_c_5601-1987</value>
