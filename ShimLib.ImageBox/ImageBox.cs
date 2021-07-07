@@ -421,8 +421,7 @@ namespace ShimLib {
                 else if (ZoomLevel <= 9) font = Fonts.spleen_06x12;
                 else if (ZoomLevel <= 10) font = Fonts.spleen_08x16;
                 else if (ZoomLevel <= 11) font = Fonts.spleen_12x24;
-                else if (ZoomLevel <= 13) font = Fonts.spleen_16x32;
-                else font = Fonts.spleen_32x64;
+                else font = Fonts.spleen_16x32;
             } else {
                 if (imgBytepp != 2)
                     multiLine = true;
@@ -430,8 +429,7 @@ namespace ShimLib {
                 else if (ZoomLevel <= 11) font = Fonts.spleen_06x12;
                 else if (ZoomLevel <= 12) font = Fonts.spleen_08x16;
                 else if (ZoomLevel <= 13) font = Fonts.spleen_12x24;
-                else if (ZoomLevel <= 15) font = Fonts.spleen_16x32;
-                else font = Fonts.spleen_32x64;
+                else font = Fonts.spleen_16x32;
             }
 
             var ptImgLT = DispToImg(Point.Empty);
