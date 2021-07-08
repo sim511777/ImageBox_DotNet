@@ -8,36 +8,36 @@ using System.Threading.Tasks;
 
 namespace ShimLib {
     public class ImageDrawing {
-        public IntPtr Buf { get; }
-        public int Bw { get; }
-        public int Bh { get; }
-        public double ZoomFactor { get; }
-        public Point PtPan { get; }
+        private IntPtr buf;
+        private int bw;
+        private int bh;
+        private double zoomFactor;
+        private Size szPan;
 
-        public ImageDrawing(IntPtr imageBuf, int imageBw, int imageBh) : this(imageBuf, imageBw, imageBh, 1, Point.Empty) { }
+        public ImageDrawing(IntPtr imageBuf, int imageBw, int imageBh) : this(imageBuf, imageBw, imageBh, 1, Size.Empty) { }
 
-        public ImageDrawing(IntPtr imageBuf, int imageBw, int imageBh, double zoomFactor, Point ptPan) {
-            this.Buf = imageBuf;
-            this.Bw = imageBw;
-            this.Bh = imageBh;
-            this.ZoomFactor = zoomFactor;
-            this.PtPan = ptPan;
+        public ImageDrawing(IntPtr imageBuf, int imageBw, int imageBh, double zoomFactor, Size szPan) {
+            this.buf = imageBuf;
+            this.bw = imageBw;
+            this.bh = imageBh;
+            this.zoomFactor = zoomFactor;
+            this.szPan = szPan;
         }
 
         // 이미지 좌표 -> 화면 좌료
         private Point ImgToDisp(PointF ptImg) {
-            return ImageBoxUtil.ImgToDisp(ptImg, ZoomFactor, PtPan);
+            return ImageBoxUtil.ImgToDisp(ptImg, zoomFactor, szPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
         private Rectangle ImgToDisp(RectangleF rectImg) {
-            return ImageBoxUtil.ImgToDisp(rectImg, ZoomFactor, PtPan);
+            return ImageBoxUtil.ImgToDisp(rectImg, zoomFactor, szPan);
         }
 
         // ==== GDI 함수 ====
         public void DrawPixel(Color col, PointF pt) {
             Point ptd = ImgToDisp(pt);
-            Drawing.DrawPixel(Buf, Bw, Bh, ptd.X, ptd.Y, col.ToArgb());
+            Drawing.DrawPixel(buf, bw, bh, ptd.X, ptd.Y, col.ToArgb());
         }
 
         public void DrawPixel(Color col, float x, float y) {
@@ -47,19 +47,19 @@ namespace ShimLib {
         public void DrawHLineDot(Color col, float x1, float x2, float y) {
             var ptd1 = ImgToDisp(new PointF(x1, y));
             var ptd2 = ImgToDisp(new PointF(x2, y));
-            Drawing.DrawHLineDot(Buf, Bw, Bh, ptd1.X, ptd2.X, ptd1.Y, col.ToArgb());
+            Drawing.DrawHLineDot(buf, bw, bh, ptd1.X, ptd2.X, ptd1.Y, col.ToArgb());
         }
 
         public void DrawVLineDot(Color col, float y1, float y2, float x) {
             var ptd1 = ImgToDisp(new PointF(x, y1));
             var ptd2 = ImgToDisp(new PointF(x, y2));
-            Drawing.DrawVLineDot(Buf, Bw, Bh, ptd1.Y, ptd2.Y, ptd1.X, col.ToArgb());
+            Drawing.DrawVLineDot(buf, bw, bh, ptd1.Y, ptd2.Y, ptd1.X, col.ToArgb());
         }
 
         public void DrawLine(Color col, PointF pt1, PointF pt2) {
             Point ptd1 = ImgToDisp(pt1);
             Point ptd2 = ImgToDisp(pt2);
-            Drawing.DrawLine(Buf, Bw, Bh, ptd1.X, ptd1.Y, ptd2.X, ptd2.Y, col.ToArgb());
+            Drawing.DrawLine(buf, bw, bh, ptd1.X, ptd1.Y, ptd2.X, ptd2.Y, col.ToArgb());
         }
 
         public void DrawLine(Color col, float x1, float y1, float x2, float y2) {
@@ -72,7 +72,7 @@ namespace ShimLib {
             int cy = (rectd.Top + rectd.Bottom) / 2;
             int rx = rectd.Width / 2;
             int ry = rectd.Height / 2;
-            Drawing.DrawEllipse(Buf, Bw, Bh, cx, cy, rx, ry, col.ToArgb(), false);
+            Drawing.DrawEllipse(buf, bw, bh, cx, cy, rx, ry, col.ToArgb(), false);
         }
 
         public void DrawEllipse(Color col, float x, float y, float width, float height) {
@@ -85,7 +85,7 @@ namespace ShimLib {
             int cy = (rectd.Top + rectd.Bottom) / 2;
             int rx = rectd.Width / 2;
             int ry = rectd.Height / 2;
-            Drawing.DrawEllipse(Buf, Bw, Bh, cx, cy, rx, ry, col.ToArgb(), true);
+            Drawing.DrawEllipse(buf, bw, bh, cx, cy, rx, ry, col.ToArgb(), true);
         }
 
         public void FillEllipse(Color col, float x, float y, float width, float height) {
@@ -94,7 +94,7 @@ namespace ShimLib {
 
         public void DrawRectangle(Color col, RectangleF rect) {
             Rectangle rectd = ImgToDisp(rect);
-            Drawing.DrawRectangle(Buf, Bw, Bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb(), false);
+            Drawing.DrawRectangle(buf, bw, bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb(), false);
         }
 
         public void DrawRectangle(Color col, float x, float y, float width, float height) {
@@ -103,7 +103,7 @@ namespace ShimLib {
 
         public void DrawRectangleDot(Color col, RectangleF rect) {
             Rectangle rectd = ImgToDisp(rect);
-            Drawing.DrawRectangleDot(Buf, Bw, Bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb());
+            Drawing.DrawRectangleDot(buf, bw, bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb());
         }
 
         public void DrawRectangleDot(Color col, float x, float y, float width, float height) {
@@ -112,7 +112,7 @@ namespace ShimLib {
 
         public void FillRectangle(Color col, RectangleF rect) {
             Rectangle rectd = ImgToDisp(rect);
-            Drawing.DrawRectangle(Buf, Bw, Bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb(), true);
+            Drawing.DrawRectangle(buf, bw, bh, rectd.Left, rectd.Top, rectd.Right, rectd.Bottom, col.ToArgb(), true);
         }
 
         public void FillRectangle(Color col, float x, float y, float width, float height) {
@@ -121,9 +121,9 @@ namespace ShimLib {
 
         public void DrawCircle(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
-            Drawing.DrawCircle(Buf, Bw, Bh, ptd.X, ptd.Y, half, col.ToArgb(), false);
+            Drawing.DrawCircle(buf, bw, bh, ptd.X, ptd.Y, half, col.ToArgb(), false);
         }
 
         public void DrawCircle(Color col, float x, float y, float r, bool pixelSize) {
@@ -132,9 +132,9 @@ namespace ShimLib {
 
         public void FillCircle(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
-            Drawing.DrawCircle(Buf, Bw, Bh, ptd.X, ptd.Y, half, col.ToArgb(), true);
+            Drawing.DrawCircle(buf, bw, bh, ptd.X, ptd.Y, half, col.ToArgb(), true);
         }
 
         public void FillCircle(Color col, float x, float y, float r, bool pixelSize) {
@@ -143,9 +143,9 @@ namespace ShimLib {
 
         public void DrawSquare(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
-            Drawing.DrawRectangle(Buf, Bw, Bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, col.ToArgb(), false);
+            Drawing.DrawRectangle(buf, bw, bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, col.ToArgb(), false);
         }
 
         public void DrawSquare(Color col, float x, float y, float r, bool pixelSize) {
@@ -154,9 +154,9 @@ namespace ShimLib {
 
         public void FillSquare(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
-            Drawing.DrawRectangle(Buf, Bw, Bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, col.ToArgb(), true);
+            Drawing.DrawRectangle(buf, bw, bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, col.ToArgb(), true);
         }
 
         public void FillSquare(Color col, float x, float y, float r, bool pixelSize) {
@@ -165,11 +165,11 @@ namespace ShimLib {
 
         public void DrawCross(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             int iCol = col.ToArgb();
-            Drawing.DrawLine(Buf, Bw, Bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, iCol);
-            Drawing.DrawLine(Buf, Bw, Bh, ptd.X - half, ptd.Y + half, ptd.X + half, ptd.Y - half, iCol);
+            Drawing.DrawLine(buf, bw, bh, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half, iCol);
+            Drawing.DrawLine(buf, bw, bh, ptd.X - half, ptd.Y + half, ptd.X + half, ptd.Y - half, iCol);
         }
 
         public void DrawCross(Color col, float x, float y, float r, bool pixelSize) {
@@ -178,11 +178,11 @@ namespace ShimLib {
 
         public void DrawPlus(Color col, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             int iCol = col.ToArgb();
-            Drawing.DrawLine(Buf, Bw, Bh, ptd.X, ptd.Y - half, ptd.X, ptd.Y + half, iCol);
-            Drawing.DrawLine(Buf, Bw, Bh, ptd.X - half, ptd.Y, ptd.X + half, ptd.Y, iCol);
+            Drawing.DrawLine(buf, bw, bh, ptd.X, ptd.Y - half, ptd.X, ptd.Y + half, iCol);
+            Drawing.DrawLine(buf, bw, bh, ptd.X - half, ptd.Y, ptd.X + half, ptd.Y, iCol);
         }
 
         public void DrawPlus(Color col, float x, float y, float r, bool pixelSize) {
@@ -193,9 +193,9 @@ namespace ShimLib {
             Point ptd = ImgToDisp(pt);
             if (backColor != null) {
                 var size = font.MeasureString(text);
-                Drawing.DrawRectangle(Buf, Bw, Bh, ptd.X, ptd.Y, ptd.X + size.Width, ptd.Y + size.Height, backColor.Value.ToArgb(), true);
+                Drawing.DrawRectangle(buf, bw, bh, ptd.X, ptd.Y, ptd.X + size.Width, ptd.Y + size.Height, backColor.Value.ToArgb(), true);
             }
-            font.DrawString(text, Buf, Bw, Bh, ptd.X, ptd.Y, col);
+            font.DrawString(text, buf, bw, bh, ptd.X, ptd.Y, col);
         }
 
         public void DrawString(string text, IFont font, Color col, float x, float y, Color? backColor = null) {

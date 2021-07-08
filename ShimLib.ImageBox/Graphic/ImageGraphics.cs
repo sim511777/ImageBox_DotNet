@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 namespace ShimLib {
     public class ImageGraphics {
         private Graphics g;
-        public double ZoomFactor { get; }
-        public Point PtPan { get; }
+        private double zoomFactor;
+        private Size szPan;
 
-        public ImageGraphics(Graphics graphics) : this(graphics, 1, Point.Empty) { }
+        public ImageGraphics(Graphics graphics) : this(graphics, 1, Size.Empty) { }
 
-        public ImageGraphics(Graphics graphics, double zoomFactor, Point ptPan) {
+        public ImageGraphics(Graphics graphics, double zoomFactor, Size szPan) {
             g = graphics;
-            ZoomFactor = zoomFactor;
-            PtPan = ptPan;
+            this.zoomFactor = zoomFactor;
+            this.szPan = szPan;
         }
 
         // 이미지 좌표 -> 화면 좌료
         private Point ImgToDisp(PointF ptImg) {
-            return ImageBoxUtil.ImgToDisp(ptImg, ZoomFactor, PtPan);
+            return ImageBoxUtil.ImgToDisp(ptImg, zoomFactor, szPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
         private Rectangle ImgToDisp(RectangleF rectImg) {
-            return ImageBoxUtil.ImgToDisp(rectImg, ZoomFactor, PtPan);
+            return ImageBoxUtil.ImgToDisp(rectImg, zoomFactor, szPan);
         }
 
         // ==== GDI 함수 ====
@@ -66,7 +66,7 @@ namespace ShimLib {
 
         public void DrawCircle(Pen pen, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawEllipse(pen, ptd.X - half, ptd.Y - half, sized, sized);
         }
@@ -77,7 +77,7 @@ namespace ShimLib {
 
         public void FillCircle(Brush brush, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.FillEllipse(brush, ptd.X - half, ptd.Y - half, sized, sized);
         }
@@ -88,7 +88,7 @@ namespace ShimLib {
 
         public void DrawSquare(Pen pen, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawRectangle(pen, ptd.X - half, ptd.Y - half, sized, sized);
         }
@@ -99,7 +99,7 @@ namespace ShimLib {
 
         public void FillSquare(Brush brush, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.FillRectangle(brush, ptd.X - half, ptd.Y - half, sized, sized);
         }
@@ -110,7 +110,7 @@ namespace ShimLib {
 
         public void DrawCross(Pen pen, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawLine(pen, ptd.X - half, ptd.Y - half, ptd.X + half, ptd.Y + half);
             g.DrawLine(pen, ptd.X - half, ptd.Y + half, ptd.X + half, ptd.Y - half);
@@ -122,7 +122,7 @@ namespace ShimLib {
 
         public void DrawPlus(Pen pen, PointF pt, float size, bool pixelSize) {
             Point ptd = ImgToDisp(pt);
-            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * ZoomFactor, MidpointRounding.AwayFromZero);
+            int sized = (pixelSize) ? (int)size : (int)Math.Round(size * zoomFactor, MidpointRounding.AwayFromZero);
             int half = sized / 2;
             g.DrawLine(pen, ptd.X, ptd.Y - half, ptd.X, ptd.Y + half);
             g.DrawLine(pen, ptd.X - half, ptd.Y, ptd.X + half, ptd.Y);

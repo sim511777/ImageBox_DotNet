@@ -301,7 +301,7 @@
             imageBoxOption1.UseDrawRoiRectangles = true;
             imageBoxOption1.UseParallelToDraw = true;
             this.imgBox.Option = imageBoxOption1;
-            this.imgBox.PtPan = new System.Drawing.Point(2, 2);
+            this.imgBox.SzPan = new System.Drawing.Size(2, 2);
             this.imgBox.Size = new System.Drawing.Size(793, 683);
             this.imgBox.TabIndex = 2;
             this.imgBox.Text = "imageBox1";

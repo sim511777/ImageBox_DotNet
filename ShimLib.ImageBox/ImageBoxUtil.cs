@@ -150,25 +150,25 @@ namespace ShimLib {
         }
 
         // 이미지 좌표 -> 화면 좌료
-        public static Point ImgToDisp(PointF ptImg, double zoomFactor, Point ptPan) {
-            int dispX = (int)Math.Floor((ptImg.X + 0.5) * zoomFactor + ptPan.X);
-            int dispY = (int)Math.Floor((ptImg.Y + 0.5) * zoomFactor + ptPan.Y);
+        public static Point ImgToDisp(PointF ptImg, double zoomFactor, Size szPan) {
+            int dispX = (int)Math.Floor((ptImg.X + 0.5) * zoomFactor + szPan.Width);
+            int dispY = (int)Math.Floor((ptImg.Y + 0.5) * zoomFactor + szPan.Height);
             return new Point(dispX, dispY);
         }
 
         // 이미지 좌표 -> 화면 좌료
-        public static Rectangle ImgToDisp(RectangleF rectImg, double zoomFactor, Point ptPan) {
-            int dispX = (int)Math.Floor((rectImg.X + 0.5) * zoomFactor + ptPan.X);
-            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * zoomFactor + ptPan.Y);
+        public static Rectangle ImgToDisp(RectangleF rectImg, double zoomFactor, Size szPan) {
+            int dispX = (int)Math.Floor((rectImg.X + 0.5) * zoomFactor + szPan.Width);
+            int dispY = (int)Math.Floor((rectImg.Y + 0.5) * zoomFactor + szPan.Height);
             int dispWidth = (int)Math.Floor(rectImg.Width * zoomFactor);
             int dispHeight = (int)Math.Floor(rectImg.Height * zoomFactor);
             return new Rectangle(dispX, dispY, dispWidth, dispHeight);
         }
 
         // 화면 좌표 -> 이미지 좌표
-        public static PointF DispToImg(Point ptDisp, double zoomFactor, Point ptPan) {
-            float imgX = (float)((ptDisp.X - ptPan.X) / zoomFactor - 0.5);
-            float imgY = (float)((ptDisp.Y - ptPan.Y) / zoomFactor - 0.5);
+        public static PointF DispToImg(Point ptDisp, double zoomFactor, Size szPan) {
+            float imgX = (float)((ptDisp.X - szPan.Width) / zoomFactor - 0.5);
+            float imgY = (float)((ptDisp.Y - szPan.Height) / zoomFactor - 0.5);
             return new PointF(imgX, imgY);
         }
     }

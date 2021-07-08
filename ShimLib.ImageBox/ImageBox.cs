@@ -58,18 +58,18 @@ namespace ShimLib {
         private DibSection dib = null;
 
         // 패닝 옵셋(픽셀)
-        private Point ptPan = new Point(2, 2);
+        private Size szPan = new Size(2, 2);
         [Browsable(false)]
-        public Point PtPan {
-            get { return ptPan; }
+        public Size SzPan {
+            get { return szPan; }
             set {
                 if (imgBuf == IntPtr.Zero)
-                    ptPan = new Point(2, 2);
+                    szPan = new Size(2, 2);
                 else {
                     var zoom = GetZoomFactor();
-                    int x = Util.Clamp(value.X, -(int)(imgBw * zoom) + 2, 2);
-                    int y = Util.Clamp(value.Y, -(int)(imgBh * zoom) + 2, 2);
-                    ptPan = new Point(x, y);
+                    int x = Util.Clamp(value.Width, -(int)(imgBw * zoom) + 2, 2);
+                    int y = Util.Clamp(value.Height, -(int)(imgBh * zoom) + 2, 2);
+                    szPan = new Size(x, y);
                 }
             } 
         }
@@ -136,23 +136,23 @@ namespace ShimLib {
 
         // 줌 리셋
         public void ResetZoom() {
-            PtPan = new Point(2, 2);
+            SzPan = new Size(2, 2);
             ZoomLevel = 0;
         }
 
         // 이미지 좌표 -> 화면 좌료
         public Point ImgToDisp(PointF ptImg) {
-            return ImageBoxUtil.ImgToDisp(ptImg, GetZoomFactor(), PtPan);
+            return ImageBoxUtil.ImgToDisp(ptImg, GetZoomFactor(), SzPan);
         }
 
         // 이미지 좌표 -> 화면 좌료
         public Rectangle ImgToDisp(RectangleF rectImg) {
-            return ImageBoxUtil.ImgToDisp(rectImg, GetZoomFactor(), PtPan);
+            return ImageBoxUtil.ImgToDisp(rectImg, GetZoomFactor(), SzPan);
         }
 
         // 화면 좌표 -> 이미지 좌표
         public PointF DispToImg(Point ptDisp) {
-            return ImageBoxUtil.DispToImg(ptDisp, GetZoomFactor(), PtPan);
+            return ImageBoxUtil.DispToImg(ptDisp, GetZoomFactor(), SzPan);
         }
 
         protected override void OnMouseDoubleClick(MouseEventArgs e) {
@@ -185,7 +185,7 @@ namespace ShimLib {
 
         private Point ptMove = new Point(-1, -1);    // 마우스 커서 픽셀정보 표시용
         // 마우스 패닝
-        private Point ptPanningOld;
+        private Point ptPanOld;
         private bool isPanningDown = false;
         // ROI 입력
         private Point ptRoiStart;
@@ -198,7 +198,7 @@ namespace ShimLib {
                     ptRoiEnd = ptRoiStart = ToInt(DispToImg(e.Location));
                     isRoiDown = true;
                 } else {
-                    ptPanningOld = e.Location;
+                    ptPanOld = e.Location;
                     isPanningDown = true;
                 }
             }
@@ -210,8 +210,8 @@ namespace ShimLib {
                 ptRoiEnd = ToInt(DispToImg(e.Location));
                 Invalidate();
             } else  if (isPanningDown) {
-                PtPan += (Size)e.Location - (Size)ptPanningOld;
-                ptPanningOld = e.Location;
+                SzPan += (Size)e.Location - (Size)ptPanOld;
+                ptPanOld = e.Location;
                 Invalidate();
             } else {
                 if (Option.UseDrawCursorInfo) {
@@ -254,7 +254,7 @@ namespace ShimLib {
             var ptImg = DispToImg(e.Location);
             ZoomLevel += (e.Delta > 0) ? 1 : -1;
             var ptDisp = ImgToDisp(ptImg);
-            PtPan += ((Size)e.Location - (Size)ptDisp);
+            SzPan += (Size)e.Location - (Size)ptDisp;
             Invalidate();
             base.OnMouseWheel(e);
         }
@@ -269,14 +269,14 @@ namespace ShimLib {
             int dispBw = dib.Width;
             int dispBh = dib.Height;
             IntPtr hdc = dib.Hdc;
-            var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, PtPan);
+            var id = new ImageDrawing(dispBuf, dispBw, dispBh, zoom, SzPan);
             var idWnd = new ImageDrawing(dispBuf, dispBw, dispBh);
 
             // 이미지 확대 축소
             if (imgBuf == IntPtr.Zero) {
                 ImageBoxUtil.Clear(dispBuf, dispBw, dispBh, BackColor.ToArgb(), Option.UseParallelToDraw);
             } else {
-                ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, PtPan.X, PtPan.Y, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDrawAction, Option.UseParallelToDraw);
+                ImageBoxUtil.DrawImageBufferZoom(imgBuf, imgBw, imgBh, imgBytepp, isImgbufFloat, dispBuf, dispBw, dispBh, SzPan.Width, SzPan.Height, zoom, BackColor.ToArgb(), Option.FloatValueMax, lineDrawAction, Option.UseParallelToDraw);
                 if (lineDrawAction == null) {
                     idWnd.DrawString("LineDrawAction not assigned,\nso i can not display image.", InfoFont, Color.Yellow, 2, 25);
                 }
@@ -535,12 +535,12 @@ namespace ShimLib {
 
         // ImageGraphics 리턴
         public ImageGraphics GetImageGraphics(Graphics g) {
-            return new ImageGraphics(g, GetZoomFactor(), PtPan);
+            return new ImageGraphics(g, GetZoomFactor(), SzPan);
         }
 
         // ImageDrawing 리턴
         public ImageDrawing GetImageDrawing(IntPtr buf, int bw, int bh) {
-            return new ImageDrawing(buf, bw, bh, GetZoomFactor(), PtPan);
+            return new ImageDrawing(buf, bw, bh, GetZoomFactor(), SzPan);
         }
 
         public Bitmap GetBitmap() {
