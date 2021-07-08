@@ -9,22 +9,22 @@ using ShimLib.Properties;
 
 namespace ShimLib {
     public class Fonts {
-        public static IFont tom_thumb = new BdfFont(Resources.tom_thumb);
-        public static IFont spleen_05x08 = new BdfFont(Resources.spleen_05x08);
-        public static IFont spleen_06x12 = new BdfFont(Resources.spleen_06x12);
-        public static IFont spleen_08x16 = new BdfFont(Resources.spleen_08x16);
-        public static IFont spleen_12x24 = new BdfFont(Resources.spleen_12x24);
-        public static IFont spleen_16x32 = new BdfFont(Resources.spleen_16x32);
-        public static IFont spleen_32x64 = new BdfFont(Resources.spleen_32x64);
-        public static IFont uismall = new BdfFont(Resources.uismall);
-        public static IFont unifont_13_0_06_bdf = new BdfFont(Resources.unifont_13_0_06_bdf);
-        public static IFont unifont_13_0_06 = new PcfFont(Resources.unifont_13_0_06);
+        public static IFont tom_thumb { get; } = new BdfFont(Resources.tom_thumb);
+        public static IFont spleen_05x08 { get; } = new BdfFont(Resources.spleen_05x08);
+        public static IFont spleen_06x12 { get; } = new BdfFont(Resources.spleen_06x12);
+        public static IFont spleen_08x16 { get; } = new BdfFont(Resources.spleen_08x16);
+        public static IFont spleen_12x24 { get; } = new BdfFont(Resources.spleen_12x24);
+        public static IFont spleen_16x32 { get; } = new BdfFont(Resources.spleen_16x32);
+        public static IFont spleen_32x64 { get; } = new BdfFont(Resources.spleen_32x64);
+        public static IFont uismall { get; }= new BdfFont(Resources.uismall);
+        public static IFont unifont_13_0_06_bdf { get; } = new BdfFont(Resources.unifont_13_0_06_bdf);
+        public static IFont unifont_13_0_06 { get; } = new PcfFont(Resources.unifont_13_0_06);
 
-        public readonly static Dictionary<EFont, IFont> dic;
+        public static Dictionary<EFont, IFont> dic { get; }
         static Fonts() {
-            var fonts = typeof(Fonts).GetFields()
-                .Where(fi => fi.FieldType == typeof(IFont))
-                .Select(fi => fi.GetValue(null) as IFont);
+            var fonts = typeof(Fonts).GetProperties()
+                .Where(pi => pi.PropertyType == typeof(IFont))
+                .Select(pi => pi.GetValue(null) as IFont);
             var fontEnums = Enum.GetValues(typeof(EFont))
                 .OfType<EFont>();
             dic = fontEnums.Zip(fonts, (efont, font) => new { efont, font })
