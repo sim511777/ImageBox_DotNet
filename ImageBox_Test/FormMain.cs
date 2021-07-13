@@ -35,15 +35,22 @@ namespace ImageBox_Test {
             }
 
             if (Directory.Exists(bdfDir)) {
-                var bdfFiles = Directory.GetFiles(bdfDir);
-                foreach (var bdfFile in bdfFiles) {
-                    if (Path.GetExtension(bdfFile).ToLower() != ".bdf")
-                        continue;
-                    var name = Path.GetFileNameWithoutExtension(bdfFile);
-                    var bdfText = File.ReadAllText(bdfFile);
-                    var font = new BdfFont(bdfText);
-                    var tuple = Tuple.Create(name, (IFont)font);
-                    fontList.Add(tuple);
+                var files = Directory.GetFiles(bdfDir);
+                foreach (var file in files) {
+                    var ext = Path.GetExtension(file).ToLower();
+                    if (ext == ".bdf") {
+                        var name = Path.GetFileNameWithoutExtension(file);
+                        var bdfText = File.ReadAllText(file);
+                        var font = new BdfFont(bdfText);
+                        var tuple = Tuple.Create(name, (IFont)font);
+                        fontList.Add(tuple);
+                    } else {
+                        var name = Path.GetFileNameWithoutExtension(file);
+                        var pcfBin = File.ReadAllBytes(file);
+                        var font = new PcfFont(pcfBin);
+                        var tuple = Tuple.Create(name, (IFont)font);
+                        fontList.Add(tuple);
+                    }
                 }
             }
 

@@ -18,7 +18,6 @@ namespace ShimLib {
         public static IFont spleen_32x64 { get; } = new BdfFont(Resources.spleen_32x64);
         public static IFont uismall { get; }= new BdfFont(Resources.uismall);
         public static IFont unifont_13_0_06_bdf { get; } = new BdfFont(Resources.unifont_13_0_06_bdf);
-        public static IFont unifont_13_0_06 { get; } = new PcfFont(Resources.unifont_13_0_06);
 
         public static Dictionary<EFont, IFont> dic { get; }
         static Fonts() {
@@ -42,6 +41,5 @@ namespace ShimLib {
         spleen_32x64,
         uismall,
         unifont_13_0_06_bdf,
-        unifont_13_0_06,
     }
 }
